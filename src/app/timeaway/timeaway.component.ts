@@ -14,12 +14,9 @@ export class TimeawayComponent {
  ngOnInit() {
      this.route.params.subscribe(params => {
       this.id = params['id'];
-        window.location.href = 'https://whiteboard.partners.org/esb/FLwbe/vacation/indexPHPsmall.php?userid=' + this.id +'&vidx=0&first=vM&func=0'
+   //     window.location.href = 'https://whiteboard.partners.org/esb/FLwbe/vacation/indexPHPsmall.php?userid=' + this.id +'&vidx=0&first=vM&func=0'
      })
   
   }
-  goToVacMan(){
-      window.location.href = 'https://whiteboard.partners.org/esb/FLwbe/vacation/indexPHPsmall.php?userid=fjl3&vidx=0&first=vM&func=0'
-  }
-      
+
 }
