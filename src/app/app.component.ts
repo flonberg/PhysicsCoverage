@@ -14,4 +14,5 @@ import { RouterOutlet, RouterModule } from '@angular/router';
 })
 export class AppComponent {
   title = 'PhysicsCoverage';
+  id: string | null = 'fjl3'
 }

@@ -3,6 +3,7 @@ import { MonthCalComponent } from './month-cal/month-cal.component';
 import { WeekCalComponent } from './week-cal/week-cal.component';
 import { TimeawayComponent } from './timeaway/timeaway.component';
 
+
 export const routes: Routes = [
     {path: '', component: MonthCalComponent},
     {path: 'Week/:id', component: WeekCalComponent},
