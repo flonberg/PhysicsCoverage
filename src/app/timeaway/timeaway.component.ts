@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './timeaway.component.css'
 })
 export class TimeawayComponent {
-
+  ngOnInit() {
+    window.location.href = 'https://whiteboard.partners.org/esb/FLwbe/vacation/indexPHP.php?userid=fjl3&vidx=0&first=vM&func=0'
+  }
 }
