@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MyserviceService } from '../myservice.service';
 import { CommonModule } from '@angular/common'; 
 import { NgModule } from '@angular/core';
+import { MonthCalModule } from './month-cal.module';
+
 
 @Component({
   selector: 'app-month-cal',
@@ -11,12 +13,7 @@ import { NgModule } from '@angular/core';
   styleUrl: './month-cal.component.css'
 })
 export class MonthCalComponent {
-  @NgModule({ 
-    declarations: [MonthCalComponent],
-    imports: [CommonModule], // Import modules this component needs
-    exports: [MonthCalComponent] 
 
-})
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
