@@ -5,11 +5,9 @@ import { TimeawayComponent } from './timeaway/timeaway.component';
 
 
 export const routes: Routes = [
-    {path: 'Month/:id', component: MonthCalComponent},
+    {path: '', component: MonthCalComponent},
     {path: 'Week/:id', component: WeekCalComponent},
+    {path: 'Month/:id', component: MonthCalComponent},
    {path: 'Timeaway/:id', component: TimeawayComponent},
-      {path: '', component: MonthCalComponent},
-   
-    
     
 ];

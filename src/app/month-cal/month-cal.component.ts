@@ -10,14 +10,15 @@ import { MonthCalModule } from './month-cal.module';
   selector: 'app-month-cal',
   standalone: false,
   templateUrl: './month-cal.component.html',
-  styleUrl: './month-cal.component.css'
+  styleUrl: './month-cal.component.css',
+   host: { ngSkipHydration: 'true' },
 })
 export class MonthCalComponent {
-
+  numsForTr: number[] = [0,1,2,3,4]; // 5 rows for the month calendar
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
-  numsForTr: number[] = [0,1,2,3,4];                // 5 rows for the month calendar  
+
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {}
    ngOnInit() {
        this.route.params.subscribe(params => {
