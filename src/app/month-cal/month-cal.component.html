@@ -1,1 +1,11 @@
-<p>month al works!</p>
+
+<table>
+    <tr>
+        <th></th>
+        <th colspan="2"><img  class="images" src="assets/prevMonthArrow.png"/></th>
+        <th colspan="2"><img  class="images" src="assets/nextMonthArrow.png"/></th>
+    </tr>
+    <tr *ngFor = "let item of numsForTr ">
+        <td *ngFor = "let item2 of numsForTr">{{item2}}</td>
+    </tr>
+</table>
