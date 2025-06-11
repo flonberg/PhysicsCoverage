@@ -8,4 +8,6 @@ import { MonthCalComponent } from './month-cal.component';
   imports: [CommonModule],           // Import modules this component needs
   exports: [MonthCalComponent]       // Export if other modules need to use it
 })
-export class MonthCalModule { } 
+export class MonthCalModule {
+  
+ } 

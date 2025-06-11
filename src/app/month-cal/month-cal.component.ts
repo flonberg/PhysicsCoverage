@@ -18,6 +18,7 @@ export class MonthCalComponent {
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
+  monthShownName: string='' // Name of the month shown in the calendar
 
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {}
    ngOnInit() {
@@ -25,8 +26,21 @@ export class MonthCalComponent {
         this.id = params['id'];
         console.log("MonthCalComponent ID: ", this.id); 
         this.myservice.setUserId(this.id); // This is the Entry component so Store the ID in the service for use by other components. 
-
        })
+       this.monthShownName = this.getMonthName(this.advance); // Get the current month name
     }
+  getMonthName(month: number): string {
+    const currentDate: Date = new Date();
+    const currentMonth: number = currentDate.getMonth();
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+     ];
+    return  monthNames[currentMonth + month]; // Adjust the month index by the advance value
   }
-
+  advanceMonth(number: number) {
+    this.advance += number; // Advance the month by the number passed in
+    this.monthShownName = this.getMonthName(this.advance); // Update the month name shown
+    console.log("Month shown: ", this.monthShownName);
+  }
+}
