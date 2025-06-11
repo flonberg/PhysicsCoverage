@@ -18,7 +18,8 @@ export class MonthCalComponent {
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
-  monthShownName: string='' // Name of the month shown in the calendar
+  monthShownName: string=''                         // Name of the month shown in the calendar
+  dateOfFirstWeekDay: Date = new Date();                  // First weekday of the month, adjusted to Monday if it falls on Sunday or Saturday
 
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {}
    ngOnInit() {
@@ -28,6 +29,8 @@ export class MonthCalComponent {
         this.myservice.setUserId(this.id); // This is the Entry component so Store the ID in the service for use by other components. 
        })
        this.monthShownName = this.getMonthName(this.advance); // Get the current month name
+       let firstWeekday: Date = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the current month
+       console.log("First weekday of the month: ", firstWeekday);
     }
   getMonthName(month: number): string {
     const currentDate: Date = new Date();
@@ -42,5 +45,17 @@ export class MonthCalComponent {
     this.advance += number; // Advance the month by the number passed in
     this.monthShownName = this.getMonthName(this.advance); // Update the month name shown
     console.log("Month shown: ", this.monthShownName);
+    this.dateOfFirstWeekDay = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the month
+    console.log("First weekday of the month after advancing: ", this.dateOfFirstWeekDay);
+  }
+  firstWeekdayOfMonth(number:number): Date {
+    const currentDate: Date = new Date();
+    currentDate.setMonth(currentDate.getMonth() + this.advance);  // Adjust the month by the advance value
+    currentDate.setDate(1);                                       // Set to the first day of the month
+    if (currentDate.getDay() == 0)                                // If the first day is Sunday, we need to adjust it to Monday         
+        currentDate.setDate(currentDate.getDate() + 1);
+    if (currentDate.getDay() == 6)                                // If the first day is Sunday, we need to adjust it to Monday         
+        currentDate.setDate(currentDate.getDate() + 2);
+    return currentDate;                                  // Get the day of the week (0-6, where 0 is Sunday)
   }
 }
