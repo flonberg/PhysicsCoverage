@@ -121,12 +121,18 @@ class dateWithData {
     return this.date.getDate(); // Get the day of the month
   }
 }
+interface monthWeekDates {
+  dates:Date[]
+}
 class monthClass { 
   firstDateInMonth: Date 
   lastDateInMonth: Date
   firstWeekDayInMonth: Date 
   lastWeekDayInMonth: Date
   monthName: string 
+  monthWeekDates:Date[] =[]
+  monthWeeks:monthWeekDates[] = []
+  
   constructor(advance: number) {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
         const currentDate = new Date();
@@ -142,6 +148,9 @@ class monthClass {
         this.lastDateInMonth =  new Date(this.firstDateInMonth.getFullYear(), this.firstDateInMonth.getMonth()+ 1, 0);
         this.lastWeekDayInMonth = this.makeLastWeekDayOfMonth()
         this.monthName = monthNames[this.firstDateInMonth.getMonth()]; // Set the month name based on the date object
+        let tst = this.firstWeekDayInMonth.getDay() 
+        if (this.firstWeekDayInMonth.getDay() == 1)
+          this.makeNormalWeek()
       }
     makeFirstMondayOfMonth(){
       let currentDate = new Date(this.firstDateInMonth)
@@ -168,6 +177,14 @@ class monthClass {
             datesArray.push(new Date(firstWeekday));                 // Push a new date object to the array
         }
       return datesArray.reverse();                                 // Reverse the array to get the dates in the correct order
+    }
+    makeNormalWeek(){
+      let dates:Date[] = []
+      let tmpDate = new Date(this.firstDateInMonth)
+      for (let i= 1; i <= 5; i++){
+        dates[i] = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate() + i )
+      }
+      console.log("186186 %o", dates)
     }
 
 }
