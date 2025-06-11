@@ -53,6 +53,7 @@ export class MonthCalComponent {
     let dayOfWeekOfFirstWeekday: number = this.dateOfFirstWeekDay.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
     console.log("Day of the week of the first weekday: ", dayOfWeekOfFirstWeekday);
     let test = this.dateFromLastMonth(dayOfWeekOfFirstWeekday, this.dateOfFirstWeekDay); // Get the dates from the last month
+ console.log("5656 Dates from the last month: ", test);
   }
   firstWeekdayOfMonth(number:number): Date {
     const currentDate: Date = new Date();
@@ -68,8 +69,9 @@ export class MonthCalComponent {
     const datesArray: Date[] = [];
     for (let i = 0; i < dayNum; i++) {
        firstWeekday.setDate(firstWeekday.getDate() - 1);
-       datesArray.push(new Date(firstWeekday));                 // Push a new date object to the array
-    }
+       if (firstWeekday.getDay() !== 0 && firstWeekday.getDay() !== 6)  // If the date goes below 1, we need to go to the previous month
+          datesArray.push(new Date(firstWeekday));                 // Push a new date object to the array
+      }
     return datesArray.reverse();                                 // Reverse the array to get the dates in the correct order
   }
 }
