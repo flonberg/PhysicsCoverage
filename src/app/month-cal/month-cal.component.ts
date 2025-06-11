@@ -19,8 +19,9 @@ export class MonthCalComponent {
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
   monthShownName: string=''                         // Name of the month shown in the calendar
-  dateOfFirstWeekDay: Date = new Date();                  // First weekday of the month, adjusted to Monday if it falls on Sunday or Saturday
-
+  dateOfFirstWeekDay: Date = new Date();            // First weekday of the month, adjusted to Monday if it falls on Sunday or Saturday
+  weekOfDates:dateWithData[]=[];                    // Array to hold the dates of each week ofthe month, each date will be an object with data
+  // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {}
    ngOnInit() {
        this.route.params.subscribe(params => {
@@ -51,6 +52,7 @@ export class MonthCalComponent {
     console.log("First weekday of the month after advancing: ", this.dateOfFirstWeekDay);
     let dayOfWeekOfFirstWeekday: number = this.dateOfFirstWeekDay.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
     console.log("Day of the week of the first weekday: ", dayOfWeekOfFirstWeekday);
+    let test = this.dateFromLastMonth(dayOfWeekOfFirstWeekday, this.dateOfFirstWeekDay); // Get the dates from the last month
   }
   firstWeekdayOfMonth(number:number): Date {
     const currentDate: Date = new Date();
@@ -62,4 +64,15 @@ export class MonthCalComponent {
         currentDate.setDate(currentDate.getDate() + 2);
     return currentDate;                                  // Get the day of the week (0-6, where 0 is Sunday)
   }
+  dateFromLastMonth(dayNum:number, firstWeekday: Date) {
+    const datesArray: Date[] = [];
+    for (let i = 0; i < dayNum; i++) {
+       firstWeekday.setDate(firstWeekday.getDate() - 1);
+       datesArray.push(new Date(firstWeekday));                 // Push a new date object to the array
+    }
+    return datesArray.reverse();                                 // Reverse the array to get the dates in the correct order
+  }
+}
+class dateWithData {
+
 }
