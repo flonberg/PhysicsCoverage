@@ -122,14 +122,12 @@ class dateWithData {
   }
 }
 class monthClass { 
-  firstDateInMonth: Date = new Date(); // Date object for the month, initialized to the current date
-  lastDateInMonth: Date = new Date()
-  firstWeekDayInMonth: Date = new Date()
-  monthName: string = ''; // Name of the month, initialized to an empty string
+  firstDateInMonth: Date 
+  lastDateInMonth: Date
+  firstWeekDayInMonth: Date 
+  lastWeekDayInMonth: Date
+  monthName: string 
   constructor(advance: number) {
-    this.getNextMonthDate(advance); // Get the next month date based on the advance value
-    }
-    getNextMonthDate(advance: number) {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();
@@ -140,9 +138,27 @@ class monthClass {
           nextYear++;
         }
         this.firstDateInMonth = new Date(nextYear, nextMonth, 1);
+        this.firstWeekDayInMonth = this.makeFirstMondayOfMonth()
         this.lastDateInMonth =  new Date(this.firstDateInMonth.getFullYear(), this.firstDateInMonth.getMonth()+ 1, 0);
+        this.lastWeekDayInMonth = this.makeLastWeekDayOfMonth()
         this.monthName = monthNames[this.firstDateInMonth.getMonth()]; // Set the month name based on the date object
       }
+    makeFirstMondayOfMonth(){
+      let currentDate = new Date(this.firstDateInMonth)
+      if (currentDate.getDay() == 0)                                // If the first day is Sunday, we need to adjust it to Monday         
+        currentDate.setDate(currentDate.getDate() + 1);
+      if (currentDate.getDay() == 6)                                // If the first day is Sunday, we need to adjust it to Monday         
+          currentDate.setDate(currentDate.getDate() + 2);
+      return currentDate    
+      }  
+    makeLastWeekDayOfMonth(){
+      let currentDate = new Date(this. lastDateInMonth)
+      if (currentDate.getDay() == 0)                                // If the first day is Sunday, we need to adjust it to Monday         
+        currentDate.setDate(currentDate.getDate() - 2);
+      if (currentDate.getDay() == 6)                                // If the first day is Sunday, we need to adjust it to Monday         
+          currentDate.setDate(currentDate.getDate() - 1);
+      return currentDate   
+    }  
        /** If first day of month is Tues - Fri, need to fill in with last dates of last month */
     makeDatesFromLastMonth(dayNum:number, firstWeekday: Date) {
       const datesArray: Date[] = [];
