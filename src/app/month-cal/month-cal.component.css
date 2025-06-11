@@ -3,3 +3,7 @@ table {
     table-layout: fixed;
     border-collapse: collapse;
 }
+table.duties{
+    font-size: 0.8em;
+    background-color: rgb(183, 169, 169);
+}

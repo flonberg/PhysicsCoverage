@@ -15,6 +15,7 @@ import { MonthCalModule } from './month-cal.module';
 })
 export class MonthCalComponent {
   numsForTr: number[] = [0,1,2,3,4]; // 5 rows for the month calendar
+  duties: number[] = [0,1,2,3,4,5,6]; // 7 days of the week
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
@@ -26,15 +27,30 @@ export class MonthCalComponent {
    ngOnInit() {
        this.route.params.subscribe(params => {
         this.id = params['id'];
-        console.log("MonthCalComponent ID: ", this.id); 
-        this.myservice.setUserId(this.id); // This is the Entry component so Store the ID in the service for use by other components. 
+        this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
        })
-       this.monthShownName = this.getMonthName(this.advance); // Get the current month name
-       let firstWeekday: Date = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the current month
-       console.log("First weekday of the month: ", firstWeekday);
-       let dayOfWeekOfFirstWeekday: number = firstWeekday.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
-       console.log("Day of the week of the first weekday: ", dayOfWeekOfFirstWeekday);
+      this.makeMonth(0)
     }
+    makeMonth(advancd:number){
+      this.advance = advancd;                     // Set the advance value to the number passed in
+      this.monthShownName = this.getMonthName(this.advance); // Update the month name shown
+      this.dateOfFirstWeekDay = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the month
+      let dayOfWeekOfFirstWeekday: number = this.dateOfFirstWeekDay.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
+      let test = this.dateFromLastMonth(dayOfWeekOfFirstWeekday, this.dateOfFirstWeekDay); // Get the dates from the last month
+      console.log("Dates from the last month: ", test);
+      if (test.length > 0)
+        this.makeWeekOfDates(test[0]);            // Call the makeWeekOfDates function with the first date of the last month
+      else
+        this.makeWeekOfDates(this.dateOfFirstWeekDay); // If there are no dates from the last month, use the first weekday of the month
+    }
+    makeWeekOfDates(firstDate:Date) {
+      let weekOfDates: dateWithData[] = []; // Array to hold the dates of the week
+      for (let i = 0; i < 5; i++) { 
+        weekOfDates.push(new dateWithData(new Date(firstDate))); // Push a new date object to the array
+        firstDate.setDate(firstDate.getDate() + 1); // Increment the date by 1
+      }
+   console.log("494949 Week of Dates: ", weekOfDates);   
+  }
   getMonthName(month: number): string {
     const currentDate: Date = new Date();
     const currentMonth: number = currentDate.getMonth();
@@ -45,15 +61,8 @@ export class MonthCalComponent {
     return  monthNames[currentMonth + month]; // Adjust the month index by the advance value
   }
   advanceMonth(number: number) {
-    this.advance += number; // Advance the month by the number passed in
-    this.monthShownName = this.getMonthName(this.advance); // Update the month name shown
-    console.log("Month shown: ", this.monthShownName);
-    this.dateOfFirstWeekDay = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the month
-    console.log("First weekday of the month after advancing: ", this.dateOfFirstWeekDay);
-    let dayOfWeekOfFirstWeekday: number = this.dateOfFirstWeekDay.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
-    console.log("Day of the week of the first weekday: ", dayOfWeekOfFirstWeekday);
-    let test = this.dateFromLastMonth(dayOfWeekOfFirstWeekday, this.dateOfFirstWeekDay); // Get the dates from the last month
- console.log("5656 Dates from the last month: ", test);
+    this.advance += number
+    this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
   }
   firstWeekdayOfMonth(number:number): Date {
     const currentDate: Date = new Date();
@@ -65,6 +74,7 @@ export class MonthCalComponent {
         currentDate.setDate(currentDate.getDate() + 2);
     return currentDate;                                  // Get the day of the week (0-6, where 0 is Sunday)
   }
+  /** If first day of month is Tues - Fri, need to fill in with last dates of last month */
   dateFromLastMonth(dayNum:number, firstWeekday: Date) {
     const datesArray: Date[] = [];
     for (let i = 0; i < dayNum; i++) {
@@ -74,7 +84,17 @@ export class MonthCalComponent {
       }
     return datesArray.reverse();                                 // Reverse the array to get the dates in the correct order
   }
+  getNumForBox(number: number): number {
+    return number
+  }
 }
 class dateWithData {
+  date: Date; // The date of the week
+  data: any; // Data associated with the date, can be any type
+  constructor(date: Date) {
+    this.date = date;
+   
+  }
+
 
 }

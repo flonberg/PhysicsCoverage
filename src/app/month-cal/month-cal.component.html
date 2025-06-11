@@ -8,7 +8,13 @@
         <th colspan="2"><img  class="images" (click) = "advanceMonth(1)"  src="assets/nextMonthArrow.png"/></th>
     </tr>
     <tr *ngFor = "let item of numsForTr ">
-        <td *ngFor = "let item2 of numsForTr">{{item2}}</td>
+        <td *ngFor = "let item2 of numsForTr" style="border:solid">{{ getNumForBox(item2) }}
+            <table class="duties">
+                <tr *ngFor = "let duty of duties">
+                    <td> {{ duty }}</td>
+                </tr>
+            </table>
+        </td>
     </tr>
 </table>
 </tbody>
