@@ -122,7 +122,9 @@ class dateWithData {
   }
 }
 class monthClass { 
-  dateInMonth: Date = new Date(); // Date object for the month, initialized to the current date
+  firstDateInMonth: Date = new Date(); // Date object for the month, initialized to the current date
+  lastDateInMonth: Date = new Date()
+  firstWeekDayInMonth: Date = new Date()
   monthName: string = ''; // Name of the month, initialized to an empty string
   constructor(advance: number) {
     this.getNextMonthDate(advance); // Get the next month date based on the advance value
@@ -137,9 +139,21 @@ class monthClass {
           nextMonth = 0;
           nextYear++;
         }
-        this.dateInMonth = new Date(nextYear, nextMonth, 1);
-        this.monthName = monthNames[this.dateInMonth.getMonth()]; // Set the month name based on the date object
+        this.firstDateInMonth = new Date(nextYear, nextMonth, 1);
+        this.lastDateInMonth =  new Date(this.firstDateInMonth.getFullYear(), this.firstDateInMonth.getMonth()+ 1, 0);
+        this.monthName = monthNames[this.firstDateInMonth.getMonth()]; // Set the month name based on the date object
       }
+       /** If first day of month is Tues - Fri, need to fill in with last dates of last month */
+    makeDatesFromLastMonth(dayNum:number, firstWeekday: Date) {
+      const datesArray: Date[] = [];
+      for (let i = 0; i < dayNum; i++) {
+        firstWeekday.setDate(firstWeekday.getDate() - 1);
+        if (firstWeekday.getDay() !== 0 && firstWeekday.getDay() !== 6)  // If the date goes below 1, we need to go to the previous month
+            datesArray.push(new Date(firstWeekday));                 // Push a new date object to the array
+        }
+      return datesArray.reverse();                                 // Reverse the array to get the dates in the correct order
+    }
+
 }
   
 
