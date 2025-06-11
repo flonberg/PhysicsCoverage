@@ -8,6 +8,13 @@
         <th colspan="2"><img  class="images" (click) = "advanceMonth(1)"  src="assets/nextMonthArrow.png"/></th>
     </tr>
     <tr>
+        <td>Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+    </tr>
+    <tr> <!-- First Week -->
           <td *ngFor = "let item2 of firstWeekOfDates; let ind = index" style="border:solid">{{ item2.getDay() }}
             <table class="duties">
                 <tr *ngFor = "let duty of duties">
@@ -15,7 +22,7 @@
                 </tr>
             </table>
         </td>
-    </tr>
+    </tr> <!-- middle weeks-->
     <tr *ngFor = "let item of numsWeeks ">
         <td *ngFor = "let item2 of numForDays" style="border:solid">{{ getNumForBox(item2) }}
             <table class="duties">
