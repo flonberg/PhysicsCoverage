@@ -31,6 +31,8 @@ export class MonthCalComponent {
        this.monthShownName = this.getMonthName(this.advance); // Get the current month name
        let firstWeekday: Date = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the current month
        console.log("First weekday of the month: ", firstWeekday);
+       let dayOfWeekOfFirstWeekday: number = firstWeekday.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
+       console.log("Day of the week of the first weekday: ", dayOfWeekOfFirstWeekday);
     }
   getMonthName(month: number): string {
     const currentDate: Date = new Date();
@@ -47,6 +49,8 @@ export class MonthCalComponent {
     console.log("Month shown: ", this.monthShownName);
     this.dateOfFirstWeekDay = this.firstWeekdayOfMonth(this.advance); // Get the first weekday of the month
     console.log("First weekday of the month after advancing: ", this.dateOfFirstWeekDay);
+    let dayOfWeekOfFirstWeekday: number = this.dateOfFirstWeekDay.getDay(); // Get the day of the week (0-6, where 0 is Sunday)
+    console.log("Day of the week of the first weekday: ", dayOfWeekOfFirstWeekday);
   }
   firstWeekdayOfMonth(number:number): Date {
     const currentDate: Date = new Date();
