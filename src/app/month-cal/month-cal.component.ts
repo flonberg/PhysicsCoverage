@@ -14,7 +14,8 @@ import { MonthCalModule } from './month-cal.module';
    host: { ngSkipHydration: 'true' },
 })
 export class MonthCalComponent {
-  numsForTr: number[] = [0,1,2,3,4]; // 5 rows for the month calendar
+  numsWeeks: number[] = [0,1,2]; // 5 rows for the month calendar
+  numForDays: number[] = [0,1,2,3,4]
   duties: number[] = [0,1,2,3,4,5,6]; // 7 days of the week
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
@@ -22,6 +23,7 @@ export class MonthCalComponent {
   monthShownName: string=''                         // Name of the month shown in the calendar
   dateOfFirstWeekDay: Date = new Date();            // First weekday of the month, adjusted to Monday if it falls on Sunday or Saturday
   weekOfDates:dateWithData[]=[];                    // Array to hold the dates of each week ofthe month, each date will be an object with data
+  firstWeekOfDates:any           // Array to hold the dates of the first week of the month, each date will be an object with data
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {}
    ngOnInit() {
@@ -39,17 +41,18 @@ export class MonthCalComponent {
       let test = this.dateFromLastMonth(dayOfWeekOfFirstWeekday, this.dateOfFirstWeekDay); // Get the dates from the last month
       console.log("Dates from the last month: ", test);
       if (test.length > 0)
-        this.makeWeekOfDates(test[0]);            // Call the makeWeekOfDates function with the first date of the last month
+        this.firstWeekOfDates =this.makeWeekOfDates(test[0]);            // Call the makeWeekOfDates function with the first date of the last month
       else
-        this.makeWeekOfDates(this.dateOfFirstWeekDay); // If there are no dates from the last month, use the first weekday of the month
-    }
+        this.firstWeekOfDates =this.makeWeekOfDates(this.dateOfFirstWeekDay); // If there are no dates from the last month, use the first weekday of the month
+      console.log("494949 Week of Dates: ", this.weekOfDates);   
+      }
     makeWeekOfDates(firstDate:Date) {
       let weekOfDates: dateWithData[] = []; // Array to hold the dates of the week
       for (let i = 0; i < 5; i++) { 
         weekOfDates.push(new dateWithData(new Date(firstDate))); // Push a new date object to the array
         firstDate.setDate(firstDate.getDate() + 1); // Increment the date by 1
       }
-   console.log("494949 Week of Dates: ", weekOfDates);   
+      return weekOfDates; // Return the array of dates
   }
   getMonthName(month: number): string {
     const currentDate: Date = new Date();
@@ -93,7 +96,9 @@ class dateWithData {
   data: any; // Data associated with the date, can be any type
   constructor(date: Date) {
     this.date = date;
-   
+  }
+  getDay(): number {
+    return this.date.getDate(); // Get the day of the month
   }
 
 
