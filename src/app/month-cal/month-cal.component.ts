@@ -132,7 +132,7 @@ class monthClass {
   lastWeekDayInMonth: Date
   monthName: string 
   monthWeekDates:Date[] =[]
-  monthWeeks:monthWeekDates[] = []
+  monthWeeks:any[] = []
   
   constructor(advance: number) {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
@@ -152,8 +152,11 @@ class monthClass {
         let tst = this.firstWeekDayInMonth.getDay() 
         if (this.firstWeekDayInMonth.getDay() == 1) {                // FirstDayOfMonth is a Monday
           this.focusDate = new Date(this.firstWeekDayInMonth)
-          this.makeNormalWeek()
+          for (let i=0; i < 5; i++){
+            this.monthWeeks[i] = this.makeNormalWeek()
+          }
         }
+        console.log("159159 monthWeeds %o", this.monthWeeks)
       }
     makeFirstMondayOfMonth(){
       let currentDate = new Date(this.firstDateInMonth)             // clone the date
@@ -186,9 +189,10 @@ class monthClass {
       for (let i= 1; i <= 5; i++){
         dates[i] = new Date(this.focusDate)
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 1 ) // increment FocusDate
-       
       }
       console.log("186186 %o", dates)
+        this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
+        return dates
     }
 
 }
