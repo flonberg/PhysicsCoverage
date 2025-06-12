@@ -38,7 +38,8 @@ export class MonthCalComponent {
      * Include dates from last month in first week if needed and dates for next month in last week if needed.
      */
     makeMonth(advancd:number){
-      this.advance = advancd;                                                   // Set the advance value to the number passed in
+      this.advance = advancd;  
+      new month2Class(this.advance)                                                 // Set the advance value to the number passed in
     let shownMonth: monthClass = new monthClass(this.advance); // Create a new monthClass instance with the advance value
       console.log("434343 Month Class: ", shownMonth);
       this.monthShownName = this.getMonthName(this.advance);                    // Update the month name shown
@@ -149,11 +150,14 @@ class monthClass {
         this.lastDateInMonth =  new Date(this.firstDateInMonth.getFullYear(), this.firstDateInMonth.getMonth()+ 1, 0);
         this.lastWeekDayInMonth = this.makeLastWeekDayOfMonth()
         this.monthName = monthNames[this.firstDateInMonth.getMonth()]; // Set the month name based on the date object
-        let tst = this.firstWeekDayInMonth.getDay() 
-        if (tst == 1)                                           // FirstDayOfMonth is a Monday can just make the week 
-          this.focusDate = new Date(this.firstWeekDayInMonth)
-        else if (tst == 0)                                          // firstDayOfMonthe is Sunday
+   
+        this.focusDate = new Date(this.firstWeekDayInMonth)
+        let tst = +this.firstWeekDayInMonth.getDay() 
+        let evalNum = 0
+        let tst2 = 2
+        if (tst2 === 0) {                                         // firstDayOfMonthe is Sunday
               this.focusDate.setDate(this.focusDate.getDate() + 1); // Move it to Monday
+        }
         else if (tst == 6)                                          // firstDayOfMonth is Sunday
               this.focusDate.setDate(this.focusDate.getDate() + 2); // Move it to Monday
         else if (tst > 1 && tst < 6)   
@@ -199,6 +203,38 @@ class monthClass {
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
         return dates
     }
+
+}
+class month2Class {
+  constructor(advance: number){
+     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
+      'November', 'December' ];
+
+      console.log("212")
+    let focusDate = new Date()
+    focusDate = new Date(focusDate.getFullYear(), focusDate.getMonth() + advance, 1)
+    this.moveToMonday(focusDate)
+
+  }
+  moveToMonday(focusDate:Date){
+
+      let condition: boolean = false;
+
+      if (condition) {
+        this.myFunction(); // Calling the function inside the if block
+      }
+      if (this.isSunday(focusDate)) {
+        this.myFunction(); // Calling the function inside the if block
+      }
+  }
+
+      myFunction(): void {
+        // Code to be executed when the function is called
+        console.log("Function called!");
+      }
+      isSunday(date: Date): boolean {
+        return date.getDay() === 0;
+}
 
 }
   
