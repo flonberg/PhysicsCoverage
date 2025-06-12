@@ -28,6 +28,7 @@ export class MonthCalComponent {
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {
     this.theMonth = new month2Class(0)
+    console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
        this.route.params.subscribe(params => {
@@ -41,8 +42,7 @@ export class MonthCalComponent {
      */
     makeMonth(advancd:number){
       this.advance = advancd;  
-      new month2Class(this.advance)                                                 // Set the advance value to the number passed in
- 
+      this.theMonth = new month2Class(this.advance)                                                 // Set the advance value to the number passed in
       }
   /** Make an array of dateWithData objects for each day of the week, starting from the first date passed in */
   makeFirstWeekOfDates(firstDate:Date) {                                      // firstDate is first MONDAY of the month
@@ -120,6 +120,7 @@ interface monthWeekDates {
 class month2Class {
   focusDate: Date = new Date()
   weeks:any = []
+  weekDays: number[] = []
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
@@ -127,9 +128,14 @@ class month2Class {
     this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth() + advance, 1)  // first day of month
     this.focusDate = this.moveToMonday(this.focusDate)                
       console.log("232232 %o", this.focusDate)    
-    for (let i=0; i < 5; i++)                                   // make the 5 days of normal weeks                   
+    for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
+    for (let i = 0; i < this.weeks.length; i++){
+      let theDate = new Date(this.weeks[i]) 
+      let tst = +theDate.getDate()
+    }
     console.log("220220 weeks %o", this.weeks)        
+    console.log("`37`37`weekDays %o", this.weekDays)        
 
   }
   /** move forward to Monday is Weekend of BACK to Monday is Tues-Fri */
@@ -145,13 +151,18 @@ class month2Class {
   }
   makeNormalWeek(fDate: Date){
       let dates:Date[] = []
-      for (let i= 1; i <= 5; i++){
+      for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
+        this.weekDays[i] = dates[i].getDate()
         fDate.setDate(fDate.getDate()+1)
-      }
+        }
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
         return dates
     }
+  getWeeks(){
+    console.log("156156 weeks %o", this.weeks)
+    return this.weeks
+  }  
       
   
 
