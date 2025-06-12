@@ -22,9 +22,9 @@ export class MonthCalComponent {
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
   monthShownName: string=''                         // Name of the month shown in the calendar
-  dateOfFirstWeekDay: Date = new Date();            // First weekday of the month, adjusted to Monday if it falls on Sunday or Saturday
-  weekOfDates:dateWithData[]=[];                    // Array to hold the dates of each week ofthe month, each date will be an object with data
-  firstWeekOfDates:any           // Array to hold the dates of the first week of the month, each date will be an object with data
+
+
+ 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {
     this.theMonth = new month2Class(0)
@@ -44,63 +44,12 @@ export class MonthCalComponent {
       this.advance = advancd;  
       this.theMonth = new month2Class(this.advance)                                                 // Set the advance value to the number passed in
       }
-  /** Make an array of dateWithData objects for each day of the week, starting from the first date passed in */
-  makeFirstWeekOfDates(firstDate:Date) {                                      // firstDate is first MONDAY of the month
-      let weekOfDates: dateWithData[] = [];                                   // Array to hold the dates of the week
-      for (let i = 0; i < 5; i++) { 
-        weekOfDates.push(new dateWithData(new Date(firstDate)));              // Push a new date object to the array
-        firstDate.setDate(firstDate.getDate() + 1);                           // Increment the date by 1
-      }
-      return weekOfDates; // Return the array of dates
-  }
-  makeLastWeekOfDates(firstDate:Date) {
-      let weekOfDates: dateWithData[] = [];                                   // Array to hold the dates of the week
-  }
-  makeMiddleWeeksOfDates(firstDate:Date) {
-    let weekOfDates: dateWithData[] = []; // Array to hold the dates of the week
-  }
-  getMonthName(month: number): string {
-    const currentDate: Date = new Date();
-    const currentMonth: number = currentDate.getMonth();
-    const monthNames = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-     ];
-    return  monthNames[currentMonth + month]; // Adjust the month index by the advance value
-  }
+
   advanceMonth(number: number) {
     this.advance += number
     this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
   }
-  firstWeekdayOfMonth(number:number): Date {
-    const currentDate: Date = new Date();
-    currentDate.setMonth(currentDate.getMonth() + this.advance);  // Adjust the month by the advance value
-    currentDate.setDate(1);                                       // Set to the first day of the month
-    if (currentDate.getDay() == 0)                                // If the first day is Sunday, we need to adjust it to Monday         
-        currentDate.setDate(currentDate.getDate() + 1);
-    if (currentDate.getDay() == 6)                                // If the first day is Sunday, we need to adjust it to Monday         
-        currentDate.setDate(currentDate.getDate() + 2);
-    return currentDate;                                  // Get the day of the week (0-6, where 0 is Sunday)
-  }
-  /** If first day of month is Tues - Fri, need to fill in with last dates of last month */
-  makeDatesFromLastMonth(dayNum:number, firstWeekday: Date) {
-    const datesArray: Date[] = [];
-    for (let i = 0; i < dayNum; i++) {
-       firstWeekday.setDate(firstWeekday.getDate() - 1);
-       if (firstWeekday.getDay() !== 0 && firstWeekday.getDay() !== 6)  // If the date goes below 1, we need to go to the previous month
-          datesArray.push(new Date(firstWeekday));                 // Push a new date object to the array
-      }
-    return datesArray.reverse();                                 // Reverse the array to get the dates in the correct order
-  }
-  getNumForBox(number: number): number {
-    return number
-  }
-  getLastMondayOfMonth(d:Date): Date {
-    let d1 = new Date(d.getFullYear(), d.getMonth() + 1, 0);
-    let wd = d1.getDay();
-    d1.setDate(d1.getDate() - (wd < 1 ? 6 : wd - 1));
-    return d1;
-  }
+
 
 }
 class dateWithData {
