@@ -125,7 +125,7 @@ interface monthWeekDates {
   dates:Date[]
 }
 class monthClass { 
-  focusDate:Date = new Date()
+  focusDate:Date = new Date()                                       // this is the 'Pointer' dated which advances as the Date objects are created. 
   firstDateInMonth: Date 
   lastDateInMonth: Date
   firstWeekDayInMonth: Date 
@@ -150,12 +150,17 @@ class monthClass {
         this.lastWeekDayInMonth = this.makeLastWeekDayOfMonth()
         this.monthName = monthNames[this.firstDateInMonth.getMonth()]; // Set the month name based on the date object
         let tst = this.firstWeekDayInMonth.getDay() 
-        if (this.firstWeekDayInMonth.getDay() == 1) {                // FirstDayOfMonth is a Monday
+        if (tst == 1)                                           // FirstDayOfMonth is a Monday can just make the week 
           this.focusDate = new Date(this.firstWeekDayInMonth)
-          for (let i=0; i < 5; i++){
+        else if (tst == 0)                                          // firstDayOfMonthe is Sunday
+              this.focusDate.setDate(this.focusDate.getDate() + 1); // Move it to Monday
+        else if (tst == 6)                                          // firstDayOfMonth is Sunday
+              this.focusDate.setDate(this.focusDate.getDate() + 2); // Move it to Monday
+        else if (tst > 1 && tst < 6)   
+              this.focusDate.setDate(this.focusDate.getDate() - tst ); // Move it to Monday
+        for (let i=0; i < 5; i++)                                   // make the 5 days of normal weeks                   
             this.monthWeeks[i] = this.makeNormalWeek()
-          }
-        }
+        
         console.log("159159 monthWeeds %o", this.monthWeeks)
       }
     makeFirstMondayOfMonth(){
