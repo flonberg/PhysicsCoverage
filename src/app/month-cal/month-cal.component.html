@@ -2,7 +2,6 @@
 <tbody>
     <h3> {{ monthShownName }} </h3>
 <table> 
-
     <tr>
         <th></th>
         <th colspan="2"><img  class="images" (click) = "advanceMonth(-1)" src="assets/prevMonthArrow.png"/></th>
@@ -25,16 +24,6 @@
             </table>
         </td>
     </tr>    
-   <tr>
-        <td>
-            <table class="duties">
-                <tr *ngFor = "let duty of duties">
-                    <td> {{ duty }}</td>
-                </tr>
-            </table>
-        </td>
-
-    </tr> <!-- middle weeks-->
 
 </table>
 </tbody>

@@ -23,8 +23,6 @@ export class MonthCalComponent {
   numRows:number = 5                                // 5 rows for the month calendar  
   monthShownName: string=''                         // Name of the month shown in the calendar
 
-
- 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService) {
     this.theMonth = new month2Class(0)
@@ -52,19 +50,8 @@ export class MonthCalComponent {
 
 
 }
-class dateWithData {
-  date: Date; // The date of the week
-  data: any; // Data associated with the date, can be any type
-  constructor(date: Date) {
-    this.date = date;
-  }
-  getDay(): number {
-    return this.date.getDate(); // Get the day of the month
-  }
-}
-interface monthWeekDates {
-  dates:Date[]
-}
+
+
 
 class month2Class {
   focusDate: Date = new Date()
