@@ -2,11 +2,13 @@
 <tbody>
     <h3> {{ monthShownName }} </h3>
 <table> 
+
     <tr>
         <th></th>
         <th colspan="2"><img  class="images" (click) = "advanceMonth(-1)" src="assets/prevMonthArrow.png"/></th>
         <th colspan="2"><img  class="images" (click) = "advanceMonth(1)"  src="assets/nextMonthArrow.png"/></th>
     </tr>
+    <tr><td colspan=5 style="font-size:30px;text-align: center;"> {{ theMonth.monthName }}</td></tr>
     <tr>
         <td>Monday</td>
         <td>Tuesday</td>
@@ -14,17 +16,24 @@
         <td>Thursday</td>
         <td>Friday</td>
     </tr>
-    <tr *ngFor = "let item of theMonth.weekDays">  <!-- First Week -->
-        <td>test</td>
-        <!--
-        <td *ngFor = "let item2 of firstWeekOfDates; let ind = index" style="border:solid">{{ item2.getDay() }}
+    <tr *ngFor = "let item of theMonth.weeks, index as ind">  <!-- First Week -->
+        <td *ngFor = " let item2 of theMonth.weekDays[ind]">{{item2}}
+                <table class="duties">
+                <tr *ngFor = "let duty of duties">
+                    <td> {{ duty }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>    
+   <tr>
+        <td>
             <table class="duties">
                 <tr *ngFor = "let duty of duties">
                     <td> {{ duty }}</td>
                 </tr>
             </table>
         </td>
-    -->
+
     </tr> <!-- middle weeks-->
 
 </table>

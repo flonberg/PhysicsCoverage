@@ -122,11 +122,13 @@ class month2Class {
   weeks:any = []
   weekDays: number[][] = []
   weekNum: number = 0
+  monthName: string = ''
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
     let focusDate = new Date()                              // today
     this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth() + advance, 1)  // first day of month
+    this.monthName = monthNames[this.focusDate.getMonth()]
     this.focusDate = this.moveToMonday(this.focusDate)                
       console.log("232232 %o", this.focusDate)    
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
