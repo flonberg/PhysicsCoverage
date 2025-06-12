@@ -125,6 +125,7 @@ interface monthWeekDates {
   dates:Date[]
 }
 class monthClass { 
+  focusDate:Date = new Date()
   firstDateInMonth: Date 
   lastDateInMonth: Date
   firstWeekDayInMonth: Date 
@@ -149,11 +150,13 @@ class monthClass {
         this.lastWeekDayInMonth = this.makeLastWeekDayOfMonth()
         this.monthName = monthNames[this.firstDateInMonth.getMonth()]; // Set the month name based on the date object
         let tst = this.firstWeekDayInMonth.getDay() 
-        if (this.firstWeekDayInMonth.getDay() == 1)
+        if (this.firstWeekDayInMonth.getDay() == 1) {                // FirstDayOfMonth is a Monday
+          this.focusDate = new Date(this.firstWeekDayInMonth)
           this.makeNormalWeek()
+        }
       }
     makeFirstMondayOfMonth(){
-      let currentDate = new Date(this.firstDateInMonth)
+      let currentDate = new Date(this.firstDateInMonth)             // clone the date
       if (currentDate.getDay() == 0)                                // If the first day is Sunday, we need to adjust it to Monday         
         currentDate.setDate(currentDate.getDate() + 1);
       if (currentDate.getDay() == 6)                                // If the first day is Sunday, we need to adjust it to Monday         
@@ -180,9 +183,10 @@ class monthClass {
     }
     makeNormalWeek(){
       let dates:Date[] = []
-      let tmpDate = new Date(this.firstDateInMonth)
       for (let i= 1; i <= 5; i++){
-        dates[i] = new Date(tmpDate.getFullYear(), tmpDate.getMonth(), tmpDate.getDate() + i )
+        dates[i] = new Date(this.focusDate)
+        this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 1 ) // increment FocusDate
+       
       }
       console.log("186186 %o", dates)
     }
