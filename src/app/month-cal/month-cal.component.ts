@@ -199,29 +199,29 @@ class monthClass {
         dates[i] = new Date(this.focusDate)
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 1 ) // increment FocusDate
       }
-      console.log("186186 %o", dates)
+  
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
         return dates
     }
 
 }
 class month2Class {
+  focusDate: Date = new Date()
+  weeks:any = []
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
-
-      console.log("212")
-    let focusDate = new Date()
-    focusDate = new Date(focusDate.getFullYear(), focusDate.getMonth() + advance, 1)
-    this.moveToMonday(focusDate)
+    let focusDate = new Date()                              // today
+    this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth() + advance, 1)  // first day of month
+    this.focusDate = this.moveToMonday(this.focusDate)                
+      console.log("232232 %o", this.focusDate)    
+    for (let i=0; i < 5; i++)                                   // make the 5 days of normal weeks                   
+            this.weeks[i] = this.makeNormalWeek(this.focusDate)  
+    console.log("220220 weeks %o", this.weeks)        
 
   }
+  /** move forward to Monday is Weekend of BACK to Monday is Tues-Fri */
   moveToMonday(focusDate:Date){
-      let condition: boolean = false;
-      if (condition) {
-        this.myFunction(focusDate); // Calling the function inside the if block
-      }
-    //  if (this.isSunday(focusDate)) {
       let test = focusDate.getDay()
       if (test == 0) 
           focusDate.setDate(focusDate.getDate()+1)
@@ -229,17 +229,20 @@ class month2Class {
           focusDate.setDate(focusDate.getDate()+2)
       if (test >  0 && test < 6) 
           focusDate.setDate(focusDate.getDate() - (test - 1 ))  
-  console.log("232232 %o", focusDate)      
- 
-      
+    return focusDate
   }
-      myFunction(fDate:Date): void {
-        console.log("Function called!");
+  makeNormalWeek(fDate: Date){
+      let dates:Date[] = []
+      for (let i= 1; i <= 5; i++){
+        dates[i] = new Date(fDate)
         fDate.setDate(fDate.getDate()+1)
       }
-      isSunday(date: Date): boolean {
-        return date.getDay() === 0;
-}
+        this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
+        return dates
+    }
+      
+  
+
 
 }
   
