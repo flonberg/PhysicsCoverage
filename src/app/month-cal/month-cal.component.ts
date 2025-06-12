@@ -217,20 +217,25 @@ class month2Class {
 
   }
   moveToMonday(focusDate:Date){
-
       let condition: boolean = false;
-
       if (condition) {
-        this.myFunction(); // Calling the function inside the if block
+        this.myFunction(focusDate); // Calling the function inside the if block
       }
-      if (this.isSunday(focusDate)) {
-        this.myFunction(); // Calling the function inside the if block
-      }
+    //  if (this.isSunday(focusDate)) {
+      let test = focusDate.getDay()
+      if (test == 0) 
+          focusDate.setDate(focusDate.getDate()+1)
+      if (test == 6) 
+          focusDate.setDate(focusDate.getDate()+2)
+      if (test >  0 && test < 6) 
+          focusDate.setDate(focusDate.getDate() - (test - 1 ))  
+  console.log("232232 %o", focusDate)      
+ 
+      
   }
-
-      myFunction(): void {
-        // Code to be executed when the function is called
+      myFunction(fDate:Date): void {
         console.log("Function called!");
+        fDate.setDate(fDate.getDate()+1)
       }
       isSunday(date: Date): boolean {
         return date.getDay() === 0;
