@@ -120,7 +120,8 @@ interface monthWeekDates {
 class month2Class {
   focusDate: Date = new Date()
   weeks:any = []
-  weekDays: number[] = []
+  weekDays: number[][] = []
+  weekNum: number = 0
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
@@ -151,12 +152,14 @@ class month2Class {
   }
   makeNormalWeek(fDate: Date){
       let dates:Date[] = []
+      this.weekDays[this.weekNum] = []
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
-        this.weekDays[i] = dates[i].getDate()
+        this.weekDays[this.weekNum][i] = dates[i].getDate()
         fDate.setDate(fDate.getDate()+1)
         }
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
+        this.weekNum++
         return dates
     }
   getWeeks(){

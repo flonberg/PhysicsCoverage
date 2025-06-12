@@ -14,14 +14,17 @@
         <td>Thursday</td>
         <td>Friday</td>
     </tr>
-    <tr *ngFor = "let item of theMonth.getWeeks()">  <!-- First Week -->
-          <td *ngFor = "let item2 of firstWeekOfDates; let ind = index" style="border:solid">{{ item2.getDay() }}
+    <tr *ngFor = "let item of theMonth.weekDays">  <!-- First Week -->
+        <td>test</td>
+        <!--
+        <td *ngFor = "let item2 of firstWeekOfDates; let ind = index" style="border:solid">{{ item2.getDay() }}
             <table class="duties">
                 <tr *ngFor = "let duty of duties">
                     <td> {{ duty }}</td>
                 </tr>
             </table>
         </td>
+    -->
     </tr> <!-- middle weeks-->
 
 </table>
