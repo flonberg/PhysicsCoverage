@@ -139,12 +139,15 @@ class month2Class {
         this.weekDays[this.weekNum][i] = dates[i].getDate()
         if (!this.weekDayWithDuties[i])
       
-          this.weekDayWithDuties[tst] = duties[tst]
+          this.weekDayWithDuties[tst] = duties[tst]     ///////////////
+          this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
+
      //   this.weekDayWithDuties[i][dates[i].getDate()] = dayBucket[dates[i].getDate()]
       
         fDate.setDate(fDate.getDate()+1)
         }
-          console.log("134134%o",this.weekDayWithDuties)
+  console.log("134134%o",this.weekDayWithDuties)
+  console.log("150150 %o",this.weekDayWithDuties)
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
         this.weekNum++
     console.log("145145 %o", this.datesWithDuties)    
