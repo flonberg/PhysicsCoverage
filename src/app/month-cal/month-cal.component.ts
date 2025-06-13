@@ -42,9 +42,11 @@ export class MonthCalComponent {
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
            // console.log("373737 %o", this.theDuties[i]['day']['date'])
-            if (!this.dayBucket[this.theDuties[i]['day']['date']])
-              this.dayBucket[this.theDuties[i]['day']['date']] = []
-            this.dayBucket[this.theDuties[i]['day']['date']].push(this.theDuties[i]) 
+            let justDate = this.theDuties[i]['day']['date'].slice(0,10)
+          //  console.log("464646 %o", justDate)
+            if (!this.dayBucket[justDate])
+              this.dayBucket[justDate] = []
+            this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
         console.log("505050 %o", this.dayBucket)
