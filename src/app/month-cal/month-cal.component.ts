@@ -147,7 +147,7 @@ class month2Class {
         fDate.setDate(fDate.getDate()+1)
         }
   console.log("134134%o",this.weekDayWithDuties)
-  console.log("150150 %o",this.weekDayWithDuties)
+  console.log("150150 %o",this.datesWithDuties)
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
         this.weekNum++
     console.log("145145 %o", this.datesWithDuties)    
@@ -161,7 +161,7 @@ class dateWithDuties{
  dateString: string = ''
  duties:  any[] = []
   constructor(date:string, duties: any){
-    this.dateString = date
+    this.dateString = new Date(date).toISOString().slice(8,10)
     this.duties = duties
   }
 }
