@@ -31,6 +31,7 @@ export class MonthCalComponent {
     console.log("31313 theMonth %o", this.theMonth)
     this.myservice.getForMonth(this.theMonth.getMonthSQLstring()).subscribe(res=>{
       this.theDuties = res
+      console.log(this.theDuties)
     })
   }
   ngOnInit() {
