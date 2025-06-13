@@ -8,7 +8,7 @@ import { MyserviceService } from './myservice.service';
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterModule],
-  templateUrl: './app.component.html',
+  templateUrl:  './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {

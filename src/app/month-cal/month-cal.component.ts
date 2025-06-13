@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MonthCalModule } from './month-cal.module';
 
+  import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-month-cal',
@@ -24,7 +26,7 @@ export class MonthCalComponent {
   monthShownName: string=''                         // Name of the month shown in the calendar
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
-  constructor(private route: ActivatedRoute, private myservice: MyserviceService) {
+  constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
     this.theMonth = new month2Class(0)
     console.log("31313 theMonth %o", this.theMonth)
   }
