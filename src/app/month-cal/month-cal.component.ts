@@ -24,14 +24,30 @@ export class MonthCalComponent {
   numRows:number = 5                                // 5 rows for the month calendar  
   monthShownName: string=''                         // Name of the month shown in the calendar
   theDuties:any
+  
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
     this.theMonth = new month2Class(0)
     console.log("31313 theMonth %o", this.theMonth)
+    this.getDuties()
+  
+  }
+     dayBucket:any[] = []
+  getDuties(){
+ 
     this.myservice.getForMonth(this.theMonth.getMonthSQLstring()).subscribe(res=>{
-      this.theDuties = res
-      console.log(this.theDuties)
+        this.theDuties = res
+    //    console.log(this.theDuties)
+        for (let i=0; i < this.theDuties.length; i++){
+          if (this.theDuties[i]){
+           // console.log("373737 %o", this.theDuties[i]['day']['date'])
+            if (!this.dayBucket[this.theDuties[i]['day']['date']])
+              this.dayBucket[this.theDuties[i]['day']['date']] = []
+            this.dayBucket[this.theDuties[i]['day']['date']].push(this.theDuties[i]) 
+          }
+        }  
+        console.log("505050 %o", this.dayBucket)
     })
   }
   ngOnInit() {
@@ -57,8 +73,12 @@ export class MonthCalComponent {
     this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
   }
 }
+class Duties{
 
+
+}
 class month2Class {
+  dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
   focusDate: Date = new Date()                            
   weeks:any = []
   weekDays: number[][] = []
