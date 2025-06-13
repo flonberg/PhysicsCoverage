@@ -47,14 +47,15 @@ export class MonthCalComponent {
   makeMonth(advancd:number){
       this.advance = advancd;  
       this.theMonth = new month2Class(this.advance)                                                 // Set the advance value to the number passed in
-        this.myservice.getForMonth(this.theMonth.getMonthSQLstring()) 
+      this.myservice.getForMonth(this.theMonth.getMonthSQLstring()).subscribe(res=>{
+        this.theDuties = res
+        console.log(this.theDuties)
+      })
     }
-
   advanceMonth(number: number) {
     this.advance += number
     this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
   }
-
 }
 
 class month2Class {
@@ -67,15 +68,16 @@ class month2Class {
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
-    this.monthSQLstring = this.focusDate.toISOString().slice(0,7)      // for use in SQL query e.g  LIKE '2-25-06%'
+
     this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth() + advance, 1)  // first day of month
+    this.monthSQLstring = this.focusDate.toISOString().slice(0,7)      // for use in SQL query e.g  LIKE '2-25-06%'
     this.monthName = monthNames[this.focusDate.getMonth()]
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
     for (let i = 0; i < this.weeks.length; i++){
       let theDate = new Date(this.weeks[i]) 
-      let tst = +theDate.getDate()
+      
     }
     console.log("220220 weeks %o", this.weeks)        
     console.log("`37`37`weekDays %o", this.weekDays)        
