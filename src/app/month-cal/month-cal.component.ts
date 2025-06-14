@@ -43,7 +43,15 @@ export class MonthCalComponent {
     }
   addDutiesToDays(){
     console.log("45454  theDayBucker %o", this.dayBucket)
-    console.log("4646 theMonth %o", this.theMonth)
+    console.log("4646 theMonth %o", this.theMonth.weekDayForDuties)
+    this.theMonth.weekDayForDuties.forEach((elem=>{
+      elem.forEach((elem2=>{
+   console.log("484848 elem if %o", elem2)
+   console.log("505050 %o", this.dayBucket[elem2])
+        this.theMonth.datesWithDuties[elem2] = this.dayBucket[elem2]
+       }))
+      }))
+    console.log("545454 %o", this.theMonth.datesWithDuties)  
     }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
@@ -124,9 +132,8 @@ class month2Class {
     return focusDate
   }
   makeNormalWeek(fDate: Date){
-
       let dates:Date[] = []
-      this.weekDays[this.weekNum] = []
+      this.weekDays[this.weekNum] = []  
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
         this.weekDays[this.weekNum][i] = dates[i].getDate()     // gets Day of Month
@@ -144,6 +151,9 @@ class month2Class {
     }
     getMonthSQLstring(){
       return this.monthSQLstring
+    }
+    putDutiesInDay(days:[], duties:[]){
+
     }
  
 }
