@@ -41,17 +41,15 @@ export class MonthCalComponent {
       this.getDuties()
       this.addDutiesToDays()
     }
+  /** theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
-    console.log("45454  theDayBucker %o", this.dayBucket)
-    console.log("4646 theMonth %o", this.theMonth.weekDayForDuties)
-    this.theMonth.weekDayForDuties.forEach((elem=>{
-      elem.forEach((elem2=>{
-   console.log("484848 elem if %o", elem2)
-   console.log("505050 %o", this.dayBucket[elem2])
-        this.theMonth.datesWithDuties[elem2] = this.dayBucket[elem2]
+    let ind = 0
+    this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
+      elem.forEach((elem2=>{                                // go through each week of dateStrings
+        this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
        }))
       }))
-    console.log("545454 %o", this.theMonth.datesWithDuties)  
+    console.log("545454  theMonth.datesWithDuties %o", this.theMonth.datesWithDuties)  
     }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)

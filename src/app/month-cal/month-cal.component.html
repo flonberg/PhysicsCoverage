@@ -16,10 +16,10 @@
         <td>Friday</td>
     </tr>
     <tr *ngFor = "let item of theMonth.weeks, index as ind">  <!-- First Week -->
-        <td *ngFor = " let item2 of theMonth.weekDays[ind]">{{item2}}
+        <td *ngFor = " let item2 of theMonth.weekDays[ind], index as ind2">{{item2}}
                 <table class="duties">
-                <tr *ngFor = "let duty of duties">
-                    <td> {{ duty }}</td>
+                <tr *ngFor = "let duty of theMonth.datesWithDuties[ind2]">
+                    <td> {{ duty.serviceid }}</td>
                 </tr>
             </table>
         </td>
