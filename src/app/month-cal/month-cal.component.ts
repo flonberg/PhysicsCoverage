@@ -39,8 +39,12 @@ export class MonthCalComponent {
   }
    ngOnInit() {
       this.getDuties()
+      this.addDutiesToDays()
     }
-  
+  addDutiesToDays(){
+    console.log("45454  theDayBucker %o", this.dayBucket)
+    console.log("4646 theMonth %o", this.theMonth)
+    }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
     this.myservice.getForMonth(dString).subscribe(res=>{
@@ -53,10 +57,12 @@ export class MonthCalComponent {
             this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
-        console.log("505050 %o", this.dayBucket)
-        this.theMonth.addDutiesToDays(this.dayBucket)
+
+  
     })
   }
+ 
+ 
  
     /** Make dS with a instande of dateWithData class for each day of the month. 
      * Include dates from last month in first week if needed and dates for next month in last week if needed.
@@ -88,7 +94,7 @@ class month2Class {
   weekNum: number = 0
   monthName: string = ''
   monthSQLstring: string = ''
-  weekDayWithDuties: any[][] = []
+  weekDayForDuties: any[][] = []
   datesWithDuties:any[]=[]
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
@@ -102,17 +108,10 @@ class month2Class {
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
 
     console.log("220220 weeks %o", this.weeks)    
-    console.log("105105 weekDayWithDuties %o", this.weekDayWithDuties)    
+    console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
     console.log("`37`37`weekDays %o", this.weekDays)        
   }
-  addDutiesToDays(dutiesInDayBuckets: any){
-    this.weekDayWithDuties.forEach((elem:any)=>{
-  //    let justDate = elem.toISOString().slice(0,10)
-   //   console.log("113113 %o", justDate )
 
-    })
-    
-  }
   /** move forward to Monday is Weekend of BACK to Monday is Tues-Fri */
   moveToMonday(focusDate:Date){
       let test = focusDate.getDay()
@@ -125,26 +124,17 @@ class month2Class {
     return focusDate
   }
   makeNormalWeek(fDate: Date){
- //   console.log("123123 %o", duties)
+
       let dates:Date[] = []
       this.weekDays[this.weekNum] = []
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
-     //   this.weekDayWithDuties[i] = new Date(fDate)
-        let tst = new Date(dates[i]).toISOString().slice(0,10) 
-   //     this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
         this.weekDays[this.weekNum][i] = dates[i].getDate()     // gets Day of Month
         if (i == 0){
-          this.weekDayWithDuties[this.weekNum] = []
-          this.weekDayWithDuties[this.weekNum][i] = []
+          this.weekDayForDuties[this.weekNum] = []
+          this.weekDayForDuties[this.weekNum][i] = []
         }
-        this.weekDayWithDuties[this.weekNum][i] = new Date(dates[i]).toISOString().slice(0,10)      // gets Day of Month
-      //  if (!this.weekDayWithDuties[i])
-      //    this.weekDayWithDuties[tst] = duties[tst]     ///////////////
-     //     this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
-
-     //   this.weekDayWithDuties[i][dates[i].getDate()] = dayBucket[dates[i].getDate()]
-      
+        this.weekDayForDuties[this.weekNum][i] = new Date(dates[i]).toISOString().slice(0,10)      // gets Day of Month  
         fDate.setDate(fDate.getDate()+1)
         }
 
