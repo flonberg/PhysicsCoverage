@@ -30,15 +30,15 @@ export class MonthCalComponent {
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
+        this.route.params.subscribe(params => {
+        this.id = params['id'];
+        this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
+       })
     this.theMonth = new month2Class(0)
     console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
-       this.route.params.subscribe(params => {
-        this.id = params['id'];
-        this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
-       })
-        this.getDuties()
+      this.getDuties()
     }
   
   getDuties(){
@@ -54,6 +54,7 @@ export class MonthCalComponent {
           }
         }  
         console.log("505050 %o", this.dayBucket)
+        this.theMonth.addDutiesToDays(this.dayBucket)
     })
   }
  
@@ -81,14 +82,13 @@ class Duties{
 }
 class month2Class {
   dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
-
   focusDate: Date = new Date()                            
   weeks:any = []
   weekDays: number[][] = []
   weekNum: number = 0
   monthName: string = ''
   monthSQLstring: string = ''
-  weekDayWithDuties: any = []
+  weekDayWithDuties: any[][] = []
   datesWithDuties:any[]=[]
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
@@ -100,15 +100,17 @@ class month2Class {
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
-      
-    for (let i = 0; i < this.weeks.length; i++){
-      let theDate = new Date(this.weeks[i]) 
-      
-    }
-    console.log("220220 weeks %o", this.weeks)        
+
+    console.log("220220 weeks %o", this.weeks)    
+    console.log("105105 weekDayWithDuties %o", this.weekDayWithDuties)    
     console.log("`37`37`weekDays %o", this.weekDays)        
   }
-  getData(){
+  addDutiesToDays(dutiesInDayBuckets: any){
+    this.weekDayWithDuties.forEach((elem:any)=>{
+  //    let justDate = elem.toISOString().slice(0,10)
+   //   console.log("113113 %o", justDate )
+
+    })
     
   }
   /** move forward to Monday is Weekend of BACK to Monday is Tues-Fri */
@@ -128,10 +130,15 @@ class month2Class {
       this.weekDays[this.weekNum] = []
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
-     
+     //   this.weekDayWithDuties[i] = new Date(fDate)
         let tst = new Date(dates[i]).toISOString().slice(0,10) 
    //     this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
-        this.weekDays[this.weekNum][i] = dates[i].getDate()
+        this.weekDays[this.weekNum][i] = dates[i].getDate()     // gets Day of Month
+        if (i == 0){
+          this.weekDayWithDuties[this.weekNum] = []
+          this.weekDayWithDuties[this.weekNum][i] = []
+        }
+        this.weekDayWithDuties[this.weekNum][i] = new Date(dates[i]).toISOString().slice(0,10)      // gets Day of Month
       //  if (!this.weekDayWithDuties[i])
       //    this.weekDayWithDuties[tst] = duties[tst]     ///////////////
      //     this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
@@ -140,16 +147,15 @@ class month2Class {
       
         fDate.setDate(fDate.getDate()+1)
         }
-  console.log("134134%o",this.weekDayWithDuties)
-  console.log("150150 %o",this.datesWithDuties)
+
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
         this.weekNum++
-    console.log("145145 %o", this.datesWithDuties)    
         return dates
     }
     getMonthSQLstring(){
       return this.monthSQLstring
     }
+ 
 }
 class dateWithDuties{
  dateString: string = ''
