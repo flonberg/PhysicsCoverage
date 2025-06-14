@@ -63,10 +63,9 @@ export class MonthCalComponent {
             this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
-
-  
     })
   }
+ // getUserKey()
  
  
  
