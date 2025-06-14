@@ -25,43 +25,38 @@ export class MonthCalComponent {
   monthShownName: string=''                         // Name of the month shown in the calendar
   theDuties:any
   monthStringForSQL:string = ''
+  dayBucket:any[] = []
   
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
-    this.theMonth = new month2Class(0, this.dayBucket )
+    this.theMonth = new month2Class(0)
     console.log("31313 theMonth %o", this.theMonth)
-    this.getDuties()
-  
   }
-     dayBucket:any[] = []
+   ngOnInit() {
+       this.route.params.subscribe(params => {
+        this.id = params['id'];
+        this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
+       })
+        this.getDuties()
+    }
+  
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
     this.myservice.getForMonth(dString).subscribe(res=>{
         this.theDuties = res
-    //    console.log(this.theDuties)
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
-           // console.log("373737 %o", this.theDuties[i]['day']['date'])
             let justDate = this.theDuties[i]['day']['date'].slice(0,10)
-          //  console.log("464646 %o", justDate)
             if (!this.dayBucket[justDate])
               this.dayBucket[justDate] = []
             this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
         console.log("505050 %o", this.dayBucket)
-        this.theMonth = new month2Class(0, this.dayBucket )
-        console.log("55555 %o", this.theMonth)
     })
   }
-  ngOnInit() {
-       this.route.params.subscribe(params => {
-        this.id = params['id'];
-        this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
-       })
-     // this.makeMonth(0)
-    }
+ 
     /** Make dS with a instande of dateWithData class for each day of the month. 
      * Include dates from last month in first week if needed and dates for next month in last week if needed.
      */
@@ -71,7 +66,7 @@ export class MonthCalComponent {
       this.myservice.getForMonth(this.theMonth.getMonthSQLstring()).subscribe(res=>{
  
         this.theDuties = res
-        this.theMonth = new month2Class(this.advance, this.theDuties)      
+        this.theMonth = new month2Class(this.advance)      
         console.log(this.theDuties)
       })
     }
@@ -95,7 +90,7 @@ class month2Class {
   monthSQLstring: string = ''
   weekDayWithDuties: any = []
   datesWithDuties:any[]=[]
-  constructor(advance: number, duties: any){
+  constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
 
@@ -104,7 +99,7 @@ class month2Class {
     this.monthName = monthNames[this.focusDate.getMonth()]
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
-            this.weeks[i] = this.makeNormalWeek(this.focusDate, duties)  
+            this.weeks[i] = this.makeNormalWeek(this.focusDate)  
       
     for (let i = 0; i < this.weeks.length; i++){
       let theDate = new Date(this.weeks[i]) 
@@ -127,20 +122,19 @@ class month2Class {
           focusDate.setDate(focusDate.getDate() - (test - 1 ))  
     return focusDate
   }
-  makeNormalWeek(fDate: Date, duties: any){
-    console.log("123123 %o", duties)
+  makeNormalWeek(fDate: Date){
+ //   console.log("123123 %o", duties)
       let dates:Date[] = []
       this.weekDays[this.weekNum] = []
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
      
         let tst = new Date(dates[i]).toISOString().slice(0,10) 
-        this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
+   //     this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
         this.weekDays[this.weekNum][i] = dates[i].getDate()
-        if (!this.weekDayWithDuties[i])
-      
-          this.weekDayWithDuties[tst] = duties[tst]     ///////////////
-          this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
+      //  if (!this.weekDayWithDuties[i])
+      //    this.weekDayWithDuties[tst] = duties[tst]     ///////////////
+     //     this.datesWithDuties[i] = new dateWithDuties(tst, duties[tst])
 
      //   this.weekDayWithDuties[i][dates[i].getDate()] = dayBucket[dates[i].getDate()]
       
