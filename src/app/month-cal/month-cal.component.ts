@@ -49,7 +49,7 @@ export class MonthCalComponent {
         this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
        }))
       }))
-    console.log("545454  theMonth.datesWithDuties %o", this.theMonth.datesWithDuties)  
+    console.log("545454  theMonth %o", this.theMonth)  
     }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
@@ -65,10 +65,7 @@ export class MonthCalComponent {
         }  
     })
   }
- // getUserKey()
- 
- 
- 
+
     /** Make dS with a instande of dateWithData class for each day of the month. 
      * Include dates from last month in first week if needed and dates for next month in last week if needed.
      */
@@ -133,6 +130,9 @@ class month2Class {
       this.weekDays[this.weekNum] = []  
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
+
+        // INSERT AN IF THE DATE IS STILL IN THE MONTH
+        
         this.weekDays[this.weekNum][i] = dates[i].getDate()     // gets Day of Month
         if (i == 0){
           this.weekDayForDuties[this.weekNum] = []
