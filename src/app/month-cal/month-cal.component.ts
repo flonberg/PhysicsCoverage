@@ -42,26 +42,21 @@ export class MonthCalComponent {
     console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
-   
-      this.getDuties()
-
-
-
+    this.getDuties()
     }
   /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
-    this.theMonth.datesWithDuties = []
+ //   this.theMonth.datesWithDuties = []
     let ind = 0
           console.log("535353 dayBucket %o", this.dayBucket)  
-          console.log("545454 weekdyaWithDuties %o", this.theMonth.weekDayForDuties)
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
       //  console.log("575757 elem2 is %o", elem2)
         this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
        }))
-      }))
+      })) 
  
-    console.log("545454  theMonth %o", this.theMonth)  
+    console.log("545454  theMonth.datewWithDuties %o", this.theMonth.datesWithDuties)  
     }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
@@ -85,6 +80,13 @@ export class MonthCalComponent {
     
     })
   }
+   advanceMonth(number: number) {
+    this.advance += number
+    this.theMonth = new month2Class(this.advance)
+    this.getDuties()
+   // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
+    this.addDutiesToDays()
+  }
 
     /** Make dS with a instande of dateWithData class for each day of the month. 
      * Include dates from last month in first week if needed and dates for next month in last week if needed.
@@ -101,13 +103,7 @@ export class MonthCalComponent {
         console.log(this.theDuties)
       })
     }
-  advanceMonth(number: number) {
-    this.advance += number
-       this.theMonth = new month2Class(this.advance)
-    this.getDuties()
-    this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
-    this.addDutiesToDays()
-  }
+ 
 }
 
 class month2Class {
