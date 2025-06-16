@@ -95,6 +95,7 @@ class month2Class {
   weekDays: number[][] = []
   weekNum: number = 0
   monthName: string = ''
+  monthNum: number = 0
   monthSQLstring: string = ''
   weekDayForDuties: any[][] = []
   datesWithDuties:any[]=[]
@@ -104,7 +105,8 @@ class month2Class {
 
     this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth() + advance, 1)  // first day of month
     this.monthSQLstring = this.focusDate.toISOString().slice(0,7)      // for use in SQL query e.g  LIKE '2-25-06%'
-    this.monthName = monthNames[this.focusDate.getMonth()]
+    this.monthNum = this.focusDate.getMonth()
+    this.monthName = monthNames[this.monthNum]
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
