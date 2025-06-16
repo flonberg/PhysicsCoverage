@@ -42,19 +42,25 @@ export class MonthCalComponent {
     console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
+   
       this.getDuties()
 
-      this.addDutiesToDays()
+
 
     }
   /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
+    this.theMonth.datesWithDuties = []
     let ind = 0
+          console.log("535353 dayBucket %o", this.dayBucket)  
+          console.log("545454 weekdyaWithDuties %o", this.theMonth.weekDayForDuties)
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
+      //  console.log("575757 elem2 is %o", elem2)
         this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
        }))
       }))
+ 
     console.log("545454  theMonth %o", this.theMonth)  
     }
   getDuties(){
@@ -74,7 +80,9 @@ export class MonthCalComponent {
             this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
-console.log("7777 dayBucket %o", this.dayBucket)        
+        console.log("7777 dayBucket %o", this.dayBucket)    
+              this.addDutiesToDays()
+    
     })
   }
 
@@ -95,6 +103,7 @@ console.log("7777 dayBucket %o", this.dayBucket)
     }
   advanceMonth(number: number) {
     this.advance += number
+       this.theMonth = new month2Class(this.advance)
     this.getDuties()
     this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
     this.addDutiesToDays()
@@ -123,6 +132,7 @@ class month2Class {
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
+
 
     console.log("220220 weeks %o", this.weeks)    
     console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
@@ -155,7 +165,8 @@ class month2Class {
         }
 
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
-        this.weekNum++
+        this.     weekNum++
+
         return dates
     }
     getMonthSQLstring(){
