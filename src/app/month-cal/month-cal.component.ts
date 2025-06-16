@@ -132,9 +132,6 @@ class month2Class {
       this.weekDays[this.weekNum] = []  
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
-
-        // INSERT AN IF THE DATE IS STILL IN THE MONTH
-        
         this.weekDays[this.weekNum][i] = dates[i].getDate()     // gets Day of Month
         if (i == 0){
           this.weekDayForDuties[this.weekNum] = []
@@ -151,9 +148,13 @@ class month2Class {
     getMonthSQLstring(){
       return this.monthSQLstring
     }
-    putDutiesInDay(days:[], duties:[]){
+  doesDateHaveDuties(date: any){
+    if (date.userkey)
+      return true
+    else 
+      return false
+  }  
 
-    }
  
 }
 class dateWithDuties{
