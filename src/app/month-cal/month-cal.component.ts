@@ -35,15 +35,19 @@ export class MonthCalComponent {
         this.id = params['id'];
         this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
        })
+           
     this.forSQLmonthString =  new Date().toISOString().slice(0,7)     
     this.theMonth = new month2Class(0)
+
     console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
       this.getDuties()
+
       this.addDutiesToDays()
+
     }
-  /** theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
+  /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
     let ind = 0
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
@@ -55,17 +59,22 @@ export class MonthCalComponent {
     }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
+    this.dayBucket = []
+    let today = new Date() 
+      let advancedToday = new Date(today.getFullYear(), today.getMonth() +this.advance, 1)
+      let monthSQLstring = advancedToday.toISOString().slice(0,7)  
   //  this.myservice.getForMonth(dString).subscribe(res=>{
-    this.myservice.getForMonth(this.forSQLmonthString).subscribe(res=>{
+    this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
             let justDate = this.theDuties[i]['day']['date'].slice(0,10)
-            if (!this.dayBucket[justDate])
+            if (!this.dayBucket[justDate])                      // this is where dayBucket is created
               this.dayBucket[justDate] = []
             this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
+console.log("7777 dayBucket %o", this.dayBucket)        
     })
   }
 
@@ -86,7 +95,9 @@ export class MonthCalComponent {
     }
   advanceMonth(number: number) {
     this.advance += number
+    this.getDuties()
     this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
+    this.addDutiesToDays()
   }
 }
 
@@ -159,14 +170,7 @@ class month2Class {
 
  
 }
-class dateWithDuties{
- dateString: string = ''
- duties:  any[] = []
-  constructor(date:string, duties: any){
-    this.dateString = new Date(date).toISOString().slice(8,10)
-    this.duties = duties
-  }
-}
+
   
 
 
