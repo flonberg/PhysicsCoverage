@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <tbody>
     <h3> {{ monthShownName }} </h3>
-      <span>  test  {{ theMonth.datesWithDuties[3] | json }}</span>
+      <span>  test  {{ theMonth.datesWithDuties[1] | json }}</span>
 <table> 
     <tr>
         <th></th>
@@ -19,11 +19,9 @@
     <tr *ngFor = "let item of theMonth.weeks, index as ind">  <!-- First Week -->
         <td *ngFor = " let item2 of theMonth.weekDays[ind], index as ind2">{{item2}} 
                 <table class="duties">
-                  
                 <tr *ngFor = "let duty of theMonth.datesWithDuties[ind], index as ind3">
-                    <td> {{ ind }}</td>
                     <td *ngIf = "theMonth.datesWithDuties[ind2+ind*5]">
-                         {{ theMonth.datesWithDuties[ind2+ind*5][ind3].userkey }}  -- {{ind2+ind*5 }} </td>
+                         {{ theMonth.datesWithDuties[ind2+ind*5][ind3].userkey }} </td>
                 </tr>
             </table>
         </td>
