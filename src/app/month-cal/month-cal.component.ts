@@ -23,6 +23,7 @@ export class MonthCalComponent {
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
   monthShownName: string=''                         // Name of the month shown in the calendar
+  forSQLmonthString:string= ''
   theDuties:any
   monthStringForSQL:string = ''
   dayBucket:any[] = []
@@ -34,6 +35,7 @@ export class MonthCalComponent {
         this.id = params['id'];
         this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
        })
+    this.forSQLmonthString =  new Date().toISOString().slice(0,7)     
     this.theMonth = new month2Class(0)
     console.log("31313 theMonth %o", this.theMonth)
   }
@@ -53,7 +55,8 @@ export class MonthCalComponent {
     }
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
-    this.myservice.getForMonth(dString).subscribe(res=>{
+  //  this.myservice.getForMonth(dString).subscribe(res=>{
+    this.myservice.getForMonth(this.forSQLmonthString).subscribe(res=>{
         this.theDuties = res
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
@@ -69,11 +72,13 @@ export class MonthCalComponent {
     /** Make dS with a instande of dateWithData class for each day of the month. 
      * Include dates from last month in first week if needed and dates for next month in last week if needed.
      */
-  makeMonth(advancd:number){
-      this.advance = advancd;  
+  makeMonth(advance:number){
+      this.advance = advance; 
+      let today = new Date() 
+      let advancedToday = new Date(today.getFullYear(), today.getMonth() + advance, 1)
+      let monthSQLstring = advancedToday.toISOString().slice(0,7)   
                                             // Set the advance value to the number passed in
-      this.myservice.getForMonth(this.theMonth.getMonthSQLstring()).subscribe(res=>{
- 
+      this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
         this.theMonth = new month2Class(this.advance)      
         console.log(this.theDuties)
@@ -84,10 +89,7 @@ export class MonthCalComponent {
     this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
   }
 }
-class Duties{
 
-
-}
 class month2Class {
   dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
   focusDate: Date = new Date()                            
@@ -152,7 +154,7 @@ class month2Class {
     if (date.userkey)
       return true
     else 
-      return false
+      return
   }  
 
  

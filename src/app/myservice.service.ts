@@ -27,6 +27,7 @@ export class MyserviceService {
       let url = "https://whiteboard.partners.org/esb/FLwbe/_prod_/APhysicsCov2025/getPhysicDuties.php?.MonthNum="+monthString;			// 
       if (isDevMode())
        url =  "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1&MonthNum="+monthString;  
+      console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
 
