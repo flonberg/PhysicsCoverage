@@ -60,7 +60,6 @@ export class MonthCalComponent {
           let test:number[] = [0,0,0,0,0]
           this.theMonth.datesWithDuties[ind++] = test  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         }
-    
        }))
       })) 
  

@@ -5,6 +5,15 @@
     <tr>
         <th></th>
         <th colspan="2"><img  class="images" (click) = "advanceMonth(-1)" src="assets/prevMonthArrow.png"/></th>
+        <th>
+            <table *ngIf = "dutyNames" style="font-size:small;">
+                <caption>Legend</caption>
+                <tr *ngFor = "let item of dutyNames index as ind">
+                    <td  *ngIf = "dutyNames[ind]"> {{ dutyNames[ind].name }} </td>
+                    <td  *ngIf = "dutyNames[ind]"> {{ dutyNames[ind].timeSpan }} </td>
+                </tr>
+            </table>
+        </th>
         <th colspan="2"><img  class="images" (click) = "advanceMonth(1)"  src="assets/nextMonthArrow.png"/></th>
     </tr>
     <tr><td colspan=5 style="font-size:30px;text-align: center;"> {{ theMonth.monthName }}</td></tr>
