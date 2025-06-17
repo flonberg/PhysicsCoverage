@@ -9,5 +9,6 @@ export const routes: Routes = [
     {path: 'Week/:id', component: WeekCalComponent},
     {path: 'Month/:id', component: MonthCalComponent},
    {path: 'Timeaway/:id', component: TimeawayComponent},
+    {path: '*', component: MonthCalComponent},
     
 ];
