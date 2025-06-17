@@ -10,6 +10,9 @@ import { MyserviceService } from './myservice.service';
   imports: [CommonModule, RouterOutlet, RouterModule],
   templateUrl:  './app.component.html',
   styleUrl: './app.component.css',
+     host: {
+        '[attr.ngSkipHydration]': 'true'
+      }
 })
 export class AppComponent implements OnInit {
   constructor(private route: ActivatedRoute,private router: Router, private myservice:MyserviceService) {}
@@ -18,16 +21,23 @@ export class AppComponent implements OnInit {
   runs: number = 0
      ngOnInit() {
           this.route.queryParams.subscribe(params => {
-            console.log(params); // Log all query parameters
             this.id = params['userid']; // Access a specific query parameter
-            console.log("appComp 2424 myParams %o",params);
-            this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
+            if (this.id)
+              this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
+        
+            else 
+              this.id = this.myservice.getUserId() 
+          console.log("appComp 2424 myParams %o",params);
           });
         }
     hasId(){
       if (this.id)
         return true
-      else
+      else if  (this.id = this.myservice.getUserId()) {
+        this.id = this.myservice.getUserId()
+        return true
+      }
+      else 
         return false
     }    
 
