@@ -29,21 +29,14 @@ export class MonthCalComponent {
   monthStringForSQL:string = ''
   dayBucket:any[] = []
 
-  // Initialize an array of key-value tuples
- legendColors: [string, any][] = [ // [keyType, valueType][]
-  ["10", "blue"],
-  ["20", "green"],
-  ["21", "yellow"],
-  ["22", "orange"],
-  ["23", "purple"],
-   ]
 
-  productPrices: Record<number, string> = {
-  10: 'blue',
-  20: 'green',
+
+  legendColors: Record<number, string> = {
+  10: '#FFE4C4',
+  20: '#b3ffec',
   21: 'yellow',
-  22: 'orange',
-  25: 'purple'
+  22: '#ffa366',
+  25: '#e6ccff'
 };
   
 
