@@ -24,13 +24,20 @@ export class MyserviceService {
       return date.toISOString().slice(0, 10);
     }
     getForMonth(monthString: string){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php?MonthNum="+monthString;			// 
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsMonthlyDuties.php?MonthNum="+monthString;			// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
-       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1&MonthNum="+monthString;  
-             
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsMonthlyDuties.php?debug=1&MonthNum="+monthString;       
       console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
+    getFromPhysicsDuty(){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
+                 https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+      if (isDevMode())
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";       
+      console.log("3939  url %o", url)
+      return this .HttpClient.get<duty>(url)
+    }
 
 }

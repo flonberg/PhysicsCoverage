@@ -19,6 +19,7 @@ import { duty } from '../models'
 export class MonthCalComponent {
   theMonth:month2Class
   duties: number[] = [0,1,2,3,4,5,6]; // 7 days of the week
+  dutyNames: any = []
   id: string  = ''
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
@@ -43,6 +44,7 @@ export class MonthCalComponent {
   }
    ngOnInit() {
     this.getDuties()
+    this.getDutyNames()
     }
   /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
@@ -64,6 +66,12 @@ export class MonthCalComponent {
  
     console.log("545454  theMonth.datewWithDuties %o", this.theMonth.datesWithDuties)  
     }
+  getDutyNames(){
+        this.myservice.getFromPhysicsDuty().subscribe(res=>{
+        this.dutyNames = res
+  console.log("717171 dutyNames is %o", this.dutyNames)      
+        })
+  }  
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
     this.dayBucket = []
