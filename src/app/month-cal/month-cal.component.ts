@@ -28,6 +28,23 @@ export class MonthCalComponent {
   theDuties:any
   monthStringForSQL:string = ''
   dayBucket:any[] = []
+
+  // Initialize an array of key-value tuples
+ legendColors: [string, any][] = [ // [keyType, valueType][]
+  ["10", "blue"],
+  ["20", "green"],
+  ["21", "yellow"],
+  ["22", "orange"],
+  ["23", "purple"],
+   ]
+
+  productPrices: Record<number, string> = {
+  10: 'blue',
+  20: 'green',
+  21: 'yellow',
+  22: 'orange',
+  25: 'purple'
+};
   
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
@@ -46,6 +63,10 @@ export class MonthCalComponent {
     this.getDuties()
     this.getDutyNames()
     }
+    getColor(idx:number){
+      return this.legendColors[idx  ]
+    }
+
   /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
  //   this.theMonth.datesWithDuties = []

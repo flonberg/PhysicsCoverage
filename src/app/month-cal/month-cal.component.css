@@ -1,9 +1,10 @@
 table {
-    width: 100%;
+    width: 800px;
     table-layout: fixed;
-    border-collapse: collapse;
+    border:solid;
 }
 table.duties{
     font-size: 0.8em;
     background-color: rgb(183, 169, 169);
+    width:100%
 }
