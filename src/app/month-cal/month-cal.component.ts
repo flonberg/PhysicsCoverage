@@ -51,15 +51,14 @@ export class MonthCalComponent {
           console.log("535353 dayBucket %o", this.dayBucket)  
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
-  console.log("575757 elem2 is %o   dayBuckte %o", elem2, this.dayBucket[elem2])
+
         if (this.dayBucket[elem2] )
           this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         else {
           let test:number[] = [0,0,0,0,0]
           this.theMonth.datesWithDuties[ind++] = test  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         }
-
-  console.log("565656 datesWithDuties %o", this.theMonth.datesWithDuties[ind-1] )      
+    
        }))
       })) 
  
@@ -74,6 +73,7 @@ export class MonthCalComponent {
   //  this.myservice.getForMonth(dString).subscribe(res=>{
     this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
+  console.log("767676 te dutues %o", this.theDuties)      
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
             let justDate = this.theDuties[i]['day']['date'].slice(0,10)

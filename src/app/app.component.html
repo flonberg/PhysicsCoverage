@@ -16,4 +16,13 @@
       </ul>
    </div>
 </nav>
+<div *ngIf = "hasId()">
+<table>
+   <tr>
+      <td> <a class='nav-link'  [routerLink]="['/Month', id]">Month Cal</a></td>
+      <td> <a class='nav-link'  [routerLink]="['/Week', id]">Week Cal</a></td>
+      <td> <a class='nav-link'  [routerLink]="['/Timeaway', id]">Time Away</a></td>
+   </tr>
+</table>
+</div>
 <router-outlet></router-outlet>

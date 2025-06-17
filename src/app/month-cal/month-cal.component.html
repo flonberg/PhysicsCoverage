@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <tbody>
     <h3> {{ monthShownName }} </h3>
-      <span>  test  {{ theMonth.datesWithDuties[1] | json }}</span>
 <table> 
     <tr>
         <th></th>
@@ -21,7 +20,7 @@
                 <table class="duties">
                 <tr *ngFor = "let duty of theMonth.datesWithDuties[ind], index as ind3">
                     <td *ngIf = "theMonth.datesWithDuties[ind2+ind*5]">
-                         {{ theMonth.datesWithDuties[ind2+ind*5][ind3].userkey }} </td>
+                         {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }} </td>
                 </tr>
             </table>
         </td>

@@ -22,9 +22,13 @@ export class AppComponent implements OnInit {
             this.id = params['userid']; // Access a specific query parameter
             console.log("appComp 2424 myParams %o",params);
             this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
-       
           });
-
         }
+    hasId(){
+      if (this.id)
+        return true
+      else
+        return false
+    }    
 
 }
