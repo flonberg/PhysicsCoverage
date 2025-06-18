@@ -29,6 +29,7 @@ export class MonthCalComponent {
   monthStringForSQL:string = ''
   dayBucket:any[] = []
   numAssignments:number = 0
+  gotData: boolean = false
 
   legendColors: Record<number, string> = {
   10: '#FFE4C4',
@@ -42,8 +43,8 @@ export class MonthCalComponent {
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
         this.route.params.subscribe(params => {
-        this.id = params['id'];
-        this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
+     //  this.id = params['id'];
+    //    this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
        })
            
     this.forSQLmonthString =  new Date().toISOString().slice(0,7)     
@@ -103,6 +104,7 @@ export class MonthCalComponent {
           }
         }  
         this.addDutiesToDays()
+        this.gotData = true
     
     })
   }
@@ -137,6 +139,7 @@ export class MonthCalComponent {
   }  
  takeDuty(assign: any){
   console.log("139139 assign %o", assign.idx)
+  this.gotData = false
   this.myservice.takeAssignment(assign.idx).subscribe(res=>{
       this.theMonth = new month2Class(this.advance)
     this.getDuties()
