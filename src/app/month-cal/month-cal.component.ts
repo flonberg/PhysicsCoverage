@@ -138,6 +138,10 @@ export class MonthCalComponent {
  takeDuty(assign: any){
   console.log("139139 assign %o", assign.idx)
   this.myservice.takeAssignment(assign.idx).subscribe(res=>{
+      this.theMonth = new month2Class(this.advance)
+    this.getDuties()
+   // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
+    this.addDutiesToDays()
  } )
 }
 }
