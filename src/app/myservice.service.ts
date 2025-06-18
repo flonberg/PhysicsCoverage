@@ -39,10 +39,10 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }
     takeAssignment(idx: number){
-          let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
-       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userkey="+this.userid+"+&debug=1";       
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userid="+this.userid+"+&debug=1";       
       console.log("464646  url %o", url)
       return this .HttpClient.get<duty>(url)
     }
