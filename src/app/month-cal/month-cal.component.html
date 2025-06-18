@@ -28,10 +28,11 @@
         <td *ngFor = " let item2 of theMonth.weekDays[ind], index as ind2">{{item2}} 
                 <table class="duties">
                 <tr *ngFor = "let duty of theMonth.datesWithDuties[ind], index as ind3">
-                    <td *ngIf = "theMonth.datesWithDuties[ind2+ind*5]"
+                    <td  colspan="3" *ngIf = "theMonth.datesWithDuties[ind2+ind*5]"
                     [style.background]="legendColors[theMonth.datesWithDuties[ind2+ind*5][ind3].serviceid]">
                     {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }}        
                      </td>
+                     <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3])" style="text-align: center;"><button class="square-button">-</button></td>
                 </tr>
             </table>
         </td>

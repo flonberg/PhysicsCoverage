@@ -28,8 +28,7 @@ export class MonthCalComponent {
   theDuties:any
   monthStringForSQL:string = ''
   dayBucket:any[] = []
-
-
+  numAssignments:number = 0
 
   legendColors: Record<number, string> = {
   10: '#FFE4C4',
@@ -50,7 +49,7 @@ export class MonthCalComponent {
     this.forSQLmonthString =  new Date().toISOString().slice(0,7)     
     this.theMonth = new month2Class(0)
 
-    console.log("31313 theMonth %o", this.theMonth)
+  //  console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
     this.getDuties()
@@ -94,7 +93,7 @@ export class MonthCalComponent {
   //  this.myservice.getForMonth(dString).subscribe(res=>{
     this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
-  console.log("767676 te dutues %o", this.theDuties)      
+        this.numAssignments =this.theDuties.length
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
             let justDate = this.theDuties[i]['day']['date'].slice(0,10)
@@ -103,8 +102,7 @@ export class MonthCalComponent {
             this.dayBucket[justDate].push(this.theDuties[i]) 
           }
         }  
-        console.log("7777 dayBucket %o", this.dayBucket)    
-              this.addDutiesToDays()
+        this.addDutiesToDays()
     
     })
   }
@@ -128,9 +126,15 @@ export class MonthCalComponent {
       this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
         this.theMonth = new month2Class(this.advance)      
-        console.log(this.theDuties)
+     //   console.log(this.theDuties)
       })
     }
+  hasAssignments(assign: any){
+    if (assign == 0)
+      return false
+    else
+      return true
+  }  
  
 }
 
@@ -158,9 +162,9 @@ class month2Class {
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
 
 
-    console.log("220220 weeks %o", this.weeks)    
-    console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
-    console.log("`37`37`weekDays %o", this.weekDays)        
+   // console.log("220220 weeks %o", this.weeks)    
+   // console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
+  //  console.log("`37`37`weekDays %o", this.weekDays)        
   }
 
   /** move forward to Monday is Weekend of BACK to Monday is Tues-Fri */
