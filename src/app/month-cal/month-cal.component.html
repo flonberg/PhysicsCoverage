@@ -32,7 +32,9 @@
                     [style.background]="legendColors[theMonth.datesWithDuties[ind2+ind*5][ind3].serviceid]">
                     {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }}        
                      </td>
-                     <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3])" style="text-align: center;"><button class="square-button">-</button></td>
+                     <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3])"
+                     style="text-align: center;"><button class="square-button" 
+                     (click)="takeAssignment(theMonth.datesWithDuties[ind2+ind*5][ind3])">-</button></td>
                 </tr>
             </table>
         </td>

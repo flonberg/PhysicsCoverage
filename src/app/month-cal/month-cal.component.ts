@@ -135,6 +135,10 @@ export class MonthCalComponent {
     else
       return true
   }  
+ takeAssignment(assign: any){
+  console.log("139139 assign %o", assign)
+  const userid = this.myservice.getUserId()
+ } 
  
 }
 

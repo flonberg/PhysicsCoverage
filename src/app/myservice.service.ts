@@ -9,7 +9,6 @@ import { isDevMode } from '@angular/core';
 
 export class MyserviceService {
   userid: string  = ''
-
   constructor(private HttpClient:HttpClient) { }
     setUserId(id: string) {
       this.userid = id;
@@ -38,6 +37,9 @@ export class MyserviceService {
        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";       
       console.log("3939  url %o", url)
       return this .HttpClient.get<duty>(url)
+    }
+    takeAssignment(idx: number){
+      
     }
 
 }
