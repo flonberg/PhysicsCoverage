@@ -18,16 +18,25 @@ export class AppComponent implements OnInit {
   constructor(private route: ActivatedRoute,private router: Router, private myservice:MyserviceService) {}
   title = 'PhysicsCoverage';
   id: string = ''
-  runs: number = 0
+ loggedInUserKey: number = 0
      ngOnInit() {
           this.route.queryParams.subscribe(params => {
             this.id = params['userid']; // Access a specific query parameter
-            if (this.id)
+            if (this.id){
               this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
-            else 
+                   this.myservice.getLoggedInUserKey().subscribe(res=>{
+              this.loggedInUserKey = res
+              console.log("34343 loggedInUserKey is %o", this.loggedInUserKey)
+                   
+            })
+          }
+            else {
               this.id = this.myservice.getUserId() 
-          console.log("appComp 2424 myParams %o",params);
+            }
           });
+          if (this.id){
+     
+          }
         }
     hasId(){
       if (this.id)
