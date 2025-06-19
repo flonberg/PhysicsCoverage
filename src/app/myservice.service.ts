@@ -9,14 +9,12 @@ import { isDevMode } from '@angular/core';
 
 export class MyserviceService {
   userid: string  = ''
-  userkey: number = 0
+  userkey: any = 0
   constructor(private HttpClient:HttpClient) { }
     setUserId(id: string) {
       this.userid = id;
     }
-    setUserKey(userkey:number){
-      this.userkey = userkey
-    }
+
 
     getUserId(): string  {
       return this.userid;
@@ -44,10 +42,10 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }
     takeAssignment(idx: number){
-      let url =  "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userid="+this.userid+"+&debug=1";		// 
+      let url =  "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userkey="+this.userkey+"+&debug=1";		// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
-       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userid="+this.userid+"+&debug=1";       
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userkey="+this.userkey+"+&debug=1";       
       console.log("464646  url %o", url)
       return this .HttpClient.get<duty>(url)
     }
@@ -56,9 +54,10 @@ export class MyserviceService {
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//     
-        this.HttpClient.get<number>(url).subscribe(res=>{
-          this.userkey = res
-        console.log("62626 %o", this.userkey)
+        this.HttpClient.get<any>(url).subscribe(res=>{
+          this.userkey = res['userkey']
+        console.log("595959  userkey %o", this.userkey)  
+
       })
     }
 
