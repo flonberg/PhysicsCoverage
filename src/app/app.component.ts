@@ -24,11 +24,7 @@ export class AppComponent implements OnInit {
             this.id = params['userid']; // Access a specific query parameter
             if (this.id){
               this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
-                   this.myservice.getLoggedInUserKey().subscribe(res=>{
-              this.loggedInUserKey = res
-              console.log("34343 loggedInUserKey is %o", this.loggedInUserKey)
-                   
-            })
+              this.myservice.setLoggedInUserKey()
           }
             else {
               this.id = this.myservice.getUserId() 
