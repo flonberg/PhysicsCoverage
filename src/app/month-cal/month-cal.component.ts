@@ -144,7 +144,8 @@ export class MonthCalComponent {
     if (this.dutyNames[i]){
     console.log("143143 %o -- %o", this.dutyNames[i].Idx, assign.serviceid)
     if (this.dutyNames[i].Idx ==assign.serviceid){
-      message = "You are assuming "+ this.dutyNames[i]['name']
+      let dateString = assign.day.date.slice(0,10)
+      message = "You are assuming "+ this.dutyNames[i]['name'] + " on " + dateString
       }
     }
     
