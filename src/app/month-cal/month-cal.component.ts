@@ -152,13 +152,11 @@ export class MonthCalComponent {
     const userConfirmed = window.confirm(message);
     if (userConfirmed){
       this.theMonth.datesWithDuties[xnum][ynum].LastName = this.myservice.getUserLastName()
-    /*  this.gotData = false
+      this.gotData = false
       this.myservice.takeAssignment(assign.idx).subscribe(res=>{
-        this.theMonth = new month2Class(this.advance)
-        this.getDuties()
-        this.addDutiesToDays()
+  
         } )
-        */
+        
       }
   }
   doesLoggedInUserHaveThis(duty: any){

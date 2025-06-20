@@ -10,6 +10,7 @@
 
                 <tr *ngFor = "let item of dutyNames index as ind">
                     <td [style.background]="legendColors[dutyNames[ind].Idx ]" *ngIf = "dutyNames[ind]"> {{ dutyNames[ind].name }} </td>
+                    <td [style.background]="legendColors[dutyNames[ind].Idx ]" *ngIf = "dutyNames[ind]"> {{ dutyNames[ind].timeSpan }} </td>
                    
                 </tr>
             </table>
