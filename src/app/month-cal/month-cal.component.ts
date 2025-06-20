@@ -79,7 +79,7 @@ export class MonthCalComponent {
     console.log("545454  theMonth.datewWithDuties %o", this.theMonth.datesWithDuties)  
     }
   getDutyNames(){
-        this.myservice.getFromPhysicsDuty().subscribe(res=>{
+        this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
         this.dutyNames = res
   console.log("717171 dutyNames is %o", this.dutyNames)      
         })
@@ -109,10 +109,12 @@ export class MonthCalComponent {
   }
    advanceMonth(number: number) {
     this.advance += number
+    console.log("112112 monthAdvance %o", this.advance)
     this.theMonth = new month2Class(this.advance)
     this.getDuties()
    // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
     this.addDutiesToDays()
+    this.myservice.getFromPhysicsDuty(this.advance)
   }
 
     /** Make dS with a instande of dateWithData class for each day of the month. 
@@ -151,21 +153,22 @@ export class MonthCalComponent {
     }
     const userConfirmed = window.confirm(message);
     if (userConfirmed){
+      let test = this.myservice.getUserLastName()
+    console.log("1555155 userLastName %o", test)  
       this.theMonth.datesWithDuties[xnum][ynum].LastName = this.myservice.getUserLastName()
       this.gotData = false
       this.myservice.takeAssignment(assign.idx).subscribe(res=>{
-  
+        let rest = res
+      console.log("160160 rest is %o", rest)  
         } )
         
       }
   }
   doesLoggedInUserHaveThis(duty: any){
     const test = this.myservice.getLoggedInUserKey()
-    console.log("166166 %o", test)
     let takerUserKey = duty.UserKey
     if (duty.phys2)
       takerUserKey = duty.phys2
-
     if (takerUserKey == this.myservice.getLoggedInUserKey())
       return 'takee'
     else

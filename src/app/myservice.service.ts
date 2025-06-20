@@ -39,16 +39,18 @@ export class MyserviceService {
       console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
-    getFromPhysicsDuty(){
+    getFromPhysicsDuty(monthAdvance: number){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
-                 https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
-       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";       
-      console.log("3939  url %o", url)
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
+      var monthNumOfToday = new Date().getMonth()
+      if ((monthNumOfToday == 5 && monthAdvance == 2) || ( monthNumOfToday == 5 && monthAdvance == 1) || monthNumOfToday == 7)
+          url +="&newDuties=1" 
+      console.log("3939  url for getFromPhysicsDuty %o", url)
       return this .HttpClient.get<duty>(url)
     }
     takeAssignment(idx: number){
-      let url =  "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userkey="+this.userkey+"+&debug=1";		// 
+      let url =  "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/takeDuty.php?idx="+idx+"&userkey="+this.userkey+"+&debug=1";		// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userkey="+this.userkey+"+&debug=1";       

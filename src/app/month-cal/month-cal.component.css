@@ -1,7 +1,7 @@
 table {
     width: 800px;
     table-layout: fixed;
-    border:solid;
+
 }
 table.duties{
     font-size: 0.8em;
@@ -27,4 +27,7 @@ square-button {
 }
 .normal {
   color: blue
+}
+.duties {
+  border:solid;
 }
