@@ -40,12 +40,17 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }  
     getFromPhysicsDuty(monthAdvance: number){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
-      if (isDevMode())
-       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
       var monthNumOfToday = new Date().getMonth()
-      if ((+monthNumOfToday + +monthAdvance) > 6)
-          url +="&newDuties=1" 
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
+      if (isDevMode()){
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
+         if ((+monthNumOfToday + +monthAdvance) > 6)
+            url +="&newDuties=1" 
+        }
+      else {  
+        if ((+monthNumOfToday + +monthAdvance) > 6)
+              url +="?newDuties=1"   
+        }
       console.log("3939  url for getFromPhysicsDuty %o", url)
       return this .HttpClient.get<duty>(url)
     }
