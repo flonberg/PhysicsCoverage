@@ -67,7 +67,6 @@ export class MonthCalComponent {
           console.log("535353 dayBucket %o", this.dayBucket)  
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
-
         if (this.dayBucket[elem2] )
           this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         else {
@@ -138,15 +137,54 @@ export class MonthCalComponent {
       return true
   }  
  takeDuty(assign: any){
-  console.log("139139 assign %o", assign.idx)
+  console.log("139139 assign %o", assign)
+  console.log("141141 %o", this.dutyNames)
+  let message: string = ""
+  for (let i=0; i < this.dutyNames.length; i++){
+    if (this.dutyNames[i]){
+    console.log("143143 %o -- %o", this.dutyNames[i].Idx, assign.serviceid)
+    if (this.dutyNames[i].Idx ==assign.serviceid){
+      message = "You are assuming "+ this.dutyNames[i]['name']
+      }
+    }
+    
+  
+  }
+  const userConfirmed = window.confirm(message);
+  if (userConfirmed){
   this.gotData = false
   this.myservice.takeAssignment(assign.idx).subscribe(res=>{
-      this.theMonth = new month2Class(this.advance)
+    this.theMonth = new month2Class(this.advance)
     this.getDuties()
    // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
     this.addDutiesToDays()
- } )
-}
+    } )
+  }
+  }
+  doesLoggedInUserHaveThis(duty: any){
+    const test = this.myservice.getLoggedInUserKey()
+    let takerUserKey = duty.UserKey
+    if (duty.phys2)
+      takerUserKey = duty.phys2
+
+    if (takerUserKey == this.myservice.getLoggedInUserKey())
+      return 'takee'
+    else
+      return 'normal'
+  }
+   confirmAction(): void {
+        const userConfirmed = window.confirm('Are you sure you want to proceed?');
+
+        if (userConfirmed) {
+          // User clicked "OK"
+          console.log('Action confirmed!');
+          // Perform the desired action here
+        } else {
+          // User clicked "Cancel"
+          console.log('Action cancelled.');
+          // Handle cancellation or do nothing
+        }
+      }
 }
 
 class month2Class {

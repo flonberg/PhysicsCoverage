@@ -14,7 +14,9 @@ export class MyserviceService {
     setUserId(id: string) {
       this.userid = id;
     }
-
+    getLoggedInUserKey(){
+      return this.userkey
+    }
 
     getUserId(): string  {
       return this.userid;
@@ -51,13 +53,11 @@ export class MyserviceService {
     }
     setLoggedInUserKey(){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
-                 https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//     
         this.HttpClient.get<any>(url).subscribe(res=>{
           this.userkey = res['userkey']
         console.log("595959  userkey %o", this.userkey)  
-
       })
     }
 
