@@ -44,7 +44,7 @@ export class MyserviceService {
       if (isDevMode())
        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
       var monthNumOfToday = new Date().getMonth()
-      if ((monthNumOfToday == 5 && monthAdvance == 2) || ( monthNumOfToday == 5 && monthAdvance == 1) || monthNumOfToday == 7)
+      if ((+monthNumOfToday + +monthAdvance) > 6)
           url +="&newDuties=1" 
       console.log("3939  url for getFromPhysicsDuty %o", url)
       return this .HttpClient.get<duty>(url)

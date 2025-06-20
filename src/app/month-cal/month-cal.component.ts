@@ -111,6 +111,10 @@ export class MonthCalComponent {
     this.advance += number
     console.log("112112 monthAdvance %o", this.advance)
     this.theMonth = new month2Class(this.advance)
+    this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
+       this.dutyNames = res
+       console.log("116116 dutyNames %o", this.dutyNames)
+    })
     this.getDuties()
    // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
     this.addDutiesToDays()
