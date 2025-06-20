@@ -136,7 +136,7 @@ export class MonthCalComponent {
     else
       return true
   }  
- takeDuty(assign: any){
+ takeDuty(assign: any, xnum:number, ynum: number){
   console.log("139139 assign %o", assign)
   console.log("141141 %o", this.dutyNames)
   let message: string = ""
@@ -146,24 +146,24 @@ export class MonthCalComponent {
     if (this.dutyNames[i].Idx ==assign.serviceid){
       let dateString = assign.day.date.slice(0,10)
       message = "You are assuming "+ this.dutyNames[i]['name'] + " on " + dateString
+        }
       }
     }
-    
-  
-  }
-  const userConfirmed = window.confirm(message);
-  if (userConfirmed){
-  this.gotData = false
-  this.myservice.takeAssignment(assign.idx).subscribe(res=>{
-    this.theMonth = new month2Class(this.advance)
-    this.getDuties()
-   // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
-    this.addDutiesToDays()
-    } )
-  }
+    const userConfirmed = window.confirm(message);
+    if (userConfirmed){
+      this.theMonth.datesWithDuties[xnum][ynum].LastName = this.myservice.getUserLastName()
+    /*  this.gotData = false
+      this.myservice.takeAssignment(assign.idx).subscribe(res=>{
+        this.theMonth = new month2Class(this.advance)
+        this.getDuties()
+        this.addDutiesToDays()
+        } )
+        */
+      }
   }
   doesLoggedInUserHaveThis(duty: any){
     const test = this.myservice.getLoggedInUserKey()
+    console.log("166166 %o", test)
     let takerUserKey = duty.UserKey
     if (duty.phys2)
       takerUserKey = duty.phys2

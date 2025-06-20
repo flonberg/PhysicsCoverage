@@ -10,12 +10,16 @@ import { isDevMode } from '@angular/core';
 export class MyserviceService {
   userid: string  = ''
   userkey: any = 0
+  userLastName:string=''
   constructor(private HttpClient:HttpClient) { }
     setUserId(id: string) {
       this.userid = id;
     }
     getLoggedInUserKey(){
       return this.userkey
+    }
+    getUserLastName(){
+      return this.userLastName
     }
 
     getUserId(): string  {
@@ -56,8 +60,10 @@ export class MyserviceService {
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//     
         this.HttpClient.get<any>(url).subscribe(res=>{
+          const test = res
           this.userkey = res['userkey']
-        console.log("595959  userkey %o", this.userkey)  
+          this.userLastName = res['lastName']
+        console.log("595959  userkey %o  --- %o", this.userkey, this.userLastName)  
       })
     }
 
