@@ -30,6 +30,7 @@ export class MonthCalComponent {
   dayBucket:any[] = []
   numAssignments:number = 0
   gotData: boolean = false
+  takers:number[] = []                              // physicists who have duties and can therefore swap
 
   legendColors: Record<number, string> = {
   10: '#FFE4C4',
@@ -90,12 +91,13 @@ export class MonthCalComponent {
     let today = new Date() 
       let advancedToday = new Date(today.getFullYear(), today.getMonth() +this.advance, 1)
       let monthSQLstring = advancedToday.toISOString().slice(0,7)  
-  //  this.myservice.getForMonth(dString).subscribe(res=>{
-    this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
+      this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
+        console.log(this.theDuties)
         this.numAssignments =this.theDuties.length
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
+            this.takers[this.theDuties[i].UserKey] = 1          // create 'takers' array to det. if 'take' button should be shown 
             let justDate = this.theDuties[i]['day']['date'].slice(0,10)
             if (!this.dayBucket[justDate])                      // this is where dayBucket is created
               this.dayBucket[justDate] = []
@@ -104,8 +106,15 @@ export class MonthCalComponent {
         }  
         this.addDutiesToDays()
         this.gotData = true
-    
     })
+  }
+  /** is loggedInUser a physicist who has duties */
+  isUserTaker(){
+    const test = this.myservice.getLoggedInUserKey()
+    if (test in this.takers)
+      return true
+    else 
+      return false
   }
    advanceMonth(number: number) {
     this.advance += number
@@ -139,8 +148,12 @@ export class MonthCalComponent {
   hasAssignments(assign: any){
     if (assign == 0)
       return false
-    else
-      return true
+    else {
+      if (this.isUserTaker())
+        return true
+      else
+        return false
+    }
   }  
  takeDuty(assign: any, xnum:number, ynum: number){
   console.log("139139 assign %o", assign)

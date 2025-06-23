@@ -66,7 +66,8 @@ export class MyserviceService {
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//     
-        this.HttpClient.get<any>(url).subscribe(res=>{
+    console.log("696969 setLoggedInUserKey url %o", url)
+      this.HttpClient.get<any>(url).subscribe(res=>{
           const test = res
           this.userkey = res['userkey']
           this.userLastName = res['lastName']
