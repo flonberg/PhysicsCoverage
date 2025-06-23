@@ -44,6 +44,8 @@ export class AppComponent implements OnInit {
       }
       else 
         return false
-    }    
-
+    }  
+    goHome() { 
+        window.open('https://ion.mgh.harvard.edu/cgi-bin/main.pl?userid='+ this.id, ''); // opens in new tab
+    }
 }
