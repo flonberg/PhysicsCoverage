@@ -31,3 +31,9 @@ square-button {
 .duties {
   border:solid;
 }
+.today {
+  color:rgb(212, 78, 25);
+  font-weight:bold;
+  font-size:larger;
+}
+

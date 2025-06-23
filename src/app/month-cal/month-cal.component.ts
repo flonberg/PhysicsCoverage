@@ -43,15 +43,12 @@ export class MonthCalComponent {
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
-        this.route.params.subscribe(params => {
-     //  this.id = params['id'];
-    //    this.myservice.setUserId(this.id);          // This is the Entry component so Store the ID in the service for use by other components. 
-       })
+
            
     this.forSQLmonthString =  new Date().toISOString().slice(0,7)     
     this.theMonth = new month2Class(0)
 
-  //  console.log("31313 theMonth %o", this.theMonth)
+    console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
     this.getDuties()
@@ -204,6 +201,15 @@ export class MonthCalComponent {
           // Handle cancellation or do nothing
         }
       }
+  isToday(monthItem:any){
+    const test = monthItem
+    const todayDay = new Date().getDate()
+    
+    if (monthItem == todayDay)
+      return 'today'
+    else
+      return 'notToday'
+  }    
 }
 
 class month2Class {
@@ -228,9 +234,7 @@ class month2Class {
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
-
-
-   // console.log("220220 weeks %o", this.weeks)    
+    console.log("220220 weeks %o", this.weeks)    
    // console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
   //  console.log("`37`37`weekDays %o", this.weekDays)        
   }
