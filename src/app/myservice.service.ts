@@ -21,7 +21,9 @@ export class MyserviceService {
     getUserLastName(){
       return this.userLastName
     }
-
+    getUserKey(){
+      return this.userkey
+    }
     getUserId(): string  {
       return this.userid;
     }
@@ -66,13 +68,15 @@ export class MyserviceService {
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//     
-    console.log("696969 setLoggedInUserKey url %o", url)
       this.HttpClient.get<any>(url).subscribe(res=>{
           const test = res
           this.userkey = res['userkey']
           this.userLastName = res['lastName']
         console.log("595959  userkey %o  --- %o", this.userkey, this.userLastName)  
       })
+    }
+    getMyduties(userkey:number){
+
     }
 
 }
