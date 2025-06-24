@@ -1,6 +1,12 @@
+body {
+  transform: scale(0.9); /* Scales down to 80% */
+  transform-origin: 0 0; /*  Scales from the top-left corner */
+}
+
 table {
     width: 800px;
     table-layout: fixed;
+    font-size:small
 
 }
 table.duties{
@@ -19,6 +25,7 @@ square-button {
 
 .square-button:hover {
   background-color: darkblue; /* Optional: Change background on hover */
+  font-size:3px;
 }
 
 .takee {
@@ -38,6 +45,6 @@ square-button {
   font-size:larger;
 }
 tr td {
-  height: 30px; /* This will be treated as a minimum height */
+  height: 20px; /* This will be treated as a minimum height */
 }
 

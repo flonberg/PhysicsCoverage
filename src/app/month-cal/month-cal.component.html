@@ -8,11 +8,9 @@
             <th style="text-align: center;">Legend</th>
             <th colspan="2">
                 <table *ngIf = "dutyNames" style="font-size:small; width:300px; text-align: left;">
-
                     <tr *ngFor = "let item of dutyNames index as ind">
                         <td [style.background]="legendColors[dutyNames[ind].Idx ]" *ngIf = "dutyNames[ind]"> {{ dutyNames[ind].name }} </td>
                         <td [style.background]="legendColors[dutyNames[ind].Idx ]" *ngIf = "dutyNames[ind]"> {{ dutyNames[ind].timeSpan }} </td>
-                    
                     </tr>
                 </table>
             </th>
@@ -38,8 +36,8 @@
                         {{ getLastName(theMonth.datesWithDuties[ind2+ind*5][ind3]) }}    
                         </td>
                         <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3]) && isAssigned(theMonth.datesWithDuties[ind2+ind*5][ind3])"
-                        style="text-align: center;"><button class="square-button" 
-                        (click)="takeDuty(theMonth.datesWithDuties[ind2+ind*5][ind3], ind2+ind*5, ind3)">-</button></td>
+                        style="text-align: center;">
+                        <input type="checkbox" title="Take the duty" (click)="takeDuty(theMonth.datesWithDuties[ind2+ind*5][ind3], ind2+ind*5, ind3)">  </td>
                     </tr>
                 </table>
             </td>

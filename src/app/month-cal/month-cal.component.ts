@@ -179,7 +179,7 @@ export class MonthCalComponent {
     if (duty.UserKey > 0)
       return duty.LastName
   else 
-    return '---'
+    return ''
   }
  }
  takeDuty(assign: any, xnum:number, ynum: number){
