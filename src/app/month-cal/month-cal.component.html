@@ -31,13 +31,13 @@
                 [class] = "isToday(item2)">{{item2}} 
                     <table class="duties">
                     <tr *ngFor = "let duty of theMonth.datesWithDuties[ind], index as ind3">
-                        <td  colspan="3" *ngIf = "theMonth.datesWithDuties[ind2+ind*5]"
+                        <td  colspan="3" *ngIf = "theMonth.datesWithDuties[ind2+ind*5] &&  theMonth.datesWithDuties[ind2+ind*5][ind3] && isAssigned(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         [style.background]="legendColors[theMonth.datesWithDuties[ind2+ind*5][ind3].serviceid]"
                         [class]="doesLoggedInUserHaveThis(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         >
-                        {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }}  {{ ind}} {{ind2}} {{ ind3}}    
+                        {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }}    
                         </td>
-                        <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3])"
+                        <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3]) && isAssigned(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         style="text-align: center;"><button class="square-button" 
                         (click)="takeDuty(theMonth.datesWithDuties[ind2+ind*5][ind3], ind2+ind*5, ind3)">-</button></td>
                     </tr>

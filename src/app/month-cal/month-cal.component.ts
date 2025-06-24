@@ -63,7 +63,6 @@ export class MonthCalComponent {
  //   this.theMonth.datesWithDuties = []
     let ind = 0
           console.log("535353 dayBucket  --- theMonth %o", this.dayBucket, this.theMonth)  
-
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
         if (this.dayBucket[elem2] )
@@ -155,6 +154,12 @@ export class MonthCalComponent {
         return false
     }
   }  
+ isAssigned(duty:any){
+  if (duty && duty.userkey > 0)
+    return true
+  else 
+    return false
+ } 
  takeDuty(assign: any, xnum:number, ynum: number){
   console.log("139139 assign %o", assign)
   console.log("141141 %o", this.dutyNames)
