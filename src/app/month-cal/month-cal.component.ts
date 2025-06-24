@@ -145,9 +145,10 @@ export class MonthCalComponent {
       })
     }
   hasAssignments(assign: any){
-    if (assign == 0)
-      return false
-    else {
+   // if (assign == 0)
+  //    return false
+  //  else
+     {
       if (this.isUserTaker())
         return true
       else
@@ -160,6 +161,18 @@ export class MonthCalComponent {
   else 
     return false
  } 
+ getColorFromServiceid(duty: any){
+  if (duty)
+    return (this.legendColors[duty.serviceid])
+  else
+    return 'green'
+ }
+ getLastName(duty:any){
+  if (duty)
+    return duty
+  else 
+    return duty
+ }
  takeDuty(assign: any, xnum:number, ynum: number){
   console.log("139139 assign %o", assign)
   console.log("141141 %o", this.dutyNames)
