@@ -168,10 +168,11 @@ export class MonthCalComponent {
     return 'green'
  }
  getLastName(duty:any){
-  if (duty)
-    return duty.LastName
+  if (duty )
+    if (duty.UserKey > 0)
+      return duty.LastName
   else 
-    return duty.LastName
+    return ''
  }
  takeDuty(assign: any, xnum:number, ynum: number){
   console.log("139139 assign %o", assign)
