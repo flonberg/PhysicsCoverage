@@ -76,7 +76,16 @@ export class MyserviceService {
       })
     }
     getMyduties(userkey:number){
-
+      const todayStringForSQL = new Date().toISOString().slice(0, 10);
     }
+
+    getForMyDuties(StartDateString: string, EndDateString:string, UserKey: number){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getMyDuties.php?Start="+StartDateString+"End="+EndDateString+"&userkey="+this.userkey;			// 
+                 https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+      if (isDevMode())
+       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getMyDuties.php?debug=1&Start="+StartDateString+"End="+EndDateString+"&userkey="+this.userkey;	;	       
+      console.log("100100 getMyDuties url %o", url)
+      return this .HttpClient.get<duty>(url)
+    }  
 
 }

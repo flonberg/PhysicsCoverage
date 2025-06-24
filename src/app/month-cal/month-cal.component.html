@@ -35,7 +35,7 @@
                         [style.background]="legendColors[theMonth.datesWithDuties[ind2+ind*5][ind3].serviceid]"
                         [class]="doesLoggedInUserHaveThis(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         >
-                        {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }}        
+                        {{ theMonth.datesWithDuties[ind2+ind*5][ind3].LastName }}  {{ ind}} {{ind2}} {{ ind3}}    
                         </td>
                         <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         style="text-align: center;"><button class="square-button" 

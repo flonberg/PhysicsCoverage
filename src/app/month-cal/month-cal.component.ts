@@ -62,13 +62,16 @@ export class MonthCalComponent {
   addDutiesToDays(){
  //   this.theMonth.datesWithDuties = []
     let ind = 0
-          console.log("535353 dayBucket %o", this.dayBucket)  
+          console.log("535353 dayBucket  --- theMonth %o", this.dayBucket, this.theMonth)  
+
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
         if (this.dayBucket[elem2] )
           this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         else {
-          let test:number[] = [0,0,0,0,0]
+          let test:number[] = [0,0,0,0,0,]
+          if (this.theMonth.monthNum > 6)
+            test = [0,0,0,0,0,0,0]
           this.theMonth.datesWithDuties[ind++] = test  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         }
        }))
@@ -180,8 +183,10 @@ export class MonthCalComponent {
   }
   doesLoggedInUserHaveThis(duty: any){
     const test = this.myservice.getLoggedInUserKey()
-    let takerUserKey = duty.UserKey
-    if (duty.phys2)
+    let takerUserKey = 0
+    if (duty)
+      takerUserKey = duty.UserKey
+    if (duty && duty.phys2)
       takerUserKey = duty.phys2
     if (takerUserKey == this.myservice.getLoggedInUserKey())
       return 'takee'
