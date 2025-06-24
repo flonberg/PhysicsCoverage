@@ -46,6 +46,11 @@ export class AppComponent implements OnInit {
         return false
     }  
     goHome() { 
-        window.open('https://ion.mgh.harvard.edu/cgi-bin/main.pl?userid='+ this.id, ''); // opens in new tab
+        window.open('https://ion.mgh.harvard.edu/cgi-bin/main.pl?userid='+ this.id, '_blank', 'width=1200,height=1000'); // opens in new tab
+       
     }
+    myFunc() {
+  console.log("function called");
+  this.router.navigate(['https://ion.mgh.harvard.edu/cgi-bin/main.pl?userid='], {queryParams:{rurl: "someId"}})
+ }
 }
