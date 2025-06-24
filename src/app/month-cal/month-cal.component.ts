@@ -159,7 +159,7 @@ export class MonthCalComponent {
   if (duty && duty.userkey > 0)
     return true
   else 
-    return true
+    return false
  } 
  getColorFromServiceid(duty: any){
   if (duty)
@@ -168,11 +168,12 @@ export class MonthCalComponent {
     return 'green'
  }
  getLastName(duty:any){
-  if (duty )
+  if (duty ){
     if (duty.UserKey > 0)
       return duty.LastName
   else 
-    return ''
+    return '---'
+  }
  }
  takeDuty(assign: any, xnum:number, ynum: number){
   console.log("139139 assign %o", assign)
