@@ -37,7 +37,14 @@ export class MonthCalComponent {
   20: '#b3ffec',
   21: 'yellow',
   22: '#ffa366',
-  25: '#e6ccff'
+  25: '#e6ccff',
+  28: '#FFE4C4',
+  29: '#b3ffec',
+  30: 'yellow',
+  31: '#ffa366',
+  32: '#e6ccff',
+  33: '#99ff99',
+  34: '#cccc00'
 };
   
 
@@ -226,11 +233,13 @@ export class MonthCalComponent {
           // Handle cancellation or do nothing
         }
       }
-  isToday(monthItem:any){
+  isToday(monthNum: number, monthItem:any){
     const test = monthItem
-    const todayDay = new Date().getDate()
-    
-    if (monthItem == todayDay)
+    const todayDate = new Date()
+    const todayDay = todayDate.getDate()
+    const todayMonthNum  = todayDate.getMonth()
+     
+    if (monthItem == todayDay && monthNum == todayMonthNum)
       return 'today'
     else
       return 'notToday'

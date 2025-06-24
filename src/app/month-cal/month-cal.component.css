@@ -20,6 +20,7 @@ square-button {
 .square-button:hover {
   background-color: darkblue; /* Optional: Change background on hover */
 }
+
 .takee {
   color:red;
   font-weight:bold;
@@ -35,5 +36,8 @@ square-button {
   color:rgb(212, 78, 25);
   font-weight:bold;
   font-size:larger;
+}
+tr td {
+  height: 30px; /* This will be treated as a minimum height */
 }
 
