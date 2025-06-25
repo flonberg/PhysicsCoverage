@@ -26,6 +26,9 @@ export class MydutiesComponent {
 console.log("2222 %o", this.duties)      
     })
   }
+  getDateString(datum: any){
+    return datum.date.slice(0,10)
+  }
   getUser(){
     return this.userkey
   }
