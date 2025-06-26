@@ -55,4 +55,7 @@ square-button {
 tr td {
   height: 20px; /* This will be treated as a minimum height */
 }
-
+button {
+  width: 5px;
+  height: 5px;
+}

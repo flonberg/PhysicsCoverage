@@ -15,15 +15,9 @@ export class MydutiesComponent {
   duties:any
   constructor(private myservice:MyserviceService){
     this.userLastName = this.myservice.getUserLastName()
-    console.log("1616 %o", this.userkey)
-    const today = new Date()
-    const todayStr = today.toISOString().slice(0, 10)
-    const date60 = new Date()
-    date60.setDate(date60.getDate() + 60);
-    const date60Str = date60.toISOString().slice(0, 10)
-    this.myservice.getForMyDuties(todayStr,date60Str,this.myservice.getLoggedInUserKey()).subscribe(res=>{
+    const todayStr = new Date().toISOString().slice(0, 10)
+    this.myservice.getForMyDuties(todayStr,this.myservice.getLoggedInUserKey()).subscribe(res=>{
       this.duties = res
-console.log("2222 %o", this.duties)      
     })
   }
   getDateString(datum: any){
@@ -31,6 +25,9 @@ console.log("2222 %o", this.duties)
   }
   getUser(){
     return this.userkey
+  }
+  getLastName(){
+    return this.myservice.getUserLastName()
   }
 
   getLastDayOfNextMonth(): string {

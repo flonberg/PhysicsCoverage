@@ -10,6 +10,10 @@ td {
   width: 100px;
   overflow: hidden;
 }
+h4 {
+    font-size:large;
+    font-weight: bold;
+}
 .main {
   margin-left: 200px; /* Sets a 20px margin on the left */
 }

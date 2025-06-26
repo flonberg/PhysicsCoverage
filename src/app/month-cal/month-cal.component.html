@@ -37,7 +37,7 @@
                         </td>
                         <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3]) && isAssigned(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         style="text-align: center;">
-                        <input type="checkbox" title="Take the duty" (click)="takeDuty(theMonth.datesWithDuties[ind2+ind*5][ind3], ind2+ind*5, ind3)">  </td>
+                        <button (click)="takeDuty(theMonth.datesWithDuties[ind2+ind*5][ind3], ind2+ind*5, ind3)" title="Take the Duty"></button>  </td>
                     </tr>
                 </table>
             </td>

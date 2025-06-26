@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MyserviceService } from '../myservice.service';
+  import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
 import { NgModule } from '@angular/core';
 import { MonthCalModule } from './month-cal.module';
@@ -15,6 +16,7 @@ import { duty } from '../models'
   templateUrl: './month-cal.component.html',
   styleUrl: './month-cal.component.css',
    host: { ngSkipHydration: 'true' },
+
 })
 export class MonthCalComponent {
   theMonth:month2Class
@@ -31,7 +33,7 @@ export class MonthCalComponent {
   numAssignments:number = 0
   gotData: boolean = false
   takers:number[] = []                              // physicists who have duties and can therefore swap
-
+  isCheckedBool: boolean = false
   legendColors: Record<number, string> = {
   10: '#FFE4C4',
   20: '#b3ffec',
@@ -50,12 +52,8 @@ export class MonthCalComponent {
 
   // This component is the entry point for the month calendar, it will show the current month and allow the user to advance to the next or previous month.
   constructor(private route: ActivatedRoute, private myservice: MyserviceService,private http: HttpClient) {
-
-           
     this.forSQLmonthString =  new Date().toISOString().slice(0,7)     
     this.theMonth = new month2Class(0)
-
-    console.log("31313 theMonth %o", this.theMonth)
   }
    ngOnInit() {
     this.getDuties()
@@ -69,7 +67,6 @@ export class MonthCalComponent {
   addDutiesToDays(){
  //   this.theMonth.datesWithDuties = []
     let ind = 0
-          console.log("535353 dayBucket  --- theMonth %o", this.dayBucket, this.theMonth)  
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
         if (this.dayBucket[elem2] )
@@ -82,13 +79,10 @@ export class MonthCalComponent {
         }
        }))
       })) 
- 
-    console.log("545454  theMonth.datewWithDuties %o", this.theMonth.datesWithDuties)  
     }
   getDutyNames(){
         this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
-        this.dutyNames = res
-  console.log("717171 dutyNames is %o", this.dutyNames)      
+        this.dutyNames = res    
         })
   }  
   getDuties(){
@@ -99,7 +93,6 @@ export class MonthCalComponent {
       let monthSQLstring = advancedToday.toISOString().slice(0,7)  
       this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
-        console.log(this.theDuties)
         this.numAssignments =this.theDuties.length
         for (let i=0; i < this.theDuties.length; i++){
           if (this.theDuties[i]){
@@ -124,11 +117,9 @@ export class MonthCalComponent {
   }
    advanceMonth(number: number) {
     this.advance += number
-    console.log("112112 monthAdvance %o", this.advance)
     this.theMonth = new month2Class(this.advance)
     this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
        this.dutyNames = res
-       console.log("116116 dutyNames %o", this.dutyNames)
     })
     this.getDuties()
    // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
@@ -148,7 +139,6 @@ export class MonthCalComponent {
       this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
         this.theDuties = res
         this.theMonth = new month2Class(this.advance)      
-     //   console.log(this.theDuties)
       })
     }
   hasAssignments(assign: any){
@@ -183,8 +173,6 @@ export class MonthCalComponent {
   }
  }
  takeDuty(assign: any, xnum:number, ynum: number){
-  console.log("139139 assign %o", assign)
-  console.log("141141 %o", this.dutyNames)
   let message: string = ""
   for (let i=0; i < this.dutyNames.length; i++){
     if (this.dutyNames[i]){
@@ -197,16 +185,13 @@ export class MonthCalComponent {
     }
     const userConfirmed = window.confirm(message);
     if (userConfirmed){
-      let test = this.myservice.getUserLastName()
-    console.log("1555155 userLastName %o", test)  
       this.theMonth.datesWithDuties[xnum][ynum].LastName = this.myservice.getUserLastName()
       this.gotData = false
       this.myservice.takeAssignment(assign.idx).subscribe(res=>{
         let rest = res
-      console.log("160160 rest is %o", rest)  
-        } )
-        
+        } ) 
       }
+    this.isCheckedBool = false
   }
   doesLoggedInUserHaveThis(duty: any){
     const test = this.myservice.getLoggedInUserKey()
@@ -219,6 +204,9 @@ export class MonthCalComponent {
       return 'takee'
     else
       return 'normal'
+  }
+  isChecked(){
+    return false
   }
    confirmAction(): void {
         const userConfirmed = window.confirm('Are you sure you want to proceed?');
@@ -268,7 +256,6 @@ class month2Class {
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
-    console.log("220220 weeks %o", this.weeks)    
    // console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
   //  console.log("`37`37`weekDays %o", this.weekDays)        
   }
