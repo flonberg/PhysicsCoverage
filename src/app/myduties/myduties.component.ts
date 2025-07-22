@@ -14,12 +14,15 @@ export class MydutiesComponent {
   userLastName: string=''
   duties:any
   constructor(private myservice:MyserviceService){
+    console.log("171717")
     this.userLastName = this.myservice.getUserLastName()
     const todayStr = new Date().toISOString().slice(0, 10)
     this.myservice.getForMyDuties(todayStr,this.myservice.getLoggedInUserKey()).subscribe(res=>{
       this.duties = res
+          console.log("232323 %o", this.duties)
     })
   }
+
   getDateString(datum: any){
     return datum.date.slice(0,10)
   }
@@ -43,5 +46,4 @@ export class MydutiesComponent {
       const lastDayOfNextMonth = new Date(firstDayOfMonthAfterNext.getTime() - 1 * 24 * 60 * 60 * 1000);
       return lastDayOfNextMonth.toISOString().slice(0, 10);;
     }
-
 }
