@@ -83,16 +83,6 @@ export class MonthCalComponent {
   getDutyNames(){
         this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
         this.dutyNames = res  
-        var temp: any[] = []
-        if  (this.theMonth.monthSQLstring == '2025-07'){
-                  console.log("858585 %o == %o", this.dutyNames, this.theMonth.monthSQLstring)
-                  temp.push( this.dutyNames[1])
-                  temp.push( this.dutyNames[0])
-                  temp.push( this.dutyNames[2])
-                  temp.push( this.dutyNames[3])
-                  temp.push( this.dutyNames[4])
-            }
-            this.dutyNames = temp
         })
   }  
   getDuties(){

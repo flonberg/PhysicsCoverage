@@ -23,11 +23,16 @@ $handle = connectDB_FL();
     $row = Array();
     $i = 0;  
     while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+      $dstr = print_r($temp, true); fwrite($fp, $dstr);
+      $test = strlen($temp['phys2']);
+      ob_start(); var_dump($test);$data = ob_get_clean();fwrite($fp, "\r\n ". $data);
          if ($temp['userkey'] == $_GET['userkey'] && strlen($temp['phys2'] == 0)){
+            fwrite($fp, "\r\n 3030 add \r\n");
             $row[$i++]  = $temp;
          }
          if ($temp['phys2'] == $_GET['userkey']){
-            $row[$i++]  = $temp;
+                        fwrite($fp, "\r\n 3434 add \r\n");
+          $row[$i++]  = $temp;
          }
      
       }

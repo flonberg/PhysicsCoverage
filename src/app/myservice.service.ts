@@ -45,14 +45,9 @@ export class MyserviceService {
       var monthNumOfToday = new Date().getMonth()
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
       if (isDevMode()){
-       url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
-         if ((+monthNumOfToday + +monthAdvance) > 6)
-            url +="&newDuties=1" 
+        url ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
         }
-      else {  
-        if ((+monthNumOfToday + +monthAdvance) > 6)
-              url +="?newDuties=1"   
-        }
+      url +="&newDuties=1" 
       console.log("3939  url for getFromPhysicsDuty %o", url)
       return this .HttpClient.get<duty>(url)
     }
