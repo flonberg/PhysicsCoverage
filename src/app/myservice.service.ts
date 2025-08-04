@@ -45,10 +45,11 @@ export class MyserviceService {
       var monthNumOfToday = new Date().getMonth()
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php";			// 
       if (isDevMode()){
-        url ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php?debug=1";     
+        url ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsDuties.php";     
         }
-      url +="&newDuties=1" 
-      console.log("3939  url for getFromPhysicsDuty %o", url)
+      if (monthAdvance >= 0)  
+         url +="?newDuties=1" 
+      console.log("3939 this.advanceMonth %o", monthAdvance)
       return this .HttpClient.get<duty>(url)
     }
     takeAssignment(idx: number){
