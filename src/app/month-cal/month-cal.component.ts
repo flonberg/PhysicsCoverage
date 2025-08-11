@@ -124,7 +124,7 @@ export class MonthCalComponent {
     })
     this.getDuties()
    // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
-    this.addDutiesToDays()
+  //  this.addDutiesToDays()
     this.myservice.getFromPhysicsDuty(this.advance)
   }
 
