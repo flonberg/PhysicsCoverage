@@ -175,6 +175,7 @@ export class MonthCalComponent {
  }
  takeDuty(assign: any, xnum:number, ynum: number){
   let message: string = ""
+  let test: string = ""
   for (let i=0; i < this.dutyNames.length; i++){
     if (this.dutyNames[i]){
     console.log("143143 %o -- %o", this.dutyNames[i].Idx, assign.serviceid)
