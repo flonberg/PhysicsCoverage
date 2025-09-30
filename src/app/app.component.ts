@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   constructor(private route: ActivatedRoute,private router: Router, private myservice:MyserviceService) {}
   title = 'PhysicsCoverage';
   id: string = ''
+  test = ''
   loggedInUserKey: number = 0
      ngOnInit() {
           this.route.queryParams.subscribe(params => {
