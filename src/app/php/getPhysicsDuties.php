@@ -19,7 +19,7 @@ $handle = connectDB_FL();
     $row = Array();
     $i = 0;  
     while( $row[$i++] = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {}
-   if ($_GET['debug'] == '1')
+//   if ($_GET['debug'] == '1')
       $dstr = print_r($row, true); fwrite($fp, $dstr);
    $ret = json_encode($row);
    echo $ret;
