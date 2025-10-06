@@ -64,7 +64,7 @@ button {
   height: 40px;
 }
 .raised-button {
-  width: 150px;
+  width: 130px;
   height: 35px;
   background-color: #4CAF50; /* Example background color */
   color: black;
@@ -74,8 +74,8 @@ button {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Initial shadow for raised effect */
   transition: all 0.2s ease; /* Smooth transition for hover/active states */
-  background-image: linear-gradient(to right, rgb(133, 165, 125), rgb(244, 238, 238));
-  font-size: smaller;
+  background-image: linear-gradient(to right, rgb(125, 165, 158), rgb(244, 238, 238));
+
 }
 
 

@@ -63,6 +63,7 @@ export class MonthCalComponent {
       return this.legendColors[idx  ]
     }
 
+ 
   /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
   addDutiesToDays(){
  //   this.theMonth.datesWithDuties = []
@@ -114,6 +115,10 @@ export class MonthCalComponent {
       return true
     else 
       return false
+  }
+  showExplainTasks(){
+    const pdfUrl ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/ExplainShiftTasks.pdf" 
+    window.open(pdfUrl, '_blank');
   }
    advanceMonth(number: number) {
     this.advance += number
@@ -302,7 +307,6 @@ class month2Class {
       return
   }  
 
- 
 }
 
   
