@@ -4,6 +4,7 @@ import { WeekCalComponent } from './week-cal/week-cal.component';
 import { TimeawayComponent } from './timeaway/timeaway.component';
 import { MydutiesComponent } from './myduties/myduties.component';
 import { WhiteboardComponent } from './whiteboard/whiteboard.component';
+import { AngtimeawayComponent } from './angtimeaway/angtimeaway.component';
 
 
 export const routes: Routes = [
@@ -13,6 +14,7 @@ export const routes: Routes = [
     {path: 'Timeaway/:id', component: TimeawayComponent},
     {path: 'Myduties/:id', component: MydutiesComponent},
     {path: 'Whiteboard/:id', component: WhiteboardComponent},
+    {path: 'Angtimeaway/:id', component: AngtimeawayComponent},
     {path: '*', component: MonthCalComponent},
     
 ];
