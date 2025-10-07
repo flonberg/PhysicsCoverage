@@ -15,6 +15,6 @@ export const routes: Routes = [
     {path: 'Myduties/:id', component: MydutiesComponent},
     {path: 'Whiteboard/:id', component: WhiteboardComponent},
     {path: 'Angtimeaway/:id', component: AngtimeawayComponent},
-    {path: '*', component: MonthCalComponent},
+    {path: '**', component: MonthCalComponent},
     
 ];
