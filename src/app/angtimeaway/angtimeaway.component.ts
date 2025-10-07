@@ -25,8 +25,11 @@ export class AngtimeawayComponent implements OnInit {
     end: new FormControl()
   });
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
+  daysInNext28Days: number = 28 - this.remainingDaysInMonth + 2;
   numberOfDaysToShow: number = 28;
   justDatesInNext28Days: dateClass[] = [];
+  nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
+  nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   constructor() {
 
   }
