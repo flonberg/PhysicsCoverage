@@ -1,5 +1,10 @@
 <p>angtimeaway works! modified</p>
-<form [formGroup]="dateForm" (ngSubmit)="onSubmit(dateForm)">
+
+    <mat-date-range-input [rangePicker]="picker">
+      <input matStartDate placeholder="Start date" />
+      <input matEndDate placeholder="End date" />
+    </mat-date-range-input>
+    <mat-date-range-picker #picker></mat-date-range-picker>
 <!--	
   <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" formControlName="date">
 	</ngb-datepicker>

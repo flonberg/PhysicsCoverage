@@ -1,40 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-angtimeaway',
   templateUrl: './angtimeaway.component.html',
-  styleUrls: ['./angtimeaway.component.css']
+  styleUrls: ['./angtimeaway.component.css'],
+  standalone: true,
+  imports: [CommonModule,  MatDatepickerModule, MatNativeDateModule]
 })
 export class AngtimeawayComponent implements OnInit {
-  dateForm: FormGroup;
+
 
   constructor() {
-    this.dateForm = new FormGroup({
-      date: new FormControl(null)
-    });
+
   }
 
   ngOnInit(): void {
-  }
-
-  onSubmit(form: FormGroup) {
-    // handle form submission
+    // Initialization logic here
   }
 }
-
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-
-
-@NgModule({
-  declarations: [
-    AngtimeawayComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-  ]
-})
-export class AngtimeawayModule { }
