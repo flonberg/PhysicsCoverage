@@ -24,12 +24,15 @@ export class AngtimeawayComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+  remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
+  numberOfDaysToShow: number = 28;
+  justDatesInNext28Days: dateClass[] = [];
   constructor() {
 
   }
-
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
+    console.log("Remaining days in month: ", this.remainingDaysInMonth);
   }
   makeNext30Days(){
     const today = new Date();
@@ -41,11 +44,34 @@ export class AngtimeawayComponent implements OnInit {
     const today = new Date();
     const next30Days = new Date();
     next30Days.setDate(today.getDate() + 28);
-    const dates = [];
+
     for (let d = new Date(today); d <= next30Days; d.setDate(d.getDate() + 1)) {
       let jsk = new Date(d);
-      dates.push(jsk.getDate());
+      let dc = new dateClass(jsk);
+      this.justDatesInNext28Days.push(dc);
     }
-    console.log(dates);
+    console.log(this.justDatesInNext28Days);
+  }
+  numberOfRemainingDaysInMonth(): number {
+    const today = new Date();
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const remainingDays = lastDayOfMonth.getDate() - today.getDate();
+    return remainingDays;
   }
 }
+  class dateClass {
+    justdateL:string=''
+    wholeDate:Date = new Date()
+    isWeekendB:boolean = false
+    constructor(public d: Date) {
+      this.wholeDate = d
+      this.justdateL = d.getDate().toString()
+      this.isWeekendB = this.isWeekend()
+    }
+    isWeekend():boolean {
+      if (this.wholeDate.getDay() === 0 || this.wholeDate.getDay() === 6)
+        return true
+      else 
+        return false
+    }
+  }

@@ -1,4 +1,9 @@
-<p>angtimeaway works! modified</p>
+<table>
+  <caption> Calendar </caption>
+  <tr>
+    <td *ngFor="let item of justDatesInNext28Days">{{item.justdateL}}</td>
+  </tr>
+</table>
 <mat-form-field>
    <mat-label>Select a date range</mat-label>
     <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
