@@ -85,5 +85,13 @@ export class MyserviceService {
        console.log("100100 getMyDuties url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
+    getTAs(endDateString: string){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString;
+                 https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+      if (isDevMode())
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString;
+       console.log("110110 getTAs url %o", url)
+        return this .HttpClient.get<duty>(url)
+    }
 
 }

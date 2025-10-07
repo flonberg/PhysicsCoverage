@@ -4,6 +4,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MyserviceService } from '../myservice.service';
 
 @Component({
   selector: 'app-angtimeaway',
@@ -30,12 +31,13 @@ export class AngtimeawayComponent implements OnInit {
   justDatesInNext28Days: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
-  constructor() {
+  constructor(private myservice: MyserviceService) {
 
   }
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
     console.log("Remaining days in month: ", this.remainingDaysInMonth);
+    this.getTAs();
   }
   makeNext30Days(){
     const today = new Date();
@@ -61,14 +63,32 @@ export class AngtimeawayComponent implements OnInit {
     const remainingDays = lastDayOfMonth.getDate() - today.getDate();
     return remainingDays;
   }
+  getTAs(){
+    let daysFromNow28 = new Date();
+    daysFromNow28.setDate(daysFromNow28.getDate() + 28);
+    let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
+    console.log("1212 getTAs monthString %o", daysFromNow28String)
+    this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
+        console.log("1212 getTAs data %o", data)
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
 }
   class dateClass {
     justdateL:string=''
     wholeDate:Date = new Date()
     isWeekendB:boolean = false
+    class:string = ''
     constructor(public d: Date) {
       this.wholeDate = d
       this.justdateL = d.getDate().toString()
+      if (this.isWeekend())
+        this.class = 'weekend'
+      else 
+        this.class = 'weekday'
       this.isWeekendB = this.isWeekend()
     }
     isWeekend():boolean {

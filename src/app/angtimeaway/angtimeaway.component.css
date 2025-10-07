@@ -2,5 +2,12 @@ th {
     text-align: center;
 }
 td {
-    min-width: 60px
+    min-width: 60px;
+    text-align: center;
+}
+td.weekend {
+    background-color: yellow ;
+}
+td.weekday {
+    background-color: lightgrey ;
 }

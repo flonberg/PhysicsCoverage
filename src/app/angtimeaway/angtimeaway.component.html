@@ -2,9 +2,9 @@
 <tr>
   <th [attr.colspan]="remainingDaysInMonth">{{nameOfCurrentMonth}}</th>
   <th [attr.colspan]="daysInNext28Days">{{nameOfNextMonth}}</th>
-</tr>
+</tr> 
   <tr>
-    <td *ngFor="let item of justDatesInNext28Days">{{item.justdateL}}</td>
+    <td *ngFor="let item of justDatesInNext28Days" [class]="item.class">{{item.justdateL}}</td>
   </tr>
 </table>
 
