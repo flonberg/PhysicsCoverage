@@ -8,24 +8,4 @@
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-<!--	
-  <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden" formControlName="date">
-	</ngb-datepicker>
 
-	<ng-template #t let-date let-focused="focused">
-		<span class="custom-day"
-        [class.focused]="focused"
-        [class.range]="isRange(date)"
-        [class.faded]="isHovered(date) || isInside(date)"
-        (mouseenter)="hoveredDate = date"
-        (mouseleave)="hoveredDate = null">
-    {{ date.day }}
-  </span>
-</ng-template>
-
-<pre>From: {{ fromDate | json }} </pre>
-<pre>To: {{ toDate | json }} </pre>
-
-<button type="submit" class="btn btn-sm btn-primary">Submit</button>
-</form>
--->

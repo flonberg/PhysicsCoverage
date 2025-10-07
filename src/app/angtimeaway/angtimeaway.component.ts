@@ -24,12 +24,28 @@ export class AngtimeawayComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
-
   constructor() {
 
   }
 
   ngOnInit(): void {
-    // Initialization logic here
+    this.makeAllDatesInNext28Days();
+  }
+  makeNext30Days(){
+    const today = new Date();
+    const next30Days = new Date();
+    next30Days.setDate(today.getDate() + 30);
+    this.range.setValue({start: today, end: next30Days});
+  }
+  makeAllDatesInNext28Days(){
+    const today = new Date();
+    const next30Days = new Date();
+    next30Days.setDate(today.getDate() + 28);
+    const dates = [];
+    for (let d = new Date(today); d <= next30Days; d.setDate(d.getDate() + 1)) {
+      let jsk = new Date(d);
+      dates.push(jsk.getDate());
+    }
+    console.log(dates);
   }
 }
