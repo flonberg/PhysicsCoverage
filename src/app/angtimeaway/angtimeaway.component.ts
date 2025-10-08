@@ -32,14 +32,36 @@ export class AngtimeawayComponent implements OnInit {
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   TAs:any = []
+  goAwayersWithTAs: goAwayerWithTAs[] = []
   constructor(private myservice: MyserviceService) {
 
   }
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
     console.log("Remaining days in month: ", this.remainingDaysInMonth);
-    var TAs = this.getTAs();
+    this.getTAs();
+    this.makeGoAwayersWithTAs()
             console.log("1212 getTAs data %o", this.TAs)
+  }
+  makeGoAwayersWithTAs(){
+    this.goAwayersWithTAs = []
+    for (let i=0; i < this.TAs.length; i++){
+      let found = false
+      for (let j=0; j < this.goAwayersWithTAs.length; j++){
+        if (this.goAwayersWithTAs[j].UserKey === this.TAs[i].UserKey){
+          found = true
+          break
+        }
+      }
+      if (!found){
+        let gawt = new goAwayerWithTAs()
+        gawt.LastName = this.TAs[i].LastName
+        gawt.UserKey = this.TAs[i].userid
+        gawt.UserID = this.TAs[i].UserID
+        this.goAwayersWithTAs.push(gawt)
+      }
+    }
+    console.log("3434 goAwayersWithTAs %o", this.goAwayersWithTAs)
   }
   makeNext30Days(){
     const today = new Date();
@@ -102,7 +124,7 @@ export class AngtimeawayComponent implements OnInit {
     }
   
   }
- class goAwayer {
+ class goAwayerWithTAs {
     LastName: string = ''
     UserKey: number = 0
     UserID: string = ''
