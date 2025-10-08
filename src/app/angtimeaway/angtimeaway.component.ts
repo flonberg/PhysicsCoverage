@@ -50,7 +50,7 @@ export class AngtimeawayComponent implements OnInit {
     for (let i=0; i < this.TAs.length; i++){
       let found = false
       for (let j=0; j < this.goAwayersWithTAs.length; j++){
-        if (this.goAwayersWithTAs[j].UserKey === this.TAs[i].userid){
+        if (this.goAwayersWithTAs[j].UserKey == this.TAs[i].userid){
           found = true
           break
         }
@@ -62,8 +62,22 @@ export class AngtimeawayComponent implements OnInit {
         gawt.UserID = this.TAs[i].UserID
         this.goAwayersWithTAs.push(gawt)
       }
+    
     }
+      this.putTAsWithGoAwayers()
     console.log("3434 goAwayersWithTAs %o", this.goAwayersWithTAs)
+  }
+  putTAsWithGoAwayers(){
+      for (let j = 0; j < this.TAs.length; j++)
+      {
+       for (let i=0; i < this.goAwayersWithTAs.length; i++)
+        {
+        if (this.TAs[j].userid == this.goAwayersWithTAs[i].UserKey){          // find TA entry for this goAwayer
+          this.goAwayersWithTAs[i].myTAs.push(this.TAs[j])    
+          // add TA to goAwayer
+        }
+      }
+    }
   }
   makeNext30Days(){
     const today = new Date();
@@ -107,26 +121,27 @@ export class AngtimeawayComponent implements OnInit {
     console.log("107107 %o", this.goAwayersWithTAs[0])
     for (let i=0; i < this.goAwayersWithTAs.length; i++){                       // go thru each goAwayer
       for (let j = 0; j < this.TAs.length; j++){                               // go thru each TA entry                       // make a date from the TA entry
+        /** case that the startDate of first TA for this users is BEFORE or ON first day show in calendar */
         if (this.TAs[j].userid === this.goAwayersWithTAs[i].UserKey){          // find first TA entry for this goAwayer
-          console.log("109109 %o", this.TAs[j])
-          let tst = new Date(this.TAs[j].startDate.date)
-          if (tst <= this.justDatesInNext28Days[0].wholeDate){                  // if the first TA is before or on today
-            console.log("111111 TA starts before today %o", this.TAs[j].startDate)
+          if (new Date(this.TAs[j].startDate.date) <= this.justDatesInNext28Days[0].wholeDate){                  // if the first TA is before or on today
             this.goAwayersWithTAs[i].daysTillFirstTA = []                  // set daysTillFirstTA to empty array
-            this.goAwayersWithTAs[i].lengthOfFirstTA = this.getNumberOfDaysInTA(new Date(this.TAs[j].startDate.date), new Date(this.TAs[j].endDate.date))
+            this.goAwayersWithTAs[i].lengthOfFirstTA = this.getNumberOfDaysInTA(new Date(this.TAs[j].startDate.date), new Date(this.TAs[j].endDate.date)) // length of TA is number of days ON CALENDAR
             break;                                                          // go to next goAwayer
           }
+        /** case that the startDate of first TA for this users is AFTER first day show in calendar */  
           else {                                                            // first TA is after today
             console.log("115115 TA starts after today %o", this.TAs[j].startDate)
-            let daysTillFirstTA = this.getNumberOfDaysInTA(this.justDatesInNext28Days[0].wholeDate, new Date(this.TAs[j].startDate.date)) - 1
-            console.log("117117 daysTillFirstTA %o", daysTillFirstTA)
-            for (let k=0; k < this.justDatesInNext28Days.length; k++){       // go thru each of the next 28 days
-              if (k < daysTillFirstTA)                                       // if this day is before the first TA
-                this.goAwayersWithTAs[i].daysTillFirstTA.push(true)          // set to true
-              else 
-                this.goAwayersWithTAs[i].daysTillFirstTA.push(false)         // set to false    
+            let tstDate = new Date()                                       // TODAY is first date on Calendar
+            let safe = 0
+             let TSstartDate = new Date(this.TAs[j].startDate.date)   // make a date from the TA entry
+            do {
+              if (j == 1)
+                this.goAwayersWithTAs[i].daysTillFirstTA.push(true)                           // if TA starts today, then daysTillFirstTA[0] = true
+                tstDate.setDate(tstDate.getDate() + 1)                                 // move to next date
+                if (safe++ > 28) break;  
+              }
+              while (tstDate < TSstartDate ) // do this until TA start date or 28 days
             }
-          }
           }
         }
       }
@@ -165,8 +180,13 @@ export class AngtimeawayComponent implements OnInit {
     LastName: string = ''
     UserKey: number = 0
     UserID: string = ''
+    myTAs: any[] = []
     daysTillFirstTA: boolean[] = []
     lengthOfFirstTA: number = 0
+    constructor() { 
+      this.daysTillFirstTA = []
+    }
+
 
 
  }
