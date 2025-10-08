@@ -6,6 +6,9 @@
   <tr>
     <td *ngFor="let item of justDatesInNext28Days" [class]="item.class">{{item.justdateL}}</td>
   </tr>
+  <tr *ngFor="let item of goAwayersWithTAs">
+    <td [attr.colspan]="item.lengthOfFirstTA" style="border:solid"> {{item.LastName}} </td>
+  </tr>
 </table>
 
 <mat-form-field>
