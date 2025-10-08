@@ -31,13 +31,15 @@ export class AngtimeawayComponent implements OnInit {
   justDatesInNext28Days: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
+  TAs:any = []
   constructor(private myservice: MyserviceService) {
 
   }
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
     console.log("Remaining days in month: ", this.remainingDaysInMonth);
-    this.getTAs();
+    var TAs = this.getTAs();
+            console.log("1212 getTAs data %o", this.TAs)
   }
   makeNext30Days(){
     const today = new Date();
@@ -69,7 +71,8 @@ export class AngtimeawayComponent implements OnInit {
     let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
     console.log("1212 getTAs monthString %o", daysFromNow28String)
     this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
-        console.log("1212 getTAs data %o", data)
+        this.TAs = data;
+
       },
       error: error => {
         console.error('There was an error!', error);
@@ -97,4 +100,10 @@ export class AngtimeawayComponent implements OnInit {
       else 
         return false
     }
+  
   }
+ class goAwayer {
+    LastName: string = ''
+    UserKey: number = 0
+    UserID: string = ''
+ }
