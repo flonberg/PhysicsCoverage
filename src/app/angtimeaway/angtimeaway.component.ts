@@ -83,12 +83,12 @@ export class AngtimeawayComponent implements OnInit {
     console.log("3434 goAwayersWithTAs %o", this.goAwayersWithTAs)
   }
   putTAsWithGoAwayers(){
-      for (let j = 0; j < this.TAs.length; j++)
+      for (let j = 0; j < this.TAclasses.length; j++)
       {
        for (let i=0; i < this.goAwayersWithTAs.length; i++)
         {
-        if (this.TAs[j].userid == this.goAwayersWithTAs[i].UserKey){          // find TA entry for this goAwayer
-          this.goAwayersWithTAs[i].myTAs.push(this.TAs[j])    
+        if (this.TAclasses[j].userid == this.goAwayersWithTAs[i].UserKey){          // find TA entry for this goAwayer
+          this.goAwayersWithTAs[i].myTAs.push(this.TAclasses[j])  
           // add TA to goAwayer
         }
       }
