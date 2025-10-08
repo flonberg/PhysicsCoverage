@@ -22,4 +22,7 @@
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
     </mat-form-field>
-
+    
+<div *ngFor="let item of [].constructor(5); let i = index">
+  {{i + 1}}
+</div>

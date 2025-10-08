@@ -32,6 +32,7 @@ export class AngtimeawayComponent implements OnInit {
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   TAs:any = []
+  TAclasses: TAclass[] = []
   goAwayersWithTAs: goAwayerWithTAs[] = []
   constructor(private myservice: MyserviceService) {
 
@@ -40,10 +41,24 @@ export class AngtimeawayComponent implements OnInit {
     this.makeAllDatesInNext28Days();
     console.log("Remaining days in month: ", this.remainingDaysInMonth);
     this.getTAs();
+    this.makeTAsIntoTAclasses()
     this.makeGoAwayersList()
-            console.log("1212 getTAs data %o", this.TAs)
+            console.log("1212 TAClasses data %o", this.TAclasses)
     this.makeDaysTillFirstTA()
        
+  }
+  makeTAsIntoTAclasses(){
+    for (let i=0; i < this.TAs.length; i++){
+      let ta = new TAclass()
+      ta.idx = this.TAs[i].idx
+      ta.userid = this.TAs[i].userid
+      ta.UserID = this.TAs[i].UserID
+      ta.LastName = this.TAs[i].LastName
+      ta.startDate = new Date(this.TAs[i].startDate.date)
+      ta.endDate = new Date(this.TAs[i].endDate.date)
+      ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
+      this.TAclasses.push(ta)
+    }
   }
   makeGoAwayersList(){
     this.goAwayersWithTAs = []
@@ -180,13 +195,28 @@ export class AngtimeawayComponent implements OnInit {
     LastName: string = ''
     UserKey: number = 0
     UserID: string = ''
-    myTAs: any[] = []
+    myTAs: any[] = [] // all TA entries for this goAwayer     
     daysTillFirstTA: boolean[] = []
     lengthOfFirstTA: number = 0
+    TAlength: number[] = []
     constructor() { 
       this.daysTillFirstTA = []
     }
-
-
-
+ }
+ class TAclass {
+    idx: number = 0
+    userid: number = 0
+    UserID: string = ''
+    LastName: string = ''
+    startDate: Date = new Date()
+    endDate: Date = new Date()
+    lengthOfTA: number = 0
+    daysTillTAstart: number = 0
+    constructor() {
+      var timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime());
+      this.lengthOfTA = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+      let today = new Date()
+      var timeDiff = Math.abs(this.startDate.getTime() - today.getTime());
+      this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+     }
  }
