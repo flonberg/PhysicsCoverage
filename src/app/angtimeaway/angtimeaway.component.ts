@@ -57,6 +57,7 @@ export class AngtimeawayComponent implements OnInit {
       ta.startDate = new Date(this.TAs[i].startDate.date)
       ta.endDate = new Date(this.TAs[i].endDate.date)
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
+      ta.makeNumbers()
       this.TAclasses.push(ta)
     }
   }
@@ -145,7 +146,7 @@ export class AngtimeawayComponent implements OnInit {
           }
         /** case that the startDate of first TA for this users is AFTER first day show in calendar */  
           else {                                                            // first TA is after today
-            console.log("115115 TA starts after today %o", this.TAs[j].startDate)
+         //   console.log("115115 TA starts after today %o", this.TAs[j].startDate)
             let tstDate = new Date()                                       // TODAY is first date on Calendar
             let safe = 0
              let TSstartDate = new Date(this.TAs[j].startDate.date)   // make a date from the TA entry
@@ -213,10 +214,13 @@ export class AngtimeawayComponent implements OnInit {
     lengthOfTA: number = 0
     daysTillTAstart: number = 0
     constructor() {
+
+     }
+     makeNumbers(){
       var timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime());
-      this.lengthOfTA = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+      this.lengthOfTA = Math.ceil(timeDiff / (1000 * 3600 * 24)) +1; // +1 to include both start and end dates
       let today = new Date()
       var timeDiff = Math.abs(this.startDate.getTime() - today.getTime());
-      this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+      this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
      }
  }
