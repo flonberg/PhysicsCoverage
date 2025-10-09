@@ -9,7 +9,10 @@
   <tr *ngFor="let item of goAwayersWithTAs; let j = index">
     <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index">{{j}} </td>
     <td [attr.colspan]="item.myTAs[0].lengthOfTA" style="border:solid"> {{item.LastName}} </td>
-    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let k = index">{{j}} </td>
+    <ng-container *ngIf = "item.myTAs[1]">
+        <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillTAstart); let k = index">{{j}} </td>
+        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]"> {{ item.myTAs[1].LastName }} </td>
+    </ng-container>
   </tr>
 </table>
 
