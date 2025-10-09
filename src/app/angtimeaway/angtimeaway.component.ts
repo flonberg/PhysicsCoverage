@@ -57,7 +57,7 @@ export class AngtimeawayComponent implements OnInit {
       ta.startDate = new Date(this.TAs[i].startDate.date)
       ta.endDate = new Date(this.TAs[i].endDate.date)
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
-      ta.makeNumbers()
+
       this.TAclasses.push(ta)
     }
   }
@@ -86,14 +86,18 @@ export class AngtimeawayComponent implements OnInit {
   putTAsWithGoAwayers(){
       for (let j = 0; j < this.TAclasses.length; j++)
       {
-       for (let i=0; i < this.goAwayersWithTAs.length; i++)
+        for (let i=0; i < this.goAwayersWithTAs.length; i++)
         {
-        if (this.TAclasses[j].userid == this.goAwayersWithTAs[i].UserKey){          // find TA entry for this goAwayer
-          this.goAwayersWithTAs[i].myTAs.push(this.TAclasses[j])  
-          // add TA to goAwayer
+        if (this.TAclasses[j].userid == this.goAwayersWithTAs[i].UserKey)         // find TA entry for this goAwayer
+          this.goAwayersWithTAs[i].myTAs.push(this.TAclasses[j])    
         }
       }
-    }
+      for (let i=0; i < this.goAwayersWithTAs.length; i++)
+        this.goAwayersWithTAs[i].makeDaysTillStart()
+  }
+  makeDaysTillStart(){
+      for (let i=0; i < this.goAwayersWithTAs.length; i++)
+        this.goAwayersWithTAs[i].makeDaysTillStart()
   }
   makeNext30Days(){
     const today = new Date();
@@ -203,6 +207,15 @@ export class AngtimeawayComponent implements OnInit {
     constructor() { 
       this.daysTillFirstTA = []
     }
+    makeDaysTillStart(){
+      for (let i=0; i < this.myTAs.length; i++){
+        if (i == 0){
+          if (this.myTAs[i].startDate <= new Date()){ // if the first TA is before or on today
+            console.log("139139 first  myTAs %o", this.myTAs[i])
+          }
+        }
+      }
+    }
  }
  class TAclass {
     idx: number = 0
@@ -214,7 +227,7 @@ export class AngtimeawayComponent implements OnInit {
     lengthOfTA: number = 0
     daysTillTAstart: number = 0
     constructor() {
-
+      this.lengthOfTA = this.getNumberOfDaysInTA()
      }
      makeNumbers(){
       var timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime());
@@ -223,4 +236,26 @@ export class AngtimeawayComponent implements OnInit {
       var timeDiff = Math.abs(this.startDate.getTime() - today.getTime());
       this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
      }
+    getNumberOfDaysInTA(): number {
+      if (this.startDate < new Date()){
+        var timeDiff = Math.abs(this.endDate.getTime() - new Date().getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+        return diffDays;
+      }
+      else {
+        timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+        return diffDays;
+      }
+    }
+    makeDaysTillTAstart(lastDate: Date){
+      let today = new Date()
+      if (this.startDate < today)
+        this.daysTillTAstart = 0
+      else {
+        var timeDiff = Math.abs(this.startDate.getTime() - lastDate.getTime());
+        this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
+      }
+      
+    }
  }
