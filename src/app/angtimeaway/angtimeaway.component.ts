@@ -94,10 +94,7 @@ export class AngtimeawayComponent implements OnInit {
       for (let i=0; i < this.goAwayersWithTAs.length; i++)
         this.goAwayersWithTAs[i].makeDaysTillStart()
   }
-  makeDaysTillStart(){
-      for (let i=0; i < this.goAwayersWithTAs.length; i++)
-        this.goAwayersWithTAs[i].makeDaysTillStart()
-  }
+
   makeNext30Days(){
     const today = new Date();
     const next30Days = new Date();
@@ -120,7 +117,7 @@ export class AngtimeawayComponent implements OnInit {
     const today = new Date();
     const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const remainingDays = lastDayOfMonth.getDate() - today.getDate();
-    return remainingDays;
+    return remainingDays+1;
   }
   getTAs(){
     let daysFromNow28 = new Date();
@@ -166,13 +163,16 @@ export class AngtimeawayComponent implements OnInit {
       }
     }
     getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
+     //     startDate.setUTCHours(0, 0, 0, 0);
+    //endDate.setUTCHours(0, 0, 0, 0);
       if (startDate < this.justDatesInNext28Days[0].wholeDate)
         startDate = this.justDatesInNext28Days[0].wholeDate
       if (this.areDatesOnSameDay(endDate,startDate))
           return 1
         else {
-      const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-      const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+      var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+     // var diffDays = endDate.valueOf() - startDate.valueOf();
       return diffDays;
         }
     }
@@ -233,9 +233,13 @@ export class AngtimeawayComponent implements OnInit {
             /** This is NOT the first TA for this user. so need to calculate number of days from PREVIOUS TA.end till THIS TA.start*/
         else {                          
             let lastDate = new Date(this.myTAs[i-1].endDate)
+                // Normalize to midnight UTC for accurate day difference calculation
+          lastDate.setUTCHours(0, 0, 0, 0);
+          this.myTAs[i].startDate.setUTCHours(0, 0, 0, 0);
             var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - lastDate.getTime());
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24))-1; // +1 to include both start and end dates
-      //console.log("228228 lastDate %o this.myTAs[i].startDate %o daysTillTAstart %o", lastDate, this.myTAs[i].startDate, this.myTAs[i].daysTillTAstart)  
+      console.log("lastName is %o", this.myTAs[i].LastName)      
+      console.log("228228 lastDate %o this.myTAs[i].startDate %o daysTillTAstart %o", lastDate, this.myTAs[i].startDate, this.myTAs[i].daysTillTAstart)  
         }
       }
     }
@@ -259,24 +263,7 @@ export class AngtimeawayComponent implements OnInit {
       var timeDiff = Math.abs(this.startDate.getTime() - today.getTime());
       this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
      }
-    getNumberOfDaysInTA(): number {
-      diffDays= 1
-      if (this.areDatesOnSameDay(this.endDate,this.startDate))
-          return diffDays
-      else if (this.startDate < new Date()){
-        var timeDiff = Math.abs(this.endDate.getTime() - new Date().getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
-        return diffDays;
-      }
-      
-    
-        else {
-        timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime());
-        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
-        return diffDays
-      
-      }
-    }
+
     makeDaysTillTAstart(lastDate: Date){
       let today = new Date()
       if (this.startDate < today)
@@ -284,14 +271,7 @@ export class AngtimeawayComponent implements OnInit {
       else {
         var timeDiff = Math.abs(this.startDate.getTime() - lastDate.getTime());
         this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
-      }
-      
+        }
     }
-  areDatesOnSameDay(date1: Date, date2: Date): boolean {
-  return (
-    date1.getFullYear() === date2.getFullYear() &&
-    date1.getMonth() === date2.getMonth() &&
-    date1.getDate() === date2.getDate()
-  );
+
 }
- }
