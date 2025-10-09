@@ -209,9 +209,14 @@ export class AngtimeawayComponent implements OnInit {
     }
     makeDaysTillStart(){
       for (let i=0; i < this.myTAs.length; i++){
-        if (i == 0){
+        if (i == 0){  // first TA for this goAwayer, so daysTillTAstart is from today
           if (this.myTAs[i].startDate <= new Date()){ // if the first TA is before or on today
-            console.log("139139 first  myTAs %o", this.myTAs[i])
+            this.myTAs[i].daysTillTAstart = 0
+          }
+          else {
+            let today = new Date()
+            var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - today.getTime());
+            this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
           }
         }
       }
