@@ -209,15 +209,23 @@ export class AngtimeawayComponent implements OnInit {
     }
     makeDaysTillStart(){
       for (let i=0; i < this.myTAs.length; i++){
-        if (i == 0){  // first TA for this goAwayer, so daysTillTAstart is from today
-          if (this.myTAs[i].startDate <= new Date()){ // if the first TA is before or on today
-            this.myTAs[i].daysTillTAstart = 0
+        /** This is first TA for this user. so need to calculate number of days from TODAY till TA.start*/
+        if (i == 0){                                    
+          if (this.myTAs[i].startDate <= new Date()){       // if the first TA.start is before or on today
+            this.myTAs[i].daysTillTAstart = 0               // TA-display starts today so daysTillTAstart = 0
           }
-          else {
+          else {                                         // first TA is after today, so calculate days from today to TA start
             let today = new Date()
             var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - today.getTime());
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
           }
+        }
+            /** This is NOT the first TA for this user. so need to calculate number of days from PREVIOUS TA.end till THIS TA.start*/
+        else {                          
+            let lastDate = new Date(this.myTAs[i-1].endDate)
+            var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - lastDate.getTime());
+            this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24))-1; // +1 to include both start and end dates
+          
         }
       }
     }

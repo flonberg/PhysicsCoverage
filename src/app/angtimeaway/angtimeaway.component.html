@@ -6,10 +6,10 @@
   <tr>
     <td *ngFor="let item of justDatesInNext28Days" [class]="item.class">{{item.justdateL}}</td>
   </tr>
-  <tr *ngFor="let item of goAwayersWithTAs">
-    <td *ngFor="let item of [].constructor(item.myTAs[0].daysTillTAstart); let i = index">
-    </td>
-    <td [attr.colspan]="item.lengthOfFirstTA" style="border:solid"> {{item.LastName}} </td>
+  <tr *ngFor="let item of goAwayersWithTAs; let j = index">
+    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index">{{j}} </td>
+    <td [attr.colspan]="item.myTAs[0].lengthOfTA" style="border:solid"> {{item.LastName}} </td>
+    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let k = index">{{j}} </td>
   </tr>
 </table>
 

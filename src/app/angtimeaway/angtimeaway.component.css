@@ -4,6 +4,7 @@ th {
 td {
     min-width: 60px;
     text-align: center;
+    border: 1px solid black;
 }
 td.weekend {
     background-color: yellow ;
