@@ -27,7 +27,7 @@ export class AngtimeawayComponent implements OnInit {
   });
   numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
-
+  lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
   daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
   justDatesInNext28Days: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
@@ -89,8 +89,10 @@ export class AngtimeawayComponent implements OnInit {
           this.goAwayersWithTAs[i].myTAs.push(this.TAclasses[j])    
         }
       }
-      for (let i=0; i < this.goAwayersWithTAs.length; i++)
+      for (let i=0; i < this.goAwayersWithTAs.length; i++){
         this.goAwayersWithTAs[i].makeDaysTillStart()
+        this.goAwayersWithTAs[i].makeDaysTillEndOfCalendar(this.lastDateOnCalendar)
+      }
   }
 
   makeAllDatesInNext28Days(){
@@ -115,61 +117,28 @@ export class AngtimeawayComponent implements OnInit {
     let daysFromNow28 = new Date();
     daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
     let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
-    console.log("1212 getTAs monthString %o", daysFromNow28String)
     this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
-        this.TAs = data;
+      this.TAs = data;
       this.makeTAsIntoTAclasses()
       this.makeGoAwayersList()
-   //   this.makeDaysTillFirstTA()
       },
       error: error => {
         console.error('There was an error!', error);
       }
     });
   }
-  makeDaysTillFirstTA(){
-    console.log("107107 %o", this.goAwayersWithTAs[0])
-    for (let i=0; i < this.goAwayersWithTAs.length; i++){                       // go thru each goAwayer
-      for (let j = 0; j < this.TAs.length; j++){                               // go thru each TA entry                       // make a date from the TA entry
-        /** case that the startDate of first TA for this users is BEFORE or ON first day show in calendar */
-        if (this.TAs[j].userid === this.goAwayersWithTAs[i].UserKey){          // find first TA entry for this goAwayer
-          if (new Date(this.TAs[j].startDate.date) <= this.justDatesInNext28Days[0].wholeDate){     // if the first TA startDate is before or on today
-            this.goAwayersWithTAs[i].daysTillFirstTA = []                  // set daysTillFirstTA to empty array
-            this.goAwayersWithTAs[i].lengthOfFirstTA = this.getNumberOfDaysInTA(new Date(this.TAs[j].startDate.date), new Date(this.TAs[j].endDate.date)) // length of TA is number of days ON CALENDAR
-            break;                                                          // go to next goAwayer
-          }
-        /** case that the startDate of first TA for this users is AFTER first day show in calendar */  
-          else {                                                            // first TA is after today
-         //   console.log("115115 TA starts after today %o", this.TAs[j].startDate)
-            let tstDate = new Date()                                       // TODAY is first date on Calendar
-            let safe = 0
-             let TSstartDate = new Date(this.TAs[j].startDate.date)   // make a date from the TA entry
-            do {
-              if (j == 1)
-                this.goAwayersWithTAs[i].daysTillFirstTA.push(true)                           // if TA starts today, then daysTillFirstTA[0] = true
-                tstDate.setDate(tstDate.getDate() + 1)                                 // move to next date
-                if (safe++ > this.numberOfDaysToShow) break;  
-              }
-              while (tstDate < TSstartDate ) // do this until TA start date or 28 days
-            }
-          }
-        }
-      }
-    }
+
     getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
-     //     startDate.setUTCHours(0, 0, 0, 0);
-    //endDate.setUTCHours(0, 0, 0, 0);
       if (startDate < this.justDatesInNext28Days[0].wholeDate)
         startDate = this.justDatesInNext28Days[0].wholeDate
       if (this.areDatesOnSameDay(endDate,startDate))
           return 1
-        else {
-      endDate.setUTCHours(0, 0, 0, 0);
-      startDate.setUTCHours(0, 0, 0, 0);
-      var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
-      var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
-     // var diffDays = endDate.valueOf() - startDate.valueOf();
-      return diffDays;
+      else {
+        endDate.setUTCHours(0, 0, 0, 0);
+        startDate.setUTCHours(0, 0, 0, 0);
+        var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+        return diffDays;
         }
     }
     areDatesOnSameDay(date1: Date, date2: Date): boolean {
@@ -238,6 +207,17 @@ export class AngtimeawayComponent implements OnInit {
         }
       }
     }
+    /** calculate days from end of last TA to end of calendar */
+    makeDaysTillEndOfCalendar(lastDate: Date){
+      const numberOfTAs = this.myTAs.length               // number of TAs for this goAwayer     
+      if (numberOfTAs > 0) {
+        let lastTA = this.myTAs[numberOfTAs - 1];
+        if (lastTA.endDate < lastDate) {
+          var timeDiff = Math.abs(lastDate.getTime() - lastTA.endDate.getTime());
+          this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
+        } 
+      }
+    }
  }
  class TAclass {
     idx: number = 0
@@ -248,6 +228,8 @@ export class AngtimeawayComponent implements OnInit {
     endDate: Date = new Date()
     lengthOfTA: number = 0
     daysTillTAstart: number = 0
+    numberOfDaysInTA: number = 0
+    daysTillEndOfCalendar: number = 0
     constructor() {
 
      }
