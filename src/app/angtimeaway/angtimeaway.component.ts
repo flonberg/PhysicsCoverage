@@ -25,10 +25,10 @@ export class AngtimeawayComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+  numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
-  numberOfDaysToShow: number = 32;
-  daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
 
+  daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
   justDatesInNext28Days: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
@@ -120,7 +120,7 @@ export class AngtimeawayComponent implements OnInit {
         this.TAs = data;
       this.makeTAsIntoTAclasses()
       this.makeGoAwayersList()
-      this.makeDaysTillFirstTA()
+   //   this.makeDaysTillFirstTA()
       },
       error: error => {
         console.error('There was an error!', error);
@@ -133,7 +133,7 @@ export class AngtimeawayComponent implements OnInit {
       for (let j = 0; j < this.TAs.length; j++){                               // go thru each TA entry                       // make a date from the TA entry
         /** case that the startDate of first TA for this users is BEFORE or ON first day show in calendar */
         if (this.TAs[j].userid === this.goAwayersWithTAs[i].UserKey){          // find first TA entry for this goAwayer
-          if (new Date(this.TAs[j].startDate.date) <= this.justDatesInNext28Days[0].wholeDate){                  // if the first TA is before or on today
+          if (new Date(this.TAs[j].startDate.date) <= this.justDatesInNext28Days[0].wholeDate){     // if the first TA startDate is before or on today
             this.goAwayersWithTAs[i].daysTillFirstTA = []                  // set daysTillFirstTA to empty array
             this.goAwayersWithTAs[i].lengthOfFirstTA = this.getNumberOfDaysInTA(new Date(this.TAs[j].startDate.date), new Date(this.TAs[j].endDate.date)) // length of TA is number of days ON CALENDAR
             break;                                                          // go to next goAwayer
