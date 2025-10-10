@@ -5,6 +5,7 @@ import { MatNativeDateModule, DateAdapter, MatOption } from '@angular/material/c
 import { FormGroup, FormControl, ReactiveFormsModule,FormsModule  } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MyserviceService } from '../myservice.service';
+import { MatSelectModule, MatSelect } from '@angular/material/select';
 
 
 @Component({
@@ -19,7 +20,8 @@ import { MyserviceService } from '../myservice.service';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatOption
+    MatOption,
+    MatSelectModule,
 ],
   providers: [MatDatepickerModule, MatNativeDateModule]
 })
