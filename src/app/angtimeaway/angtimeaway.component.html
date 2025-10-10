@@ -55,27 +55,23 @@
 <div class="centered-div">
   <div>
     <form action="">
-
-  <mat-form-field>
-    <mat-label>Date range for Time Away</mat-label>
-    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-      <input matStartDate formControlName="start" placeholder="Start date">
-      <input matEndDate formControlName="end" placeholder="End date">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
-
-
-
-
-  <mat-form-field>
-  <mat-label>Choose one</mat-label>
-  <mat-select >
-    <mat-option>Clear</mat-option>
-    <mat-option value="valid">Valid option</mat-option>
-    <mat-option value="invalid">Invalid option</mat-option>
-  </mat-select>
-  </mat-form-field>
-    <button (click) = 'submit()'>Submit</button>
-      </form>
+      <mat-form-field>
+        <mat-label>Date range for Time Away</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date">
+          <input matEndDate formControlName="end" placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Reason</mat-label>
+        <mat-select >
+          <mat-option value="valid">Vacation</mat-option> 
+          <mat-option value="valid">Meeting</mat-option>
+          <mat-option value="invalid">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button (click) = 'submit()'>Submit</button>
+    </form>
+    </div>
