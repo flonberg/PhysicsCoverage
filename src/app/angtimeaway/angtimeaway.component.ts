@@ -64,6 +64,9 @@ export class AngtimeawayComponent implements OnInit {
     this.makeAllDatesInNext28Days();
     this.getTAs();
   }
+  submit(){
+    console.log("123123 %o", this.range.value)
+  }
   selectDates(event: any) {
     console.log("Selected date: ", event);
   }
