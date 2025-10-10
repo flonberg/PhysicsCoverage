@@ -2,7 +2,7 @@ th {
     text-align: center;
 }
 td {
-    min-width: 60px;
+    min-width: 40px;
     text-align: center;
     border: 1px solid black;
 }
@@ -11,4 +11,14 @@ td.weekend {
 }
 td.weekday {
     background-color: lightgrey ;
+}
+table {
+  font-family: "Arial", sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  color: #333;
+        margin-left: auto;
+        margin-right: auto;
+        /* Optional: set a specific width for the table */
+        width: 80%; /* Or a fixed pixel value like 600px */
 }

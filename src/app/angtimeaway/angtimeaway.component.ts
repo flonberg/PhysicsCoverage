@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule,FormsModule  } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MyserviceService } from '../myservice.service';
+
 
 @Component({
   selector: 'app-angtimeaway',
@@ -16,7 +17,8 @@ import { MyserviceService } from '../myservice.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [MatDatepickerModule, MatNativeDateModule]
 })
@@ -25,6 +27,13 @@ export class AngtimeawayComponent implements OnInit {
     start: new FormControl(),
     end: new FormControl()
   });
+    // To get the value:
+  onSubmit() {
+    const startDate = this.range.value.start;
+    const endDate = this.range.value.end;
+    console.log('Selected Start Date:', startDate);
+    console.log('Selected End Date:', endDate);
+  }
   numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
@@ -35,12 +44,16 @@ export class AngtimeawayComponent implements OnInit {
   TAs:any = []
   TAclasses: TAclass[] = []
   goAwayersWithTAs: goAwayerWithTAs[] = []
+  selectedDate: Date | null = null;
   constructor(private myservice: MyserviceService) {
 
   }
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
     this.getTAs();
+  }
+  selectDates(event: any) {
+    console.log("Selected date: ", event);
   }
   /** Load parameters into TAclasses and calculate the number of days in the TA */
   makeTAsIntoTAclasses(){
@@ -50,7 +63,6 @@ export class AngtimeawayComponent implements OnInit {
       ta.userid = this.TAs[i].userid
       ta.UserID = this.TAs[i].UserID
       ta.LastName = this.TAs[i].LastName
-      var tst = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
       ta.startDate = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
       ta.endDate = this.createDateFromString(this.TAs[i].endDate.date.slice(0,10))
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
@@ -58,8 +70,8 @@ export class AngtimeawayComponent implements OnInit {
     }
     console.log("3434 TAclasses %o", this.TAclasses)
   }
+  /**Assuming the input format is 'YYYY-MM-DD' avoid time zone issues*/
   createDateFromString(dateString: string): Date {
-    // Assuming the input format is 'YYYY-MM-DD'
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day); // Month is 0-indexed in JavaScript Date
   }
