@@ -22,3 +22,10 @@ table {
         /* Optional: set a specific width for the table */
         width: 80%; /* Or a fixed pixel value like 600px */
 }
+.centered-div {
+  width: 50%; /* Or any specific width */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:50px;
+  /* Shorthand: margin: 0 auto; */
+}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, DateAdapter } from '@angular/material/core';
+import { MatNativeDateModule, DateAdapter, MatOption } from '@angular/material/core';
 import { FormGroup, FormControl, ReactiveFormsModule,FormsModule  } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MyserviceService } from '../myservice.service';
@@ -18,15 +18,27 @@ import { MyserviceService } from '../myservice.service';
     MatNativeDateModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    FormsModule
-  ],
+    FormsModule,
+    MatOption
+],
   providers: [MatDatepickerModule, MatNativeDateModule]
 })
 export class AngtimeawayComponent implements OnInit {
+
+  options = [
+        { value: 'option1', viewValue: 'Option 1' },
+        { value: 'option2', viewValue: 'Option 2' },
+        { value: 'option3', viewValue: 'Option 3' },
+      ];
   range = new FormGroup({
     start: new FormControl(),
-    end: new FormControl()
+    end: new FormControl(),
+     mySelectControl: new FormControl('option2')
   });
+  reason = new FormGroup({
+      choice: new FormControl(),
+  });
+  
     // To get the value:
   onSubmit() {
     const startDate = this.range.value.start;
