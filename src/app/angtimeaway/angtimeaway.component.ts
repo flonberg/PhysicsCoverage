@@ -50,12 +50,18 @@ export class AngtimeawayComponent implements OnInit {
       ta.userid = this.TAs[i].userid
       ta.UserID = this.TAs[i].UserID
       ta.LastName = this.TAs[i].LastName
-      ta.startDate = new Date(this.TAs[i].startDate.date)
-      ta.endDate = new Date(this.TAs[i].endDate.date)
+      var tst = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
+      ta.startDate = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
+      ta.endDate = this.createDateFromString(this.TAs[i].endDate.date.slice(0,10))
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
       this.TAclasses.push(ta)
     }
     console.log("3434 TAclasses %o", this.TAclasses)
+  }
+  createDateFromString(dateString: string): Date {
+    // Assuming the input format is 'YYYY-MM-DD'
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day); // Month is 0-indexed in JavaScript Date
   }
   /** Make goAwayersWithTAs class for each goAwayer and then put each TA in the proper goAwayerWithTAs class */
   makeGoAwayersList(){
@@ -204,6 +210,7 @@ export class AngtimeawayComponent implements OnInit {
           this.myTAs[i].startDate.setUTCHours(0, 0, 0, 0);
             var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - lastDate.getTime());
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24))-1; // +1 to include both start and end dates 
+    console.log("207205 %o -- %o --- %o ---%o",this.myTAs[i].LastName, lastDate, this.myTAs[i].startDate, this.myTAs[i].daysTillTAstart)        
         }
       }
     }
