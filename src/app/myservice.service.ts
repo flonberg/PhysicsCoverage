@@ -93,5 +93,12 @@ export class MyserviceService {
        console.log("110110 getTAs url %o", url)
         return this .HttpClient.get<duty>(url)
     }
+    getDosims(){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getDosim.php"
+      if (isDevMode())
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getDosim.php?debug=1";
+       console.log("222 getDosims url %o", url)
+        return this .HttpClient.get<duty>(url)
+    }
 
 }

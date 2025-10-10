@@ -5,7 +5,7 @@
 <h2> Time Away Calendar</h2>
 </head>
 <div style="text-align: center;">
-  <h2> Time Away Calendar</h2>
+  <h2> Time Away Calendar</h2>                                                                                                                          
 <table>
 <tr>
   <th [attr.colspan]="remainingDaysInMonth" style="border:solid">{{nameOfCurrentMonth}}</th>
@@ -68,6 +68,14 @@
           <mat-option value="invalid">Other</mat-option>
         </mat-select>
       </mat-form-field>
-      <button (click) = 'submit()'>Submit</button>
+      <mat-form-field>
+        <mat-label>Coverer</mat-label>
+        <mat-select >
+          <mat-option value="valid">Vacation</mat-option>     
+          <mat-option value="valid">Meeting</mat-option>
+          <mat-option value="invalid">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button class="raised-button" (click) = 'submit()'>Submit</button>
     </form>
     </div>

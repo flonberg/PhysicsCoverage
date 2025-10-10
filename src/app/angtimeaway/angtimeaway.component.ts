@@ -60,7 +60,31 @@ export class AngtimeawayComponent implements OnInit {
   }
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
+    this.getDosims();
     this.getTAs();
+  }
+  getTAs(){
+    let daysFromNow28 = new Date();
+    daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
+    let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
+    this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
+      this.TAs = data;
+      this.makeTAsIntoTAclasses()
+      this.makeGoAwayersList()
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
+  getDosims(){
+    this.myservice.getDosims().subscribe({next: data => {
+      console.log("818181 dosims %o", data)
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
   submit(){
     console.log("123123 %o", this.range.value)
@@ -144,20 +168,7 @@ export class AngtimeawayComponent implements OnInit {
     const remainingDays = lastDayOfMonth.getDate() - today.getDate();
     return remainingDays+1;
   }
-  getTAs(){
-    let daysFromNow28 = new Date();
-    daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
-    let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
-    this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
-      this.TAs = data;
-      this.makeTAsIntoTAclasses()
-      this.makeGoAwayersList()
-      },
-      error: error => {
-        console.error('There was an error!', error);
-      }
-    });
-  }
+
 
     getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.justDatesInNext28Days[0].wholeDate)
@@ -235,7 +246,7 @@ export class AngtimeawayComponent implements OnInit {
           this.myTAs[i].startDate.setUTCHours(0, 0, 0, 0);
             var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - lastDate.getTime());
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24))-1; // +1 to include both start and end dates 
-    console.log("207205 %o -- %o --- %o ---%o",this.myTAs[i].LastName, lastDate, this.myTAs[i].startDate, this.myTAs[i].daysTillTAstart)        
+       
         }
       }
     }

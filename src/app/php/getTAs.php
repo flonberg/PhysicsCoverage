@@ -7,16 +7,17 @@ $handle = connectDB_FL();
 	$time = date("Y-m-d H:i:s");
 	fwrite($fp,  $time . "\n");
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
+   
    $today = new DateTime();
    $Start = $today->format("Y-m-d");
 
   $selStr = "SELECT vacation3.startDate, vacation3.endDate, vacation3.userid, vacation3.vidx, vacation3.reasonIdx,
-      physicists.LastName,
+      physicists.LastName,physicists.FirstName,
       users.UserID
       from vacation3
       INNER JOIN physicists ON physicists.UserKey = vacation3.userid
       INNER JOIN users ON users.UserKey = vacation3.userid
-      where vacation3.endDate > '".$Start."' AND vacation3.startDate < '".$_GET['endDate']."' AND vacation3.reasonIdx IS NULL
+      where vacation3.endDate >= '".$Start."' AND vacation3.startDate < '".$_GET['endDate']."' AND vacation3.reasonIdx IS NULL
       order by physicists.LastName, vacation3.startDate ";
    fwrite($fp, "\r\n $selStr");
    $stmt = sqlsrv_query( $handle, $selStr);
