@@ -16,18 +16,18 @@
     </ng-container>
     <!--  If there is NOT second TA-->
     <ng-container *ngIf = "!item.myTAs[1]">
-      <td>toEnd</td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillEndOfCalendar); let k = index"> </td>
     </ng-container>
   <!--  If there IS second TA-->
     <ng-container *ngIf = "item.myTAs[2]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillTAstart); let k = index"> </td>
         <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]"> {{ item.myTAs[1].LastName }} </td>
     </ng-container>
-
+        <!--  If there is NOT third TA-->
     <ng-container *ngIf = "!item.myTAs[2] && item.myTAs[1]">
-      <td>toEnd2</td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillEndOfCalendar); let k = index"> </td>
     </ng-container>
-
+    
    <ng-container *ngIf = "item.myTAs[3]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> </td>
         <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"> {{ item.myTAs[1].LastName }} </td>
