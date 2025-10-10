@@ -5,6 +5,11 @@ td {
     min-width: 40px;
     text-align: center;
     border: 1px solid black;
+    background-color: rgb(230, 217, 213);
+}
+td.goAwayer {
+    background-color: rgb(189, 238, 189) ;
+    border:solid;
 }
 td.weekend {
     background-color: yellow ;

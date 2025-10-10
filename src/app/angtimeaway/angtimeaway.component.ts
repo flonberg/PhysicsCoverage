@@ -27,11 +27,6 @@ import { MatSelectModule, MatSelect } from '@angular/material/select';
 })
 export class AngtimeawayComponent implements OnInit {
 
-  options = [
-        { value: 'option1', viewValue: 'Option 1' },
-        { value: 'option2', viewValue: 'Option 2' },
-        { value: 'option3', viewValue: 'Option 3' },
-      ];
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
@@ -59,6 +54,7 @@ export class AngtimeawayComponent implements OnInit {
   TAclasses: TAclass[] = []
   goAwayersWithTAs: goAwayerWithTAs[] = []
   selectedDate: Date | null = null;
+  goAwayerClass:string = 'goAwayer'
   constructor(private myservice: MyserviceService) {
 
   }

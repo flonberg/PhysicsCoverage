@@ -2,14 +2,10 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Select with a custom ErrorStateMatcher</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head><div style="text-align: center;">
+<h2> Time Away Calendar</h2>
+</head>
+<div style="text-align: center;">
+  <h2> Time Away Calendar</h2>
 <table>
 <tr>
   <th [attr.colspan]="remainingDaysInMonth" style="border:solid">{{nameOfCurrentMonth}}</th>
@@ -21,11 +17,11 @@
   <tr *ngFor="let item of goAwayersWithTAs; let j = index">
     <!-- The Zeros TA-->
     <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index"> </td>
-    <td [attr.colspan]="item.myTAs[0].lengthOfTA" style="border:solid"> {{item.LastName}} </td>
+    <td [attr.colspan]="item.myTAs[0].lengthOfTA" [class]="goAwayerClass"> {{item.LastName}} </td>
     <!-- First TA for this goAwayer -->
     <ng-container *ngIf = "item.myTAs[1]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" style="border:solid"> {{ item.myTAs[1].LastName }} </td>
+        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" [class]="goAwayerClass"> {{ item.myTAs[1].LastName }} </td>
     </ng-container>
     <!--  If there is NOT second TA-->
     <ng-container *ngIf = "!item.myTAs[1]">
@@ -34,7 +30,7 @@
   <!--  If there IS second TA-->
     <ng-container *ngIf = "item.myTAs[2]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" style="border:solid"> {{ item.myTAs[1].LastName }}</td>
+        <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" [class]="goAwayerClass"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
         <!--  If there is NOT third TA-->
     <ng-container *ngIf = "!item.myTAs[2] && item.myTAs[1]">
@@ -43,7 +39,7 @@
       <!--  If there IS third TA-->
    <ng-container *ngIf = "item.myTAs[3]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  style="border:solid"> {{ item.myTAs[1].LastName }}</td>
+        <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  [class]="goAwayerClass"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
            <!--  If there is NOT forth TA-->
     <ng-container *ngIf = "!item.myTAs[3] && item.myTAs[2]&& item.myTAs[1]">
@@ -67,7 +63,7 @@
       <mat-form-field>
         <mat-label>Reason</mat-label>
         <mat-select >
-          <mat-option value="valid">Vacation</mat-option> 
+          <mat-option value="valid">Vacation</mat-option>     
           <mat-option value="valid">Meeting</mat-option>
           <mat-option value="invalid">Other</mat-option>
         </mat-select>
