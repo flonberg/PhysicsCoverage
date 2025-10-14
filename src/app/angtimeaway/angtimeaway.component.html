@@ -18,7 +18,7 @@
 <!-- tr loop over goAwayersWithTAs  Set up for MAX of 4 tAs for same user in the displayed calendar-->  
 <tr *ngFor="let item of goAwayersWithTAs; let j = index">
     <!-- The Zeros before the first TA-->
-    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index"> </td>
+    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index" [class]="isToday(i)"> </td>
     <td [attr.colspan]="item.myTAs[0].lengthOfTA" [class]="goAwayerClass"> {{item.LastName}} </td>
   <!-- If there is a 2nd TA for this GoAwayer do this loop-->
     <ng-container *ngIf = "item.myTAs[1]">
@@ -84,9 +84,7 @@
       <mat-form-field>
         <mat-label>Coverer</mat-label>
         <mat-select [(ngModel)]="covererValue" name="coverer">
-          <mat-option value="valid">Vacation</mat-option>     
-          <mat-option value="valid">Meeting</mat-option>
-          <mat-option value="invalid">Other</mat-option>
+          <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.LastName }}, {{ dosim.FirstName }}</mat-option>
         </mat-select>
       </mat-form-field>
       <button class="raised-button" (click) = 'submit()'>Submit</button>

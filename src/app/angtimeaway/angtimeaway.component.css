@@ -17,6 +17,10 @@ td.weekend {
 td.weekday {
     background-color: lightgrey ;
 }
+td.today {
+    background-color: rgb(213, 184, 165) ;
+
+}
 table {
   font-family: "Arial", sans-serif;
   font-size: 12px;

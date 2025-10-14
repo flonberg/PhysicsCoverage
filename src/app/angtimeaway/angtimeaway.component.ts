@@ -57,6 +57,9 @@ export class AngtimeawayComponent implements OnInit {
   goAwayerClass:string = 'goAwayer'
   reasonValue: string = ''
   covererValue: string = ''
+  Dosims:Dosims[] = []
+
+
   constructor(private myservice: MyserviceService) {
 
   }
@@ -81,11 +84,16 @@ export class AngtimeawayComponent implements OnInit {
   }
   getDosims(){
     this.myservice.getDosims().subscribe({next: data => {
-      console.log("818181 dosims %o", data)
-      },
-      error: error => {
-        console.error('There was an error!', error);
+      const dosimData: any = data;  // Assuming 'data' is an array of objects
+
+      for (let i=0; i < dosimData.length; i++){
+        this.Dosims[i]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
+        console.log("828282 dosim %o", this.Dosims[i])
       }
+    },
+    error: error => {
+      console.error('There was an error!', error);
+    }
     });
   }
   submit(){
@@ -162,7 +170,7 @@ export class AngtimeawayComponent implements OnInit {
       let dc = new dateClass(jsk);
       this.justDatesInNext28Days.push(dc);
     }
-    console.log(this.justDatesInNext28Days);
+    console.log("173173 %o", this.justDatesInNext28Days);
   }
   numberOfRemainingDaysInMonth(): number {
     const today = new Date();
@@ -172,7 +180,7 @@ export class AngtimeawayComponent implements OnInit {
   }
 
 
-    getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
+  getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.justDatesInNext28Days[0].wholeDate)
         startDate = this.justDatesInNext28Days[0].wholeDate
       if (this.areDatesOnSameDay(endDate,startDate))
@@ -192,7 +200,13 @@ export class AngtimeawayComponent implements OnInit {
         date1.getDate() === date2.getDate()
       );
     }
-    }
+    isToday(num:number): string {
+      if (num == 0 ) 
+        return 'today'
+      else
+        return 'goAwayerClass '
+      }
+  }
   class dateClass {
     justdateL:string=''
     wholeDate:Date = new Date()
@@ -295,5 +309,16 @@ export class AngtimeawayComponent implements OnInit {
         this.daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
         }
     }
-
+  }
+    class Dosims{
+      UserKey: number = 0
+      LastName: string = ''
+      FirstName: string = ''
+      UserID: string = ''
+      constructor(UserKey: number, LastName: string, FirstName: string, UserID: string){
+        this.UserKey = UserKey
+        this.LastName = LastName
+        this.FirstName = FirstName
+        this.UserID = UserID
+      }  
 }
