@@ -55,6 +55,8 @@ export class AngtimeawayComponent implements OnInit {
   goAwayersWithTAs: goAwayerWithTAs[] = []
   selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
+  reasonValue: string = ''
+  covererValue: string = ''
   constructor(private myservice: MyserviceService) {
 
   }

@@ -15,51 +15,51 @@
   <tr>
     <td *ngFor="let item of justDatesInNext28Days" [class]="item.class">{{item.justdateL}}</td>
   </tr>
-<!-- tr loop over goAwayersWithTAs  -->  
-  <tr *ngFor="let item of goAwayersWithTAs; let j = index">
+<!-- tr loop over goAwayersWithTAs  Set up for MAX of 4 tAs for same user in the displayed calendar-->  
+<tr *ngFor="let item of goAwayersWithTAs; let j = index">
     <!-- The Zeros before the first TA-->
-    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index">0 </td>
+    <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index"> </td>
     <td [attr.colspan]="item.myTAs[0].lengthOfTA" [class]="goAwayerClass"> {{item.LastName}} </td>
-<!-- If there is a 2nd TA for this GoAwayer do this loop-->
+  <!-- If there is a 2nd TA for this GoAwayer do this loop-->
     <ng-container *ngIf = "item.myTAs[1]">
       <!-- days between 1st TA and 2nd tA -->
-        <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillTAstart); let k = index">1 </td>
+        <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillTAstart); let k = index"> </td>
         <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" [class]="goAwayerClass"> {{ item.myTAs[1].LastName }} </td>
     </ng-container>
     <!--  If there is NOT second TA put boxes in till end of Calendar-->
     <ng-container *ngIf = "!item.myTAs[1]">
-          <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillEndOfCalendar); let k = index"> ff </td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillEndOfCalendar); let k = index">  </td>
     </ng-container>
   <!--  If there IS second TA-->
     <ng-container *ngIf = "item.myTAs[2]">
-        <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillTAstart); let k = index"> 2 </td>
+        <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillTAstart); let k = index">  </td>
         <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" [class]="goAwayerClass"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
-        <!--  If there is NOT third TA-->
+    <!--  If there is NOT third TA-->
     <ng-container *ngIf = "!item.myTAs[2] && item.myTAs[1]">
-          <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillEndOfCalendar); let k = index">ff </td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillEndOfCalendar); let k = index"> </td>
     </ng-container>
-      <!--  If there IS third TA-->
+    <!--  If there IS third TA-->
    <ng-container *ngIf = "item.myTAs[3]">
-        <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> 3</td>
+        <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> </td>
         <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  [class]="goAwayerClass"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
-           <!--  If there is NOT forth TA-->
+    <!--  If there is NOT forth TA-->
     <ng-container *ngIf = "!item.myTAs[3] && item.myTAs[2]&& item.myTAs[1]">
-          <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillEndOfCalendar); let k = index"> ff </td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillEndOfCalendar); let k = index">  </td>
     </ng-container>
-          <!--  If there IS 4th TA-->
+    <!--  If there IS 4th TA-->
    <ng-container *ngIf = "item.myTAs[4]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> 3 </td>
         <td [attr.colspan]="item.myTAs[4].lengthOfTA"  *ngIf = "item.myTAs[4]"  [class]="goAwayerClass"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
-           <!--  If there is NOT forth TA-->
+    <!--  If there is NOT 5th TA-->
     <ng-container *ngIf = "!item.myTAs[4] && item.myTAs[3]  && item.myTAs[2] && item.myTAs[1]">
-          <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillEndOfCalendar); let k = index"> ff </td>
-    </ng-container>
-    
-  </tr>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillEndOfCalendar); let k = index">  </td>
+    </ng-container>    
+</tr>
 </table>
+
 </div>
 <div class="centered-div">
   <div>
@@ -73,17 +73,17 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field >
         <mat-label>Reason</mat-label>
-        <mat-select >
-          <mat-option value="valid">Vacation</mat-option>     
-          <mat-option value="valid">Meeting</mat-option>
-          <mat-option value="invalid">Other</mat-option>
+        <mat-select  [(ngModel)]="reasonValue" name="reason" >
+          <mat-option value="0">Vacation</mat-option>     
+          <mat-option value="1">Meeting</mat-option>
+          <mat-option value="2">Other</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Coverer</mat-label>
-        <mat-select >
+        <mat-select [(ngModel)]="covererValue" name="coverer">
           <mat-option value="valid">Vacation</mat-option>     
           <mat-option value="valid">Meeting</mat-option>
           <mat-option value="invalid">Other</mat-option>
