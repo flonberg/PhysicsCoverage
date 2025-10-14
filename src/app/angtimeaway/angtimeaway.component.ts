@@ -97,6 +97,8 @@ export class AngtimeawayComponent implements OnInit {
     const coverer = this.covererValue
     this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
       console.log("3434 enterTA url %o", data)
+
+         this.ngOnInit();
     }})
    
     
@@ -109,6 +111,7 @@ export class AngtimeawayComponent implements OnInit {
   }
   /** Load parameters into TAclasses and calculate the number of days in the TA */
   makeTAsIntoTAclasses(){
+    this.TAclasses = []; // Initialize the TAclasses array
     for (let i=0; i < this.TAs.length; i++){
       let ta = new TAclass()
       ta.idx = this.TAs[i].idx
@@ -151,6 +154,9 @@ export class AngtimeawayComponent implements OnInit {
   }
   /** Go thru the TAs and put each on in the proper goAwayerWithTAs class */
   putTAsWithGoAwayers(){
+    for (let i=0; i < this.goAwayersWithTAs.length; i++){
+      this.goAwayersWithTAs[i].myTAs = []                            // initialize the myTAs array for each goAwayer
+    }
       for (let j = 0; j < this.TAclasses.length; j++)
       {
         for (let i=0; i < this.goAwayersWithTAs.length; i++)
@@ -166,6 +172,7 @@ export class AngtimeawayComponent implements OnInit {
   }
 
   makeAllDatesInNext28Days(){
+this.justDatesInNext28Days.length = 0
     const today = new Date();
     const next30Days = new Date();
     next30Days.setDate(today.getDate() +  this.numberOfDaysToShow);
