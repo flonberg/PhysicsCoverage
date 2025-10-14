@@ -7,6 +7,15 @@ $handle = connectDB_FL();
 	$time = date("Y-m-d H:i:s");
 	fwrite($fp,  $time . "\n");
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
-   $userLastName = getSingle("SELECT LastName FROM physicists WHERE UserKey = ".$_GET['userkey'], 'LastName', $handle);
-    fwrite($fp, "\r\n userLastName: $userLastName \r\n");
-   $insStr = "INSERT INTO TimeAway (StartDate, EndDate, Reason, Coverer, UserKey, EnteredBy, EnteredOn) VALUES (?,?,?,?,?,?,?)";
+   $selStr = "SELECT UserKey FROM users WHERE UserID = '".$_GET['userid']."'";
+        fwrite($fp, "\r\n $selStr \r\n");
+    $UserKey = getSingle($selStr, 'UserKey', $handle);
+   $selStr = "SELECT LastName, FirstName, rank, inst_id FROM physicists WHERE UserKey = ".$UserKey;
+     fwrite($fp, "\r\n $selStr \r\n");
+   $stmt = sqlsrv_query( $handle, $selStr);
+   if( $stmt === false )
+       { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); }
+   $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
+ob_start(); var_dump($temp);$data = ob_get_clean();fwrite($fp, "\r\n ". $data);
+ 
+    fwrite($fp, "\r\n userLastName: $userLastName  UsreId is $UserKey \r\n");   $insStr = "INSERT INTO TimeAway (StartDate, EndDate, Reason, Coverer, UserKey, EnteredBy, EnteredOn) VALUES (?,?,?,?,?,?,?)";
