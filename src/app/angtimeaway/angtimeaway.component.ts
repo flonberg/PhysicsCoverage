@@ -38,10 +38,7 @@ export class AngtimeawayComponent implements OnInit {
   
     // To get the value:
   onSubmit() {
-    const startDate = this.range.value.start;
-    const endDate = this.range.value.end;
-    console.log('Selected Start Date:', startDate);
-    console.log('Selected End Date:', endDate);
+  
   }
   numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
@@ -61,7 +58,6 @@ export class AngtimeawayComponent implements OnInit {
 
 
   constructor(private myservice: MyserviceService) {
-
   }
   ngOnInit(): void {
     this.makeAllDatesInNext28Days();
@@ -85,10 +81,8 @@ export class AngtimeawayComponent implements OnInit {
   getDosims(){
     this.myservice.getDosims().subscribe({next: data => {
       const dosimData: any = data;  // Assuming 'data' is an array of objects
-
       for (let i=0; i < dosimData.length; i++){
         this.Dosims[i]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
-        console.log("828282 dosim %o", this.Dosims[i])
       }
     },
     error: error => {
@@ -97,8 +91,19 @@ export class AngtimeawayComponent implements OnInit {
     });
   }
   submit(){
-    console.log("123123 %o", this.range.value)
+    const startDate = this.range.value.start.toISOString().slice(0, 10);
+    const endDate = this.range.value.end.toISOString().slice(0, 10);
+    const reason = this.reasonValue;
+    const coverer = this.covererValue
+    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
+      console.log("3434 enterTA url %o", data)
+    }})
+   
+    
+
+
   }
+
   selectDates(event: any) {
     console.log("Selected date: ", event);
   }

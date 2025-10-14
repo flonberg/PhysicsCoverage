@@ -33,7 +33,17 @@ export class MyserviceService {
     formatDateYYYYMMDD(date: Date): string {
       return date.toISOString().slice(0, 10);
     }
-    getForMonth(monthString: string){
+    enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
+      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.userkey;      // 
+                 //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+      if (isDevMode())   
+          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
+          "&reason="+reason+"&coverer="+coverer+"&userid="+this.userid+"&debug=1"; 
+          console.log("30303 url %o", url)
+      return this .HttpClient.get<duty>(url)
+}
+      getForMonth(monthString: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsMonthlyDuties.php?MonthNum="+monthString+"&debug=`";			// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
