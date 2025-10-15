@@ -121,7 +121,7 @@ export class MonthCalComponent {
     const pdfUrl ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/ExplainShiftTasks.pdf" 
     window.open(pdfUrl, '_blank');
   }
-   advanceMonth(number: number) {
+   advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
     this.advance += number
     this.theMonth = new month2Class(this.advance)
     this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
@@ -194,7 +194,7 @@ export class MonthCalComponent {
       }
     this.isCheckedBool = false
   }
-  doesLoggedInUserHaveThis(duty: any){
+  doesLoggedInUserHaveThis(duty: any){                                          // used by month-cal.component.html to determine if 'take' button should be shown
     const test = this.myservice.getLoggedInUserKey()
     let takerUserKey = 0
     if (duty)
