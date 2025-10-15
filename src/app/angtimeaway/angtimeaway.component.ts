@@ -97,8 +97,7 @@ export class AngtimeawayComponent implements OnInit {
     const coverer = this.covererValue
     this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
       console.log("3434 enterTA url %o", data)
-
-         this.ngOnInit();
+    this.ngOnInit();
     }})
    
     

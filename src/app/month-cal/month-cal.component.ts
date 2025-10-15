@@ -70,16 +70,19 @@ export class MonthCalComponent {
     let ind = 0
     this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
       elem.forEach((elem2=>{                                // go through each week of dateStrings
-        if (this.dayBucket[elem2] )
+        if (this.dayBucket[elem2] )                       // if this IS a date on the calendar
           this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
         else {
           let test:number[] = [0,0,0,0,0,]
-          if (this.theMonth.monthNum > 6)
+          if (this.theMonth.monthNum > 6)                 // Months is part of the Expanded duty Calendar
             test = [0,0,0,0,0,0,0]
-          this.theMonth.datesWithDuties[ind++] = test  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
+          else
+            test = [0,0,0,0,0,0,0]
+          this.theMonth.datesWithDuties[ind++] = test  // put an array of non-existent duties
         }
        }))
       })) 
+      console.log("171171 this.theMonth.datesWithDuties %o", this.theMonth.datesWithDuties )
     }
   getDutyNames(){
         this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{

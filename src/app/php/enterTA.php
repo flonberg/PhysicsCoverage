@@ -7,8 +7,16 @@ $handle = connectDB_FL();
 	$time = date("Y-m-d H:i:s");
 	fwrite($fp,  $time . "\n");
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
-   if ($_GET['userid'] == '')
-        $_GET['userid'] = 'fjl3';
+   if ($_GET['userid'] == ''){
+    fwrite($fp, "\r\n No userid passed \r\n");
+       if (isset($_SERVER['REMOTE_USER'])){
+           $_GET['userid'] = $_SERVER['REMOTE_USER'];
+           fwrite($fp, "\r\n Remote user is ".$_GET['userid']." \r\n");
+        } else {
+           fwrite($fp, "\r\n No remote user either \r\n");
+           exit;    
+   }
+}
    $selStr = "SELECT UserKey FROM users WHERE UserID = '".$_GET['userid']."'";
         fwrite($fp, "\r\n $selStr \r\n");
     $UserKey = getSingle($selStr, 'UserKey', $handle);
