@@ -64,26 +64,7 @@ export class MonthCalComponent {
     }
 
  
-  /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
-  addDutiesToDays(){
- //   this.theMonth.datesWithDuties = []
-    let ind = 0
-    this.theMonth.weekDayForDuties.forEach((elem=>{         // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
-      elem.forEach((elem2=>{                                // go through each week of dateStrings
-        if (this.dayBucket[elem2] )                       // if this IS a date on the calendar
-          this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]  // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
-        else {
-          let test:number[] = [0,0,0,0,0,]
-          if (this.theMonth.monthNum > 6)                 // Months is part of the Expanded duty Calendar
-            test = [0,0,0,0,0,0,0]
-          else
-            test = [0,0,0,0,0,0,0]
-          this.theMonth.datesWithDuties[ind++] = test  // put an array of non-existent duties
-        }
-       }))
-      })) 
-      console.log("171171 this.theMonth.datesWithDuties %o", this.theMonth.datesWithDuties )
-    }
+/** get the assoc between serviceid and duty name  */
   getDutyNames(){
         this.myservice.getFromPhysicsDuty(this.advance).subscribe(res=>{
         this.dutyNames = res  
@@ -91,27 +72,44 @@ export class MonthCalComponent {
   }  
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
-    this.dayBucket = []
+    this.dayBucket = []                                     // this is a dS inwhich each duty is put into an array with key = dateString e.g. 2025-09-02
     let today = new Date() 
-      let advancedToday = new Date(today.getFullYear(), today.getMonth() +this.advance, 1)
-      let monthSQLstring = advancedToday.toISOString().slice(0,7)  
-      this.myservice.getForMonth(monthSQLstring).subscribe(res=>{
+      let advancedToday = new Date(today.getFullYear(), today.getMonth() +this.advance, 1)      // If users has advanced to next or previous month make a date of the first of that month
+      let monthSQLstring = advancedToday.toISOString().slice(0,7)                               // make a string for SQL query e.g  LIKE '2025-09%'
+      this.myservice.getForMonth(monthSQLstring).subscribe(res=>{                               // get the duties from PhysicsMonthDuty table for the month
         this.theDuties = res
+        console.log("969696 duties %o", this.theDuties)
         this.numAssignments =this.theDuties.length
-        for (let i=0; i < this.theDuties.length; i++){
+        for (let i=0; i < this.theDuties.length; i++){                                          // go thru the duties
           if (this.theDuties[i]){
-            this.takers[this.theDuties[i].UserKey] = 1          // create 'takers' array to det. if 'take' button should be shown 
-            let justDate = this.theDuties[i]['day']['date'].slice(0,10)
-            if (!this.dayBucket[justDate])                      // this is where dayBucket is created
-              this.dayBucket[justDate] = []
-            this.dayBucket[justDate].push(this.theDuties[i]) 
+            this.takers[this.theDuties[i].UserKey] = 1                                          // create 'takers' array to det. if 'take' button should be shown 
+            let justDate = this.theDuties[i]['day']['date'].slice(0,10)                         // get the dateString e.g. 2025-09-02 to use as key of the dayBucket            
+            if (!this.dayBucket[justDate])                                                      // if this bucket does not exist
+              this.dayBucket[justDate] = []                                                     // make it an empty array          
+            this.dayBucket[justDate].push(this.theDuties[i])                                    // put the duty into the array for that dateString
           }
         }  
+        console.log("107107 dayBucket %o", this.dayBucket)
         this.addDutiesToDays()
         this.gotData = true
     })
   }
-  /** is loggedInUser a physicist who has duties */
+    /** Add duties to days.  theMonth.datesWithDuties is 2d array of with top key is one of the dateStrings eg 2025-09-02, for each day in the month shown  */  
+  addDutiesToDays(){
+    let ind = 0
+    this.theMonth.weekDayForDuties.forEach((elem=>{                                           // weekDayForDuties if array of dateString e.g. 2025-06-02 grouped into weeks
+      elem.forEach((elem2=>{                                                                  // go through each week of dateStrings
+        if (this.dayBucket[elem2] )                                                           // if this IS a date on the calendar
+          this.theMonth.datesWithDuties[ind++] = this.dayBucket[elem2]                        // foreach dateString {dS} put the dutiesArray with key = dS into that bucket
+        else {
+          let test:number[] = [0,0,0,0,0,0,0]                                                 // create an array on NON existent duties
+          this.theMonth.datesWithDuties[ind++] = test                                         // put an array of non-existent duties
+        }
+       }))
+      })) 
+      console.log("171171 this.theMonth.datesWithDuties %o", this.theMonth.datesWithDuties )
+    }
+  /** if loggedInUser a physicist who has duties, then she can 'take' duties in a swap */
   isUserTaker(){
     const test = this.myservice.getLoggedInUserKey()
     if (test in this.takers)
@@ -131,8 +129,6 @@ export class MonthCalComponent {
        console.log("125125 %o", this.dutyNames)
     })
     this.getDuties()
-   // this.makeMonth(this.advance); // Call the makeMonth function with the number passed in
-  //  this.addDutiesToDays()
     this.myservice.getFromPhysicsDuty(this.advance)
   }
 
@@ -151,15 +147,10 @@ export class MonthCalComponent {
       })
     }
   hasAssignments(assign: any){
-   // if (assign == 0)
-  //    return false
-  //  else
-     {
       if (this.isUserTaker())
         return true
       else
         return false
-    }
   }  
  isAssigned(duty:any){
   if (duty && duty.userkey > 0)
