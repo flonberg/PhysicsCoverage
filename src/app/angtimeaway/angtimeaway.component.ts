@@ -6,6 +6,7 @@ import { FormGroup, FormControl, ReactiveFormsModule,FormsModule  } from '@angul
 import { CommonModule } from '@angular/common';
 import { MyserviceService } from '../myservice.service';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { MatSelectModule, MatSelect } from '@angular/material/select';
     FormsModule,
     MatOption,
     MatSelectModule,
+    MatInputModule
 ],
   providers: [MatDatepickerModule, MatNativeDateModule]
 })
@@ -70,6 +72,7 @@ export class AngtimeawayComponent implements OnInit {
     let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
     this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
       this.TAs = data;
+      console.log("7575 TAs %o", this.TAs)
       this.makeTAsIntoTAclasses()
       this.makeGoAwayersList()
       },
@@ -95,20 +98,16 @@ export class AngtimeawayComponent implements OnInit {
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
     const coverer = this.covererValue
-    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
+ /*   this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
       console.log("3434 enterTA url %o", data)
-    this.range.reset();
-    this.reason.reset();
-    this.reasonValue = ''
-    this.covererValue = ''  
+    this.range.reset();  
     this.ngOnInit();
     }})
-   
-    
-
-
+    */
   }
-
+showVac(vidx:any){
+    console.log("Show vac for idx %o", vidx)
+  }
   selectDates(event: any) {
     console.log("Selected date: ", event);
   }
@@ -117,10 +116,12 @@ export class AngtimeawayComponent implements OnInit {
     this.TAclasses = []; // Initialize the TAclasses array
     for (let i=0; i < this.TAs.length; i++){
       let ta = new TAclass()
-      ta.idx = this.TAs[i].idx
+      ta.vidx = this.TAs[i].vidx
       ta.userid = this.TAs[i].userid
       ta.UserID = this.TAs[i].UserID
       ta.LastName = this.TAs[i].LastName
+      ta.reason = this.TAs[i].reason
+      ta.note = this.TAs[i].note
       ta.startDate = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
       ta.endDate = this.createDateFromString(this.TAs[i].endDate.date.slice(0,10))
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
@@ -219,7 +220,7 @@ this.justDatesInNext28Days.length = 0
       if (num == 0 ) 
         return 'today'
       else
-        return 'goAwayerClass '
+        return ' '
       }
   }
   class dateClass {
@@ -294,12 +295,14 @@ this.justDatesInNext28Days.length = 0
     }
  }
  class TAclass {
-    idx: number = 0
+    vidx: number = 0
     userid: number = 0
     UserID: string = ''
     LastName: string = ''
     startDate: Date = new Date()
     endDate: Date = new Date()
+    reason: number = 0
+    note: string = ''
     lengthOfTA: number = 0
     daysTillTAstart: number = 0
     numberOfDaysInTA: number = 0

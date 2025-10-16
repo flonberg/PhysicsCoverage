@@ -32,7 +32,7 @@ table {
         width: 80%; /* Or a fixed pixel value like 600px */
 }
 .centered-div {
-  width: 50%; /* Or any specific width */
+  width: 80%; /* Or any specific width */
   margin-left: auto;
   margin-right: auto;
   margin-top:50px;
@@ -56,4 +56,9 @@ table {
 .raised-button:active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Smaller shadow on active (pressed) */
   transform: translateY(1px); /* Slight push down on active */
-}/* You can add global styles to this file, and also import other style files */
+}
+.goAwayerClass {
+    background-color: rgb(189, 238, 189) ;
+    border:solid;
+    cursor: pointer;
+}
