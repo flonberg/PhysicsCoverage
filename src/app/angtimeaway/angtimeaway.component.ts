@@ -100,13 +100,18 @@ export class AngtimeawayComponent implements OnInit {
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
     const coverer = this.covererValue
- /*   this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
+    if (this.myservice.getUserKey() > 0){
+    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
       console.log("3434 enterTA url %o", data)
     this.range.reset();  
     this.ngOnInit();
     }})
-    */
+  }
+  else {
+    alert("UserKey not set - cannot enter TA")
+  
   }  
+}
 shownTa: shownTA | null = null  
 showTa(tA:any){
     console.log("Show vac for idx %o", tA)
@@ -229,6 +234,13 @@ this.justDatesInNext28Days.length = 0
       else
         return ' '
       }
+    editTa(event:any, whatIs:string, ta:shownTA){
+      console.log("Editing TA dates %o", event.target.value)
+      console.log("Editing TA whatIs %o", ta)
+      this.myservice.editTA(event.target.value, whatIs, ta.vidx).subscribe({next: data => {
+        console.log("3434 editTA url %o", data)
+      }})
+    }
   }
   class dateClass {
     justdateL:string=''

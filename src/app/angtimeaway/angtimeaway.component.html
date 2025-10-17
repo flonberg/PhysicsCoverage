@@ -100,10 +100,14 @@
       <button class="raised-button" (click) = 'submit()'>Submit</button>
     </form>
     </div>
-    <div>
-      <mat-form-field>
-  <mat-label>Read-Only Field</mat-label>
-  <input matInput [readonly]="true" [value]="shownTa?.startDateYMD">
-</mat-form-field>
+    <div *ngIf="shownTa">
+      <mat-form-field style="width: 150px;">
+        <mat-label>Start Date:</mat-label>
+        <input matInput [value]="shownTa.startDateYMD" (change)="editTa($event, 'startDate', shownTa)">
+      </mat-form-field>
+      <mat-form-field style="width: 150px;">
+        <mat-label>End Date:</mat-label>
+        <input matInput [value]="shownTa.endDateYMD" (change)="editTa($event, 'endDate', shownTa)">
+      </mat-form-field>
     </div>
     

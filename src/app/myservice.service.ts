@@ -42,6 +42,15 @@ export class MyserviceService {
           "&reason="+reason+"&coverer="+coverer+"&userid="+this.userid+"&debug=1"; 
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
+    }
+
+    editTA(newValue: string | number, newValueName: string, vidx:number){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/editTAs.php?newValue="+newValue+"&newValueName="+newValueName+"&vidx="+vidx;      // 
+                 //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+      if (isDevMode())   
+          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?newValue="+newValue+"&newValueName="+newValueName+"&vidx="+vidx+"&debug=1";
+          console.log("30303 url %o", url)
+      return this .HttpClient.get<duty>(url)
 }
       getForMonth(monthString: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsMonthlyDuties.php?MonthNum="+monthString+"&debug=`";			// 
