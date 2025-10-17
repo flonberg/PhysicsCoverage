@@ -9,6 +9,7 @@ import { MatSelectModule, MatSelect } from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 
 
+
 @Component({
   selector: 'app-angtimeaway',
   templateUrl: './angtimeaway.component.html',
@@ -57,6 +58,7 @@ export class AngtimeawayComponent implements OnInit {
   reasonValue: string = ''
   covererValue: string = ''
   Dosims:Dosims[] = []
+ 
 
 
   constructor(private myservice: MyserviceService) {
@@ -104,9 +106,12 @@ export class AngtimeawayComponent implements OnInit {
     this.ngOnInit();
     }})
     */
-  }
-showVac(vidx:any){
-    console.log("Show vac for idx %o", vidx)
+  }  
+shownTa: shownTA | null = null  
+showTa(tA:any){
+    console.log("Show vac for idx %o", tA)
+    this.shownTa = new shownTA(tA)
+
   }
   selectDates(event: any) {
     console.log("Selected date: ", event);
@@ -122,6 +127,8 @@ showVac(vidx:any){
       ta.LastName = this.TAs[i].LastName
       ta.reason = this.TAs[i].reason
       ta.note = this.TAs[i].note
+      ta.startDateYMD = this.TAs[i].startDate.date.slice(0,10)
+      ta.endDateYMD = this.TAs[i].endDate.date.slice(0,10)
       ta.startDate = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
       ta.endDate = this.createDateFromString(this.TAs[i].endDate.date.slice(0,10))
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
@@ -300,7 +307,9 @@ this.justDatesInNext28Days.length = 0
     UserID: string = ''
     LastName: string = ''
     startDate: Date = new Date()
+    startDateYMD: string = ''
     endDate: Date = new Date()
+    endDateYMD: string = ''
     reason: number = 0
     note: string = ''
     lengthOfTA: number = 0
@@ -328,15 +337,45 @@ this.justDatesInNext28Days.length = 0
         }
     }
   }
-    class Dosims{
-      UserKey: number = 0
-      LastName: string = ''
-      FirstName: string = ''
-      UserID: string = ''
-      constructor(UserKey: number, LastName: string, FirstName: string, UserID: string){
-        this.UserKey = UserKey
-        this.LastName = LastName
-        this.FirstName = FirstName
-        this.UserID = UserID
-      }  
+  class Dosims{
+    UserKey: number = 0
+    LastName: string = ''
+    FirstName: string = ''
+    UserID: string = ''
+    constructor(UserKey: number, LastName: string, FirstName: string, UserID: string){
+      this.UserKey = UserKey
+      this.LastName = LastName
+      this.FirstName = FirstName
+      this.UserID = UserID
+    }  
+}
+class shownTA{
+  vidx: number = 0
+  userid: number = 0
+  UserID: string = ''
+  LastName: string = ''
+  startDateYMD: string = ''
+  endDateYMD: string = ''
+  startDate: Date = new Date()
+  endDate: Date = new Date()
+  reason: number = 0
+  note: string = ''
+  lengthOfTA: number = 0
+  daysTillTAstart: number = 0
+  numberOfDaysInTA: number = 0
+  daysTillEndOfCalendar: number = 0
+  constructor(ta: TAclass) {
+    this.vidx = ta.vidx
+    this.userid = ta.userid
+    this.UserID = ta.UserID
+    this.LastName = ta.LastName
+    this.startDate = ta.startDate
+    this.startDateYMD = ta.startDateYMD
+    this.endDateYMD = ta.endDateYMD
+    this.endDate = ta.endDate
+    this.reason = ta.reason
+    this.note = ta.note
+    this.lengthOfTA = ta.lengthOfTA
+    this.daysTillTAstart = ta.daysTillTAstart
+  } 
 }
