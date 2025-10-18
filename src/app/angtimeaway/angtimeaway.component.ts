@@ -235,11 +235,17 @@ this.justDatesInNext28Days.length = 0
         return ' '
       }
     editTa(event:any, whatIs:string, ta:shownTA){
-      console.log("Editing TA dates %o", event.target.value)
+      let changeValue:string | number = ''
+      if (event.target)
+        changeValue = event.target.value
+      else
+        changeValue = event.value
+      console.log("Editing TA dates %o", event)
       console.log("Editing TA whatIs %o", ta)
-      this.myservice.editTA(event.target.value, whatIs, ta.vidx).subscribe({next: data => {
+      this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
         console.log("3434 editTA url %o", data)
       }})
+          this.ngOnInit();
     }
   }
   class dateClass {

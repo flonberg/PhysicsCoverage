@@ -69,6 +69,7 @@
 <div class="centered-div" style="margin-top:2 0px;">
    
   <div>
+    <caption style="width:300px;">Enter a new Time Away</caption>
     <form action="">
       <mat-form-field>
         <mat-label>Date range for Time Away</mat-label>
@@ -101,6 +102,7 @@
     </form>
     </div>
     <div *ngIf="shownTa">
+       <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
       <mat-form-field style="width: 150px;">
         <mat-label>Start Date:</mat-label>
         <input matInput [value]="shownTa.startDateYMD" (change)="editTa($event, 'startDate', shownTa)">
@@ -109,5 +111,18 @@
         <mat-label>End Date:</mat-label>
         <input matInput [value]="shownTa.endDateYMD" (change)="editTa($event, 'endDate', shownTa)">
       </mat-form-field>
+     <mat-form-field >
+      <mat-label>Reason</mat-label>
+        <mat-select  name="reasonToEdit" value="{{shownTa.reason}}" (selectionChange)="editTa($event, 'reason', shownTa)" >
+          <mat-option value="0" >Vacation</mat-option>     
+          <mat-option value="1">Meeting</mat-option>
+          <mat-option value="2">Other</mat-option>
+        </mat-select>
+      </mat-form-field>
+        <mat-form-field class="example-full-width">
+        <mat-label>Note</mat-label>
+        <input matInput  value ="{{shownTa.note}}">
+      </mat-form-field>
+      <button class="raised-button" (click) = 'submit()'>Delete</button>
     </div>
     
