@@ -121,8 +121,8 @@
       </mat-form-field>
         <mat-form-field class="example-full-width">
         <mat-label>Note</mat-label>
-        <input matInput  value ="{{shownTa.note}}">
+        <input matInput  value ="{{shownTa.note}}" (change)="editTa($event, 'note', shownTa)" >
       </mat-form-field>
-      <button class="raised-button" (click) = 'submit()'>Delete</button>
+      <button class="raised-button" (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
     </div>
     

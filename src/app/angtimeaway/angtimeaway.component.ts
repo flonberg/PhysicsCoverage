@@ -238,8 +238,10 @@ this.justDatesInNext28Days.length = 0
       let changeValue:string | number = ''
       if (event.target)
         changeValue = event.target.value
-      else
+      else if (event.value)
         changeValue = event.value
+      else
+        changeValue = event
       console.log("Editing TA dates %o", event)
       console.log("Editing TA whatIs %o", ta)
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
