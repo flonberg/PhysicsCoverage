@@ -112,12 +112,13 @@
        <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
       <mat-form-field style="width: 150px;">
         <mat-label>Start Date:</mat-label>
-        <input matInput [value]="shownTa.startDateYMD" [readonly]="isUserGoAwayerForThisTA(shownTa.userid)"  (change)="editTa($event, 'startDate', shownTa)">
+        <input matInput [value]="shownTa.startDateYMD" [readonly]="!isUserGoAwayerForThisTA(shownTa.userid)"  (change)="editTa($event, 'startDate', shownTa)">
       </mat-form-field>
       <mat-form-field style="width: 150px;">
         <mat-label>End Date:</mat-label>
-        <input matInput [value]="shownTa.endDateYMD" (change)="editTa($event, 'endDate', shownTa)">
+        <input matInput [value]="shownTa.endDateYMD" [readonly]="!isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'endDate', shownTa)">
       </mat-form-field>
+      <!--  Reason dropDown-->
      <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" >
       <mat-label>Reason</mat-label>
         <mat-select  name="reasonToEdit" value="{{shownTa.reason}}" (selectionChange)="editTa($event, 'reason', shownTa)"  >
@@ -126,7 +127,13 @@
           <mat-option value="2">Other</mat-option>
         </mat-select>
       </mat-form-field>
-        <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" ></mat-form-field>
+ 
+    <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" >
+      <mat-label>Reason:</mat-label>
+      <input matInput  value ="{{reasons[shownTa.reason]}}" readonly >
+    </mat-form-field>
+
+
         <mat-form-field class="example-full-width">
         <mat-label>Note</mat-label>
         <input matInput  value ="{{shownTa.note}}" *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'note', shownTa)" >

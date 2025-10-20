@@ -59,6 +59,8 @@ export class AngtimeawayComponent implements OnInit {
   covererValue: string = ''
   Dosims:Dosims[] = []
   shownTa: shownTA | null = null  
+    reasons: string[] = ['Vacation', 'Meeting', 'Other']
+    test:boolean = true
  
 
 
@@ -343,6 +345,7 @@ showTa(tA:any){
     daysTillTAstart: number = 0
     numberOfDaysInTA: number = 0
     daysTillEndOfCalendar: number = 0
+  
     constructor() {
 
      }
