@@ -47,7 +47,7 @@ export class AngtimeawayComponent implements OnInit {
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
   daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
-  justDatesInNext28Days: dateClass[] = [];
+  dateShownOnCalendar: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   TAs:any = []
@@ -58,6 +58,7 @@ export class AngtimeawayComponent implements OnInit {
   reasonValue: string = ''
   covererValue: string = ''
   Dosims:Dosims[] = []
+  shownTa: shownTA | null = null  
  
 
 
@@ -112,7 +113,7 @@ export class AngtimeawayComponent implements OnInit {
   
   }  
 }
-shownTa: shownTA | null = null  
+
 showTa(tA:any){
     console.log("Show vac for idx %o", tA)
     this.shownTa = new shownTA(tA)
@@ -188,7 +189,7 @@ showTa(tA:any){
   }
 
   makeAllDatesInNext28Days(){
-this.justDatesInNext28Days.length = 0
+    this.dateShownOnCalendar.length = 0
     const today = new Date();
     const next30Days = new Date();
     next30Days.setDate(today.getDate() +  this.numberOfDaysToShow);
@@ -196,9 +197,9 @@ this.justDatesInNext28Days.length = 0
     for (let d = new Date(today); d <= next30Days; d.setDate(d.getDate() + 1)) {
       let jsk = new Date(d);
       let dc = new dateClass(jsk);
-      this.justDatesInNext28Days.push(dc);
+      this.dateShownOnCalendar.push(dc);
     }
-    console.log("173173 %o", this.justDatesInNext28Days);
+    console.log("173173 %o", this.dateShownOnCalendar);
   }
   numberOfRemainingDaysInMonth(): number {
     const today = new Date();
@@ -209,8 +210,8 @@ this.justDatesInNext28Days.length = 0
 
 
   getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
-      if (startDate < this.justDatesInNext28Days[0].wholeDate)
-        startDate = this.justDatesInNext28Days[0].wholeDate
+      if (startDate < this.dateShownOnCalendar[0].wholeDate)
+        startDate = this.dateShownOnCalendar[0].wholeDate
       if (this.areDatesOnSameDay(endDate,startDate))
           return 1
       else {

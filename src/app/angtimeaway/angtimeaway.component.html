@@ -20,7 +20,7 @@
 </tr> 
 <!-- Top Line with Dates e.g .12 -->
   <tr>
-    <td *ngFor="let item of justDatesInNext28Days" [class]="item.class">{{item.justdateL}}</td>
+    <td *ngFor="let item of dateShownOnCalendar" [class]="item.class">{{item.justdateL}}</td>
   </tr>
 <!-- tr loop over goAwayersWithTAs  Set up for MAX of 4 tAs for same user in the displayed calendar-->  
 <tr *ngFor="let item of goAwayersWithTAs; let j = index">
