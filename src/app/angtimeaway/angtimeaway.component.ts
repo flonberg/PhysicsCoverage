@@ -187,14 +187,20 @@ showTa(tA:any){
         this.goAwayersWithTAs[i].makeDaysTillEndOfCalendar(this.lastDateOnCalendar)
       }
   }
+ isUserGoAwayerForThisTA(goAwayerUserkey:number): boolean {
+    if (goAwayerUserkey == this.myservice.getLoggedInUserKey())
+      return true
+    else
+      return false
+  }
 
   makeAllDatesInNext28Days(){
     this.dateShownOnCalendar.length = 0
     const today = new Date();
-    const next30Days = new Date();
-    next30Days.setDate(today.getDate() +  this.numberOfDaysToShow);
+    const lastDateOnCalendar = new Date();
+    lastDateOnCalendar.setDate(today.getDate() +  this.numberOfDaysToShow);
 
-    for (let d = new Date(today); d <= next30Days; d.setDate(d.getDate() + 1)) {
+    for (let d = new Date(today); d <=lastDateOnCalendar; d.setDate(d.getDate() + 1)) {
       let jsk = new Date(d);
       let dc = new dateClass(jsk);
       this.dateShownOnCalendar.push(dc);

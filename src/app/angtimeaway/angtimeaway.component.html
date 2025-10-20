@@ -4,7 +4,7 @@
 <head>
 <h2> Time Away Calendar</h2>
 </head>
-<div style="text-align: center; padding-top:50px"  height="800px" width="1200px">
+<div style="text-align: center; padding-top:0px"  height="800px" width="1200px">
                                                                                                                          
 <table>
   <tr>
@@ -112,24 +112,28 @@
        <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
       <mat-form-field style="width: 150px;">
         <mat-label>Start Date:</mat-label>
-        <input matInput [value]="shownTa.startDateYMD" (change)="editTa($event, 'startDate', shownTa)">
+        <input matInput [value]="shownTa.startDateYMD" [readonly]="isUserGoAwayerForThisTA(shownTa.userid)"  (change)="editTa($event, 'startDate', shownTa)">
       </mat-form-field>
       <mat-form-field style="width: 150px;">
         <mat-label>End Date:</mat-label>
         <input matInput [value]="shownTa.endDateYMD" (change)="editTa($event, 'endDate', shownTa)">
       </mat-form-field>
-     <mat-form-field >
+     <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" >
       <mat-label>Reason</mat-label>
-        <mat-select  name="reasonToEdit" value="{{shownTa.reason}}" (selectionChange)="editTa($event, 'reason', shownTa)" >
+        <mat-select  name="reasonToEdit" value="{{shownTa.reason}}" (selectionChange)="editTa($event, 'reason', shownTa)"  >
           <mat-option value="0" >Vacation</mat-option>     
           <mat-option value="1">Meeting</mat-option>
           <mat-option value="2">Other</mat-option>
         </mat-select>
       </mat-form-field>
+        <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" ></mat-form-field>
         <mat-form-field class="example-full-width">
         <mat-label>Note</mat-label>
-        <input matInput  value ="{{shownTa.note}}" (change)="editTa($event, 'note', shownTa)" >
+        <input matInput  value ="{{shownTa.note}}" *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'note', shownTa)" >
+        <input matInput  value ="{{shownTa.note}}" *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" readonly (change)="editTa($event, 'note', shownTa)" >
       </mat-form-field>
-      <button class="raised-button" (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
+
+      <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
+ 
     </div>
     
