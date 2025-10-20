@@ -4,9 +4,16 @@
 <head>
 <h2> Time Away Calendar</h2>
 </head>
-<div style="text-align: center;" style="border:solid" height="800px" width="1200px">
-  <h2> Time Away Calendar</h2>                                                                                                                          
+<div style="text-align: center; padding-top:50px"  height="800px" width="1200px">
+                                                                                                                         
 <table>
+  <tr>
+     <th colspan="1"><img  class="images"  src="assets/prevMonthArrow.png"/></th>
+     <th style="font-size: large;">Time Away Calendar</th>
+      <th colspan="1"><img  class="images" src="assets/nextMonthArrow.png"/></th>
+  </tr>
+  </table>
+  <table>
 <tr>
   <th [attr.colspan]="remainingDaysInMonth" style="border:solid">{{nameOfCurrentMonth}}</th>
   <th [attr.colspan]="daysInNext28Days" style="border:solid">{{nameOfNextMonth}}</th>
