@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MyserviceService } from '../myservice.service';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import { start } from 'repl';
 
 
 
@@ -43,6 +44,7 @@ export class AngtimeawayComponent implements OnInit {
   onSubmit() {
   
   }
+  advance: number = 0;                                                    // number of days in advance to get TAs;
   numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
@@ -74,8 +76,13 @@ export class AngtimeawayComponent implements OnInit {
   getTAs(){
     let daysFromNow28 = new Date();
     daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
-    let daysFromNow28String = daysFromNow28.toISOString().slice(0,10);
-    this.myservice.getTAs(daysFromNow28String).subscribe({next: data => {
+    let endDateString = daysFromNow28.toISOString().slice(0,10);
+    let startDateString = daysFromNow28.toISOString().slice(0,10);
+    if (this.advance > 1)
+      startDateString = this.firstDateOfMonthAdvancedByN(this.advance).toISOString().slice(0,10);
+    console.log("7575 getTAs startDateString %o endDateString %o", startDateString, endDateString)    
+
+    this.myservice.getTAs(endDateString, startDateString).subscribe({next: data => {
       this.TAs = data;
       console.log("7575 TAs %o", this.TAs)
       this.makeTAsIntoTAclasses()
@@ -85,6 +92,22 @@ export class AngtimeawayComponent implements OnInit {
         console.error('There was an error!', error);
       }
     });
+  }
+  advanceMonth(n:number){
+    this.advance = this.advance + n
+    this.remainingDaysInMonth = this.numberOfRemainingDaysInMonth();
+    this.daysInNext28Days = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
+    this.nameOfCurrentMonth = this.firstDateOfMonthAdvancedByN(this.advance).toLocaleString('default', { month: 'long' });
+    this.nameOfNextMonth = this.firstDateOfMonthAdvancedByN(this.advance + 1).toLocaleString('default', { month: 'long' });
+    this.makeAllDatesInNext28Days();
+    this.getTAs();
+  }
+  firstDateOfMonthAdvancedByN(n:number): Date {
+    const date = new Date();
+    date.setMonth(date.getMonth() + n);
+    date.setDate(1);
+    date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
+    return date;
   }
   getDosims(){
     this.myservice.getDosims().subscribe({next: data => {
@@ -195,14 +218,34 @@ showTa(tA:any){
     else
       return false
   }
-
+ lastDateInMonthAdvancedByN(n:number): Date {
+    const date = new Date();
+    date.setMonth(date.getMonth() + n + 1);
+    date.setDate(0); // Setting date to 0 gives the last day of the previous month
+    date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
+    return date;
+  }
+  firstDateInMonthAdvancedByN(n:number): Date {
+    const date = new Date();
+    date.setMonth(date.getMonth() + n);
+    date.setDate(1); // Setting date to 1 gives the first day of the month
+    date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
+    return date;
+  }
   makeAllDatesInNext28Days(){
     this.dateShownOnCalendar.length = 0
-    const today = new Date();
-    const lastDateOnCalendar = new Date();
-    lastDateOnCalendar.setDate(today.getDate() +  this.numberOfDaysToShow);
+    let firstDateOnCalendar = new Date();
+    var lastDateOnCalendar = new Date();
+    lastDateOnCalendar.setDate(firstDateOnCalendar .getDate() +  this.numberOfDaysToShow);
+    if (this.advance > 0){
+      lastDateOnCalendar = this.lastDateInMonthAdvancedByN(this.advance)
+      let firstDateOfMonth = this.firstDateOfMonthAdvancedByN(this.advance)
+      lastDateOnCalendar.setMonth(firstDateOfMonth.getMonth())
+      lastDateOnCalendar.setFullYear(firstDateOfMonth.getFullYear())
+      lastDateOnCalendar.setDate(firstDateOfMonth.getDate() + this.numberOfDaysToShow -1)
+    }
 
-    for (let d = new Date(today); d <=lastDateOnCalendar; d.setDate(d.getDate() + 1)) {
+    for (let d = firstDateOnCalendar; d <=lastDateOnCalendar; d.setDate(d.getDate() + 1)) {
       let jsk = new Date(d);
       let dc = new dateClass(jsk);
       this.dateShownOnCalendar.push(dc);

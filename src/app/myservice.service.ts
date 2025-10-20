@@ -53,7 +53,7 @@ export class MyserviceService {
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
 }
-      getForMonth(monthString: string){
+    getForMonth(monthString: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsMonthlyDuties.php?MonthNum="+monthString+"&debug=`";			// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
@@ -105,11 +105,11 @@ export class MyserviceService {
        console.log("100100 getMyDuties url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
-    getTAs(endDateString: string){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString;
+    getTAs(endDateString: string, startDateString: string){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString    //
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
-        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString;
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString;
        console.log("110110 getTAs url %o", url)
         return this .HttpClient.get<duty>(url)
     }

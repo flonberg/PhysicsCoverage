@@ -8,9 +8,9 @@
                                                                                                                          
 <table>
   <tr>
-     <th colspan="1"><img  class="images"  src="assets/prevMonthArrow.png"/></th>
+     <th colspan="1"><img  class="images"  (click)="advanceMonth(-1)" src="assets/prevMonthArrow.png"/></th>
      <th style="font-size: large;">Time Away Calendar</th>
-      <th colspan="1"><img  class="images" src="assets/nextMonthArrow.png"/></th>
+      <th colspan="1"><img  class="images" (click)="advanceMonth(1)" src="assets/nextMonthArrow.png"/></th>
   </tr>
   </table>
   <table>
@@ -109,7 +109,7 @@
     </form>
     </div>
     <div *ngIf="shownTa">
-       <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
+      <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
       <mat-form-field style="width: 150px;">
         <mat-label>Start Date:</mat-label>
         <input matInput [value]="shownTa.startDateYMD" [readonly]="!isUserGoAwayerForThisTA(shownTa.userid)"  (change)="editTa($event, 'startDate', shownTa)">
@@ -134,13 +134,12 @@
     </mat-form-field>
 
 
-        <mat-form-field class="example-full-width">
-        <mat-label>Note</mat-label>
-        <input matInput  value ="{{shownTa.note}}" *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'note', shownTa)" >
-        <input matInput  value ="{{shownTa.note}}" *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" readonly (change)="editTa($event, 'note', shownTa)" >
-      </mat-form-field>
-
-      <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
+    <mat-form-field class="example-full-width">
+      <mat-label>Note</mat-label>
+     
+        <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" readonly (change)="editTa($event, 'note', shownTa)" >
+    </mat-form-field>
+    <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
  
     </div>
     
