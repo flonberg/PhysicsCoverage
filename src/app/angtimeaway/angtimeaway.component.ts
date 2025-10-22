@@ -46,7 +46,7 @@ export class AngtimeawayComponent implements OnInit {
   }
   advance: number = 0;                                                    // number of days in advance to get TAs;
   firstDayOnCalendar: Date = new Date();
-  numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
+  numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
   daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
@@ -76,13 +76,16 @@ export class AngtimeawayComponent implements OnInit {
   }
   getTAs(){
     let daysFromNow28 = new Date();
+    let today = new Date();
     daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
     let endDateString = daysFromNow28.toISOString().slice(0,10);
-    let startDateString = daysFromNow28.toISOString().slice(0,10);
-    if (this.advance >= 1){
+    let startDateString = today.toISOString().slice(0,10);
+    if (this.advance > 0){
       this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
-      startDateString = this.firstDateOfMonthAdvancedByN(this.advance).toISOString().slice(0,10);
-      endDateString = this.firstDateOfMonthAdvancedByN(this.advance+2).toISOString().slice(0,10);
+      startDateString = this.firstDayOnCalendar.toISOString().slice(0,10);
+      let endDateDate = this.firstDateOfMonthAdvancedByN(this.advance)
+        endDateDate.setDate(endDateDate.getDate() + this.numberOfDaysToShow);
+      endDateString = endDateDate.toISOString().slice(0,10);
     console.log("8484 getTAs startDateString %o endDateString %o", startDateString, endDateString)   
     } 
 
@@ -242,12 +245,11 @@ showTa(tA:any){
     var lastDateOnCalendar = new Date();
     lastDateOnCalendar.setDate(firstDateOnCalendar .getDate() +  this.numberOfDaysToShow);
     if (this.advance > 0){
-      lastDateOnCalendar = this.lastDateInMonthAdvancedByN(this.advance+1)
       firstDateOnCalendar = this.firstDateInMonthAdvancedByN(this.advance)
-      let firstDateOfMonth = this.firstDateOfMonthAdvancedByN(this.advance+3)
-      lastDateOnCalendar.setMonth(firstDateOfMonth.getMonth())
-      lastDateOnCalendar.setFullYear(firstDateOfMonth.getFullYear())
-      lastDateOnCalendar.setDate(firstDateOfMonth.getDate() + this.numberOfDaysToShow -1)
+      lastDateOnCalendar = this.firstDateInMonthAdvancedByN(this.advance)
+      lastDateOnCalendar.setMonth(lastDateOnCalendar.getMonth())
+      lastDateOnCalendar.setFullYear(lastDateOnCalendar.getFullYear())
+      lastDateOnCalendar.setDate(lastDateOnCalendar.getDate() + this.numberOfDaysToShow -1)
     }
 
     for (let d = firstDateOnCalendar; d <=lastDateOnCalendar; d.setDate(d.getDate() + 1)) {

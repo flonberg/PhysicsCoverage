@@ -18,7 +18,7 @@ $handle = connectDB_FL();
       from vacation3
       INNER JOIN physicists ON physicists.UserKey = vacation3.userid
       INNER JOIN users ON users.UserKey = vacation3.userid
-      where vacation3.endDate >= '".$Start."' AND vacation3.startDate < '".$_GET['endDate']."' AND vacation3.reasonIdx IS NULL
+      where vacation3.endDate >= '".$_GET['startDate']."' AND vacation3.startDate < '".$_GET['endDate']."' AND vacation3.reasonIdx IS NULL
       order by physicists.LastName, vacation3.startDate ";
    fwrite($fp, "\r\n $selStr");
    $stmt = sqlsrv_query( $handle, $selStr);
