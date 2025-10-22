@@ -45,6 +45,7 @@ export class AngtimeawayComponent implements OnInit {
   
   }
   advance: number = 0;                                                    // number of days in advance to get TAs;
+  firstDayOnCalendar: Date = new Date();
   numberOfDaysToShow: number = 32;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
@@ -79,6 +80,7 @@ export class AngtimeawayComponent implements OnInit {
     let endDateString = daysFromNow28.toISOString().slice(0,10);
     let startDateString = daysFromNow28.toISOString().slice(0,10);
     if (this.advance >= 1){
+      this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
       startDateString = this.firstDateOfMonthAdvancedByN(this.advance).toISOString().slice(0,10);
       endDateString = this.firstDateOfMonthAdvancedByN(this.advance+2).toISOString().slice(0,10);
     console.log("8484 getTAs startDateString %o endDateString %o", startDateString, endDateString)   
@@ -186,7 +188,7 @@ showTa(tA:any){
         }
       }
       if (!found){                                                   // if the goAwayer is not yet in the list, then add them         
-        let gawt = new goAwayerWithTAs()                            // make a new goAwayerWithTAs class
+        let gawt = new goAwayerWithTAs(this.firstDayOnCalendar)                            // make a new goAwayerWithTAs class
         gawt.LastName = this.TAs[i].LastName                        // load parameters from the TA
         gawt.UserKey = this.TAs[i].userid                           // mm
         gawt.UserID = this.TAs[i].UserID                            // mm
@@ -240,8 +242,9 @@ showTa(tA:any){
     var lastDateOnCalendar = new Date();
     lastDateOnCalendar.setDate(firstDateOnCalendar .getDate() +  this.numberOfDaysToShow);
     if (this.advance > 0){
-      lastDateOnCalendar = this.lastDateInMonthAdvancedByN(this.advance)
-      let firstDateOfMonth = this.firstDateOfMonthAdvancedByN(this.advance)
+      lastDateOnCalendar = this.lastDateInMonthAdvancedByN(this.advance+1)
+      firstDateOnCalendar = this.firstDateInMonthAdvancedByN(this.advance)
+      let firstDateOfMonth = this.firstDateOfMonthAdvancedByN(this.advance+3)
       lastDateOnCalendar.setMonth(firstDateOfMonth.getMonth())
       lastDateOnCalendar.setFullYear(firstDateOfMonth.getFullYear())
       lastDateOnCalendar.setDate(firstDateOfMonth.getDate() + this.numberOfDaysToShow -1)
@@ -334,7 +337,7 @@ showTa(tA:any){
     daysTillFirstTA: boolean[] = []
     lengthOfFirstTA: number = 0
     TAlength: number[] = []
-    constructor() { 
+    constructor(public firstDayOnCalendar: Date) { 
       this.daysTillFirstTA = []
     }
     /** Make either days till start for first TA or days between TAs */
@@ -346,8 +349,10 @@ showTa(tA:any){
             this.myTAs[i].daysTillTAstart = 0               // TA-display starts today so daysTillTAstart = 0
           }
           else {                                         // first TA is after today, so calculate days from today to TA start
-            let today = new Date()
-            var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - today.getTime());
+            let today = this.firstDayOnCalendar
+            this.myTAs[i].startDate.setUTCHours(0, 0, 0, 0);
+            this.firstDayOnCalendar.setUTCHours(0, 0, 0, 0);
+            var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - this.firstDayOnCalendar.getTime());
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
           }
         }
