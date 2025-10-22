@@ -260,6 +260,12 @@ showTa(tA:any){
     console.log("173173 %o", this.dateShownOnCalendar);
   }
   numberOfRemainingDaysInMonth(): number {
+    if (this.advance > 0){                          // lines 264-267 written by CoPilot
+      const lastDayOfMonth = this.lastDateInMonthAdvancedByN(this.advance);
+      const firstDayOfMonth = this.firstDateInMonthAdvancedByN(this.advance);
+      const remainingDays = lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1;
+      return remainingDays;
+    }
     const today = new Date();
     const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const remainingDays = lastDayOfMonth.getDate() - today.getDate();
@@ -347,7 +353,7 @@ showTa(tA:any){
       for (let i=0; i < this.myTAs.length; i++){
         /** This is first TA for this user. so need to calculate number of days from TODAY till TA.start*/
         if (i == 0){                                    
-          if (this.myTAs[i].startDate <= new Date()){       // if the first TA.start is before or on today
+          if (this.myTAs[i].startDate <= this.firstDayOnCalendar){       // if the first TA.start is before or on today
             this.myTAs[i].daysTillTAstart = 0               // TA-display starts today so daysTillTAstart = 0
           }
           else {                                         // first TA is after today, so calculate days from today to TA start
