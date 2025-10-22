@@ -78,9 +78,11 @@ export class AngtimeawayComponent implements OnInit {
     daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
     let endDateString = daysFromNow28.toISOString().slice(0,10);
     let startDateString = daysFromNow28.toISOString().slice(0,10);
-    if (this.advance > 1)
+    if (this.advance >= 1){
       startDateString = this.firstDateOfMonthAdvancedByN(this.advance).toISOString().slice(0,10);
-    console.log("7575 getTAs startDateString %o endDateString %o", startDateString, endDateString)    
+      endDateString = this.firstDateOfMonthAdvancedByN(this.advance+2).toISOString().slice(0,10);
+    console.log("8484 getTAs startDateString %o endDateString %o", startDateString, endDateString)   
+    } 
 
     this.myservice.getTAs(endDateString, startDateString).subscribe({next: data => {
       this.TAs = data;
@@ -357,8 +359,11 @@ showTa(tA:any){
           this.myTAs[i].startDate.setUTCHours(0, 0, 0, 0);
             var timeDiff = Math.abs(this.myTAs[i].startDate.getTime() - lastDate.getTime());
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24))-1; // +1 to include both start and end dates 
-       
         }
+        if (this.myTAs[i].daysTillTAstart < 0){
+        console.log("3434 goAwayer %o TA %o daysTillTAstart %o", this.UserKey, this.myTAs[i], this.myTAs[i].daysTillTAstart)
+        this.myTAs[i].daysTillTAstart = 0
+      }
       }
     }
     /** calculate days from end of last TA to end of calendar */
