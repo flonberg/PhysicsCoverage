@@ -250,6 +250,7 @@ showTa(tA:any){
       lastDateOnCalendar.setMonth(lastDateOnCalendar.getMonth())
       lastDateOnCalendar.setFullYear(lastDateOnCalendar.getFullYear())
       lastDateOnCalendar.setDate(lastDateOnCalendar.getDate() + this.numberOfDaysToShow -1)
+      this.lastDateOnCalendar = lastDateOnCalendar
     }
 
     for (let d = firstDateOnCalendar; d <=lastDateOnCalendar; d.setDate(d.getDate() + 1)) {
