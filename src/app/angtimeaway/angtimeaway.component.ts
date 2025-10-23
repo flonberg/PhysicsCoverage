@@ -48,7 +48,9 @@ export class AngtimeawayComponent implements OnInit {
   firstDayOnCalendar: Date = new Date();
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
+  today: Date = new Date();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
+
   daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
   dateShownOnCalendar: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
@@ -70,6 +72,9 @@ export class AngtimeawayComponent implements OnInit {
   constructor(private myservice: MyserviceService) {
   }
   ngOnInit(): void {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    this.lastDateOnCalendar = new Date(today.setDate(today.getDate() + this.numberOfDaysToShow ));
     this.makeAllDatesInNext28Days();
     this.getDosims();
     this.getTAs();
@@ -275,15 +280,16 @@ showTa(tA:any){
 
 
   getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
-      if (startDate < this.dateShownOnCalendar[0].wholeDate)
+      if (startDate < this.dateShownOnCalendar[0].wholeDate)                // if TA starts before calendar start date, set to calendar start date
         startDate = this.dateShownOnCalendar[0].wholeDate
-      if (this.areDatesOnSameDay(endDate,startDate))
-          return 1
+      if (this.areDatesOnSameDay(endDate,startDate))                    
+          return 1                                                          // set length to 1 day if start and end dates are the same
       else {
-        let effEndDate = new Date(endDate)
-        if (endDate >= this.lastDateOnCalendar){
-          effEndDate = new Date(this.lastDateOnCalendar)
-          effEndDate.setDate(effEndDate.getDate() + 1);
+        let effEndDate = new Date(endDate)                                  // clone the endDate
+        if (endDate >= this.lastDateOnCalendar){                            // if TA ends after calendar end date,         
+          effEndDate = new Date(this.lastDateOnCalendar)                   // set effective end date to calendar end date
+          effEndDate.setUTCHours(0, 0, 0, 0);
+          effEndDate.setDate(effEndDate.getDate() );                   // add one day to include the last date on calendar 
         }
         effEndDate.setUTCHours(0, 0, 0, 0);
         startDate.setUTCHours(0, 0, 0, 0);
