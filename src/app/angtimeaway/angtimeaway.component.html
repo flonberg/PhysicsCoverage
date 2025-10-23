@@ -76,11 +76,11 @@
         (click)="showTa(item.myTAs[5])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>  
         <!--  If there is NOT 6th TA-->
-    <ng-container *ngIf = "!item.myTAs[4] && item.myTAs[3]  && item.myTAs[2] && item.myTAs[1]">
+    <ng-container *ngIf = "!item.myTAs[4] && item.myTAs[3] && item.myTAs[4]   && item.myTAs[3]  && item.myTAs[2] && item.myTAs[1]">
           <td *ngFor="let item2 of [].constructor(item.myTAs[4].daysTillEndOfCalendar); let k = index"> 5 </td>
     </ng-container> 
           <!--  If there IS 6th TA-->
-   <ng-container *ngIf = "item.myTAs[4]">
+   <ng-container *ngIf = "item.myTAs[5]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[5].daysTillTAstart); let k = index"> 6 </td>
         <td [attr.colspan]="item.myTAs[6].lengthOfTA"  *ngIf = "item.myTAs[6]"  [class]="goAwayerClass"
         (click)="showTa(item.myTAs[6])"> {{ item.myTAs[1].LastName }}</td>
@@ -124,6 +124,7 @@
       <button class="raised-button" (click) = 'submit()'>Submit</button>
     </form>
     </div>
+    
     <div *ngIf="shownTa">
       <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
       <mat-form-field style="width: 150px;">

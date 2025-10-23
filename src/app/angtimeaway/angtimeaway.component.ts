@@ -469,5 +469,6 @@ class shownTA{
     this.note = ta.note
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
+    
   } 
 }
