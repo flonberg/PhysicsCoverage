@@ -196,7 +196,7 @@ showTa(tA:any){
         }
       }
       if (!found){                                                   // if the goAwayer is not yet in the list, then add them         
-        let gawt = new goAwayerWithTAs(this.firstDayOnCalendar)                            // make a new goAwayerWithTAs class
+        let gawt = new goAwayerWithTAs(this.firstDayOnCalendar, this.lastDateOnCalendar)                            // make a new goAwayerWithTAs class
         gawt.LastName = this.TAs[i].LastName                        // load parameters from the TA
         gawt.UserKey = this.TAs[i].userid                           // mm
         gawt.UserID = this.TAs[i].UserID                            // mm
@@ -357,7 +357,7 @@ showTa(tA:any){
     daysTillFirstTA: boolean[] = []
     lengthOfFirstTA: number = 0
     TAlength: number[] = []
-    constructor(public firstDayOnCalendar: Date) { 
+    constructor(public firstDayOnCalendar: Date, public lastDateOnCalendar: Date) { 
       this.daysTillFirstTA = []
     }
     /** Make either days till start for first TA or days between TAs */
@@ -392,15 +392,26 @@ showTa(tA:any){
       }
     }
     /** calculate days from end of last TA to end of calendar */
-    makeDaysTillEndOfCalendar(lastDate: Date){
+    makeDaysTillEndOfCalendar(lastDateOnCalendar: Date){
       const numberOfTAs = this.myTAs.length               // number of TAs for this goAwayer     
       if (numberOfTAs > 0) {
-        let lastTA = this.myTAs[numberOfTAs - 1];
-        if (lastTA.endDate < lastDate) {
-          var timeDiff = Math.abs(lastDate.getTime() - lastTA.endDate.getTime());
-          this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar = Math.ceil(timeDiff / (1000 * 3600 * 24)); // +1 to include both start and end dates
+        let lastTA = this.myTAs[numberOfTAs - 1];         
+        if (lastTA.endDate < lastDateOnCalendar){                            // if last TA ends before end of calendar{
+          var timeDiff = Math.abs(lastDateOnCalendar.getTime() - lastTA.endDate.getTime());
+          this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar = Math.ceil(timeDiff / (1000 * 3600 * 24)); // days till start of next TA
         } 
+        if (numberOfTAs == 1 && this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar > 30){
+          console.log("404404 %o, this.myTAs[0] %o", this.UserKey, this.myTAs[0])
+          this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar--
+        }
       }
+      /*
+      if (numberOfTAs == 1) { 
+        var timeDiff = this.lastDateOnCalendar.getTime() - this.myTAs[0].endDate.getTime();
+        this.myTAs[0].daysTillEndOfCalendar = Math.ceil(timeDiff / (1000 * 3600 * 24)); // days till start of next TA
+      }
+        */
+      
     }
  }
  class TAclass {
