@@ -158,7 +158,7 @@ showTa(tA:any){
   makeTAsIntoTAclasses(){
     this.TAclasses = []; // Initialize the TAclasses array
     for (let i=0; i < this.TAs.length; i++){
-      let ta = new TAclass()
+      let ta = new TAclass(this.lastDateOnCalendar)
       ta.vidx = this.TAs[i].vidx
       ta.userid = this.TAs[i].userid
       ta.UserID = this.TAs[i].UserID
@@ -280,9 +280,14 @@ showTa(tA:any){
       if (this.areDatesOnSameDay(endDate,startDate))
           return 1
       else {
-        endDate.setUTCHours(0, 0, 0, 0);
+        let effEndDate = new Date(endDate)
+        if (endDate >= this.lastDateOnCalendar){
+          effEndDate = new Date(this.lastDateOnCalendar)
+          effEndDate.setDate(effEndDate.getDate() + 1);
+        }
+        effEndDate.setUTCHours(0, 0, 0, 0);
         startDate.setUTCHours(0, 0, 0, 0);
-        var timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+        var timeDiff = Math.abs(effEndDate.getTime() - startDate.getTime());
         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
         return diffDays;
         }
@@ -407,12 +412,17 @@ showTa(tA:any){
     daysTillTAstart: number = 0
     numberOfDaysInTA: number = 0
     daysTillEndOfCalendar: number = 0
+    lastDateOnCalendar: Date = new Date()
   
-    constructor() {
+    constructor(lastDateOnCalendar: Date) {
 
      }
      makeNumbers(){
-      var timeDiff = Math.abs(this.endDate.getTime() - this.startDate.getTime());
+      let effEndDate = new Date(this.endDate)
+      if (this.endDate > this.lastDateOnCalendar){
+        effEndDate = new Date(this.lastDateOnCalendar)
+      }
+      var timeDiff = Math.abs(effEndDate.getTime() - this.startDate.getTime());
       this.lengthOfTA = Math.ceil(timeDiff / (1000 * 3600 * 24)) +1; // +1 to include both start and end dates
       let today = new Date()
       var timeDiff = Math.abs(this.startDate.getTime() - today.getTime());
@@ -469,6 +479,6 @@ class shownTA{
     this.note = ta.note
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
-    
+
   } 
 }
