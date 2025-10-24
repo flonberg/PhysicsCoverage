@@ -399,20 +399,16 @@ showTa(tA:any){
         if (lastTA.endDate < lastDateOnCalendar){                            // if last TA ends before end of calendar{
           var timeDiff = Math.abs(lastDateOnCalendar.getTime() - lastTA.endDate.getTime());
           this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar = Math.ceil(timeDiff / (1000 * 3600 * 24)); // days till start of next TA
+          this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar = this.getDaysBetweenDatesUTC(lastTA.endDate, lastDateOnCalendar); // add one to include last date on calendar
         } 
-        if (numberOfTAs == 1 && this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar > 30){
-          console.log("404404 %o, this.myTAs[0] %o", this.UserKey, this.myTAs[0])
-          this.myTAs[numberOfTAs - 1].daysTillEndOfCalendar--
-        }
       }
-      /*
-      if (numberOfTAs == 1) { 
-        var timeDiff = this.lastDateOnCalendar.getTime() - this.myTAs[0].endDate.getTime();
-        this.myTAs[0].daysTillEndOfCalendar = Math.ceil(timeDiff / (1000 * 3600 * 24)); // days till start of next TA
-      }
-        */
-      
     }
+    getDaysBetweenDatesUTC(date1: Date, date2: Date): number {
+          const MS_PER_DAY = 1000 * 60 * 60 * 24;
+          const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+          const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+          return Math.floor((utc2 - utc1) / MS_PER_DAY);
+}
  }
  class TAclass {
     vidx: number = 0
