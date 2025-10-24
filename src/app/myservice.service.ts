@@ -106,10 +106,10 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }  
     getTAs(endDateString: string, startDateString: string){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString    //
-                 https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString + "&loggedInUserKey=" + this.loggedInUserKey;  //
+                
       if (isDevMode())
-        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString;
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString + "&loggedInUserKey=" + this.loggedInUserKey; 
        console.log("110110 getTAs url %o", url)
         return this .HttpClient.get<duty>(url)
     }

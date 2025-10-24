@@ -9,6 +9,7 @@
 <table>
   <tr>
      <th colspan="1" *ngIf = "advance > 0"><img  class="images"  (click)="advanceMonth(-1)" src="assets/prevMonthArrow.png"/></th>
+     <th colspan="1" *ngIf = "advance == 0" style="width:400px;">  </th>
      <th style="font-size: large;">Time Away Calendar</th>
       <th colspan="1"><img  class="images" (click)="advanceMonth(1)" src="assets/nextMonthArrow.png"/></th>
   </tr>
@@ -71,28 +72,28 @@
     </ng-container>  
       <!--  If there IS 5th TA-->
    <ng-container *ngIf = "item.myTAs[5]">
-        <td *ngFor="let item2 of [].constructor(item.myTAs[4].daysTillTAstart); let k = index"> 4 </td>
+        <td *ngFor="let item2 of [].constructor(item.myTAs[4].daysTillTAstart); let k = index">  </td>
         <td [attr.colspan]="item.myTAs[5].lengthOfTA"  *ngIf = "item.myTAs[5]"  [class]="goAwayerClass"
         (click)="showTa(item.myTAs[5])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>  
         <!--  If there is NOT 6th TA-->
     <ng-container *ngIf = "!item.myTAs[5] && item.myTAs[3] && item.myTAs[4]   && item.myTAs[3]  && item.myTAs[2] && item.myTAs[1]">
-          <td *ngFor="let item2 of [].constructor(item.myTAs[4].daysTillEndOfCalendar); let k = index"> 5 </td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[4].daysTillEndOfCalendar); let k = index">  </td>
     </ng-container> 
           <!--  If there IS 6th TA-->
    <ng-container *ngIf = "item.myTAs[6]">
-        <td *ngFor="let item2 of [].constructor(item.myTAs[5].daysTillTAstart); let k = index"> 55 </td>
+        <td *ngFor="let item2 of [].constructor(item.myTAs[5].daysTillTAstart); let k = index">  </td>
         <td [attr.colspan]="item.myTAs[6].lengthOfTA"  *ngIf = "item.myTAs[6]"  [class]="goAwayerClass"
         (click)="showTa(item.myTAs[6])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container> 
 
             <!--  If there is NOT 7th TA-->
     <ng-container *ngIf = "!item.myTAs[6] && item.myTAs[5] && item.myTAs[4]   && item.myTAs[3]  && item.myTAs[2] && item.myTAs[1]">
-          <td *ngFor="let item2 of [].constructor(item.myTAs[5].daysTillEndOfCalendar); let k = index"> 6 </td>
+          <td *ngFor="let item2 of [].constructor(item.myTAs[5].daysTillEndOfCalendar); let k = index">  </td>
     </ng-container> 
           <!--  If there IS 7th TA-->
    <ng-container *ngIf = "item.myTAs[6]">
-        <td *ngFor="let item2 of [].constructor(item.myTAs[6].daysTillTAstart); let k = index"> 77 </td>
+        <td *ngFor="let item2 of [].constructor(item.myTAs[6].daysTillTAstart); let k = index">  </td>
         <td [attr.colspan]="item.myTAs[7].lengthOfTA"  *ngIf = "item.myTAs[7]"  [class]="goAwayerClass"
         (click)="showTa(item.myTAs[7])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container> 

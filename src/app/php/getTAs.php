@@ -11,7 +11,11 @@ $handle = connectDB_FL();
    $today = new DateTime();
    
    $Start = $today->format("Y-m-d");
-
+$dosimetrist = array(44,45, 46, 58, 105,121,47,52, 53, 62,56,76,106,164, 251,213,214, 58,158,60,61,104,261,234,  280,283, 287, 323, 324, 342, 344, 345, 
+ 357, 358, 382, 429, // added 342 Botticello 8-20-24
+	448, 467, 470, 503, 507, 509, 494, 634, 641, 683, 715,716, 728, 729, 753,799,  838, 801,838, 888,893, 894,
+	 948, 999, 919, 952, 997,999,1001,1007, 1027,1045, 1055);    
+    
   $selStr = "SELECT vacation3.startDate, vacation3.endDate, vacation3.userid, vacation3.vidx, vacation3.reason, vacation3.note,
       physicists.LastName,physicists.FirstName,
       users.UserID
@@ -28,8 +32,12 @@ $handle = connectDB_FL();
     $i = 0;  
     while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
       $dstr = print_r($temp, true); fwrite($fp, $dstr);
-          $row[$i++]  = $temp;
-         }
+      if (in_array($_GET['loggedInUserKey'], $dosimetrist) && in_array($temp['userid'], $dosimetrist)) 
+          $row[$i++]  = $temp;     
+      else  if (!in_array($_GET['loggedInUserKey'], $dosimetrist) && !in_array($temp['userid'], $dosimetrist)) 
+         $row[$i++]  = $temp;
+   }
+       
    $ret = json_encode($row);
    echo $ret;
 
