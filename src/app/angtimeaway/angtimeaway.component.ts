@@ -79,6 +79,8 @@ export class AngtimeawayComponent implements OnInit {
     this.getDosims();
     this.getTAs();
   }
+  isDosimetrist:boolean = false
+  showPhrase: string = 'Show Physicists';
   getTAs(){
     let daysFromNow28 = new Date();
     let today = new Date();
@@ -97,7 +99,16 @@ export class AngtimeawayComponent implements OnInit {
     } 
 
     this.myservice.getTAs(endDateString, startDateString).subscribe({next: data => {
-      this.TAs = data;
+      const resp: any = data;
+      this.TAs = resp.tAs ?? [];
+      if (resp.isDosimetrist == 1){
+        this.isDosimetrist = true;
+        this.showPhrase = 'Show Physicists ';
+      }
+      else {
+        this.isDosimetrist = false;
+        this.showPhrase = 'Show Dosimetrists ';
+      }
       console.log("7575 TAs %o", this.TAs)
       this.makeTAsIntoTAclasses()
       this.makeGoAwayersList()

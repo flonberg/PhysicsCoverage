@@ -37,7 +37,11 @@ $dosimetrist = array(44,45, 46, 58, 105,121,47,52, 53, 62,56,76,106,164, 251,213
       else  if (!in_array($_GET['loggedInUserKey'], $dosimetrist) && !in_array($temp['userid'], $dosimetrist)) 
          $row[$i++]  = $temp;
    }
-       
-   $ret = json_encode($row);
+   $ret['tAs'] = $row;
+   if (in_array($_GET['loggedInUserKey'], $dosimetrist))
+       $ret['isDosimetrist'] = 1;
+   else
+       $ret['isDosimetrist'] = 0;
+   $ret = json_encode($ret);
    echo $ret;
 
