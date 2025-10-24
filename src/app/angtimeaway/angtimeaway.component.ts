@@ -87,6 +87,8 @@ export class AngtimeawayComponent implements OnInit {
     let startDateString = today.toISOString().slice(0,10);
     if (this.advance > 0){
       this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
+            if (this.advance == 0)
+        this.firstDayOnCalendar = new Date();
       startDateString = this.firstDayOnCalendar.toISOString().slice(0,10);
       let endDateDate = this.firstDateOfMonthAdvancedByN(this.advance)
         endDateDate.setDate(endDateDate.getDate() + this.numberOfDaysToShow);
@@ -107,6 +109,11 @@ export class AngtimeawayComponent implements OnInit {
   }
   advanceMonth(n:number){
     this.advance = this.advance + n
+      this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
+      if (this.advance == 0)
+        this.firstDayOnCalendar = new Date();
+    this.lastDateOnCalendar = new Date(this.firstDayOnCalendar);  
+    this.lastDateOnCalendar = new Date(this.lastDateOnCalendar .setDate(this.lastDateOnCalendar .getDate() + this.numberOfDaysToShow ));
     this.remainingDaysInMonth = this.numberOfRemainingDaysInMonth();
     this.daysInNext28Days = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
     this.nameOfCurrentMonth = this.firstDateOfMonthAdvancedByN(this.advance).toLocaleString('default', { month: 'long' });
