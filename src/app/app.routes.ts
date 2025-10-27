@@ -5,6 +5,7 @@ import { TimeawayComponent } from './timeaway/timeaway.component';
 import { MydutiesComponent } from './myduties/myduties.component';
 import { WhiteboardComponent } from './whiteboard/whiteboard.component';
 import { AngtimeawayComponent } from './angtimeaway/angtimeaway.component';
+import { ResTriageComponent } from './res-triage/res-triage.component';
 
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
     {path: 'Myduties/:id', component: MydutiesComponent},
     {path: 'Whiteboard/:id', component: WhiteboardComponent},
     {path: 'Angtimeaway/:id', component: AngtimeawayComponent},
+    {path: 'ResTriage/:id', component: ResTriageComponent},
     {path: '**', component: MonthCalComponent},
     
 ];
