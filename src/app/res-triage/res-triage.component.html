@@ -1,9 +1,9 @@
 <p>res-triage works!</p>
 <table>
     <tr>
-         <th colspan="1"><img  class="images" src="assets/prevMonthArrow.png"/></th>
+         <th colspan="1"><img  class="images" (click)="advanceMonth(-1)"  src="assets/prevMonthArrow.png"/></th>
         <th colspan="2" style="font-size:x-large; text-align:left;">  {{ theMonth.monthName }}</th>
-        <th colspan="1"><img  class="images" src="assets/nextMonthArrow.png"/></th>
+        <th colspan="1"><img  class="images" (click)="advanceMonth(1)" src="assets/nextMonthArrow.png"/></th>
     </tr>
             <tr>
             <td >Monday</td>
@@ -13,6 +13,14 @@
             <td>Friday</td>
         </tr>
            <tr *ngFor = "let item of theMonth.weeks, index as ind">  
-                <td *ngFor="let day of item">{{ day.getDate() }}</td>
+                <td *ngFor="let day of item">{{ day.getDate() }}
+      <label>Reason
+          <select name="reason">
+              <option value="0">Vacation</option>
+              <option value="1">Meeting</option>
+              <option value="2">Other</option>
+          </select>
+      </label>
+                </td>
             </tr>
 </table>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
+import { MatSelectModule, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-res-triage',
@@ -10,7 +11,14 @@ import { CommonModule } from '@angular/common';
 })
 export class ResTriageComponent {
   theMonth: month2Class = new month2Class(0);
+  advance: number = 0;                                   // how many months to advance from current month
+  advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
+    this.advance += number
+    console.log("advance to month %o", this.advance)
+    this.theMonth = new month2Class(this.advance)
+  }
 }
+
 class month2Class {
   dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
   focusDate: Date = new Date()                            
