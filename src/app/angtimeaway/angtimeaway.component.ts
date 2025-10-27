@@ -156,8 +156,8 @@ export class AngtimeawayComponent implements OnInit {
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
     const coverer = this.covererValue
-    if (this.myservice.getUserKey() > 0){
-    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.getUserKey(),this.myservice.getUserLastName()).subscribe({next: data => {
+    if (this.myservice.getLoggedInUserKey() > 0){
+    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName()).subscribe({next: data => {
       console.log("3434 enterTA url %o", data)
     this.range.reset();  
     this.ngOnInit();

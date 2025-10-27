@@ -36,7 +36,7 @@ export class MyserviceService {
     }
     enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
-      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.userkey;      // 
+      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey;      // 
                  //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
