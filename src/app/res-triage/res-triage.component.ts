@@ -16,6 +16,7 @@ theMonth: month2Class = new month2Class(0);
   advance: number = 0;                                   // how many months to advance from current month
   TCs: triageCoverer[] = []
   gotTCs: boolean = false
+  selected: string = ''
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
    }

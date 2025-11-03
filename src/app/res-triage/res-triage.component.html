@@ -13,11 +13,20 @@
             <td>Friday</td>
         </tr>
         <tr *ngFor = "let item of theMonth.weeks, index as ind">  
-            <td *ngFor="let day of item">{{ day.getDate() }}
-                <mat-label>Coverer:</mat-label>
-                    <mat-select >
-                        <mat-option *ngFor="let coverer of TCs" [value]="coverer.userkey"> {{ coverer.LastName }}</mat-option>
-                    </mat-select>
+            <td *ngFor="let day of item">
+                <table stye="width:300px; border:solid;">
+                    <caption>{{ day.getDate() }}</caption>
+                    <tr>
+                        <td>
+                            <mat-form-field>
+                        <mat-label>Select Coverer</mat-label>
+                        <mat-select [(value)]="selected" >
+                            <mat-option *ngFor="let coverer of TCs" [value]="coverer.userkey"> {{ coverer.LastName }}</mat-option>
+                        </mat-select>
+                        </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
 
             </td>
         </tr>
