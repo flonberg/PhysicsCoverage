@@ -9,6 +9,12 @@ interface Food {
   value: string;
   viewValue: string;
 }
+interface TriageCoverer {
+  userkey: number;
+  LastName: string;
+  FirstName:  string;
+  Email: string;
+}
 @Component({
   selector: 'app-res-triage',
   standalone: true,
@@ -20,17 +26,21 @@ export class ResTriageComponent {
 theMonth: month2Class = new month2Class(0);
 
   advance: number = 0;                                   // how many months to advance from current month
-  TCs: triageCoverer[] = []
+  TCs: TriageCoverer[] = []
   gotTCs: boolean = false
   selectedValue: any = 'Abid'
+
+  coverersFromInterface: TriageCoverer[] = []
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},
     {value: 'pizza-1', viewValue: 'Pizza'},
     {value: 'tacos-2', viewValue: 'Tacos'},
   ];
+
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
+    console.log("434343 foodss %o", this.foods)
    }
   advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
     this.advance += number
@@ -43,11 +53,7 @@ theMonth: month2Class = new month2Class(0);
       const tCoverers: any = data.TCs
       console.log("44444 tCoverers %o", tCoverers)
       for (let i=0; i < tCoverers.length; i++){
-        let tc: triageCoverer = new triageCoverer()
-        tc.userkey = tCoverers[i].userkey
-        tc.LastName = tCoverers[i].LastName
-        tc.FirstName = tCoverers[i].FirstName
-        tc.Email = tCoverers[i].Email
+        let tc: TriageCoverer = {userkey: tCoverers[i].UserKey, LastName: tCoverers[i].LastName, FirstName: tCoverers[i].FirstName, Email: tCoverers[i].Email }
         this.TCs.push(tc)
       }
       console.log("44444 TCs %o", this.TCs)
@@ -58,12 +64,7 @@ theMonth: month2Class = new month2Class(0);
         return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
     }
 }
-class triageCoverer {
-  userkey: number = 0
-  LastName: string = ''
-  FirstName: string = ''
-  Email: string = ''
-}
+
 
 class month2Class {
   dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
