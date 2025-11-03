@@ -18,12 +18,12 @@
                     <caption>{{ day.getDate() }}</caption>
                     <tr>
                         <td>
-                            <mat-form-field>
-                        <mat-label>Select Coverer</mat-label>
-                        <mat-select [(value)]="selected" >
-                            <mat-option *ngFor="let coverer of TCs" [value]="coverer.userkey"> {{ coverer.LastName }}</mat-option>
-                        </mat-select>
-                        </mat-form-field>
+                     <mat-form-field>
+                            <mat-label>Coverer </mat-label>
+                            <mat-select [(ngModel)]="selectedValue"  [compareWith]="compareFn" name="coverer">
+                                <mat-option *ngFor = "let tC of TCs" [value]="tC.userkey" >{{tC.LastName}}</mat-option>
+                            </mat-select>
+                    </mat-form-field>
                         </td>
                     </tr>
                 </table>

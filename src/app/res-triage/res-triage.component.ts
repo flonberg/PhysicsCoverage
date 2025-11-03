@@ -3,20 +3,32 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MyserviceService } from '../myservice.service';
+import { FormsModule } from '@angular/forms';
 
+interface Food {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-res-triage',
   standalone: true,
-  imports: [CommonModule, MatSelectModule, MatDatepickerModule],
+  imports: [CommonModule, MatSelectModule, MatDatepickerModule, FormsModule],
   templateUrl: './res-triage.component.html',
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
 theMonth: month2Class = new month2Class(0);
+
   advance: number = 0;                                   // how many months to advance from current month
   TCs: triageCoverer[] = []
   gotTCs: boolean = false
-  selected: string = ''
+  selectedValue: any = 'Abid'
+
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'},
+  ];
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
    }
@@ -24,15 +36,27 @@ theMonth: month2Class = new month2Class(0);
     this.advance += number
     console.log("advance to month %o", this.advance)
     this.theMonth = new month2Class(this.advance)
+    console.log("theMonth initialized %o", this.theMonth) 
   }
   loadTriageCoverers(){
     this.myService.getTriageCoverers().subscribe((data: any) => {
-
-      this.TCs = data.TCs
-            console.log("444 loadTriageCoverers data %o", this.TCs)
+      const tCoverers: any = data.TCs
+      console.log("44444 tCoverers %o", tCoverers)
+      for (let i=0; i < tCoverers.length; i++){
+        let tc: triageCoverer = new triageCoverer()
+        tc.userkey = tCoverers[i].userkey
+        tc.LastName = tCoverers[i].LastName
+        tc.FirstName = tCoverers[i].FirstName
+        tc.Email = tCoverers[i].Email
+        this.TCs.push(tc)
+      }
+      console.log("44444 TCs %o", this.TCs)
       this.gotTCs = true
     })
   }
+      compareFn(obj1: any, obj2: any): boolean {
+        return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
+    }
 }
 class triageCoverer {
   userkey: number = 0
@@ -51,17 +75,17 @@ class month2Class {
   monthNum: number = 0
   monthSQLstring: string = ''
   weekDayForDuties: any[][] = []
-  datesWithDuties:any[]=[]
+  datesWithCoverers: DateWithCoverer[] = []
   constructor(advance: number){
      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 
       'November', 'December' ];
 
     this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth() + advance, 1)  // first day of month
-    this.monthSQLstring = this.focusDate.toISOString().slice(0,7)      // for use in SQL query e.g  LIKE '2-25-06%'
+    this.monthSQLstring = this.focusDate.toISOString().slice(0,7)                                   // for use in SQL query e.g  LIKE '2-25-06%'
     this.monthNum = this.focusDate.getMonth()
     this.monthName = monthNames[this.monthNum]
     this.focusDate = this.moveToMonday(this.focusDate)                
-    for (let i=0; i < 5; i++)                                  // make the 5 days of normal weeks                   
+    for (let i=0; i < 5; i++)                                                                       // make the 5 days of normal weeks                   
             this.weeks[i] = this.makeNormalWeek(this.focusDate)  
    // console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
   //  console.log("`37`37`weekDays %o", this.weekDays)        
@@ -83,6 +107,8 @@ class month2Class {
       this.weekDays[this.weekNum] = []  
       for (let i= 0; i < 5; i++){
         dates[i] = new Date(fDate)
+        this.datesWithCoverers[this.dayNum] = new DateWithCoverer(dates[i])
+        this.dayNum++
         this.weekDays[this.weekNum][i] = dates[i].getDate()     // gets Day of Month
         if (i == 0){
           this.weekDayForDuties[this.weekNum] = []
@@ -93,8 +119,7 @@ class month2Class {
         }
 
         this.focusDate = new Date(this.focusDate.getFullYear(), this.focusDate.getMonth(), this.focusDate.getDate() + 2 ) // move FocusDate tp Monday
-        this.     weekNum++
-
+        this.weekNum++
         return dates
     }
     getMonthSQLstring(){
@@ -107,4 +132,12 @@ class month2Class {
       return
   }  
 
+}
+class DateWithCoverer {
+  theDate: Date = new Date()
+  userkey: number = 0
+  LastName: string = 'Unassigned'
+  constructor(theDate: Date){
+    this.theDate = theDate    
+  }
 }
