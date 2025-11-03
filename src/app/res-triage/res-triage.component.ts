@@ -15,6 +15,7 @@ export class ResTriageComponent {
 theMonth: month2Class = new month2Class(0);
   advance: number = 0;                                   // how many months to advance from current month
   TCs: triageCoverer[] = []
+  gotTCs: boolean = false
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
    }
@@ -25,15 +26,17 @@ theMonth: month2Class = new month2Class(0);
   }
   loadTriageCoverers(){
     this.myService.getTriageCoverers().subscribe((data: any) => {
-      console.log("444 loadTriageCoverers data %o", data)
-      this.TCs = data.records
+
+      this.TCs = data.TCs
+            console.log("444 loadTriageCoverers data %o", this.TCs)
+      this.gotTCs = true
     })
   }
 }
 class triageCoverer {
   userkey: number = 0
-  lastName: string = ''
-  firstName: string = ''
+  LastName: string = ''
+  FirstName: string = ''
   Email: string = ''
 }
 
