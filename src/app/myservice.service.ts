@@ -52,7 +52,7 @@ export class MyserviceService {
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?newValue="+newValue+"&newValueName="+newValueName+"&vidx="+vidx+"&debug=1";
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
-}
+    }
     getForMonth(monthString: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsMonthlyDuties.php?MonthNum="+monthString+"&debug=`";			// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
@@ -118,6 +118,13 @@ export class MyserviceService {
       if (isDevMode())
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getDosim.php?debug=1";
        console.log("222 getDosims url %o", url)
+        return this .HttpClient.get<duty>(url)
+    }
+    getTriageCoverers(){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTriageCoverers.php"
+      if (isDevMode())
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTriageCoverers.php?debug=1";
+       console.log("333 getTriageCoverers url %o", url)
         return this .HttpClient.get<duty>(url)
     }
 

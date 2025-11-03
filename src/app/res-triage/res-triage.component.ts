@@ -1,22 +1,40 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { MatSelectModule, MatSelect } from '@angular/material/select';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MyserviceService } from '../myservice.service';
 
 @Component({
   selector: 'app-res-triage',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatSelectModule, MatDatepickerModule],
   templateUrl: './res-triage.component.html',
-  styleUrl: './res-triage.component.css'
+  styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
-  theMonth: month2Class = new month2Class(0);
+theMonth: month2Class = new month2Class(0);
   advance: number = 0;                                   // how many months to advance from current month
+  TCs: triageCoverer[] = []
+  constructor(private myService: MyserviceService ) {
+    this.loadTriageCoverers()
+   }
   advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
     this.advance += number
     console.log("advance to month %o", this.advance)
     this.theMonth = new month2Class(this.advance)
   }
+  loadTriageCoverers(){
+    this.myService.getTriageCoverers().subscribe((data: any) => {
+      console.log("444 loadTriageCoverers data %o", data)
+      this.TCs = data.records
+    })
+  }
+}
+class triageCoverer {
+  userkey: number = 0
+  lastName: string = ''
+  firstName: string = ''
+  Email: string = ''
 }
 
 class month2Class {

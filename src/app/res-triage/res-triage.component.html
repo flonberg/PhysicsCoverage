@@ -1,26 +1,27 @@
 <p>res-triage works!</p>
-<table>
+<table style="width: 1000px;">
     <tr>
-         <th colspan="1"><img  class="images" (click)="advanceMonth(-1)"  src="assets/prevMonthArrow.png"/></th>
+        <th colspan="1"><img  class="images" (click)="advanceMonth(-1)"  src="assets/prevMonthArrow.png"/></th>
         <th colspan="2" style="font-size:x-large; text-align:left;">  {{ theMonth.monthName }}</th>
         <th colspan="1"><img  class="images" (click)="advanceMonth(1)" src="assets/nextMonthArrow.png"/></th>
     </tr>
-            <tr>
-            <td >Monday</td>
-            <td>Tuesday</td>
-            <td>Wednesday</td>
-            <td>Thursday</td>
-            <td>Friday</td>
-        </tr>
-           <tr *ngFor = "let item of theMonth.weeks, index as ind">  
-                <td *ngFor="let day of item">{{ day.getDate() }}
-      <label>Reason
-          <select name="reason">
-              <option value="0">Vacation</option>
-              <option value="1">Meeting</option>
-              <option value="2">Other</option>
-          </select>
-      </label>
-                </td>
-            </tr>
+    <tr style="border:solid;">
+        <td >Monday</td>
+        <td>Tuesday</td>
+        <td>Wednesday</td>
+        <td>Thursday</td>
+        <td>Friday</td>
+    </tr>
+    <tr *ngFor = "let item of theMonth.weeks, index as ind">  
+        <td *ngFor="let day of item">{{ day.getDate() }}
+            <mat-label>Coverer:</mat-label>
+                <mat-select >
+                    <mat-option value="0">Vacation</mat-option>
+                    <mat-option value="1">Sick</mat-option>
+                    <mat-option value="2">Conference</mat-option>
+                    <mat-option value="3">Other</mat-option>
+                </mat-select>
+
+        </td>
+    </tr>
 </table>
