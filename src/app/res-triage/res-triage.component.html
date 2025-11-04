@@ -40,7 +40,7 @@
             <mat-form-field>
             <mat-label>Coverer</mat-label>
             <mat-select [(ngModel)]="selectedValue[ind]">
-                <mat-option *ngFor="let option of options" [value]="option.value">
+                <mat-option *ngFor="let option of TCs2" [value]="option.value">
                 {{ option.viewValue }}
                 </mat-option>
             </mat-select>
