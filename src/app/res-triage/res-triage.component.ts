@@ -29,6 +29,7 @@ theMonth: month2Class = new month2Class(0);
   TCs: TriageCoverer[] = []
   gotTCs: boolean = false
   selectedValue: any = 'Abid'
+  selectedValues: { [key: string]: string } = {};
 
   coverersFromInterface: TriageCoverer[] = []
 
@@ -63,6 +64,14 @@ theMonth: month2Class = new month2Class(0);
       compareFn(obj1: any, obj2: any): boolean {
         return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
     }
+  onChange(event: any, day: any) {
+    const formattedDate = new Date(day).toISOString().split('T')[0]
+    console.log("onchange event %o for day %o", event.value, formattedDate )
+   
+    this.myService.enterTiageCov(event.value, formattedDate).subscribe((data: any) => {
+      console.log("Response from enterTriageCov %o", data)
+    })
+  }
 }
 
 

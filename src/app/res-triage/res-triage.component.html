@@ -18,14 +18,14 @@
                     <caption>{{ day.getDate() }}</caption>
                     <tr>
                         <td>
-                    <mat-form-field>
-    <mat-label>Favorite food</mat-label>
-    <mat-select [(ngModel)]="selectedValue" name="food">
-      @for (food of TCs; track food) {
-        <mat-option [value]="food.userkey">{{food.LastName}}</mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Coverer</mat-label>
+                                <mat-select [(ngModel)]="selectedValue" name="phys" (selectionChange) = "onChange($event, day)">
+                                @for (phys of TCs; track phys) {
+                                    <mat-option [value]="phys.userkey">{{phys.LastName}}</mat-option>
+                                }
+                                </mat-select>
+                            </mat-form-field>
                         </td>
                     </tr>
                 </table>
