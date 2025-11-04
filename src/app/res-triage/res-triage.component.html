@@ -38,7 +38,7 @@
     <table>
         <tr *ngFor="let ind of index">
             <mat-form-field>
-            <mat-label>Select an option</mat-label>
+            <mat-label>Coverer</mat-label>
             <mat-select [(ngModel)]="selectedValue[ind]">
                 <mat-option *ngFor="let option of options" [value]="option.value">
                 {{ option.viewValue }}

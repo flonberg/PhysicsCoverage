@@ -15,6 +15,10 @@ interface TriageCoverer {
   FirstName:  string;
   Email: string;
 }
+interface TriageCoverer2 {
+  value: number;
+  viewValue: string;
+}
 @Component({
   selector: 'app-res-triage',
   standalone: true,
@@ -23,10 +27,10 @@ interface TriageCoverer {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
-  selectedValue: string[] = ['option2','option1', 'option3','option4','option5']; // Set the desired default or initial value
+  selectedValue: string[] = ['option2','null', 'option3','option4','option5']; // Set the desired default or initial value
   options = [
-    { value: 'option1', viewValue: 'Option 1' },
-    { value: 'option2', viewValue: 'Option 2' },
+    { value: 'option1', viewValue: 'VOption 1' },
+    { value: 'option2', viewValue: 'VOption 2' },
     { value: 'option3', viewValue: 'Option 3' },
     { value: 'option4', viewValue: 'Option 4' },
     { value: 'option5', viewValue: 'Option 5' }
@@ -38,10 +42,11 @@ theMonth: month2Class = new month2Class(0);
 
   advance: number = 0;                                   // how many months to advance from current month
   TCs: TriageCoverer[] = []
+  TCs2: TriageCoverer2[] = []
   gotTCs: boolean = false
 
   selectedValues: { userkey: number, LastName: string, FirstName: string } = {userkey: 1, LastName: 'Abid', FirstName: 'Abid'};
-
+  selectedTCs2: TriageCoverer2[] = []
 
   coverersFromInterface: TriageCoverer[] = []
 
@@ -64,6 +69,8 @@ theMonth: month2Class = new month2Class(0);
       console.log("44444 tCoverers %o assignedDuties --- %o", tCoverers, assignedCoverers)
       for (let i=0; i < tCoverers.length; i++){
         let tc: TriageCoverer = {userkey: tCoverers[i].UserKey, LastName: tCoverers[i].LastName, FirstName: tCoverers[i].FirstName, Email: tCoverers[i].Email }
+        let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].LastName }
+        this.TCs2.push(tc2)
         this.TCs.push(tc)
       }
       console.log("44444 TCs %o", this.TCs)
