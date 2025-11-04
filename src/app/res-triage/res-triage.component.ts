@@ -27,7 +27,8 @@ interface TriageCoverer2 {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
-  selectedValue: string[] = ['option2','null', 'option3','option4','option5']; // Set the desired default or initial value
+  selectedValue: number[] = [735,980,980,1038,735]; // Set the desired default or initial value
+  //selectedValue: string[] = ['option2','option1', 'option3','option4','option5']; // Set the desired default or initial value
   options = [
     { value: 'option1', viewValue: 'VOption 1' },
     { value: 'option2', viewValue: 'VOption 2' },
