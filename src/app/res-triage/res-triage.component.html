@@ -20,7 +20,7 @@
                         <td>
                             <mat-form-field>
                                 <mat-label>Coverer</mat-label>
-                                <mat-select [(ngModel)]="selected2Value[ind][did]" (selectionChange)="onChange($event, day)">
+                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="onChange($event, day)">
                                     <mat-option *ngFor="let option of TCs2" [value]="option.value">
                                     {{ option.viewValue }}
                                     </mat-option>
