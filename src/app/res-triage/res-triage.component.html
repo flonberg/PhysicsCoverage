@@ -20,10 +20,10 @@
                         <td>
                             <mat-form-field>
                                 <mat-label>Coverer</mat-label>
-                                <mat-select [(ngModel)]="selectedValues" name="phys" (selectionChange) = "onChange($event, day)">
-                                @for (phys of TCs; track phys) {
-                                    <mat-option [value]="phys.userkey">{{phys.LastName}}</mat-option>
-                                }
+                                <mat-select [(ngModel)]="selectedValue[ind]">
+                                    <mat-option *ngFor="let option of TCs2" [value]="option.value">
+                                    {{ option.viewValue }}
+                                    </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </td>
