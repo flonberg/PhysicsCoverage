@@ -42,30 +42,38 @@ export class ResTriageComponent {
   selectedTCs2: TriageCoverer2[] = []
 
   coverersFromInterface: TriageCoverer[] = []
+  covsFromTable: number[][] = []
 
  
 
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
     console.log("theMonth at init %o", this.theMonth)
- 
-
    }
   putCovererInEachDate(){
     for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){
+      this.covsFromTable[i] = []
       for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){
-        for (let k=0; k < this.fromTable.length; k++){
-         
+           this.covsFromTable[i][j] = 0
+        for (let k=0; k < this.fromTable.length; k++){  
+
           if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){
             console.log("MATCH found for date %o with userkey %o", this.fromTable[k]['day']['date'], this.theMonth.weekDayForDuties[i][j])
-            this.theMonth.datesWithCoverers[(i*5)+j].userkey = this.fromTable[k].TriageCovererUserKey
-     
+            this.theMonth.datesWithCoverers[(i*5)+j].userkey = this.fromTable[k].userkey
+            this.covsFromTable[i][j] = this.fromTable[k].userkey
+            break
           }
+          else {
+          this.covsFromTable[i][j] = 0
+          }
+          
+       
         }
         
   
       }
     }
+    console.log("707070 vsFromTable %o", this.covsFromTable)
   } 
   advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
     this.advance += number
