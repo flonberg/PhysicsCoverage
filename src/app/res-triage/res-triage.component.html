@@ -13,14 +13,14 @@
             <td>Friday</td>
         </tr>
         <tr *ngFor = "let item of theMonth.weeks, index as ind">  
-            <td *ngFor="let day of item">
+            <td *ngFor="let day of item, index as did">
                 <table stye="width:300px; border:solid;">
                     <caption>{{ day.getDate() }}</caption>
                     <tr>
                         <td>
                             <mat-form-field>
                                 <mat-label>Coverer</mat-label>
-                                <mat-select [(ngModel)]="selectedValue" name="phys" (selectionChange) = "onChange($event, day)">
+                                <mat-select [(ngModel)]="selectedValues" name="phys" (selectionChange) = "onChange($event, day)">
                                 @for (phys of TCs; track phys) {
                                     <mat-option [value]="phys.userkey">{{phys.LastName}}</mat-option>
                                 }
@@ -31,6 +31,20 @@
                 </table>
 
             </td>
+        </tr>
+    </table>
+</div>
+<div>
+    <table>
+        <tr *ngFor="let ind of index">
+            <mat-form-field>
+            <mat-label>Select an option</mat-label>
+            <mat-select [(ngModel)]="selectedValue[ind]">
+                <mat-option *ngFor="let option of options" [value]="option.value">
+                {{ option.viewValue }}
+                </mat-option>
+            </mat-select>
+            </mat-form-field>
         </tr>
     </table>
 </div>

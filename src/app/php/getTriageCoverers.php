@@ -21,6 +21,17 @@ $handle = connectDB_FL();
         $row[$i++]  = $temp;
     }
    $ret['TCs'] = $row;
+$selStr = "SELECT day, userkey, phys2 from ResidentTriageDuty where del = 0 ORDER BY day";
+   $stmt = sqlsrv_query( $handle, $selStr);
+   if( $stmt === false ) 
+       { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); } 
+    $row = Array();
+    $i = 0;  
+    while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
+        $dstr = print_r($temp, true); fwrite($fp, $dstr);
+        $row[$i++]  = $temp;
+    }
+   $ret['Duties'] = $row;  
    $ret = json_encode($ret);
    echo $ret;
 

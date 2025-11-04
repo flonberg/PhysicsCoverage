@@ -23,25 +23,33 @@ interface TriageCoverer {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
+  selectedValue: string[] = ['option2','option1', 'option3','option4','option5']; // Set the desired default or initial value
+  options = [
+    { value: 'option1', viewValue: 'Option 1' },
+    { value: 'option2', viewValue: 'Option 2' },
+    { value: 'option3', viewValue: 'Option 3' },
+    { value: 'option4', viewValue: 'Option 4' },
+    { value: 'option5', viewValue: 'Option 5' }
+  ];
+ index = [0,1,2,3,4]
+
+
 theMonth: month2Class = new month2Class(0);
 
   advance: number = 0;                                   // how many months to advance from current month
   TCs: TriageCoverer[] = []
   gotTCs: boolean = false
-  selectedValue: any = 'Abid'
-  selectedValues: { [key: string]: string } = {};
+
+  selectedValues: { userkey: number, LastName: string, FirstName: string } = {userkey: 1, LastName: 'Abid', FirstName: 'Abid'};
+
 
   coverersFromInterface: TriageCoverer[] = []
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
+ 
 
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
-    console.log("434343 foodss %o", this.foods)
+
    }
   advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
     this.advance += number
@@ -52,7 +60,8 @@ theMonth: month2Class = new month2Class(0);
   loadTriageCoverers(){
     this.myService.getTriageCoverers().subscribe((data: any) => {
       const tCoverers: any = data.TCs
-      console.log("44444 tCoverers %o", tCoverers)
+      const assignedCoverers: any = data.Duties
+      console.log("44444 tCoverers %o assignedDuties --- %o", tCoverers, assignedCoverers)
       for (let i=0; i < tCoverers.length; i++){
         let tc: TriageCoverer = {userkey: tCoverers[i].UserKey, LastName: tCoverers[i].LastName, FirstName: tCoverers[i].FirstName, Email: tCoverers[i].Email }
         this.TCs.push(tc)
@@ -67,6 +76,7 @@ theMonth: month2Class = new month2Class(0);
   onChange(event: any, day: any) {
     const formattedDate = new Date(day).toISOString().split('T')[0]
     console.log("onchange event %o for day %o", event.value, formattedDate )
+    console.log("SelectedValue %o", this.selectedValue)
    
     this.myService.enterTiageCov(event.value, formattedDate).subscribe((data: any) => {
       console.log("Response from enterTriageCov %o", data)
