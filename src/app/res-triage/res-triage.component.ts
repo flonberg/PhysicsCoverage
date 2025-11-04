@@ -27,19 +27,11 @@ interface TriageCoverer2 {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
-  selectedValue: number[] = [735,980,980,1038,735]; // Set the desired default or initial value
-  //selectedValue: string[] = ['option2','option1', 'option3','option4','option5']; // Set the desired default or initial value
-  options = [
-    { value: 'option1', viewValue: 'VOption 1' },
-    { value: 'option2', viewValue: 'VOption 2' },
-    { value: 'option3', viewValue: 'Option 3' },
-    { value: 'option4', viewValue: 'Option 4' },
-    { value: 'option5', viewValue: 'Option 5' }
-  ];
- index = [0,1,2,3,4]
 
+  selected2Value:number[][] = [ [735,980,980,1038,735],[1038,980,980,1038,735],[980,980,980,1038,735],[735,980,980,1038,735],[735,980,980,0 ,735] ]; // Set the desired default or initial value
 
-theMonth: month2Class = new month2Class(0);
+ theMonth: month2Class = new month2Class(0);
+
 
   advance: number = 0;                                   // how many months to advance from current month
   TCs: TriageCoverer[] = []
@@ -55,18 +47,38 @@ theMonth: month2Class = new month2Class(0);
 
   constructor(private myService: MyserviceService ) {
     this.loadTriageCoverers()
+    console.log("theMonth at init %o", this.theMonth)
+ 
 
    }
+  putCovererInEachDate(){
+    for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){
+      for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){
+        for (let k=0; k < this.fromTable.length; k++){
+         
+          if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){
+            console.log("MATCH found for date %o with userkey %o", this.fromTable[k]['day']['date'], this.theMonth.weekDayForDuties[i][j])
+            this.theMonth.datesWithCoverers[(i*5)+j].userkey = this.fromTable[k].TriageCovererUserKey
+     
+          }
+        }
+        
+  
+      }
+    }
+  } 
   advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
     this.advance += number
     console.log("advance to month %o", this.advance)
     this.theMonth = new month2Class(this.advance)
     console.log("theMonth initialized %o", this.theMonth) 
   }
+  fromTable: any[] = []
   loadTriageCoverers(){
     this.myService.getTriageCoverers().subscribe((data: any) => {
       const tCoverers: any = data.TCs
       const assignedCoverers: any = data.Duties
+      this.fromTable = data.Duties
       console.log("44444 tCoverers %o assignedDuties --- %o", tCoverers, assignedCoverers)
       for (let i=0; i < tCoverers.length; i++){
         let tc: TriageCoverer = {userkey: tCoverers[i].UserKey, LastName: tCoverers[i].LastName, FirstName: tCoverers[i].FirstName, Email: tCoverers[i].Email }
@@ -76,6 +88,7 @@ theMonth: month2Class = new month2Class(0);
       }
       console.log("44444 TCs %o", this.TCs)
       this.gotTCs = true
+         this.putCovererInEachDate()
     })
   }
       compareFn(obj1: any, obj2: any): boolean {
@@ -84,7 +97,7 @@ theMonth: month2Class = new month2Class(0);
   onChange(event: any, day: any) {
     const formattedDate = new Date(day).toISOString().split('T')[0]
     console.log("onchange event %o for day %o", event.value, formattedDate )
-    console.log("SelectedValue %o", this.selectedValue)
+
    
     this.myService.enterTiageCov(event.value, formattedDate).subscribe((data: any) => {
       console.log("Response from enterTriageCov %o", data)
