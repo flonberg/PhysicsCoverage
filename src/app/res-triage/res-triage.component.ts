@@ -27,6 +27,8 @@ export class ResTriageComponent {
   constructor(private myService: MyserviceService ) {
     this.theMonth = new month2Class(this.advance);
     this.loadTriageCoverers()
+    let loggeInUserId = this.myService.getUserId()
+    console.log("313131In ResTriageComponent constructor logged in user id %o", loggeInUserId)
    }
    /* Puts coverer in corresponding date in calendar */
   putCovererInEachDate(){
@@ -53,7 +55,10 @@ export class ResTriageComponent {
   }
 
   loadTriageCoverers(){
-    this.myService.getTriageCoverers().subscribe((data: any) => {
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0,10);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0,10);
+    this.myService.getTriageCoverers(firstDay, lastDay).subscribe((data: any) => {
       const tCoverers: any = data.TCs
       const assignedCoverers: any = data.Duties
       this.fromTable = data.Duties

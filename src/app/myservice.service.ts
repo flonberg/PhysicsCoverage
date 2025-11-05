@@ -128,12 +128,18 @@ export class MyserviceService {
        console.log("222 getDosims url %o", url)
         return this .HttpClient.get<duty>(url)
     }
-    getTriageCoverers(){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTriageCoverers.php"
+    getTriageCoverers(startDate: string, endDate: string){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTriageCoverers.php?startDate="+startDate+"&endDate="+endDate;
       if (isDevMode())
-        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTriageCoverers.php?debug=1";
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTriageCoverers.php?debug=1&startDate="+startDate+"&endDate="+endDate;
        console.log("333 getTriageCoverers url %o", url)
         return this .HttpClient.get<duty>(url)
+    }
+    getFirstDayOfNextMonth(currentDate: Date): Date {
+      const nextMonthDate = new Date(currentDate);
+      nextMonthDate.setDate(1);// Set the day to 1 to ensure it's the first of the current month
+      nextMonthDate.setMonth(nextMonthDate.getMonth() + 1);  // Increment the month by 1
+      return nextMonthDate;
     }
 
 }
