@@ -18,76 +18,52 @@ interface TriageCoverer2 {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
-
-  selected2Value:number[][] = [ [735,980,980,1038,735],[1038,980,980,1038,735],[980,980,980,1038,735],[735,980,980,1038,735],[735,980,980,0 ,735] ]; // Set the desired default or initial value
-
- theMonth: month2Class = new month2Class(0);
-
-
-  advance: number = 0;                                   // how many months to advance from current month
-
+  advance: number = 0;                                                          // how many months advanced from current month      
+  theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
   gotTCs: boolean = false
-
-  selectedValues: { userkey: number, LastName: string, FirstName: string } = {userkey: 1, LastName: 'Abid', FirstName: 'Abid'};
-  selectedTCs2: TriageCoverer2[] = []
-
- 
-  covsFromTable: number[][] = []
-
- 
-
+  covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
+  fromTable: any[] = []                                                       // to hold  raw data duties from dataBase
   constructor(private myService: MyserviceService ) {
+    this.theMonth = new month2Class(this.advance);
     this.loadTriageCoverers()
-    console.log("theMonth at init %o", this.theMonth)
    }
+   /* Puts coverer in corresponding date in calendar */
   putCovererInEachDate(){
-    for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){
-      this.covsFromTable[i] = []
-      for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){
-           this.covsFromTable[i][j] = 0
-        for (let k=0; k < this.fromTable.length; k++){  
-
-          if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){
-            console.log("MATCH found for date %o with userkey %o", this.fromTable[k]['day']['date'], this.theMonth.weekDayForDuties[i][j])
-            this.theMonth.datesWithCoverers[(i*5)+j].userkey = this.fromTable[k].userkey
-            this.covsFromTable[i][j] = this.fromTable[k].userkey
+    for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){          // for each week
+      this.covsFromTable[i] = []                                            // initialize row in covsFromTable
+      for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){ 
+           this.covsFromTable[i][j] = 0                                     // initialize col in covsFromTable
+        for (let k=0; k < this.fromTable.length; k++){                      // for each duty from table
+          if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){ // if match the date of the day with date of the duty1
+            this.covsFromTable[i][j] = this.fromTable[k].userkey            // put userkey in covsFromTable
             break
           }
           else {
-          this.covsFromTable[i][j] = 0
+            this.covsFromTable[i][j] = 0                                   // no coverer assigned         
           }
-          
-       
         }
-        
-  
       }
     }
-    console.log("707070 vsFromTable %o", this.covsFromTable)
   } 
-  advanceMonth(number: number) {                                                           // used when user clicks on next or previous month button
+  advanceMonth(number: number) {                                            // used when user clicks on next or previous month button
     this.advance += number
-    console.log("advance to month %o", this.advance)
     this.theMonth = new month2Class(this.advance)
-    console.log("theMonth initialized %o", this.theMonth) 
+        this.loadTriageCoverers()
   }
-  fromTable: any[] = []
+
   loadTriageCoverers(){
     this.myService.getTriageCoverers().subscribe((data: any) => {
       const tCoverers: any = data.TCs
       const assignedCoverers: any = data.Duties
       this.fromTable = data.Duties
-      console.log("44444 tCoverers %o assignedDuties --- %o", tCoverers, assignedCoverers)
       for (let i=0; i < tCoverers.length; i++){
-
         let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
         this.TCs2.push(tc2)
   
       }
-
       this.gotTCs = true
-         this.putCovererInEachDate()
+      this.putCovererInEachDate()
     })
   }
       compareFn(obj1: any, obj2: any): boolean {
@@ -104,7 +80,7 @@ export class ResTriageComponent {
   }
 }
 
-
+/** Holds the */
 class month2Class {
   dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
   focusDate: Date = new Date()                            
@@ -126,9 +102,7 @@ class month2Class {
     this.monthName = monthNames[this.monthNum]
     this.focusDate = this.moveToMonday(this.focusDate)                
     for (let i=0; i < 5; i++)                                                                       // make the 5 days of normal weeks                   
-            this.weeks[i] = this.makeNormalWeek(this.focusDate)  
-   // console.log("105105 weekDayForDuties %o", this.weekDayForDuties)    
-  //  console.log("`37`37`weekDays %o", this.weekDays)        
+            this.weeks[i] = this.makeNormalWeek(this.focusDate)       
   }
 
   /** move forward to Monday is Weekend of BACK to Monday is Tues-Fri */
@@ -165,12 +139,7 @@ class month2Class {
     getMonthSQLstring(){
       return this.monthSQLstring
     }
-  doesDateHaveDuties(date: any){
-    if (date.userkey)
-      return true
-    else 
-      return
-  }  
+
 
 }
 class DateWithCoverer {
