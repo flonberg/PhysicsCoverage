@@ -21,6 +21,7 @@ export class ResTriageComponent {
   advance: number = 0;                                                          // how many months advanced from current month      
   theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
+  usedTCs2: TriageCoverer2[] = []                                             // the list of coverers used for DropDown
   gotTCs: boolean = false
   covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
   fromTable: any[] = []                                                       // to hold  raw data duties from dataBase
@@ -30,7 +31,30 @@ export class ResTriageComponent {
     let loggeInUserId = this.myService.getUserId()
     console.log("313131In ResTriageComponent constructor logged in user id %o", loggeInUserId)
    }
-   /* Puts coverer in corresponding date in calendar */
+ 
+  advanceMonth(number: number) {                                            // used when user clicks on next or previous month button
+    this.advance += number
+    this.theMonth = new month2Class(this.advance)
+        this.loadTriageCoverers()
+  }
+
+  loadTriageCoverers(){
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0,10);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0,10);
+    this.myService.getTriageCoverers(firstDay, lastDay, this.myService.getUserId()).subscribe((data: any) => {
+      const tCoverers: any = data.TCs
+      const assignedCoverers: any = data.Duties
+      this.fromTable = data.Duties
+      for (let i=0; i < tCoverers.length; i++){
+        let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
+        this.TCs2.push(tc2)
+      }
+      this.gotTCs = true
+      this.putCovererInEachDate()
+    })
+  }
+    /* Puts coverer in corresponding date in calendar */
   putCovererInEachDate(){
     for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){          // for each week
       this.covsFromTable[i] = []                                            // initialize row in covsFromTable
@@ -48,32 +72,7 @@ export class ResTriageComponent {
       }
     }
   } 
-  advanceMonth(number: number) {                                            // used when user clicks on next or previous month button
-    this.advance += number
-    this.theMonth = new month2Class(this.advance)
-        this.loadTriageCoverers()
-  }
 
-  loadTriageCoverers(){
-    var date = new Date();
-    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0,10);
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0,10);
-    this.myService.getTriageCoverers(firstDay, lastDay).subscribe((data: any) => {
-      const tCoverers: any = data.TCs
-      const assignedCoverers: any = data.Duties
-      this.fromTable = data.Duties
-      for (let i=0; i < tCoverers.length; i++){
-        let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
-        this.TCs2.push(tc2)
-  
-      }
-      this.gotTCs = true
-      this.putCovererInEachDate()
-    })
-  }
-      compareFn(obj1: any, obj2: any): boolean {
-        return obj1 && obj2 ? obj1.id === obj2.id : obj1 === obj2;
-    }
   onChange(event: any, day: any) {
     const formattedDate = new Date(day).toISOString().split('T')[0]
     console.log("onchange event %o for day %o", event.value, formattedDate )

@@ -25,11 +25,11 @@ $handle = connectDB_FL();
    $ret['TCs'] = $row;
    $ret['byUserKey'] = $byUserKey;
    /** get Assignments  */
-$selStr = "SELECT ResidentTriageDuty.day, ResidentTriageDuty.userkey, ResidentTriageDuty.phys2, physicians.LastName, physicians.FirstName 
-   from ResidentTriageDuty
-   JOIN physicians ON ResidentTriageDuty.userkey = physicians.UserKey
-   where del = 0 AND ResidentTriageDuty.day >= '".$_GET['startDate']."' AND ResidentTriageDuty.day <= '".$_GET['endDate']."'
-   ORDER BY ResidentTriageDuty.idx desc";
+   $selStr = "SELECT ResidentTriageDuty.day, ResidentTriageDuty.userkey, ResidentTriageDuty.phys2, physicians.LastName, physicians.FirstName 
+      from ResidentTriageDuty
+      JOIN physicians ON ResidentTriageDuty.userkey = physicians.UserKey
+      where del = 0 AND ResidentTriageDuty.day >= '".$_GET['startDate']."' AND ResidentTriageDuty.day <= '".$_GET['endDate']."'
+      ORDER BY ResidentTriageDuty.idx desc";
     fwrite($fp, "\r\n $selStr");
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false ) 

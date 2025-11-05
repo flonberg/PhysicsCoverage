@@ -128,10 +128,10 @@ export class MyserviceService {
        console.log("222 getDosims url %o", url)
         return this .HttpClient.get<duty>(url)
     }
-    getTriageCoverers(startDate: string, endDate: string){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTriageCoverers.php?startDate="+startDate+"&endDate="+endDate;
+    getTriageCoverers(startDate: string, endDate: string, loggedInUserId: string){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTriageCoverers.php?startDate="+startDate+"&endDate="+endDate + "&loggedInUserId="+loggedInUserId;  //
       if (isDevMode())
-        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTriageCoverers.php?debug=1&startDate="+startDate+"&endDate="+endDate;
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTriageCoverers.php?debug=1&startDate="+startDate+"&endDate="+endDate + "&loggedInUserId="+loggedInUserId;
        console.log("333 getTriageCoverers url %o", url)
         return this .HttpClient.get<duty>(url)
     }
