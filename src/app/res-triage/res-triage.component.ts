@@ -5,16 +5,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MyserviceService } from '../myservice.service';
 import { FormsModule } from '@angular/forms';
 
-interface Food {
-  value: string;
-  viewValue: string;
-}
-interface TriageCoverer {
-  userkey: number;
-  LastName: string;
-  FirstName:  string;
-  Email: string;
-}
+
 interface TriageCoverer2 {
   value: number;
   viewValue: string;
@@ -34,14 +25,14 @@ export class ResTriageComponent {
 
 
   advance: number = 0;                                   // how many months to advance from current month
-  TCs: TriageCoverer[] = []
+
   TCs2: TriageCoverer2[] = []
   gotTCs: boolean = false
 
   selectedValues: { userkey: number, LastName: string, FirstName: string } = {userkey: 1, LastName: 'Abid', FirstName: 'Abid'};
   selectedTCs2: TriageCoverer2[] = []
 
-  coverersFromInterface: TriageCoverer[] = []
+ 
   covsFromTable: number[][] = []
 
  
@@ -89,12 +80,12 @@ export class ResTriageComponent {
       this.fromTable = data.Duties
       console.log("44444 tCoverers %o assignedDuties --- %o", tCoverers, assignedCoverers)
       for (let i=0; i < tCoverers.length; i++){
-        let tc: TriageCoverer = {userkey: tCoverers[i].UserKey, LastName: tCoverers[i].LastName, FirstName: tCoverers[i].FirstName, Email: tCoverers[i].Email }
-        let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].LastName }
+
+        let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
         this.TCs2.push(tc2)
-        this.TCs.push(tc)
+  
       }
-      console.log("44444 TCs %o", this.TCs)
+
       this.gotTCs = true
          this.putCovererInEachDate()
     })

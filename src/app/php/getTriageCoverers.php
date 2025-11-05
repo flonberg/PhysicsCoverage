@@ -28,7 +28,7 @@ $handle = connectDB_FL();
 $selStr = "SELECT ResidentTriageDuty.day, ResidentTriageDuty.userkey, ResidentTriageDuty.phys2, physicians.LastName, physicians.FirstName 
 from ResidentTriageDuty
 JOIN physicians ON ResidentTriageDuty.userkey = physicians.UserKey
- where del = 0 ORDER BY day";
+ where del = 0 ORDER BY ResidentTriageDuty.idx desc";
     fwrite($fp, "\r\n $selStr");
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false ) 
