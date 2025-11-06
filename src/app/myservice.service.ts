@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {duty} from './models'
 import { isDevMode } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,9 @@ export class MyserviceService {
     }
     formatDateYYYYMMDD(date: Date): string {
       return date.toISOString().slice(0, 10);
+    }
+    getFromAssets(): Observable<any> {
+      return this.HttpClient.get<any>('assets/config.json');
     }
     enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+

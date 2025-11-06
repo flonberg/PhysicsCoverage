@@ -1,13 +1,15 @@
 {
-  "employees": {
-    "employee": [
+  "privUsers": {
+    "privUser": [
       {
         "userid": "jeh2"
       },
       {
         "userid": "kes21"
+      },
+      {
+        "userid": "fjl3"
       }
-
     ]
   }
 }

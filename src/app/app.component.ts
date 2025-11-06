@@ -32,9 +32,6 @@ export class AppComponent implements OnInit {
               this.id = this.myservice.getUserId() 
             }
           });
-          if (this.id){
-     
-          }
         }
     hasId(){
       if (this.id)

@@ -25,10 +25,21 @@ export class ResTriageComponent {
   gotTCs: boolean = false
   covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
   fromTable: any[] = []                                                       // to hold  raw data duties from dataBase
+  isPrivUser: boolean = false
   constructor(private myService: MyserviceService ) {
     this.theMonth = new month2Class(this.advance);
-    this.loadTriageCoverers()
+
     let loggeInUserId = this.myService.getUserId()
+    this.myService.getFromAssets().subscribe((data: any) => {
+      const privUsers: any = data.privUsers.privUser
+      for (let i=0; i < privUsers.length; i++){
+        if (privUsers[i].userid == loggeInUserId){                    // if logged in user is privileged user 
+          this.isPrivUser                                // use all coverers    
+          break
+        }
+      }
+      this.loadTriageCoverers()
+    })
     console.log("313131In ResTriageComponent constructor logged in user id %o", loggeInUserId)
    }
  
@@ -76,8 +87,6 @@ export class ResTriageComponent {
   onChange(event: any, day: any) {
     const formattedDate = new Date(day).toISOString().split('T')[0]
     console.log("onchange event %o for day %o", event.value, formattedDate )
-
-   
     this.myService.enterTiageCov(event.value, formattedDate).subscribe((data: any) => {
       console.log("Response from enterTriageCov %o", data)
     })
