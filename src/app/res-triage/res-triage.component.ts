@@ -18,6 +18,9 @@ interface TriageCoverer2 {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
+  loggedInUserLastName: string = this.myService.getUserLastName()
+  loggedInUserKey: number = this.myService.getUserKey()
+  loggeInUserId: string = this.myService.getUserId()
   advance: number = 0;                                                          // how many months advanced from current month      
   theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
@@ -29,15 +32,15 @@ export class ResTriageComponent {
   isPrivUser: boolean = false
   constructor(private myService: MyserviceService ) {
     this.theMonth = new month2Class(this.advance);
-    let loggeInUserId = this.myService.getUserId()
-    let loggedInUserLastName = this.myService.getUserLastName()
-    let loggedInUserKey = this.myService.getLoggedInUserKey()
-    console.log("313131In ResTriageComponent  %o -- %o -- %o", loggeInUserId, loggedInUserLastName, loggedInUserKey)
-    let loggedInUserTC: TriageCoverer2 = {value: loggedInUserKey, viewValue: loggedInUserLastName}
+    this.loggeInUserId = this.myService.getUserId()
+    this.loggedInUserLastName = this.myService.getUserLastName()
+    this.loggedInUserKey = this.myService.getLoggedInUserKey()
+    console.log("313131In ResTriageComponent  %o -- %o -- %o", this.loggeInUserId, this.loggedInUserLastName, this.loggedInUserKey)
+    let loggedInUserTC: TriageCoverer2 = {value: this. loggedInUserKey, viewValue: this.loggedInUserLastName}
     this.myService.getFromAssets().subscribe((data: any) => {
       const privUsers: any = data.privUsers.privUser
       for (let i=0; i < privUsers.length; i++){
-        if (privUsers[i].userid == loggeInUserId){                    // if logged in user is privileged user 
+        if (privUsers[i].userid == this.loggeInUserId){                    // if logged in user is privileged user 
           this.isPrivUser = true                              // use all coverers    
           break
         }
@@ -69,10 +72,11 @@ export class ResTriageComponent {
         this.usedTCs2 = this.TCs2
       }
       else {                                                              // else only use coverers assigned to logged in user
-        this.usedTCs2 = [{value: this.myService.getUserKey(), viewValue: this.myService.getUserLastName()}]
+        this.usedTCs2 = [{value: this.loggedInUserKey, viewValue: this.loggedInUserLastName}]
       }
       this.gotTCs = true
       this.putCovererInEachDate()
+      console.log("767676 this.usedTCs2 %o", this.usedTCs2)
     })
   }
     /* Puts coverer in corresponding date in calendar */
