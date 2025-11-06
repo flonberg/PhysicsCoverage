@@ -34,7 +34,7 @@ export class ResTriageComponent {
       const privUsers: any = data.privUsers.privUser
       for (let i=0; i < privUsers.length; i++){
         if (privUsers[i].userid == loggeInUserId){                    // if logged in user is privileged user 
-          this.isPrivUser                                // use all coverers    
+          this.isPrivUser = true                              // use all coverers    
           break
         }
       }
