@@ -21,6 +21,7 @@ export class ResTriageComponent {
   advance: number = 0;                                                          // how many months advanced from current month      
   theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
+  loggedInUserTC: TriageCoverer2[] = []                                             // the logged in user as coverer
   usedTCs2: TriageCoverer2[] = []                                             // the list of coverers used for DropDown
   gotTCs: boolean = false
   covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
@@ -28,8 +29,11 @@ export class ResTriageComponent {
   isPrivUser: boolean = false
   constructor(private myService: MyserviceService ) {
     this.theMonth = new month2Class(this.advance);
-
     let loggeInUserId = this.myService.getUserId()
+    let loggedInUserLastName = this.myService.getUserLastName()
+    let loggedInUserKey = this.myService.getLoggedInUserKey()
+    console.log("313131In ResTriageComponent  %o -- %o -- %o", loggeInUserId, loggedInUserLastName, loggedInUserKey)
+    let loggedInUserTC: TriageCoverer2 = {value: loggedInUserKey, viewValue: loggedInUserLastName}
     this.myService.getFromAssets().subscribe((data: any) => {
       const privUsers: any = data.privUsers.privUser
       for (let i=0; i < privUsers.length; i++){
@@ -40,7 +44,7 @@ export class ResTriageComponent {
       }
       this.loadTriageCoverers()
     })
-    console.log("313131In ResTriageComponent constructor logged in user id %o", loggeInUserId)
+
    }
  
   advanceMonth(number: number) {                                            // used when user clicks on next or previous month button
@@ -60,6 +64,12 @@ export class ResTriageComponent {
       for (let i=0; i < tCoverers.length; i++){
         let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
         this.TCs2.push(tc2)
+      }
+      if (this.isPrivUser){                                               // if privileged user use all coverers
+        this.usedTCs2 = this.TCs2
+      }
+      else {                                                              // else only use coverers assigned to logged in user
+        this.usedTCs2 = [{value: this.myService.getUserKey(), viewValue: this.myService.getUserLastName()}]
       }
       this.gotTCs = true
       this.putCovererInEachDate()

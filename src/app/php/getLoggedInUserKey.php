@@ -13,6 +13,10 @@ $handle = connectDB_FL();
    $userkey = (int)$userkeyString;
    $selStr = "SELECT LastName FROM physicists WHERE UserKey = '".$userkey."'";
    $lastName = getSingle($selStr, 'LastName', $handle);
+   if ($lastName === null){
+         $selStr = "SELECT LastName FROM physicians WHERE UserKey = '".$userkey."'";
+         $lastName = getSingle($selStr, 'LastName', $handle);
+   }
    $ret = Array();
    $ret['userkey'] = $userkey;
    $ret['lastName'] = $lastName;

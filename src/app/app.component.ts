@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
   id: string = ''
   test = ''
   loggedInUserKey: number = 0
-     ngOnInit() {
-          this.route.queryParams.subscribe(params => {
+    ngOnInit() {
+      this.route.queryParams.subscribe(params => {
             this.id = params['userid']; // Access a specific query parameter
             console.log("2525 userid %o", this.id)
             if (this.id){
@@ -32,7 +32,10 @@ export class AppComponent implements OnInit {
               this.id = this.myservice.getUserId() 
             }
           });
-        }
+          if (this.id){
+            console.log("363636 this.id %o", this.id)
+          }
+      }
     hasId(){
       if (this.id)
         return true
