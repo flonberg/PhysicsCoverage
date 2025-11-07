@@ -48,7 +48,7 @@ export class MyserviceService {
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
-    enterTiageCov(userkey:number, date: string){
+    enterTriageCov(userkey:number, date: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTriageCov.php?date="+date+"&userkey="+userkey;      // 
                  //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())   

@@ -20,7 +20,7 @@
                         <td *ngIf="isPrivUser">
                             <mat-form-field>
                                 <mat-label>Coverer</mat-label>
-                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="onChange($event, day)">
+                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event, day)">
                                     <mat-option *ngFor="let option of TCs2" [value]="option.value">
                                     {{ option.viewValue }}
                                     </mat-option>
@@ -30,9 +30,9 @@
                         <td *ngIf = "!isPrivUser" class="tableCell">
                             <table  >
                                 <tr>
-                                    <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }} <!-- written by CoPilot --></td>
+                                    <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }}</td> <!-- written by CoPilot -->
                                     <td class="takeButton" *ngIf = "isUserTaker">
-                                        <button class="raised-button"></button>
+                                        <button class="raised-button" (click) = "enterCov(covsFromTable[ind][did],day)"></button>
                                     </td>
                                 </tr>
                             </table>

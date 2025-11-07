@@ -102,11 +102,20 @@ export class ResTriageComponent {
     }
      this.gotTCs = true
   } 
-  onChange(event: any, day: any) {
+  enterCov(event: any, day: any) {
+    let toEnterUserKey: number = 0
+    if (typeof event === 'number'){
+      toEnterUserKey = event
+    }
+    else {
+      toEnterUserKey = event.value
+    }
+
+    console.log("106106 type of event %o", typeof event)
     const formattedDate = new Date(day).toISOString().split('T')[0]
-    console.log("onchange event %o for day %o", event.value, formattedDate )
-    this.myService.enterTiageCov(event.value, formattedDate).subscribe((data: any) => {
-      console.log("Response from enterTriageCov %o", data)
+    console.log("onchange event %o for day %o", toEnterUserKey, formattedDate )
+    this.myService.enterTriageCov(toEnterUserKey, formattedDate).subscribe((data: any) => {
+      console.log("Response from enterTiageCov %o", data)
     })
   }
   isLoggedInUserTaker(covUserKey: number){
