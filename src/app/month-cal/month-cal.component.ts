@@ -89,7 +89,7 @@ export class MonthCalComponent {
             this.dayBucket[justDate].push(this.theDuties[i])                                    // put the duty into the array for that dateString
           }
         }  
-        console.log("107107 dayBucket %o", this.dayBucket)
+        console.log("107107 takers %o", this.takers)
         this.addDutiesToDays()
         this.gotData = true
     })
@@ -112,7 +112,7 @@ export class MonthCalComponent {
   /** if loggedInUser a physicist who has duties, then she can 'take' duties in a swap */
   isUserTaker(){
     const test = this.myservice.getLoggedInUserKey()
-    if (test in this.takers)
+    if (test in this.takers && test > 0)
       return true
     else 
       return false
