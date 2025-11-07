@@ -72,6 +72,7 @@ export class ResTriageComponent {
       console.log("656565 tCoverers %o", tCoverers)
       const assignedCoverers: any = data.Duties
       this.fromTable = data.Duties
+      console.log("75757 %o fromTable %o", this.fromTable.length, this.fromTable)
       for (let i=0; i < tCoverers.length; i++){
         let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
         this.TCs2.push(tc2)
@@ -105,9 +106,9 @@ export class ResTriageComponent {
   enterCov(event: any, day: any) {
     let toEnterUserKey: number = 0
     if (typeof event === 'number'){
-      toEnterUserKey = event
+      toEnterUserKey = this.loggedInUserKey
     }
-    else {
+    else if (typeof event === 'object' && 'value' in event){
       toEnterUserKey = event.value
     }
 

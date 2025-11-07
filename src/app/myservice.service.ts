@@ -41,7 +41,7 @@ export class MyserviceService {
     enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
       "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey;      // 
-                 //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
+
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
           "&reason="+reason+"&coverer="+coverer+"&userid="+this.userid+"&debug=1"; 
@@ -50,7 +50,6 @@ export class MyserviceService {
     }
     enterTriageCov(userkey:number, date: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTriageCov.php?date="+date+"&userkey="+userkey;      // 
-                 //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&debug=1"; 
           console.log("30303 url %o", url)
