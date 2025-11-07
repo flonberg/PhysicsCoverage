@@ -10,6 +10,10 @@ interface TriageCoverer2 {
   value: number;
   viewValue: string;
 }
+interface CovByUserKey {
+   [key: number]: string;
+}
+
 @Component({
   selector: 'app-res-triage',
   standalone: true,
@@ -18,14 +22,14 @@ interface TriageCoverer2 {
   styleUrls: ['./res-triage.component.css'],
 })
 export class ResTriageComponent {
-  loggedInUserLastName: string = this.myService.getUserLastName()
-  loggedInUserKey: number = this.myService.getUserKey()
-  loggeInUserId: string = this.myService.getUserId()
+  loggedInUserLastName: string = ""
+  loggedInUserKey: number = 0
+  loggeInUserId: string = ""
   advance: number = 0;                                                          // how many months advanced from current month      
   theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
   loggedInUserTC: TriageCoverer2[] = []                                             // the logged in user as coverer
-  usedTCs2: TriageCoverer2[] = []                                             // the list of coverers used for DropDown
+
   gotTCs: boolean = false
   covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
   fromTable: any[] = []                                                       // to hold  raw data duties from dataBase
@@ -62,21 +66,16 @@ export class ResTriageComponent {
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0,10);
     this.myService.getTriageCoverers(firstDay, lastDay, this.myService.getUserId()).subscribe((data: any) => {
       const tCoverers: any = data.TCs
+      console.log("656565 tCoverers %o", tCoverers)
       const assignedCoverers: any = data.Duties
       this.fromTable = data.Duties
       for (let i=0; i < tCoverers.length; i++){
         let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
         this.TCs2.push(tc2)
       }
-      if (this.isPrivUser){                                               // if privileged user use all coverers
-        this.usedTCs2 = this.TCs2
-      }
-      else {                                                              // else only use coverers assigned to logged in user
-        this.usedTCs2 = [{value: this.loggedInUserKey, viewValue: this.loggedInUserLastName}]
-      }
-      this.gotTCs = true
+
       this.putCovererInEachDate()
-      console.log("767676 this.usedTCs2 %o", this.usedTCs2)
+
     })
   }
     /* Puts coverer in corresponding date in calendar */
@@ -96,6 +95,9 @@ export class ResTriageComponent {
         }
       }
     }
+
+          this.gotTCs = true
+
   } 
 
   onChange(event: any, day: any) {
