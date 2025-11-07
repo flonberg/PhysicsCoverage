@@ -1,0 +1,25 @@
+caption {
+   font-weight: bold;
+   text-align: center;
+}
+.dayName {
+   font-weight: bold;
+   text-align: center;
+}
+.tableCell {
+   border: solid 1px black;
+   width: 300px;
+   height: 80px;
+   text-align: center;
+   vertical-align: middle;
+}
+.takerName {
+   font-weight: bold;
+   text-align: center;
+   vertical-align: middle;
+   width: 200px;
+}
+.takeButton {
+   align-items: right;
+   text-align: right;
+}

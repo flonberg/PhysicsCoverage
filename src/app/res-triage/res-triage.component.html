@@ -6,11 +6,11 @@
             <th colspan="1"><img  class="images" (click)="advanceMonth(1)" src="assets/nextMonthArrow.png"/></th>
         </tr>
         <tr style="border:solid;">
-            <td >Monday</td>
-            <td>Tuesday</td>
-            <td>Wednesday</td>
-            <td>Thursday</td>
-            <td>Friday</td>
+            <td class="dayName" >Monday</td>
+            <td class="dayName">Tuesday</td>
+            <td class="dayName">Wednesday</td>
+            <td class="dayName">Thursday</td>
+            <td class="dayName">Friday</td>
         </tr>
         <tr *ngFor = "let item of theMonth.weeks, index as ind">  
             <td *ngFor="let day of item, index as did">
@@ -27,14 +27,14 @@
                                 </mat-select>
                             </mat-form-field>
                         </td>
-                        <td *ngIf = "!isPrivUser">
-                            <table>
-                            <tr>
-                                <td>{{ CbUK[covsFromTable[ind][did]] }} <!-- written by CoPilot --></td>
-                                <td>
-                                    <button> </button>
-                                </td>
-                            </tr>
+                        <td *ngIf = "!isPrivUser" class="tableCell">
+                            <table  >
+                                <tr>
+                                    <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }} <!-- written by CoPilot --></td>
+                                    <td class="takeButton">
+                                        <button> </button>
+                                    </td>
+                                </tr>
                             </table>
                         </td>
                     </tr>
