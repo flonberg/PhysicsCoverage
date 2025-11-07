@@ -17,7 +17,7 @@
                 <table stye="width:300px; border:solid;">
                     <caption>{{ day.getDate() }}</caption>
                     <tr>
-                        <td>
+                        <td *ngIf="isPrivUser">
                             <mat-form-field>
                                 <mat-label>Coverer</mat-label>
                                 <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="onChange($event, day)">
@@ -26,6 +26,16 @@
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
+                        </td>
+                        <td *ngIf = "!isPrivUser">
+                            <table>
+                            <tr>
+                                <td>{{ CbUK[covsFromTable[ind][did]] }} <!-- written by CoPilot --></td>
+                                <td>
+                                    <button> </button>
+                                </td>
+                            </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

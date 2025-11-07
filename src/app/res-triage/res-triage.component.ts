@@ -28,6 +28,7 @@ export class ResTriageComponent {
   advance: number = 0;                                                          // how many months advanced from current month      
   theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
+  CbUK:CovByUserKey[] =[]                                                      // to hold coverers by userkey for display
   loggedInUserTC: TriageCoverer2[] = []                                             // the logged in user as coverer
 
   gotTCs: boolean = false
@@ -72,6 +73,7 @@ export class ResTriageComponent {
       for (let i=0; i < tCoverers.length; i++){
         let tc2 : TriageCoverer2 = {value: tCoverers[i].UserKey, viewValue: tCoverers[i].FirstName + ' ' + tCoverers[i].LastName}
         this.TCs2.push(tc2)
+        this.CbUK[tCoverers[i].UserKey] = tCoverers[i].FirstName + ' ' + tCoverers[i].LastName
       }
 
       this.putCovererInEachDate()
