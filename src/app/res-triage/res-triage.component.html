@@ -2,7 +2,7 @@
     <table style="width: 1000px;">
         <tr>
             <th colspan="1"><img  class="images" (click)="advanceMonth(-1)"  src="assets/prevMonthArrow.png"/></th>
-            <th colspan="2" style="font-size:x-large; text-align:left;">  {{ theMonth.monthName }}</th>
+            <th colspan="2" style="font-size:x-large; text-align:center;">  {{ theMonth.monthName }}</th>
             <th colspan="1"><img  class="images" (click)="advanceMonth(1)" src="assets/nextMonthArrow.png"/></th>
         </tr>
         <tr style="border:solid;">
@@ -31,7 +31,7 @@
                             <table  >
                                 <tr>
                                     <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }} <!-- written by CoPilot --></td>
-                                    <td class="takeButton">
+                                    <td class="takeButton" *ngIf = "isUserTaker">
                                         <button class="raised-button"></button>
                                     </td>
                                 </tr>
@@ -43,4 +43,4 @@
         </tr>
     </table>
 </div>
-
+<h4>Click Button to assume coverage</h4>

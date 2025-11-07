@@ -30,7 +30,7 @@ export class ResTriageComponent {
   TCs2: TriageCoverer2[] = []
   CbUK:CovByUserKey[] =[]                                                      // to hold coverers by userkey for display
   loggedInUserTC: TriageCoverer2[] = []                                             // the logged in user as coverer
-
+  isUserTaker: boolean = false
   gotTCs: boolean = false
   covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
   fromTable: any[] = []                                                       // to hold  raw data duties from dataBase
@@ -40,6 +40,7 @@ export class ResTriageComponent {
     this.loggeInUserId = this.myService.getUserId()
     this.loggedInUserLastName = this.myService.getUserLastName()
     this.loggedInUserKey = this.myService.getLoggedInUserKey()
+
     console.log("313131In ResTriageComponent  %o -- %o -- %o", this.loggeInUserId, this.loggedInUserLastName, this.loggedInUserKey)
     let loggedInUserTC: TriageCoverer2 = {value: this. loggedInUserKey, viewValue: this.loggedInUserLastName}
     this.myService.getFromAssets().subscribe((data: any) => {
@@ -51,6 +52,7 @@ export class ResTriageComponent {
         }
       }
       this.loadTriageCoverers()
+
     })
 
    }
@@ -77,6 +79,7 @@ export class ResTriageComponent {
       }
 
       this.putCovererInEachDate()
+      this.isUserTaker = this.isLoggedInUserTaker(this.loggedInUserKey)
 
     })
   }
@@ -97,17 +100,20 @@ export class ResTriageComponent {
         }
       }
     }
-
-          this.gotTCs = true
-
+     this.gotTCs = true
   } 
-
   onChange(event: any, day: any) {
     const formattedDate = new Date(day).toISOString().split('T')[0]
     console.log("onchange event %o for day %o", event.value, formattedDate )
     this.myService.enterTiageCov(event.value, formattedDate).subscribe((data: any) => {
       console.log("Response from enterTriageCov %o", data)
     })
+  }
+  isLoggedInUserTaker(covUserKey: number){
+    if (this.loggedInUserKey in  this.CbUK  && this.loggedInUserKey > 0)
+      return true
+    else
+      return false
   }
 }
 

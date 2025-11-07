@@ -12,6 +12,7 @@ caption {
    height: 80px;
    text-align: center;
    vertical-align: middle;
+   background-color: #e3eeee;
 }
 .takerName {
    font-weight: bold;

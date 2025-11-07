@@ -2,8 +2,7 @@
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
 $handle = connectDB_FL();
-   $now = date("Y-m-d h:i:s");
-   $fp = fopen("./log/enterTriageCov.txt", "w+");
+   $fp = fopen("H:\\inetpub\\logs\\fjl_logs\\enterTriageCov.txt", "a+");
 	$time = date("Y-m-d H:i:s");
 	fwrite($fp,  $time . "\n");
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
