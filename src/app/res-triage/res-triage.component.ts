@@ -52,10 +52,8 @@ export class ResTriageComponent {
         }
       }
       this.loadTriageCoverers()
-
     })
-
-   }
+  }
  
   advanceMonth(number: number) {                                            // used when user clicks on next or previous month button
     this.advance += number

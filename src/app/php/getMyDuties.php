@@ -7,6 +7,11 @@ $handle = connectDB_FL();
 	$time = date("Y-m-d H:i:s");
 	fwrite($fp,  $time . "\n");
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
+   if ($_GET['userkey'] == 0 || !isset($_GET['userkey'])){
+       fwrite($fp,  "No userkey passed\n");
+       fclose($fp);
+       exit();
+   }
 
  $selStr = "SELECT  PhysicsMonthlyDuty.idx,  PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, PhysicsMonthlyDuty.userkey,
   PhysicsMonthlyDuty.phys2, PhysicsDuty.Idx, PhysicsDuty.timeSpan, PhysicsDuty.name

@@ -14,7 +14,9 @@
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
-  font-size:.8em
+  font-size:1.12em;
+  font-weight: bold;
+  color:blue
 }
 
 /* Change background color of buttons on hover */
