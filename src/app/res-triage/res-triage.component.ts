@@ -105,21 +105,16 @@ export class ResTriageComponent {
   } 
   enterCov(event: any, day: any, ind?:any, did?:any) {
     let toEnterUserKey: number = 0
-    if (typeof event === 'number'){
+    if (typeof event === 'number'){                                       // when coming from button click
       toEnterUserKey = this.loggedInUserKey
     }
-    else if (typeof event === 'object' && 'value' in event){
+    else if (typeof event === 'object' && 'value' in event){             // when coming from select change
       toEnterUserKey = event.value
     }
-    console.log("106106 type of event %o", typeof event)
     const formattedDate = new Date(day).toISOString().split('T')[0]
-    console.log("onchange event %o for day %o", toEnterUserKey, formattedDate )
     this.myService.enterTriageCov(toEnterUserKey, formattedDate).subscribe((data: any) => {
-      console.log("Response from enterTiageCov %o", data)
     })
-    /** Set CbUK */
-    this.covsFromTable[ind][did] = toEnterUserKey
-  
+    this.covsFromTable[ind][did] = toEnterUserKey                        // update the table display immediately
   }
   isLoggedInUserTaker(covUserKey: number){
     if (this.loggedInUserKey in  this.CbUK  && this.loggedInUserKey > 0)
@@ -131,7 +126,7 @@ export class ResTriageComponent {
 
 /** Holds the */
 class month2Class {
-  dayNum: number = 0                                    // used to index the days for loading of, and getting dutile
+  dayNum: number = 0                                                    // used to index the days for loading of, and getting duties
   focusDate: Date = new Date()                            
   weeks:any = []
   weekDays: number[][] = []
