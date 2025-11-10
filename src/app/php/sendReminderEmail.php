@@ -16,23 +16,10 @@ $handle = connectDB_FL();
             { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); }
         $data = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
         echo "<br>"; var_dump($data);
-    exit();
+
    
-   //Get Recipient List
-   $selStr = "SELECT DISTINCT U.UserID, U.Email FROM DoctorOfTheDay DOD
-               JOIN users U ON DOD.DOD_UserKey = U.UserKey
-               WHERE DOD.DOD_ID = '".$dodID."'";
-   $recipientList = getMultipleRows($selStr, $handle);
-   $recipientsListExpanded = '';
-   foreach($recipientList as $recip)
-   {
-       if($recipientsListExpanded != '')
-       {
-           $recipientsListExpanded .= ', ';
-       }
-       $recipientsListExpanded .= $recip['Email'];
-   }
-//Create Message
+$recipients = array($data['Email']);
+$recipients = array('FLONBERG@PARTNERS.ORG');
 $bccList = array('FLONBERG@PARTNERS.ORG');
 //$bccList = array('rjconnolly@partners.org');
 
@@ -40,7 +27,7 @@ $bccList = array('FLONBERG@PARTNERS.ORG');
 $subject = 'You are scheduled as Resident Triage Coverer tomorrow '.$dodDateSQL.'';			
 $headers = 'From: whiteboard@partners.org'. "\r\n";
 $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
-$headers .= 'Bcc: '.$recipientsBCC.''. "\r\n";
+$headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";
 $headers .= 'MIME-Version: 1.0'. "\r\n";
 $headers .= 'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
 $message =  '<html>';
@@ -76,23 +63,20 @@ else
 $message .= '<tr class="attention"><td width="15%">'.$pmArray['DEPT'].' DOD PM: </td><td align="left">'.trim($pmArray['STF_LAST_NAME']).', '.$pmArray['STF_FIRST_NAME'].' (12:30 PM - End of Treatments)</td></tr>';
 }
 $message .= '<tr><td colspan=\'2\'></td></tr>';
-$message .= '<tr><td colspan=\'2\'>This is 1-time courtesy reminder. Please refer to the MOSAIQ schedule for the most up to date and accurate information.</td></tr>';
-$message .= '<tr><td colspan=\'2\'>DOD Scheduling Information is located in MOSAIQ &#8594; Schedule &#8594; Daily Coverage</td></tr>';
-$message .= '<tr><td colspan=\'2\'>This email address is NOT monitored. For any changes to this assignment, you must contact your administrative assistant.</td></tr>';
+$message .= '<tr><td colspan=\'2\'>This is 1-time courtesy reminder. Please refer to the Resident Triage schedule for the most up to date and accurate information.</td></tr>';;
 $message .= '<tr><td colspan=\'2\'><hr></td></tr>';
 $message .= '<tr><td colspan=\'2\' align="center">Noitce Sent on '.date('m/d/Y h:i A').'</td></tr>';
-$message .= '<tr><td colspan=\'2\' align="center"><em>Whiteboard DOD Reminder Record: '.$dodID.'</em></td></tr>';
 $message .= '</table>';
 $message .= '</body></html>'; 
 //Send Email
-/*
-   if (mail(''.$recipientsListExpanded.'',$subject, $message, $headers)
+
+   if (mail('flonberg@mgh.harvard.edu',$subject, $message, $headers)
     ) {
         fwrite($fp,  "Email successfully sent.\n");
     } else {
-        fwrite($fp,  "Email sending failed.\n");
+        fwrite($fp,  "Email sending failed to flonberg@mgh.harvard.edu\n");
     }
-        */
+        
     fclose($fp);
     exit()
 ?>
