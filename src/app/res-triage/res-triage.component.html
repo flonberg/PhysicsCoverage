@@ -32,7 +32,7 @@
                                 <tr>
                                     <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }}</td> <!-- written by CoPilot -->
                                     <td class="takeButton" *ngIf = "isUserTaker">
-                                        <button class="raised-button" (click) = "enterCov(covsFromTable[ind][did],day)"></button>
+                                        <button class="raised-button" (click) = "enterCov(covsFromTable[ind][did],day,ind,did)"></button>
                                     </td>
                                 </tr>
                             </table>

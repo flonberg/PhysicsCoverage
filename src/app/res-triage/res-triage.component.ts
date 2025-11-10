@@ -103,7 +103,7 @@ export class ResTriageComponent {
     }
      this.gotTCs = true
   } 
-  enterCov(event: any, day: any) {
+  enterCov(event: any, day: any, ind?:any, did?:any) {
     let toEnterUserKey: number = 0
     if (typeof event === 'number'){
       toEnterUserKey = this.loggedInUserKey
@@ -118,9 +118,7 @@ export class ResTriageComponent {
       console.log("Response from enterTiageCov %o", data)
     })
     /** Set CbUK */
-    if (this.covsFromTable[event.ind]){
-        this.covsFromTable[event.ind][event.did] = toEnterUserKey
-    }
+    this.covsFromTable[ind][did] = toEnterUserKey
   
   }
   isLoggedInUserTaker(covUserKey: number){
