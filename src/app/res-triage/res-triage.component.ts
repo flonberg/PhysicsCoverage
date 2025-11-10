@@ -111,13 +111,17 @@ export class ResTriageComponent {
     else if (typeof event === 'object' && 'value' in event){
       toEnterUserKey = event.value
     }
-
     console.log("106106 type of event %o", typeof event)
     const formattedDate = new Date(day).toISOString().split('T')[0]
     console.log("onchange event %o for day %o", toEnterUserKey, formattedDate )
     this.myService.enterTriageCov(toEnterUserKey, formattedDate).subscribe((data: any) => {
       console.log("Response from enterTiageCov %o", data)
     })
+    /** Set CbUK */
+    if (this.covsFromTable[event.ind]){
+        this.covsFromTable[event.ind][event.did] = toEnterUserKey
+    }
+  
   }
   isLoggedInUserTaker(covUserKey: number){
     if (this.loggedInUserKey in  this.CbUK  && this.loggedInUserKey > 0)

@@ -94,13 +94,14 @@ export class MyserviceService {
     setLoggedInUserKey(){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
       if (isDevMode())
-        url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//     
-      this.HttpClient.get<any>(url).subscribe(res=>{
-          const test = res
-          this.loggedInUserKey = res['userkey']
-          this.userLastName = res['lastName']
-        console.log("595959  userkey %o  --- %o", this.loggedInUserKey, this.userLastName)  
-      })
+        url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//   
+      console.log("585858  getLoggedInUserKey url %o", url)  
+        this.HttpClient.get<any>(url).subscribe(res=>{
+            const test = res
+            this.loggedInUserKey = res['userkey']
+            this.userLastName = res['lastName']
+          console.log("595959  userkey %o  --- %o", this.loggedInUserKey, this.userLastName)  
+        })
     }
     getMyduties(userkey:number){
       const todayStringForSQL = new Date().toISOString().slice(0, 10);
