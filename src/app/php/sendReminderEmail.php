@@ -2,14 +2,15 @@
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
 $handle = connectDB_FL();
-   $fp = fopen("H:\\inetpub\\logs\\GB_FLlogs\\".$loc."\\sendTriageCovMaillog.txt", "a+");
+    $currentFileName = basename($_SERVER['PHP_SELF']);
+    echo $currentFileName . "\n";
+    $fp = fopen("H:\\inetpub\\logs\\fjl_logs\\sendTriageCovMaillog.txt", "a+");
    fwrite($fp,  "\r\n". date("Y-m-d H:i:s") . "\n");
-   $dstr = print_r($_GET, true); fwrite($fp, $dstr);
+   exit();
    //Get ResidentTriageDuty Assignments
-    $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = DATEADD(day,1,CAST(GETDATE() AS date))";
+    $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = DATEADD(day,1,CAST(GETDATE() AS date)) ORDER BY idx DESC";
     echo $selStr . "\n";
     $dodIDString = getSingle($selStr, 'userkey', $handle);
-    var_dump($dodIDString);
     $selStr = "SELECT FirstName, LastName, Email FROM physicians WHERE UserKey = '".$dodIDString."'";
         $stmt = sqlsrv_query( $handle, $selStr);
         if( $stmt === false )
@@ -45,7 +46,7 @@ $message .= '</body></html>';
 
    if (mail('flonberg@mgh.harvard.edu',$subject, $message, $headers)
     ) {
-        fwrite($fp,  "Email successfully sent.\n");
+        fwrite($fp,  "Email successfully sent to ".$recipients[0]."\n");
     } else {
         fwrite($fp,  "Email sending failed to flonberg@mgh.harvard.edu\n");
     }
