@@ -1,12 +1,11 @@
 <?php
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
+require_once 'H:\inetpub\lib\LogFuncs.php';
 $handle = connectDB_FL();
-    $currentFileName = basename($_SERVER['PHP_SELF']);
-    echo $currentFileName . "\n";
-    $fp = fopen("H:\\inetpub\\logs\\fjl_logs\\sendTriageCovMaillog.txt", "a+");
-   fwrite($fp,  "\r\n". date("Y-m-d H:i:s") . "\n");
-   exit();
+
+    $log = new LogFuncs();
+    $log->logMessage("Script started");
    //Get ResidentTriageDuty Assignments
     $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = DATEADD(day,1,CAST(GETDATE() AS date)) ORDER BY idx DESC";
     echo $selStr . "\n";
