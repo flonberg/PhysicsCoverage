@@ -17,7 +17,9 @@ export class MydutiesComponent {
     console.log("171717")
     this.userLastName = this.myservice.getUserLastName()
     const todayStr = new Date().toISOString().slice(0, 10)
-    this.myservice.getForMyDuties(todayStr,this.myservice.getLoggedInUserKey()).subscribe(res=>{
+    let loggedInUserKey = this.myservice.getLoggedInUserKey()
+    console.log("171717 loggedInUserKey %o", loggedInUserKey)
+    this.myservice.getForMyDuties(todayStr, loggedInUserKey).subscribe(res=>{
       this.duties = res
           console.log("232323 %o", this.duties)
     })

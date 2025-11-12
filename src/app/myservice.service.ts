@@ -18,6 +18,7 @@ export class MyserviceService {
       this.userid = id;
     }
     getLoggedInUserKey(){
+     //  console.log("212121 getting loggedInUserKey %o", this.loggedInUserKey)
       return this.loggedInUserKey
     }
     getUserLastName(){
@@ -108,11 +109,11 @@ export class MyserviceService {
     }
 
     getForMyDuties(StartDateString: string, UserKey: number){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getMyDuties.php?Start="+StartDateString+"&userkey="+this.userkey;			// 
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getMyDuties.php?Start="+StartDateString+"&userkey="+UserKey;			// 
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode()){
        // StartDateString = '2025-06-30'
-        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getMyDuties.php?debug=1&Start="+StartDateString+"&userkey="+this.userkey;	;	       
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getMyDuties.php?debug=1&Start="+StartDateString+"&userkey="+UserKey;	;	       
         }
        console.log("100100 getMyDuties url %o", url)
       return this .HttpClient.get<duty>(url)

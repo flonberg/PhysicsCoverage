@@ -1,23 +1,28 @@
 <?php
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
+require_once 'H:\inetpub\lib\LogFuncs.php';
 $handle = connectDB_FL();
    $ret=array();                                         // for returning result to caller
-   $now = date("Y-m-d h:i:s");
-   $fp = fopen("./log/takeDutyLog.txt", "a+");
-	$time = date("Y-m-d H:i:s");
-	fwrite($fp, "\r\n \r\n". $time . "\n");
- 
+   $log = new LogFuncs();
+   $log->logMessage("Get has ".print_r($_GET, true));
    $userkey = $_GET['userkey'];
+   if ($userkey == '' || $userkey == '0' || !is_numeric($userkey)){
+      $log->logMessage("No userkey passed or not numeric");
+      $ret['result']  = 'failed' ;
+      echo json_encode($ret);
+      exit();
+   }
    $updateStr = "UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = ". $_GET['userkey'].", modWhen = GETDATE() WHERE idx = ".$_GET['idx'];
-   fwrite($fp, "\r\n $updateStr");
+   $log->logMessage("Executing query: $updateStr");
    $stmt = sqlsrv_query( $handle, $updateStr);
    if( $stmt === false ) {
         $dstr = ( print_r( sqlsrv_errors(), true));
-        fwrite($fp, "\r\n errors: \r\n ".$dstr); 
+        $log->logMessage("Error: $dstr");
         $ret['result']  = 'failed' ;
       } 
    else {
+      $log->logMessage("Update successful");
       $selStr = "SELECT LastName FROM physicists WHERE UserKey = ".$userkey;
       $subLastName = getSingle($selStr, 'LastName',$handle);
       $ret['newUserKey']  = $userkey;
