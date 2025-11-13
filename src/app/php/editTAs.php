@@ -7,10 +7,10 @@ $handle = connectDB_FL();
 
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
    $log->logMessage("Received GET parameters: ". $dstr);
-   $updateSts = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];
-   fwrite($fp, "\r\n $updateSts");
-
-   $stmt = sqlsrv_prepare($handle, $updateSts, array($_GET['vidx']));
+   $updateSts = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];    $log->logSql($updateSts);
+    $log->logSql($updateSts);
+ /*
+   $stmt = sqlsrv_prepare($handle, $updateSts); 
    if ($stmt === false) {
        $dstr = print_r(sqlsrv_errors(), true);
        $log->logMessage("Error preparing statement: ". $dstr);
@@ -21,7 +21,8 @@ $handle = connectDB_FL();
    }
    else {
        $log->logMessage($updateSts);
-   }    
-   sqlsrv_free_stmt($stmt);
-   sqlsrv_close($handle);
+   } 
+   */   
+  // sqlsrv_free_stmt($stmt);
+  // sqlsrv_close($handle);
    echo json_encode(array("status"=>"success"));
