@@ -101,6 +101,25 @@ export class ResTriageComponent {
     }
      this.gotTCs = true
   } 
+  takeCoverage(event: any, day: any, ind?:any, did?:any) {
+    let toTakeUserKey: number = 0
+    if (typeof event === 'number'){                                       // when coming from button click
+      toTakeUserKey = this.loggedInUserKey
+    }
+    else if (typeof event === 'object' && 'value' in event){             // when coming from select change
+      toTakeUserKey = event.value
+    }
+    const formattedDate = new Date(day).toISOString().split('T')[0]
+    let dateString = formattedDate.slice(0,10)
+    let message = "You are assuming coverage on " + dateString
+        const userConfirmed = window.confirm(message);
+    if (userConfirmed){   
+    this.myService.enterTriageCov(toTakeUserKey, formattedDate).subscribe((data: any) => {
+    })
+    if (this.covsFromTable[ind])    
+      this.covsFromTable[ind][did] = toTakeUserKey                        // update the table display immediately
+  }
+}
   enterCov(event: any, day: any, ind?:any, did?:any) {
     let toEnterUserKey: number = 0
     if (typeof event === 'number'){                                       // when coming from button click
