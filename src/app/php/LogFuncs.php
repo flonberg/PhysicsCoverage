@@ -27,9 +27,10 @@ class LogFuncs {
             $this->logMessage("Error executing statement: ". $dstr);
         }
         else
-            
             {
             $this->logMessage($sqlStr);
+            sqlsrv_free_stmt($stmt);
+            sqlsrv_close($this->handle);
         } 
             
     }
