@@ -1,32 +1,35 @@
 <?php
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
+require_once 'H:\inetpub\lib\LogFuncs.php';
 $handle = connectDB_FL();
-   $now = date("Y-m-d h:i:s");
-   $fp = fopen("./log/enterTA.txt", "w+");
-	$time = date("Y-m-d H:i:s");
-	fwrite($fp,  $time . "\n");
-   $dstr = print_r($_GET, true); fwrite($fp, $dstr);
+    $log = new LogFuncs();
+   $log->logMessage("Received GET parameters: ". $dstr);
    if ($_GET['userid'] == ''){
-    fwrite($fp, "\r\n No userid passed \r\n");
+    $log->logMessage("No userid passed");
        if (isset($_SERVER['REMOTE_USER'])){
            $_GET['userid'] = $_SERVER['REMOTE_USER'];
-           fwrite($fp, "\r\n Remote user is ".$_GET['userid']." \r\n");
+           $log->logMessage("Remote user is ".$_GET['userid']);
+           $log->logMessage("No remote user either");
         } else {
-           fwrite($fp, "\r\n No remote user either \r\n");
-           exit;    
+           $log->logMessage("No remote user either");
+           exit;
    }
 }
    $selStr = "SELECT UserKey FROM users WHERE UserID = '".$_GET['userid']."'";
-        fwrite($fp, "\r\n $selStr \r\n");
+   $log->logMessage("Executing query: ".$selStr);
     $UserKey = getSingle($selStr, 'UserKey', $handle);
+    if ($UserKey == ''){
+       $log->logMessage("No UserKey found for userid ".$_GET['userid']);
+       exit;
+    }
    $selStr = "SELECT LastName, FirstName, rank, inst_id FROM physicists WHERE UserKey = ".$UserKey;
-     fwrite($fp, "\r\n $selStr \r\n");
+   $log->logMessage("Executing query: ".$selStr);
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false )
        { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); }
    $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
-ob_start(); var_dump($temp);$data = ob_get_clean();fwrite($fp, "\r\n ". $data);
+
 
     fwrite($fp, "\r\n userLastName: $userLastName  UsreId is $UserKey \r\n");
     $insStr = "INSERT INTO vacation3 (startDate, endDate, reason, userid, createWhen)

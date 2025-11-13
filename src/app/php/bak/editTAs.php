@@ -1,27 +1,24 @@
 <?php
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
-require_once 'H:\inetpub\lib\LogFuncs.php';
 $handle = connectDB_FL();
-    $log = new LogFuncs();
-
+   $now = date("Y-m-d h:i:s");
+   $fp = fopen("./log/editTA.txt", "a+");
+	$time = date("Y-m-d H:i:s");
+	fwrite($fp,  "\r\n". $time . "\n");
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
-   $log->logMessage("Received GET parameters: ". $dstr);
    $updateSts = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];
    fwrite($fp, "\r\n $updateSts");
 
    $stmt = sqlsrv_prepare($handle, $updateSts, array($_GET['vidx']));
    if ($stmt === false) {
        $dstr = print_r(sqlsrv_errors(), true);
-       $log->logMessage("Error preparing statement: ". $dstr);
+       fwrite($fp, "\r\n errors: \r\n ".$dstr);
    }
    if (sqlsrv_execute($stmt) === false) {
        $dstr = print_r(sqlsrv_errors(), true);
-       $log->logMessage("Error executing statement: ". $dstr);
+       fwrite($fp, "\r\n errors: \r\n ".$dstr);
    }
-   else {
-       $log->logMessage($updateSts);
-   }    
    sqlsrv_free_stmt($stmt);
    sqlsrv_close($handle);
    echo json_encode(array("status"=>"success"));

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { MyserviceService } from './myservice.service';
-
+import { isDevMode } from '@angular/core';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -48,7 +48,9 @@ export class AppComponent implements OnInit {
     }  
     goHome() { 
        window.open('https://ion.mgh.harvard.edu/cgi-bin/main.pl?userid='+this.id, '_self');
-       
+    }
+    isDevMode() {
+      return isDevMode();
     }
 
 }
