@@ -7,7 +7,7 @@ $handle = connectDB_FL();
    $log = new LogFuncs();
    $log->logMessage("Get has ".print_r($_GET, true));
    $userkey = $_GET['userkey'];
-   if ($userkey == '' || $userkey == '0' || !is_numeric($userkey)){
+   if ($userkey == '' || $userkey == '0' ){
       $log->logMessage("No userkey passed or not numeric");
       $ret['result']  = 'failed' ;
       echo json_encode($ret);

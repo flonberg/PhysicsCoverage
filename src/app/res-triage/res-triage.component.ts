@@ -112,7 +112,8 @@ export class ResTriageComponent {
     const formattedDate = new Date(day).toISOString().split('T')[0]
     this.myService.enterTriageCov(toEnterUserKey, formattedDate).subscribe((data: any) => {
     })
-    this.covsFromTable[ind][did] = toEnterUserKey                        // update the table display immediately
+    if (this.covsFromTable[ind])
+      this.covsFromTable[ind][did] = toEnterUserKey                        // update the table display immediately
   }
   isLoggedInUserTaker(covUserKey: number){
     if (this.loggedInUserKey in  this.CbUK  && this.loggedInUserKey > 0)

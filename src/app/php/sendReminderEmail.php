@@ -3,12 +3,10 @@ include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
 require_once 'H:\inetpub\lib\LogFuncs.php';
 $handle = connectDB_FL();
-
     $log = new LogFuncs();
 
    //Get ResidentTriageDuty Assignments
     $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = DATEADD(day,1,CAST(GETDATE() AS date)) ORDER BY idx DESC";
-    echo $selStr . "\n";
     $dodIDString = getSingle($selStr, 'userkey', $handle);
     $selStr = "SELECT FirstName, LastName, Email FROM physicians WHERE UserKey = '".$dodIDString."'";
         $stmt = sqlsrv_query( $handle, $selStr);
@@ -16,10 +14,13 @@ $handle = connectDB_FL();
             { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); }
     $data = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
     $log->logMessage("Fetched user data for userkey ".$dodIDString.": ".print_r($data, true));
-$recipients = array($data['Email']);
+    $recipients = array($data['Email']);
     $log->logMessage("Preparing to send email to ".$data['Email']);
-$recipients = array('FLONBERG@PARTNERS.ORG');
-$bccList = array('FLONBERG@PARTNERS.ORG');
+    if (strpos(getcwd(), 'dev') !== false) {
+        $recipients = array('FLONBERG@PARTNERS.ORG');
+        $log->logMessage("Not on production server, changing recipient to ". $recipients[0]);  
+    }
+    $bccList = array('FLONBERG@PARTNERS.ORG');
 //$bccList = array('rjconnolly@partners.org');
 
 $subject = 'Resident Triage Coverer Reminder for '.date('l F d, Y', strtotime('+1 day')).'';			
