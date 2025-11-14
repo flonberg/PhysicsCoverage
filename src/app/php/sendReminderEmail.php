@@ -2,11 +2,14 @@
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
 require_once 'H:\inetpub\lib\LogFuncs.php';
-$handle = connectDB_FL();
+$handle = connectDB_FL();       
     $log = new LogFuncs();
 
    //Get ResidentTriageDuty Assignments
-    $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = DATEADD(day,1,CAST(GETDATE() AS date)) ORDER BY idx DESC";
+    $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = '".nextWeekday()."' ORDER BY idx DESC";
+    if ($_GET['debug'] == 1){
+        echo "\r\n selStr: $selStr \r\n";
+    }
     $dodIDString = getSingle($selStr, 'userkey', $handle);
     $selStr = "SELECT FirstName, LastName, Email FROM physicians WHERE UserKey = '".$dodIDString."'";
         $stmt = sqlsrv_query( $handle, $selStr);
@@ -23,7 +26,7 @@ $handle = connectDB_FL();
     $bccList = array('FLONBERG@PARTNERS.ORG');
 //$bccList = array('rjconnolly@partners.org');
 
-$subject = 'Resident Triage Coverer Reminder for '.date('l F d, Y', strtotime('+1 day')).'';			
+$subject = 'Resident Triage Coverer Reminder for '.nextWeekday();			
 $headers = 'From: whiteboard@partners.org'. "\r\n";
 $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
 $headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";
@@ -35,7 +38,7 @@ $message .= '<style>.attention{font-size: large; padding:10;} .bigAttention{font
 $message .= '</head>';
 $message .= '<body>';
 $message .= 'Greetings Dr.'.$data['FirstName'].' '.$data['LastName'].',<br><br>';
-$message .= '<h3> You are scheduled as Resident Triage Coverer tomorrow '.date('l F d, Y', strtotime('+1 day')).'</h3>';
+$message .= '<h3> You are scheduled as Resident Triage Coverer for next treatment day, '.nextWeekday().'</h3>';
 $message .= '<p> This is a courtesy reminder. </p>';
 $message .= '<p class="attention"> Please remember to check the Resident Triage page on the  Whiteboard, Sa tab, for any updates or changes. </p>';
 
@@ -47,4 +50,9 @@ $message .= '</body></html>';
         $log->logMessage("Email sending failed to flonberg@mgh.harvard.edu");
     fclose($fp);
     exit();
+function nextWeekday(){
+    $currentDate = new DateTime(); // Get the current date
+    $currentDate->modify('next weekday'); // Move to the next weekday
+    return $currentDate->format('Y-m-d');
+}
 ?>
