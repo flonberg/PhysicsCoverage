@@ -3,23 +3,16 @@ include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
 require_once 'H:\inetpub\lib\LogFuncs.php';
 $handle = connectDB_FL();
-    $log = new LogFuncs();
-   $log->logMessage("Received GET parameters: ". $dstr);
-   if ($_GET['userid'] == ''){
-    $log->logMessage("No userid passed");
-       if (isset($_SERVER['REMOTE_USER'])){
-           $_GET['userid'] = $_SERVER['REMOTE_USER'];
-           $log->logMessage("Remote user is ".$_GET['userid']);
-           $log->logMessage("No remote user either");
-        } else {
-           $log->logMessage("No remote user either");
-           exit;
+   $log = new LogFuncs();
+   $log->logMessage("Received GET parameters: ". print_r($_GET, true));
+   if ($_GET['userid'] == '' || $_GET['userid'] == 0){
+      $log->logMessage("No userid passed");
+      exit;
    }
-}
    $selStr = "SELECT UserKey FROM users WHERE UserID = '".$_GET['userid']."'";
    $log->logMessage("Executing query: ".$selStr);
-    $UserKey = getSingle($selStr, 'UserKey', $handle);
-    if ($UserKey == ''){
+   $UserKey = getSingle($selStr, 'UserKey', $handle);
+   if ($UserKey == '' || $UserKey == 0 ){
        $log->logMessage("No UserKey found for userid ".$_GET['userid']);
        exit;
     }
@@ -27,19 +20,15 @@ $handle = connectDB_FL();
    $log->logMessage("Executing query: ".$selStr);
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false )
-       { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); }
+      $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
    $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
-
-
-    fwrite($fp, "\r\n userLastName: $userLastName  UsreId is $UserKey \r\n");
-    $insStr = "INSERT INTO vacation3 (startDate, endDate, reason, userid, createWhen)
+   $insStr = "INSERT INTO vacation3 (startDate, endDate, reason, userid, createWhen)
      VALUES ('".$_GET['startDate']."', '".$_GET['endDate']."', ".$_GET['reason'].", '".$UserKey."', '".$now."')";
-    fwrite($fp, "\r\n $insStr \r\n");
+   $log->logMessage("Executing insert: ".$insStr);
        $stmt = sqlsrv_query( $handle, $insStr);
    if( $stmt === false )
-       { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); }
-
-   	$goAwayerLastName = getSingle("SELECT LastName FROM physicists WHERE UserKey = $userkey", "LastName", $handle);
+      $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true)); 
+   $goAwayerLastName = getSingle("SELECT LastName FROM physicists WHERE UserKey = $userkey", "LastName", $handle);
 
  //  $mailAddress = "bnapolitano@partners.org";
    $mailAddress = 'flonberg@partners.org';

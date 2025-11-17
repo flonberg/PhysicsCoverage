@@ -9,8 +9,6 @@ import { MatSelectModule, MatSelect } from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { start } from 'repl';
 
-
-
 @Component({
   selector: 'app-angtimeaway',
   templateUrl: './angtimeaway.component.html',
@@ -169,12 +167,12 @@ export class AngtimeawayComponent implements OnInit {
   }  
 }
 
-showTa(tA:any){
+showTa(tA:any){                                             // called when user clicks on a TA to show details
     console.log("Show vac for idx %o", tA)
     this.shownTa = new shownTA(tA)
 
   }
-  selectDates(event: any) {
+selectDates(event: any) {
     console.log("Selected date: ", event);
   }
   /** Load parameters into TAclasses and calculate the number of days in the TA */
