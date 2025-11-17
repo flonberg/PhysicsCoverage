@@ -39,13 +39,13 @@ export class MyserviceService {
     getFromAssets(): Observable<any> {
       return this.HttpClient.get<any>('assets/config.json');
     }
-    enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string){
+    enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string, isDosimetrist: boolean){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
-      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey;      // 
+      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&isDosimetrist="+isDosimetrist;      // 
 
-      if (isDevMode())   
-          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
-          "&reason="+reason+"&coverer="+coverer+"&userid="+this.userid+"&debug=1"; 
+      if (isDevMode())    
+         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
+            "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&isDosimetrist="+isDosimetrist;  
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }

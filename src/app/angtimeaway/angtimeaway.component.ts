@@ -59,7 +59,7 @@ export class AngtimeawayComponent implements OnInit {
   selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
   reasonValue: string = ''
-  covererValue: string = ''
+  covererValue: string = '0'
   Dosims:Dosims[] = []
   shownTa: shownTA | null = null  
     reasons: string[] = ['Vacation', 'Meeting', 'Other']
@@ -93,7 +93,6 @@ export class AngtimeawayComponent implements OnInit {
       let endDateDate = this.firstDateOfMonthAdvancedByN(this.advance)
         endDateDate.setDate(endDateDate.getDate() + this.numberOfDaysToShow);
       endDateString = endDateDate.toISOString().slice(0,10);
-    console.log("8484 getTAs startDateString %o endDateString %o", startDateString, endDateString)   
     } 
 
     this.myservice.getTAs(endDateString, startDateString).subscribe({next: data => {
@@ -155,8 +154,8 @@ export class AngtimeawayComponent implements OnInit {
     const reason = this.reasonValue;
     const coverer = this.covererValue
     if (this.myservice.getLoggedInUserKey() > 0){
-    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName()).subscribe({next: data => {
-      console.log("3434 enterTA url %o", data)
+    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
+      console.log("3434 enterTA data %o", data)
     this.range.reset();  
     this.ngOnInit();
     }})
