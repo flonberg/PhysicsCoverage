@@ -12,13 +12,15 @@ $handle = connectDB_FL();
       $log->logMessage("No userkey passed");
       exit;
    }
+   $isDosimetrist = in_array($_GET['userkey'], $dosimetrist);
    $UserKey = $_GET['userkey'];
    $selStr = "SELECT LastName, FirstName, rank, inst_id FROM physicists WHERE UserKey = ".$UserKey;
    $log->logMessage("Executing query: ".$selStr);
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false )
       $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
-   $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
+   $goAwayerData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
+   $log->logMessage("Go awayer data: ". print_r($goAwayerData, true));
    if ($_GET['reason'] == ''){
        $_GET['reason'] = 3;   // other
    }

@@ -140,6 +140,15 @@ export class ResTriageComponent {
     else
       return false
   }
+  isToday(date: Date){
+    const today = new Date()
+    if ( date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear())
+           return 'todayCell'
+    else
+      return 'tableCell'
+  }
 }
 
 /** Holds the */

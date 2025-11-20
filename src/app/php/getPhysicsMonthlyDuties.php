@@ -13,7 +13,15 @@ $handle = connectDB_FL();
    physicists.LastName, physicists.UserKey, physicists.Email
    FROM PhysicsMonthlyDuty 
    INNER JOIN physicists ON physicists.UserKey = PhysicsMonthlyDuty.userkey
-   WHERE day LIKE '".$_GET['MonthNum']."%' ORDER BY day, serviceid";
+   WHERE day LIKE '".$_GET['MonthNum']."%'
+    ORDER BY day, serviceid";
+   $selStr = "SELECT PhysicsMonthlyDuty.idx, PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, 
+      PhysicsMonthlyDuty.userkey, PhysicsMonthlyDuty.phys2, PhysicsMonthlyDuty.phys3,
+      physicists.LastName, physicists.UserKey, physicists.Email
+      FROM PhysicsMonthlyDuty 
+      INNER JOIN physicists ON physicists.UserKey = PhysicsMonthlyDuty.userkey
+     
+    ORDER BY day, serviceid";
    fwrite($fp, "\r\n $selStr");
       $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false ) 

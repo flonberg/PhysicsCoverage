@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <tbody>
-<div style="margin-left:50px;">  
+<div style="margin-left:50px;" *ngIf = "gotData">  
 
     <table  > 
         <tr>
@@ -47,7 +47,7 @@
                         >
                         {{ getLastName(theMonth.datesWithDuties[ind2+ind*5][ind3]) }}    
                         </td>
-                        <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3]) && isAssigned(theMonth.datesWithDuties[ind2+ind*5][ind3])"
+                        <td *ngIf="hasAssignments(theMonth.datesWithDuties[ind2+ind*5][ind3]) && !hasThisAssignment(theMonth.datesWithDuties[ind2+ind*5][ind3])"
                         style="text-align: center;">
                         <button (click)="takeDuty(theMonth.datesWithDuties[ind2+ind*5][ind3], ind2+ind*5, ind3)" title="Take the Duty"></button>  </td>
                     </tr>

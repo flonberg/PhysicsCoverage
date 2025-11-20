@@ -146,12 +146,38 @@ export class MonthCalComponent {
         this.theMonth = new month2Class(this.advance)      
       })
     }
-  hasAssignments(assign: any){
+hasAssignments(assign: any){
+     if (assign === undefined || assign == null)
+      return false
       if (this.isUserTaker())
         return true
       else
         return false
   }  
+hasThisAssignment(assign: any){         // used by month-cal.component.html to determine if 'take' button should be shown (coPilot)
+    const test = this.myservice.getLoggedInUserKey()
+    let takerUserKey = 0
+    if (assign)
+      takerUserKey = assign.UserKey
+    if (assign && assign.phys2)
+      takerUserKey = assign.phys2
+    if (takerUserKey == this.myservice.getLoggedInUserKey())
+      return true
+    else
+      return false
+  }  
+  doesLoggedInUserHaveThis(duty: any){                                          // used by month-cal.component.html to determine if 'take' button should be shown
+    const test = this.myservice.getLoggedInUserKey()
+    let takerUserKey = 0
+    if (duty)
+      takerUserKey = duty.UserKey
+    if (duty && duty.phys2)
+      takerUserKey = duty.phys2
+    if (takerUserKey == this.myservice.getLoggedInUserKey())
+      return 'takee'
+    else
+      return 'normal'
+  }
  isAssigned(duty:any){
   if (duty && duty.userkey > 0)
     return true
@@ -194,18 +220,7 @@ export class MonthCalComponent {
       }
     this.isCheckedBool = false
   }
-  doesLoggedInUserHaveThis(duty: any){                                          // used by month-cal.component.html to determine if 'take' button should be shown
-    const test = this.myservice.getLoggedInUserKey()
-    let takerUserKey = 0
-    if (duty)
-      takerUserKey = duty.UserKey
-    if (duty && duty.phys2)
-      takerUserKey = duty.phys2
-    if (takerUserKey == this.myservice.getLoggedInUserKey())
-      return 'takee'
-    else
-      return 'normal'
-  }
+
   isChecked(){
     return false
   }

@@ -27,7 +27,7 @@
                                 </mat-select>
                             </mat-form-field>
                         </td>
-                        <td *ngIf = "!isPrivUser" class="tableCell">
+                        <td *ngIf = "!isPrivUser" [class]="isToday(day)">
                             <table  >
                                 <tr>
                                     <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }}</td> <!-- written by CoPilot -->
