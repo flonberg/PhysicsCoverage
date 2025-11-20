@@ -39,6 +39,12 @@ export class MyserviceService {
     getFromAssets(): Observable<any> {
       return this.HttpClient.get<any>('assets/config.json');
     }
+    getLastNameFromUserKey(userkey: number){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLastName.php?userkey="+userkey;      // 
+      if (isDevMode())
+        url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLastName.php?userkey="+userkey+"&debug=1";			//  debug 
+      return this .HttpClient.get<duty>(url)
+    }
     enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string, isDosimetrist: boolean){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
       "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&isDosimetrist="+isDosimetrist;      // 

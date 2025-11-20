@@ -1,7 +1,11 @@
 <?php
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
+require_once 'H:\inetpub\lib\LogFuncs.php';
+$lF = new LogFuncs();
+require_once '../_dev_/dosimetristList.php';
 $handle = connectDB_FL();
+$lf.logMessage("Received GET parameters: ". print_r($dosimetrist, true));
    $now = date("Y-m-d h:i:s");
    $fp = fopen("./log/getTAs.txt", "w+");
 	$time = date("Y-m-d H:i:s");
@@ -16,7 +20,7 @@ $dosimetrist = array(44,45, 46, 58, 105,121,47,52, 53, 62,56,76,106,164, 251,213
 	448, 467, 470, 503, 507, 509, 494, 634, 641, 683, 715,716, 728, 729, 753,799,  838, 801,838, 888,893, 894,
 	 948, 999, 919, 952, 997,999,1001,1007, 1027,1045, 1055);    
     
-  $selStr = "SELECT vacation3.startDate, vacation3.endDate, vacation3.userid, vacation3.vidx, vacation3.reason, vacation3.note,
+  $selStr = "SELECT vacation3.startDate, vacation3.endDate, vacation3.userid, vacation3.vidx, vacation3.reason, vacation3.note,vacation3.coverageA,
       physicists.LastName,physicists.FirstName,
       users.UserID
       from vacation3
@@ -31,7 +35,6 @@ $dosimetrist = array(44,45, 46, 58, 105,121,47,52, 53, 62,56,76,106,164, 251,213
     $row = Array();
     $i = 0;  
     while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
-      $dstr = print_r($temp, true); fwrite($fp, $dstr);
       if (in_array($_GET['loggedInUserKey'], $dosimetrist) && in_array($temp['userid'], $dosimetrist)) 
           $row[$i++]  = $temp;     
       else  if (!in_array($_GET['loggedInUserKey'], $dosimetrist) && !in_array($temp['userid'], $dosimetrist)) 
@@ -44,4 +47,6 @@ $dosimetrist = array(44,45, 46, 58, 105,121,47,52, 53, 62,56,76,106,164, 251,213
        $ret['isDosimetrist'] = 0;
    $ret = json_encode($ret);
    echo $ret;
+   exit();
+   
 

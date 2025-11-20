@@ -23,8 +23,8 @@ $handle = connectDB_FL();
        $_GET['reason'] = 3;   // other
    }
    $now = date("Y-m-d h:i:s");
-   $insStr = "INSERT INTO vacation3 (startDate, endDate, reason, userid, createWhen)
-     VALUES ('".$_GET['startDate']."', '".$_GET['endDate']."', ".$_GET['reason'].", '".$UserKey."', '".$now."')";
+   $insStr = "INSERT INTO vacation3 (startDate, endDate, reason, userid, coverageA, createWhen)
+     VALUES ('".$_GET['startDate']."', '".$_GET['endDate']."', ".$_GET['reason'].", '".$UserKey."', ".$_GET['coverer'].", '".$now."')";
    $log->logMessage("Executing insert: ".$insStr);
        $stmt = sqlsrv_query( $handle, $insStr);
    if( $stmt === false )

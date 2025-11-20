@@ -161,16 +161,19 @@ export class AngtimeawayComponent implements OnInit {
     }})
   }
   else {
-    alert("UserKey not set - cannot enter TA")
+    alert("UserKey not set - cannot enter TA")  
   
   }  
 }
 
 showTa(tA:any){                                             // called when user clicks on a TA to show details
-    console.log("Show vac for idx %o", tA)
-    this.shownTa = new shownTA(tA)
-
-  }
+    let covererLastName = this.myservice.getLastNameFromUserKey(tA.coverageA).subscribe({next: data => {
+      const resp: any = data;
+      tA.covererLastName = resp.lastName ?? ''; 
+      this.shownTa = new shownTA(tA)
+   console.log("Show vac for idx %o", tA)
+  }})
+}
 selectDates(event: any) {
     console.log("Selected date: ", event);
   }
