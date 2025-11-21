@@ -62,6 +62,9 @@ export class AngtimeawayComponent implements OnInit {
   shownTa: shownTA | null = null  
     reasons: string[] = ['Vacation', 'Meeting', 'Other']
     test:boolean = true
+      isDosimetrist:boolean = false
+      isApprover:boolean = true
+  showPhrase: string = 'Show Physicists';
  
 
 
@@ -74,9 +77,21 @@ export class AngtimeawayComponent implements OnInit {
     this.makeAllDatesInNext28Days();
     this.getDosims();
     this.getTAs();
+    this.getFromAssets();
   }
-  isDosimetrist:boolean = false
-  showPhrase: string = 'Show Physicists';
+  getFromAssets(){
+    this.myservice.getFromAssets().subscribe((data: any) => {
+      const Approvers: any = data.Approvers.Approver
+      const userid = this.myservice.getUserId()
+      for (let i=0; i < Approvers.length; i++){
+        if (Approvers[i].userid == userid){                    // if logged in user is privileged user 
+          this.isApprover = true                              // use all coverers    
+          break
+        }
+      }
+    })
+  }
+
   getTAs(){
     let daysFromNow28 = new Date();
     let today = new Date();
@@ -160,10 +175,13 @@ export class AngtimeawayComponent implements OnInit {
   }
   else {
     alert("UserKey not set - cannot enter TA")  
-  
   }  
 }
-
+isUserApprover(): boolean {
+  const userKey = this.myservice.getLoggedInUserKey();
+ // return this.config.Approvers.some(approver => approver.userid === userKey);
+ return false
+} 
 showTa(tA:any){                                             // called when user clicks on a TA to show details
     let covererLastName = this.myservice.getLastNameFromUserKey(tA.coverageA).subscribe({next: data => {
       const resp: any = data;

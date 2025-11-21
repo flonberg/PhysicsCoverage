@@ -11,5 +11,15 @@
         "userid": "fjl3"
       }
     ]
+  },
+  "Approvers": {
+    "Approver": [
+      {
+        "userid": "napolitano"
+      },
+      {
+        "userid": "fjl3"
+      }
+    ]
   }
 }

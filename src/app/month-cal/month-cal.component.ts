@@ -26,6 +26,7 @@ export class MonthCalComponent {
   advance: number = 0;                              // 0 for current month, 1 for next month, -1 for previous month
   numRows:number = 5                                // 5 rows for the month calendar  
   monthShownName: string=''                         // Name of the month shown in the calendar
+  hasAssignmentsBool: boolean = false
   forSQLmonthString:string= ''
   theDuties:any
   monthStringForSQL:string = ''
@@ -58,10 +59,12 @@ export class MonthCalComponent {
    ngOnInit() {
     this.getDuties()
     this.getDutyNames()
+    this.isUserTaker()
     }
+    /*
     getColor(idx:number){
       return this.legendColors[idx  ]
-    }
+    }*/
 
  
 /** get the assoc between serviceid and duty name  */
@@ -113,9 +116,10 @@ export class MonthCalComponent {
   isUserTaker(){
     const test = this.myservice.getLoggedInUserKey()
     if (test in this.takers && test > 0)
-      return true
+        this.hasAssignmentsBool = true
     else 
-      return false
+      this.hasAssignmentsBool = false
+    console.log("121121 isUserTaker %o -- %o", test, this.hasAssignmentsBool)
   }
   showExplainTasks(){
     const pdfUrl ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/ExplainShiftTasks.pdf" 
@@ -146,14 +150,7 @@ export class MonthCalComponent {
         this.theMonth = new month2Class(this.advance)      
       })
     }
-hasAssignments(assign: any){
-     if (assign === undefined || assign == null)
-      return false
-      if (this.isUserTaker())
-        return true
-      else
-        return false
-  }  
+
 hasThisAssignment(assign: any){         // used by month-cal.component.html to determine if 'take' button should be shown (coPilot)
     const test = this.myservice.getLoggedInUserKey()
     let takerUserKey = 0
