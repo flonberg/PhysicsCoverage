@@ -39,9 +39,7 @@ export class AngtimeawayComponent implements OnInit {
   });
   
     // To get the value:
-  onSubmit() {
-  
-  }
+  onSubmit() {}
   advance: number = 0;                                                    // number of days in advance to get TAs;
   firstDayOnCalendar: Date = new Date();
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar

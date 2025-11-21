@@ -32,36 +32,36 @@ $handle = connectDB_FL();
    if( $stmt === false )
       $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true)); 
    $goAwayerLastName = getSingle("SELECT LastName FROM physicists WHERE UserKey = $userkey", "LastName", $handle);
- 
- //  $mailAddress = "bnapolitano@partners.org";
-   $mailAddress = 'flonberg@partners.org';
-//	$mailAddress = "flonberg@partners.org";					////// changed on 6-24-2016   \\\\\\\\\\\
-	$subj = "Vacation Approval";
-	$msg =    "Brian: <br>There is a vacation for $goAwayerLastName which needs you approval. ";
-	if ($_GET['n'] == 1){
-		$subj = "Vacation Change";
-		$msg =    "Brian: <br>The dates for $goAwayerLastName time-away have been changed. ";
-	}
-	if ($_GET['n'] == 2){
-		$msg =    "Brian: <br>The time-away for $goAwayerLastName has been deleted. ";
-		$subj = "Vacation Deleted";
-	}
-	$message = '
-       			 <html>
-       			 <head>
-       			 <title> Time Away Approval </title>
-       			 <body>
-       			 <p>
-       			 '. $msg .'
-       			 </p>
-			<p>
-       			  <a href='.$link .'> Time away schedule. </a>
-			</body>
-			</html>
-			'; 
+ if ($isDosimetrist == false){
+   $log->logMessage("No email notification forneeded TA entered by non-dosimetrist userkey: ".$UserKey);
+ }
+   else{ 
+      sendEmailtoBrianAndCoverer($goAwayerData);
+   }
+   exit();
+   function sendEmailtoBrianAndCoverer($goAwayerData){
+      $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/dist10/physics-coverage/browser/userid=napolitano";
+      $mailAddress = 'flonberg@partners.org';
+   //	$mailAddress = "flonberg@partners.org";					////// changed on 6-24-2016   \\\\\\\\\\\
+      $subj = "Vacation Approval";
+      $msg =    "Brian: <br>There is a vacation for ". $goAwayerData['FirstName'] ." ". $goAwayerData['LastName'] ."which needs you approval. ";
+      $message = '
+                  <html>
+                  <head>
+                  <title> Time Away Approval </title>
+                  <body>
+                  <p>
+                  '. $msg .'
+                  </p>
+            <p>
+                  <a href='.$link .'> Time away schedule. </a>
+            </body>
+            </html>
+            '; 
 
-	$headers = 'MIME-Version: 1.0' . "\r\n";
-       	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-       	$headers .= 'From: Whiteboard'. "\r\n";
-        $headers .= 'Cc: flonberg@partners.org'. "\r\n";
-       	$res = mail ( $mailAddress, $subj, $message, $headers);
+      $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $headers .= 'From: Whiteboard'. "\r\n";
+         $headers .= 'Cc: flonberg@partners.org'. "\r\n";
+            $res = mail ( $mailAddress, $subj, $message, $headers);
+   }

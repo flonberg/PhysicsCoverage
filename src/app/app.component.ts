@@ -31,10 +31,12 @@ export class AppComponent implements OnInit {
             else {
               this.id = this.myservice.getUserId() 
             }
-          });
-          if (this.id){
-            console.log("363636 this.id %o", this.id)
+          if (this.id == 'napolitano'){
+            console.log("In ngOnInit navigating to Angtimeaway with id %o", this.id)                                                                
+             this.router.navigate(['/Angtimeaway', this.id]);  
           }
+          });
+
       }
     hasId(){
       if (this.id)
