@@ -10,7 +10,7 @@ $handle = connectDB_FL();
    $today = new DateTime();
    $Start = $today->format("Y-m-d");
     
-  $selStr = "SELECT vacation3.startDate, vacation3.endDate, vacation3.userid, vacation3.vidx, vacation3.reason, vacation3.note,vacation3.coverageA,
+  $selStr = "SELECT vacation3.startDate, vacation3.endDate, vacation3.userid, vacation3.vidx, vacation3.reason, vacation3.note,vacation3.coverageA,vacation3.approved,
       physicists.LastName,physicists.FirstName,
       users.UserID
       from vacation3

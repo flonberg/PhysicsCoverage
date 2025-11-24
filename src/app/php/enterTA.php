@@ -39,22 +39,22 @@ $handle = connectDB_FL();
 $next_result = sqlsrv_next_result($stmt);
 if( $next_result ) {
    while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)){
+      $lastInsertedIdx = $row['idx'];
       $log->logMessage($row['idx'].": ".$row['data']."<br />");
    }
 } elseif( is_null($next_result)) {
      $log->logMessage("No more results.<br />");
 } 
-   
  if ($isDosimetrist == false){
    $log->logMessage("No email notification forneeded TA entered by non-dosimetrist userkey: ".$UserKey);
  }
    else { 
-      sendEmailtoBrianAndCoverer($goAwayerData);
+      sendEmailtoBrianAndCoverer($goAwayerData, $lastInsertedIdx);
    }
    exit();
-   function sendEmailtoBrianAndCoverer($goAwayerData){
+   function sendEmailtoBrianAndCoverer($goAwayerData, $lastInsertedIdx){
       global $log;
-      $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/dev/editTA.php";
+      $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=approved&newValue=1&debug=1";
          $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ." needs approval";			
          $headers = 'From: whiteboard@partners.org'. "\r\n";
          $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
@@ -68,6 +68,7 @@ if( $next_result ) {
          $message .= '<body>';
          $message .= 'Brian.<br><br>';
          $message .= '<p> ' . $goAwayerData['FirstName'].' '.$goAwayerData['LastName']." has entered a Time Away  for ".$_GET['startDate'] ." to ". $_GET['endDate']." which needs approval.</p>";
+         $message .= "<p> To approve this Time Away, click here <a href='".$link."'>Approve Time Away </a> or go to the Time Away page on the Physics Coverage Whiteboard. </p>";
          $message .= '</body></html>'; 
       $log->logMessage("6565 Preparing to send email notification for go awayer: ". print_r($goAwayerData, true));
 //Send Email

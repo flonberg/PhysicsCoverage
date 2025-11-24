@@ -27,13 +27,13 @@
 <tr *ngFor="let item of goAwayersWithTAs; let j = index">
     <!-- The Zeros before the first TA-->
     <td *ngFor="let item2 of [].constructor(item.myTAs[0].daysTillTAstart); let i = index" [class]="isToday(i)"> </td>
-    <td [attr.colspan]="item.myTAs[0].lengthOfTA" [class]="goAwayerClass"
+    <td [attr.colspan]="item.myTAs[0].lengthOfTA" [class]="goAwayerClassFunc(item.myTAs[0].approved)"
       (click)="showTa(item.myTAs[0])" > {{item.LastName}} </td>
   <!-- If there is a 2nd TA for this GoAwayer do this loop-->
     <ng-container *ngIf = "item.myTAs[1]">
       <!-- days between 1st TA and 2nd tA -->
         <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" [class]="goAwayerClass"
+        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" [class]="goAwayerClassFunc(item.myTAs[1].approved)"
         (click)="showTa(item.myTAs[1])"> {{ item.myTAs[1].LastName }} </td>
     </ng-container>
     <!--  If there is NOT second TA put boxes in till end of Calendar-->
@@ -43,7 +43,7 @@
   <!--  If there IS second TA-->
     <ng-container *ngIf = "item.myTAs[2]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillTAstart); let k = index">  </td>
-        <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" [class]="goAwayerClass"
+        <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" [class]="goAwayerClassFunc(item.myTAs[2].approved)"
         (click)="showTa(item.myTAs[2])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
     <!--  If there is NOT third TA-->
@@ -53,7 +53,7 @@
     <!--  If there IS third TA-->
    <ng-container *ngIf = "item.myTAs[3]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  [class]="goAwayerClass"
+        <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  [class]="goAwayerClassFunc(item.myTAs[3].approved)"
          (click)="showTa(item.myTAs[3])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
     <!--  If there is NOT forth TA-->
@@ -63,7 +63,7 @@
     <!--  If there IS 4th TA-->
    <ng-container *ngIf = "item.myTAs[4]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[4].daysTillTAstart); let k = index">  </td>
-        <td [attr.colspan]="item.myTAs[4].lengthOfTA"  *ngIf = "item.myTAs[4]"  [class]="goAwayerClass"
+        <td [attr.colspan]="item.myTAs[4].lengthOfTA"  *ngIf = "item.myTAs[4]"  [class]="goAwayerClassFunc(item.myTAs[4].approved)"
         (click)="showTa(item.myTAs[4])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
     <!--  If there is NOT 5th TA-->
@@ -73,7 +73,7 @@
       <!--  If there IS 5th TA-->
    <ng-container *ngIf = "item.myTAs[5]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[5].daysTillTAstart); let k = index">  </td>
-        <td [attr.colspan]="item.myTAs[5].lengthOfTA"  *ngIf = "item.myTAs[5]"  [class]="goAwayerClass"
+        <td [attr.colspan]="item.myTAs[5].lengthOfTA"  *ngIf = "item.myTAs[5]"  [class]="goAwayerClassFunc(item.myTAs[5].approved)"
         (click)="showTa(item.myTAs[5])"> {{ item.myTAs[1].LastName }} </td>
     </ng-container>  
         <!--  If there is NOT 6th TA-->
@@ -83,7 +83,7 @@
           <!--  If there IS 6th TA-->
    <ng-container *ngIf = "item.myTAs[6]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[6].daysTillTAstart); let k = index">  </td>
-        <td [attr.colspan]="item.myTAs[6].lengthOfTA"  *ngIf = "item.myTAs[6]"  [class]="goAwayerClass"
+        <td [attr.colspan]="item.myTAs[6].lengthOfTA"  *ngIf = "item.myTAs[6]"  [class]="goAwayerClassFunc(item.myTAs[6].approved)"
         (click)="showTa(item.myTAs[6])"> {{ item.myTAs[1].LastName }} </td>
     </ng-container> 
             <!--  If there is NOT 7th TA-->

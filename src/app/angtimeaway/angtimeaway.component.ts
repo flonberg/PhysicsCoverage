@@ -187,7 +187,7 @@ showTa(tA:any){                                             // called when user 
       const resp: any = data;
       tA.covererLastName = resp.lastName ?? ''; 
       this.shownTa = new shownTA(tA)
-   console.log("Show vac for idx %o", tA)
+   console.log("190190 Show vac for idx %o", tA)
   }})
 }
 selectDates(event: any) {
@@ -209,6 +209,7 @@ selectDates(event: any) {
       ta.startDate = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
       ta.endDate = this.createDateFromString(this.TAs[i].endDate.date.slice(0,10))
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
+      ta.approved = this.TAs[i].approved
       this.TAclasses.push(ta)
     }
     console.log("3434 TAclasses %o", this.TAclasses)
@@ -360,6 +361,15 @@ selectDates(event: any) {
       }})
           this.ngOnInit();
     }
+    goAwayerClassFunc(approved:number): string {
+      var ret = 'goAwayer'
+      if (this.isDosimetrist && (approved == 0 || approved === null))
+        ret = 'notApproved';
+      else if (!this.isDosimetrist )
+        ret =  'goAwayer';
+      console.log("379379 %o, %o, %o", this.isDosimetrist, approved, ret)
+      return ret;
+    }
   }
   class dateClass {
     justdateL:string=''
@@ -460,6 +470,7 @@ selectDates(event: any) {
     numberOfDaysInTA: number = 0
     daysTillEndOfCalendar: number = 0
     lastDateOnCalendar: Date = new Date()
+    approved: number = 0
   
     constructor(lastDateOnCalendar: Date) {
 
@@ -513,6 +524,7 @@ class shownTA{
   daysTillTAstart: number = 0
   numberOfDaysInTA: number = 0
   daysTillEndOfCalendar: number = 0
+  approved: number = 0
   constructor(ta: TAclass) {
     this.vidx = ta.vidx
     this.userid = ta.userid
@@ -526,6 +538,7 @@ class shownTA{
     this.note = ta.note
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
+  
 
   } 
 }
