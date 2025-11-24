@@ -28,12 +28,22 @@ $handle = connectDB_FL();
    }
    $now = date("Y-m-d h:i:s");
    $insStr = "INSERT INTO vacation3 (startDate, endDate, reason, userid, coverageA, createWhen)
-     VALUES ('".$_GET['startDate']."', '".$_GET['endDate']."', ".$_GET['reason'].", '".$UserKey."', ".$_GET['coverer'].", '".$now."')";
+     VALUES ('".$_GET['startDate']."', '".$_GET['endDate']."', ".$_GET['reason'].", '".$UserKey."', ".$_GET['coverer'].", '".$now."'); SELECT SCOPE_IDENTITY() AS idx, 'Inserted TA for ".$goAwayerData['FirstName']." ".$goAwayerData['LastName']."' AS data;";
    $log->logMessage("Executing insert: ".$insStr);
 
    $stmt = sqlsrv_query( $handle, $insStr);
    if( $stmt === false )
       $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true)); 
+
+   // Move to the next result and display results.
+$next_result = sqlsrv_next_result($stmt);
+if( $next_result ) {
+   while( $row = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)){
+      $log->logMessage($row['idx'].": ".$row['data']."<br />");
+   }
+} elseif( is_null($next_result)) {
+     $log->logMessage("No more results.<br />");
+} 
    
  if ($isDosimetrist == false){
    $log->logMessage("No email notification forneeded TA entered by non-dosimetrist userkey: ".$UserKey);
@@ -44,6 +54,7 @@ $handle = connectDB_FL();
    exit();
    function sendEmailtoBrianAndCoverer($goAwayerData){
       global $log;
+      $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/dev/editTA.php";
          $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ." needs approval";			
          $headers = 'From: whiteboard@partners.org'. "\r\n";
          $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";

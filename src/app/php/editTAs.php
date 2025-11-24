@@ -7,4 +7,12 @@ $handle = connectDB_FL();
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
    $log->logMessage("Received GET parameters: ". $dstr);
    $updateSts = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];    $log->logSql($updateSts);
-   $log->logSql($updateSts);
+   if ($_GET['debug'] == 1){
+       $log->logMessage("\r\n updateSts: $updateSts \r\n");
+       exit();
+   }
+   else {
+        $stmt = sqlsrv_query( $handle, $updateSts);
+        if( $stmt === false )
+        $log->logSql($updateSts);
+   }
