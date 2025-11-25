@@ -16,8 +16,8 @@ td.goAwayer {
     background-color: rgb(189, 238, 189) ;
     border:solid;
 }
-td.unApproved {
-    background-color: orange ;
+td.notApproved {
+    background-color: white ;
 }
 td.weekend {
     background-color: yellow ;

@@ -63,7 +63,7 @@ export class AngtimeawayComponent implements OnInit {
     reasons: string[] = ['Vacation', 'Meeting', 'Other']
     test:boolean = true
       isDosimetrist:boolean = false
-      isApprover:boolean = true
+      isApprover:boolean = false
   showPhrase: string = 'Show Physicists';
  
 
@@ -354,20 +354,18 @@ selectDates(event: any) {
         changeValue = event.value
       else
         changeValue = event
-      console.log("Editing TA dates %o", event)
-      console.log("Editing TA whatIs %o", ta)
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
         console.log("3434 editTA url %o", data)
       }})
-          this.ngOnInit();
+      this.ngOnInit();
     }
+    /** Return the proper class for a goAwayer depending on approval status */
     goAwayerClassFunc(approved:number): string {
       var ret = 'goAwayer'
       if (this.isDosimetrist && (approved == 0 || approved === null))
         ret = 'notApproved';
       else if (!this.isDosimetrist )
         ret =  'goAwayer';
-      console.log("379379 %o, %o, %o", this.isDosimetrist, approved, ret)
       return ret;
     }
   }
