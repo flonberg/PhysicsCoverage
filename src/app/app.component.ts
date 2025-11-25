@@ -34,10 +34,14 @@ export class AppComponent implements OnInit {
           if (this.id == 'napolitano'){
             console.log("In ngOnInit navigating to Angtimeaway with id %o", this.id)                                                                
              this.router.navigate(['/Angtimeaway', this.id]);  
-          }
+            }
+          this.myservice.getFromAssets().subscribe(data => {
+            this.test = data;
+            console.log("4040 test from assets %o", this.test);     
           });
+      });
+    }
 
-      }
     hasId(){
       if (this.id)
         return true

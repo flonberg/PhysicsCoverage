@@ -6,9 +6,6 @@ Require_once '.\dosimetristList.php';
 $handle = connectDB_FL();
    $log = new LogFuncs();
    $log->logMessage("Received GET parameters: ". print_r($_GET, true));
-   if ($_GET['debug'] == 1){
-       echo "<pre> Received GET parameters: ". print_r($_GET, true)."</pre>";
-   }
    if ($_GET['userkey'] == '' || $_GET['userkey'] == 0){
       $log->logMessage("No userkey passed");
       exit;
