@@ -166,16 +166,23 @@ export class AngtimeawayComponent implements OnInit {
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
     const coverer = this.covererValue
-    if (this.myservice.getLoggedInUserKey() > 0){
-    this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
-      console.log("3434 enterTA data %o", data)
-    this.range.reset();  
-    this.ngOnInit();
-    }})
-  }
-  else {
-    alert("UserKey not set - cannot enter TA")  
-  }  
+    var canEnterTA = false
+    var loggedInUserKey: number = this.myservice.getLoggedInUserKey();
+    var test = !this.isDosimetrist
+    if (!this.isDosimetrist && (loggedInUserKey == 0 || loggedInUserKey === null))
+      alert("UserKey not set - cannot enter TA")  
+    else if (this.isDosimetrist && this.covererValue == '0' && loggedInUserKey > 0)
+      alert("Please select a coverer - cannot enter TA")
+ /*   else if (this.myservice.getLoggedInUserKey() > 0){
+      this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
+        console.log("3434 enterTA data %o", data)
+      this.range.reset();  
+      this.ngOnInit();
+      }})
+}
+      */
+  
+
 }
 isUserApprover(): boolean {
   const userKey = this.myservice.getLoggedInUserKey();
