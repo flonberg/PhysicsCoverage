@@ -4,6 +4,8 @@ import { MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MyserviceService } from '../myservice.service';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 interface TriageCoverer2 {
@@ -17,7 +19,7 @@ interface CovByUserKey {
 @Component({
   selector: 'app-res-triage',
   standalone: true,
-  imports: [CommonModule, MatSelectModule, MatDatepickerModule, FormsModule],
+  imports: [CommonModule, MatSelectModule, MatDatepickerModule, FormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './res-triage.component.html',
   styleUrls: ['./res-triage.component.css'],
 })
@@ -120,7 +122,7 @@ export class ResTriageComponent {
       this.covsFromTable[ind][did] = toTakeUserKey                        // update the table display immediately
   }
 }
-  enterCov(event: any, day: any, ind?:any, did?:any) {
+  enterCov(event: any, day: any, duty:number, ind?:any, did?:any) {
     let toEnterUserKey: number = 0
     if (typeof event === 'number'){                                       // when coming from button click
       toEnterUserKey = this.loggedInUserKey

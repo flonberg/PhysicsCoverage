@@ -19,8 +19,36 @@
                     <tr>
                         <td *ngIf="isPrivUser">
                             <mat-form-field>
-                                <mat-label>Coverer</mat-label>
-                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event, day)">
+                                <mat-label>AM Coverer</mat-label>
+                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event,1, day)">
+                                    <mat-option *ngFor="let option of TCs2" [value]="option.value">
+                                    {{ option.viewValue }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                        <td *ngIf = "!isPrivUser" [class]="isToday(day)">
+                            <table  >
+                                <tr>
+                                    <td class="takerName">
+                                           <mat-form-field appearance="fill">
+                                                <mat-label>AM Coverer</mat-label>
+                                                <input matInput placeholder="Optional Placeholder" [value]='CbUK[covsFromTable[ind][did]]'>
+                                             </mat-form-field>
+                    
+                                    </td> <!-- written by CoPilot -->
+                                    <td class="takeButton" *ngIf = "isUserTaker">
+                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)" title="Assume coverage for {{ day | date:'fullDate' }}"></button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                        <tr>
+                        <td *ngIf="isPrivUser">
+                            <mat-form-field>
+                                <mat-label>PM Coverer</mat-label>
+                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event,2, day)">
                                     <mat-option *ngFor="let option of TCs2" [value]="option.value">
                                     {{ option.viewValue }}
                                     </mat-option>
