@@ -30,11 +30,12 @@ export class ResTriageComponent {
   advance: number = 0;                                                          // how many months advanced from current month      
   theMonth: month2Class;
   TCs2: TriageCoverer2[] = []
-  CbUK:CovByUserKey[] =[]                                                      // to hold coverers by userkey for display
-  loggedInUserTC: TriageCoverer2[] = []                                             // the logged in user as coverer
+  CbUK:CovByUserKey[] =[]                                                      // to hold coverers First and Last Name by userkey for display
+  loggedInUserTC: TriageCoverer2[] = []                                        // the logged in user as coverer
   isUserTaker: boolean = false
   gotTCs: boolean = false
   covsFromTable: number[][] = []                                              // to hold userkeys from dataBase for each date in month for display
+  covsFromTablePM: number[][] = []                                            // mm. for PM coverers
   fromTable: any[] = []                                                       // to hold  raw data duties from dataBase
   isPrivUser: boolean = false
   constructor(private myService: MyserviceService ) {
@@ -78,29 +79,50 @@ export class ResTriageComponent {
         this.TCs2.push(tc2)
         this.CbUK[tCoverers[i].UserKey] = tCoverers[i].FirstName + ' ' + tCoverers[i].LastName
       }
-
       this.putCovererInEachDate()
       this.isUserTaker = this.isLoggedInUserTaker(this.loggedInUserKey)
 
     })
   }
-    /* Puts coverer in corresponding date in calendar */
+    /* Puts coverer's userkeyin corresponding date in calendar where she is the coverer*/
   putCovererInEachDate(){
     for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){          // for each week
       this.covsFromTable[i] = []                                            // initialize row in covsFromTable
       for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){ 
            this.covsFromTable[i][j] = 0                                     // initialize col in covsFromTable
         for (let k=0; k < this.fromTable.length; k++){                      // for each duty from table
-          if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){ // if match the date of the day with date of the duty1
-            this.covsFromTable[i][j] = this.fromTable[k].userkey            // put userkey in covsFromTable
-            break
-          }
-          else {
-            this.covsFromTable[i][j] = 0                                   // no coverer assigned         
+          if (this.fromTable[k]['serviceid'] == 1)   {                       // put in ONLY serviceid = 1 (AM duties)
+            if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){ // if match the date of the day with date of the duty1
+              this.covsFromTable[i][j] = this.fromTable[k].userkey            // put userkey in covsFromTable
+              break
+            }
+            else {
+              this.covsFromTable[i][j] = 0                                   // no coverer assigned         
+            }
           }
         }
       }
     }
+    for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){          // for each week
+      this.covsFromTablePM[i] = []                                            // initialize row in covsFromTable
+      for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){ 
+           this.covsFromTablePM[i][j] = 0                                     // initialize col in covsFromTable
+        for (let k=0; k < this.fromTable.length; k++){                      // for each duty from table
+          if (this.fromTable[k]['serviceid'] == 2)   {                       // put in ONLY serviceid = 1 (AM duties)
+            if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){ // if match the date of the day with date of the duty1
+              this.covsFromTablePM[i][j] = this.fromTable[k].userkey            // put userkey in covsFromTable
+              break
+            }
+            else {
+              this.covsFromTablePM[i][j] = 0                                   // no coverer assigned         
+            }
+          }
+        }
+      }
+    }
+   
+    console.log("122122 covsFromTable %o", this.covsFromTable)
+    console.log("122122 covsFromTablePM %o", this.covsFromTablePM)
      this.gotTCs = true
   } 
   takeCoverage(event: any, day: any,duty?:any, ind?:any, did?:any) {

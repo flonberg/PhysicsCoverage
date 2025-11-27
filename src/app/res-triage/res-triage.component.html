@@ -44,7 +44,7 @@
                             </table>
                         </td>
                     </tr>
-<!--
+
                     <tr>
                         <td *ngIf="isPrivUser">
                             <mat-form-field>
@@ -59,11 +59,11 @@
                         <td *ngIf = "!isPrivUser" [class]="isToday(day)">
                             <table  >
                                 <tr>
-                                              <td class="takerName">
-                                           <mat-form-field appearance="fill">
-                                                <mat-label>PM Coverer</mat-label>
-                                                <input matInput placeholder="Optional Placeholder" [value]='CbUK[covsFromTable[ind][did]]'>
-                                             </mat-form-field>
+                                <td class="takerName">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>PM Coverer</mat-label>
+                                            <input matInput placeholder="Optional Placeholder" [value]='CbUK[covsFromTable[ind][did]]'>
+                                            </mat-form-field>
                                     </td> 
                                     <td class="takeButton" *ngIf = "isUserTaker">
                                         <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)"
@@ -73,7 +73,7 @@
                             </table>
                         </td>
                     </tr>
-                -->
+            
                 </table>
             </td>
         </tr>

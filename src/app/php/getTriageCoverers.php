@@ -24,14 +24,14 @@ $handle = connectDB_FL();
    $ret['TCs'] = $row;
    $ret['byUserKey'] = $byUserKey;
    /** get Assignments  */
-   $selStr = "SELECT ResidentTriageDuty.day, ResidentTriageDuty.userkey, ResidentTriageDuty.phys2, physicians.LastName, physicians.FirstName 
+   $selStr = "SELECT ResidentTriageDuty.day, ResidentTriageDuty.userkey, ResidentTriageDuty.phys2, ResidentTriageDuty.phys3, ResidentTriageDuty.serviceid, physicians.LastName, physicians.FirstName 
       from ResidentTriageDuty
       JOIN physicians ON ResidentTriageDuty.userkey = physicians.UserKey
       where del = 0 AND ResidentTriageDuty.day >= '".$_GET['startDate']."' AND ResidentTriageDuty.day <= '".$_GET['endDate']."'
       ORDER BY ResidentTriageDuty.idx desc";
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false ) 
-       { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); } 
+       { $dstr = ( print_r( sqlsrv_errors(), true)); $log->logMessage("SQL errors: ". $dstr); } 
     $row = Array();
     $i = 0;  
     while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
