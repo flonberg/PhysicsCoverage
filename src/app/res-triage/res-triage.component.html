@@ -17,9 +17,9 @@
                 <table stye="width:300px; border:solid;">
                     <caption>{{ day.getDate() }}</caption>
                     <tr>
-                        <td *ngIf="isPrivUser">
+                        <td *ngIf="isPrivUser" class="tableCell">
                             <mat-form-field>
-                                <mat-label>AM Coverer</mat-label>
+                                <mat-label>Coverer</mat-label>
                                 <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event,1, day)">
                                     <mat-option *ngFor="let option of TCs2" [value]="option.value">
                                     {{ option.viewValue }}
@@ -35,16 +35,17 @@
                                                 <mat-label>AM Coverer</mat-label>
                                                 <input matInput placeholder="Optional Placeholder" [value]='CbUK[covsFromTable[ind][did]]'>
                                              </mat-form-field>
-                    
-                                    </td> <!-- written by CoPilot -->
+                                    </td> 
                                     <td class="takeButton" *ngIf = "isUserTaker">
-                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)" title="Assume coverage for {{ day | date:'fullDate' }}"></button>
+                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)" 
+                                                title="Assume coverage for {{ day | date:'fullDate' }}"></button>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
-                        <tr>
+<!--
+                    <tr>
                         <td *ngIf="isPrivUser">
                             <mat-form-field>
                                 <mat-label>PM Coverer</mat-label>
@@ -58,14 +59,21 @@
                         <td *ngIf = "!isPrivUser" [class]="isToday(day)">
                             <table  >
                                 <tr>
-                                    <td class="takerName">{{ CbUK[covsFromTable[ind][did]] }}</td> <!-- written by CoPilot -->
+                                              <td class="takerName">
+                                           <mat-form-field appearance="fill">
+                                                <mat-label>PM Coverer</mat-label>
+                                                <input matInput placeholder="Optional Placeholder" [value]='CbUK[covsFromTable[ind][did]]'>
+                                             </mat-form-field>
+                                    </td> 
                                     <td class="takeButton" *ngIf = "isUserTaker">
-                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)" title="Assume coverage for {{ day | date:'fullDate' }}"></button>
+                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)"
+                                                 title="Assume coverage for {{ day | date:'fullDate' }}"></button>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
+                -->
                 </table>
             </td>
         </tr>

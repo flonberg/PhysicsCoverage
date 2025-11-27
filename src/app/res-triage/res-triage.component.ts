@@ -66,7 +66,7 @@ export class ResTriageComponent {
   loadTriageCoverers(){
     var date = new Date();
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().slice(0,10);
-    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().slice(0,10);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 2, 0).toISOString().slice(0,10);
     this.myService.getTriageCoverers(firstDay, lastDay, this.myService.getUserId()).subscribe((data: any) => {
       const tCoverers: any = data.TCs
       console.log("656565 tCoverers %o", tCoverers)
@@ -103,7 +103,7 @@ export class ResTriageComponent {
     }
      this.gotTCs = true
   } 
-  takeCoverage(event: any, day: any, ind?:any, did?:any) {
+  takeCoverage(event: any, day: any,duty?:any, ind?:any, did?:any) {
     let toTakeUserKey: number = 0
     if (typeof event === 'number'){                                       // when coming from button click
       toTakeUserKey = this.loggedInUserKey
@@ -116,7 +116,7 @@ export class ResTriageComponent {
     let message = "You are assuming coverage on " + dateString
         const userConfirmed = window.confirm(message);
     if (userConfirmed){   
-    this.myService.enterTriageCov(toTakeUserKey, formattedDate).subscribe((data: any) => {
+    this.myService.enterTriageCov(toTakeUserKey, duty,formattedDate).subscribe((data: any) => {
     })
     if (this.covsFromTable[ind])    
       this.covsFromTable[ind][did] = toTakeUserKey                        // update the table display immediately
@@ -131,7 +131,7 @@ export class ResTriageComponent {
       toEnterUserKey = event.value
     }
     const formattedDate = new Date(day).toISOString().split('T')[0]
-    this.myService.enterTriageCov(toEnterUserKey, formattedDate).subscribe((data: any) => {
+    this.myService.enterTriageCov(toEnterUserKey,duty, formattedDate).subscribe((data: any) => {
     })
     if (this.covsFromTable[ind])
       this.covsFromTable[ind][did] = toEnterUserKey                        // update the table display immediately
