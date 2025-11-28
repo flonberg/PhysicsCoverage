@@ -103,6 +103,7 @@ export class ResTriageComponent {
         }
       }
     }
+    /** put in the  */
     for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){          // for each week
       this.covsFromTablePM[i] = []                                            // initialize row in covsFromTable
       for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){ 

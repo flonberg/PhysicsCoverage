@@ -20,7 +20,7 @@
                         <td *ngIf="isPrivUser" class="tableCell">
                             <mat-form-field>
                                 <mat-label>Coverer</mat-label>
-                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event,1, day)">
+                                <mat-select [(ngModel)]="covsFromTable[ind][did]" (selectionChange)="enterCov($event, day,1)">
                                     <mat-option *ngFor="let option of TCs2" [value]="option.value">
                                     {{ option.viewValue }}
                                     </mat-option>
@@ -49,7 +49,7 @@
                         <td *ngIf="isPrivUser">
                             <mat-form-field>
                                 <mat-label>PM Coverer</mat-label>
-                                <mat-select [(ngModel)]="covsFromTablePM[ind][did]" (selectionChange)="enterCov($event,2, day)">
+                                <mat-select [(ngModel)]="covsFromTablePM[ind][did]" (selectionChange)="enterCov($event,day,2)">
                                     <mat-option *ngFor="let option of TCs2" [value]="option.value">
                                     {{ option.viewValue }}
                                     </mat-option>

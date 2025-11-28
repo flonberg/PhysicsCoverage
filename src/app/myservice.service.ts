@@ -56,9 +56,9 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }
     enterTriageCov(userkey:number,duty:number, date: string){
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&duty="+duty;      // 
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&serviceid="+duty;      // 
       if (isDevMode())   
-          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&duty="+duty+"&debug=1"; 
+          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&serviceid="+duty+"&debug=1"; 
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }

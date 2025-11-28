@@ -7,9 +7,8 @@ $handle = connectDB_FL();
 
    //Get ResidentTriageDuty Assignments
     $selStr = "SELECT top(1) userkey FROM ResidentTriageDuty WHERE day = '".nextWeekday()."' ORDER BY idx DESC";
-    if ($_GET['debug'] == 1){
+    if ($_GET['debug'] == 1)
         echo "\r\n selStr: $selStr \r\n";
-    }
     $dodIDString = getSingle($selStr, 'userkey', $handle);
     $selStr = "SELECT FirstName, LastName, Email FROM physicians WHERE UserKey = '".$dodIDString."'";
         $stmt = sqlsrv_query( $handle, $selStr);
@@ -44,11 +43,12 @@ $message .= '<p class="attention"> Please remember to check the Resident Triage 
 
 $message .= '</body></html>'; 
 //Send Email
+
    if (mail('flonberg@mgh.harvard.edu',$subject, $message, $headers)) 
         $log->logMessage("Email successfully sent to ".$recipients[0]);
      else 
         $log->logMessage("Email sending failed to flonberg@mgh.harvard.edu");
-    fclose($fp);
+   
     exit();
 function nextWeekday(){
     $currentDate = new DateTime(); // Get the current date
