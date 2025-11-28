@@ -14,7 +14,7 @@ $handle = connectDB_FL();
    }
    $insStr = "INSERT INTO ResidentTriageDuty (userkey, day, serviceid, modWhen) VALUES (".$_GET['userkey'].", '".$_GET['date']."', '".$_GET['serviceid']."', '".$now."')";
    $log->logMessage("Executing insert: ".$insStr);
-   exit();
+
    $stmt = sqlsrv_query( $handle, $insStr);
    if( $stmt === false ) 
        { $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true)); } 
