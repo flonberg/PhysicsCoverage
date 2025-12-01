@@ -123,7 +123,7 @@ export class ResTriageComponent {
     }
    
     console.log("122122 covsFromTable %o", this.covsFromTable)
-    console.log("122122 covsFromTablePM %o", this.covsFromTablePM)
+    console.log("122122 covsFromTablePM %o", this.covsFromTablePM)  
      this.gotTCs = true
   } 
   takeCoverage(event: any, day: any,duty?:any, ind?:any, did?:any) {
@@ -145,7 +145,7 @@ export class ResTriageComponent {
       this.covsFromTable[ind][did] = toTakeUserKey                        // update the table display immediately
   }
 }
-  enterCov(event: any, day: any, duty:number, ind?:any, did?:any) {
+  enterCov(event: any, day: any,  serviceid:number) {
     let toEnterUserKey: number = 0
     if (typeof event === 'number'){                                       // when coming from button click
       toEnterUserKey = this.loggedInUserKey
@@ -154,10 +154,10 @@ export class ResTriageComponent {
       toEnterUserKey = event.value
     }
     const formattedDate = new Date(day).toISOString().split('T')[0]
-    this.myService.enterTriageCov(toEnterUserKey,duty, formattedDate).subscribe((data: any) => {
+    this.myService.enterTriageCov(toEnterUserKey,serviceid, formattedDate).subscribe((data: any) => {
     })
-    if (this.covsFromTable[ind])
-      this.covsFromTable[ind][did] = toEnterUserKey                        // update the table display immediately
+  //  if (this.covsFromTable[ind])
+  //    this.covsFromTable[ind][did] = toEnterUserKey                        // update the table display immediately
   }
   isLoggedInUserTaker(covUserKey: number){
     if (this.loggedInUserKey in  this.CbUK  && this.loggedInUserKey > 0)
