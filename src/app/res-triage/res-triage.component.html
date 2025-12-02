@@ -37,7 +37,7 @@
                                              </mat-form-field>
                                     </td> 
                                     <td class="takeButton" *ngIf = "isUserTaker">
-                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)" 
+                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,1,ind,did)" 
                                                 title="Assume coverage for {{ day | date:'fullDate' }}"></button>
                                     </td>
                                 </tr>
@@ -63,17 +63,16 @@
                                         <mat-form-field appearance="fill">
                                             <mat-label>PM Coverer</mat-label>
                                             <input matInput placeholder="Optional Placeholder" [value]='CbUK [covsFromTablePM[ind][did]]'>
-                                            </mat-form-field>
+                                        </mat-form-field>
                                     </td> 
                                     <td class="takeButton" *ngIf = "isUserTaker">
-                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,ind,did)"
+                                        <button class="raised-button" (click) = "takeCoverage(covsFromTable[ind][did],day,2,ind,did)"
                                                  title="Assume coverage for {{ day | date:'fullDate' }}"></button>
                                     </td>
                                 </tr>
                             </table>
                         </td>
                     </tr>
-            
                 </table>
             </td>
         </tr>

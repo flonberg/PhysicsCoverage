@@ -104,12 +104,12 @@ export class ResTriageComponent {
       }
     }
     /** put in the  */
-    for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){          // for each week
+    for (let i=0; i < this.theMonth.weekDayForDuties.length; i++){            // for each week
       this.covsFromTablePM[i] = []                                            // initialize row in covsFromTable
       for (let j=0; j < this.theMonth.weekDayForDuties[i].length; j++){ 
            this.covsFromTablePM[i][j] = 0                                     // initialize col in covsFromTable
-        for (let k=0; k < this.fromTable.length; k++){                      // for each duty from table
-          if (this.fromTable[k]['serviceid'] == 2)   {                       // put in ONLY serviceid = 1 (AM duties)
+        for (let k=0; k < this.fromTable.length; k++){                        // for each duty from table
+          if (this.fromTable[k]['serviceid'] == 2)   {                        // put in ONLY serviceid = 2 (PM duties)
             if (this.fromTable[k]['day']['date'].includes(this.theMonth.weekDayForDuties[i][j])){ // if match the date of the day with date of the duty1
               this.covsFromTablePM[i][j] = this.fromTable[k].userkey            // put userkey in covsFromTable
               break
@@ -128,22 +128,30 @@ export class ResTriageComponent {
   } 
   takeCoverage(event: any, day: any,duty?:any, ind?:any, did?:any) {
     let toTakeUserKey: number = 0
-    if (typeof event === 'number'){                                       // when coming from button click
+    let dont=false;
+    if (typeof event === 'number'){                                           // when coming from button click
       toTakeUserKey = this.loggedInUserKey
     }
-    else if (typeof event === 'object' && 'value' in event){             // when coming from select change
+    else if (typeof event === 'object' && 'value' in event){                  // when coming from select change
       toTakeUserKey = event.value
     }
     const formattedDate = new Date(day).toISOString().split('T')[0]
     let dateString = formattedDate.slice(0,10)
     let message = "You are assuming coverage on " + dateString
         const userConfirmed = window.confirm(message);
-    if (userConfirmed){   
-    this.myService.enterTriageCov(toTakeUserKey, duty,formattedDate).subscribe((data: any) => {
-    })
-    if (this.covsFromTable[ind])    
-      this.covsFromTable[ind][did] = toTakeUserKey                        // update the table display immediately
-  }
+    if (userConfirmed){     
+      this.myService.enterTriageCov(toTakeUserKey, duty,formattedDate).subscribe((data: any) => {
+      })
+      if (duty == 1){
+        if(this.covsFromTable[ind])    
+          this.covsFromTable[ind][did] = toTakeUserKey                        // update the AM table display immediately
+      }
+      else if (duty == 2){
+        if(this.covsFromTablePM[ind])    
+          this.covsFromTablePM[ind][did] = toTakeUserKey                        // update the PM table display immediately
+      }
+    }
+
 }
   enterCov(event: any, day: any,  serviceid:number) {
     let toEnterUserKey: number = 0
