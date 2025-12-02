@@ -11,7 +11,7 @@ $handle = connectDB_FL();
       exit;    
    }
    $insStr = "INSERT INTO ResidentTriageDuty (userkey, day, serviceid, modWhen)                                        
-         VALUES (".$_GET['userkey'].", '".$_GET['date']."', '".$_GET['serviceid']."', 'GETDATE()')";                 // enter the serviceid in the GET dS
+         VALUES (".$_GET['userkey'].", '".$_GET['date']."', '".$_GET['serviceid']."', GETDATE())";                 // enter the serviceid in the GET dS
    $log->logMessage("Executing insert: ".$insStr);
    $stmt = sqlsrv_query( $handle, $insStr);
    if( $stmt === false ) 
@@ -25,7 +25,7 @@ $handle = connectDB_FL();
        }
        else{
            $insStr = "INSERT INTO ResidentTriageDuty (userkey, day, serviceid, modWhen, modWho)                                                              
-                VALUES (".$_GET['userkey'].", '".$_GET['date']."', '2', 'GETDATE()','".$_GET['userid']."' )";        // make INSERT statement to enter APM coverer too  
+                VALUES (".$_GET['userkey'].", '".$_GET['date']."', '2', GETDATE(),'".$_GET['userid']."' )";        // make INSERT statement to enter APM coverer too  
             $log->logSql($insStr);
        }
    }
