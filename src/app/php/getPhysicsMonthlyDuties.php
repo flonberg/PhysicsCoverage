@@ -2,12 +2,10 @@
 include('H:\inetpub\lib\phpDB.inc');
 require_once 'H:\inetpub\lib\sqlsrvLibFL.php';
 $handle = connectDB_FL();
+require_once 'H:\inetpub\lib\LogFuncs.php';
+   $log = new LogFuncs();
+   $log->logMessage("Received GET parameters: ". print_r($_GET, true));
 
-   $now = date("Y-m-d h:i:s");
-   $fp = fopen("./log/getPhysicsDutiesLog.txt", "w+");
-	$time = date("Y-m-d H:i:s");
-	fwrite($fp,  $time . "\n");
-   $dstr = print_r($_GET, true); fwrite($fp, $dstr);
    $selStr = "SELECT PhysicsMonthlyDuty.idx, PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, 
    PhysicsMonthlyDuty.userkey, PhysicsMonthlyDuty.phys2, PhysicsMonthlyDuty.phys3,
    physicists.LastName, physicists.UserKey, physicists.Email
@@ -20,9 +18,9 @@ $handle = connectDB_FL();
       physicists.LastName, physicists.UserKey, physicists.Email
       FROM PhysicsMonthlyDuty 
       INNER JOIN physicists ON physicists.UserKey = PhysicsMonthlyDuty.userkey
-     
+   WHERE day >= '2025-12-01'
     ORDER BY day, serviceid";
-   fwrite($fp, "\r\n $selStr");
+   $log->logMessage("SQL Query: ". $selStr);
       $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false ) 
        { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); } 
@@ -39,8 +37,7 @@ $handle = connectDB_FL();
       $i++;
     }
 
-   if ($_GET['debug'] == '1')
-      $dstr = print_r($row, true); fwrite($fp, $dstr);
+   $log->logMessage("Fetched Duties: ". print_r($row[0], true));
    $ret = json_encode($row);
    echo $ret;
 

@@ -75,6 +75,8 @@ export class MonthCalComponent {
   }  
   getDuties(){
     let dString = new Date().toISOString().slice(0,7)
+    this.duties = []
+    this.theDuties = []
     this.dayBucket = []                                     // this is a dS inwhich each duty is put into an array with key = dateString e.g. 2025-09-02
     let today = new Date() 
       let advancedToday = new Date(today.getFullYear(), today.getMonth() +this.advance, 1)      // If users has advanced to next or previous month make a date of the first of that month
@@ -222,7 +224,12 @@ hasThisAssignment(assign: any){         // used by month-cal.component.html to d
         } ) 
       }
     this.isCheckedBool = false
+   // this.delay(1000);
+  this.ngOnInit()
   }
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+}
 
   isChecked(){
     return false
