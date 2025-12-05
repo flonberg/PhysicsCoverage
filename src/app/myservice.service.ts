@@ -111,6 +111,14 @@ export class MyserviceService {
           console.log("595959  userkey %o  --- %o", this.loggedInUserKey, this.userLastName)  
         })
     }
+
+    get2loggedInUserKey(){
+         let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
+      if (isDevMode())
+        url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//   
+      console.log("585858  getLoggedInUserKey url %o", url)  
+      return this .HttpClient.get<duty>(url)
+    } 
     getMyduties(userkey:number){
       const todayStringForSQL = new Date().toISOString().slice(0, 10);
     }

@@ -114,7 +114,13 @@ export class MonthCalComponent {
     }
   /** if loggedInUser a physicist who has duties, then she can 'take' duties in a swap */
   isUserTaker(){
-    const test = this.myservice.getLoggedInUserKey()
+   this.myservice.get2loggedInUserKey().subscribe(res=>{
+        let rest = res
+        const test = res['userkey']
+        this.checkIfTaker(test)
+      }) 
+  }
+  checkIfTaker(test:number){  
     if (test in this.takers && test > 0)
         this.hasAssignmentsBool = true
     else 
