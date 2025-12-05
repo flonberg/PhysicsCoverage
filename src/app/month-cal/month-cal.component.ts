@@ -224,7 +224,7 @@ hasThisAssignment(assign: any){         // used by month-cal.component.html to d
         } ) 
       }
     this.isCheckedBool = false
-   // this.delay(1000);
+    this.delay(5000);
   this.ngOnInit()
   }
   delay(ms: number) {
