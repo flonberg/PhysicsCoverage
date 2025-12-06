@@ -225,13 +225,13 @@ hasThisAssignment(assign: any){         // used by month-cal.component.html to d
     const userConfirmed = window.confirm(message);
     if (userConfirmed){
       this.theMonth.datesWithDuties[xnum][ynum].LastName = this.myservice.getUserLastName()
-      this.gotData = false
+  //    this.gotData = false
       this.myservice.takeAssignment(assign.idx).subscribe(res=>{
-        let rest = res
+         let rest = res
         } ) 
       }
     this.isCheckedBool = false
-    this.ngOnInit()
+   // this.ngOnInit()
   }
 
 
