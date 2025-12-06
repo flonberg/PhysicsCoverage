@@ -59,7 +59,7 @@ export class MonthCalComponent {
    ngOnInit() {
     this.getDuties()
     this.getDutyNames()
-    this.isUserTaker()
+   // this.isUserTaker()
     }
     /*
     getColor(idx:number){
@@ -95,6 +95,7 @@ export class MonthCalComponent {
           }
         }  
         console.log("107107 takers %o", this.takers)
+        this.isUserTaker()
         this.addDutiesToDays()
         this.gotData = true
     })
@@ -117,18 +118,24 @@ export class MonthCalComponent {
   /** if loggedInUser a physicist who has duties, then she can 'take' duties in a swap */
   isUserTaker(){
    this.myservice.get2loggedInUserKey().subscribe(res=>{
+    console.log("120120 isUserTaker res %o", res)
         let rest = res
         const test = res['userkey']
-        this.checkIfTaker(test)
+    console.log("122122 isUserTaker test %o", test)
+    console.log("123123 this.takers %o", this.takers)
+         this.hasAssignmentsBool = false    
+        for (let i = 0; i < Object.keys(this.takers).length; i++){
+          let key = Object.keys(this.takers)[i]
+          console.log("key %o", key)
+          if (Number(key) == test && test > 0){
+            console.log("found taker %o", key)
+            this.hasAssignmentsBool = true
+            break
+          } 
+        }
       }) 
   }
-  checkIfTaker(test:number){  
-    if (test in this.takers && test > 0)
-        this.hasAssignmentsBool = true
-    else 
-      this.hasAssignmentsBool = false
-    console.log("121121 isUserTaker %o -- %o", test, this.hasAssignmentsBool)
-  }
+
   showExplainTasks(){
     const pdfUrl ="https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/ExplainShiftTasks.pdf" 
     window.open(pdfUrl, '_blank');
@@ -224,12 +231,9 @@ hasThisAssignment(assign: any){         // used by month-cal.component.html to d
         } ) 
       }
     this.isCheckedBool = false
-    this.delay(5000);
-  this.ngOnInit()
+    this.ngOnInit()
   }
-  delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-}
+
 
   isChecked(){
     return false

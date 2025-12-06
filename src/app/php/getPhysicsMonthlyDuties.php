@@ -28,7 +28,7 @@ require_once 'H:\inetpub\lib\LogFuncs.php';
     $i = 0;  
     while( $row[$i] = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
       if (!empty($row[$i]['phys2']) && $row[$i]['phys2'] > 0 ){                     // plug in Phys2 if NOT NULL
-     //    fwrite($fp, "\r\n plug in -- ". $row[$i]['phys2'] ." for ". $row[$i]['userkey']." in idx ".$row[$i]['idx']);
+         $log->logMessage("Found phys2 for duty idx ".print_r($row[$i]['idx'], true)." : phys2 userkey ".print_r($row[$i]['phys2'], true));
          $row[$i]['userkey'] = $row[$i]['phys2'];
          $selStr = "SELECT LastName FROM physicists WHERE UserKey = ".$row[$i]['phys2'];
          $subLastName = getSingle($selStr, 'LastName',$handle);
