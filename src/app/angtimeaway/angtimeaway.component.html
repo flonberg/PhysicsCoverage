@@ -101,8 +101,8 @@
 </table>
 
 </div>
-<div class="centered-div" style="margin-top:2 0px;">
-   
+<div class="centered-div" style="margin-top:20px;">
+   <!-- Box for Entering New Time Away-->
   <div>
     <caption style="width:300px;">Enter a new Time Away</caption>
     <form action="">
@@ -136,9 +136,9 @@
       <button class="raised-button" (click) = 'submit()'>Submit</button>
     </form>
     </div>
-    
+    <!-- Box for Showing/Editing Selected Time Away-->
     <div *ngIf="shownTa">
-      <caption style="width:300px;">Time Away for {{shownTa.LastName}}</caption>
+      <caption style="width:300px;">Time Away for {{shownTa.FirstName}}  {{shownTa.LastName}}</caption>
       <mat-form-field style="width: 150px;">
         <mat-label>Start Date:</mat-label>
         <input matInput [value]="shownTa.startDateYMD" [readonly]="!isUserGoAwayerForThisTA(shownTa.userid)"  (change)="editTa($event, 'startDate', shownTa)">
@@ -156,10 +156,14 @@
           <mat-option value="2">Other</mat-option>
         </mat-select>
       </mat-form-field>
- 
     <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" >
       <mat-label>Reason:</mat-label>
       <input matInput  value ="{{reasons[shownTa.reason]}}" readonly >
+    </mat-form-field>
+    <!--  Coverer-->
+    <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" >
+      <mat-label>Coverer:</mat-label>
+      <input matInput  value ="{{Dosims[shownTa.CoverageA].FirstName + ' ' + Dosims[shownTa.CoverageA].LastName}}" readonly >
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Note</mat-label>

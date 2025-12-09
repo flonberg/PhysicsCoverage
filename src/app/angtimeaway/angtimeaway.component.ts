@@ -190,7 +190,7 @@ isUserApprover(): boolean {
  return false
 } 
 showTa(tA:any){                                             // called when user clicks on a TA to show details
-    let covererFullName = this.myservice.getFullNameFromUserKey(tA.coverageA).subscribe({next: data => {
+    let covererFullName = this.myservice.getFullNameFromUserKey(tA.CoverageA).subscribe({next: data => {
       const resp: any = data;
       tA.covererFullName = resp.fullName ?? ''; 
       this.shownTa = new shownTA(tA)
@@ -212,6 +212,7 @@ selectDates(event: any) {
       ta.FirstName = this.TAs[i].FirstName
       ta.reason = this.TAs[i].reason
       ta.note = this.TAs[i].note
+      ta.CoverageA = this.TAs[i].coverageA
       ta.startDateYMD = this.TAs[i].startDate.date.slice(0,10)
       ta.endDateYMD = this.TAs[i].endDate.date.slice(0,10)
       ta.startDate = this.createDateFromString(this.TAs[i].startDate.date.slice(0,10))
@@ -466,6 +467,9 @@ selectDates(event: any) {
     UserID: string = ''
     LastName: string = ''
     FirstName: string = ''
+    CoverageA: number = 0
+    CovererLastName: string = ''
+    CovererFirstName: string = ''
     startDate: Date = new Date()
     startDateYMD: string = ''
     endDate: Date = new Date()
@@ -504,7 +508,7 @@ selectDates(event: any) {
         }
     }
   }
-  class Dosims{
+class Dosims{
     UserKey: number = 0
     LastName: string = ''
     FirstName: string = ''
@@ -515,18 +519,21 @@ selectDates(event: any) {
       this.FirstName = FirstName
       this.UserID = UserID
     }  
-}
+  }
 class shownTA{
   vidx: number = 0
   userid: number = 0
   UserID: string = ''
   LastName: string = ''
+  FirstName: string = ''
   startDateYMD: string = ''
   endDateYMD: string = ''
   startDate: Date = new Date()
   endDate: Date = new Date()
   reason: number = 0
   note: string = ''
+  CoverageA: number = 0
+  covererFullName: string = ''
   lengthOfTA: number = 0
   daysTillTAstart: number = 0
   numberOfDaysInTA: number = 0
@@ -536,6 +543,7 @@ class shownTA{
     this.vidx = ta.vidx
     this.userid = ta.userid
     this.UserID = ta.UserID
+    this.FirstName = ta.FirstName
     this.LastName = ta.LastName
     this.startDate = ta.startDate
     this.startDateYMD = ta.startDateYMD
@@ -545,7 +553,5 @@ class shownTA{
     this.note = ta.note
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
-  
-
   } 
 }
