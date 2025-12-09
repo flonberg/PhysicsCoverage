@@ -22,13 +22,13 @@ $handle = connectDB_FL();
         $recipients = array('FLONBERG@PARTNERS.ORG');
         $log->logMessage("Not on production server, changing recipient to ". $recipients[0]);  
     }
-    $bccList = array('FLONBERG@PARTNERS.ORG');
+    $bccList = array('FLONBERG@PARTNERS.ORG');  
 //$bccList = array('rjconnolly@partners.org');
 
 $subject = 'Resident Triage Coverer Reminder for '.nextWeekday();			
 $headers = 'From: whiteboard@partners.org'. "\r\n";
 $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
-$headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";
+$headers .= 'Bcc: '.$bccList[0]."\r\n";
 $headers .= 'MIME-Version: 1.0'. "\r\n";
 $headers .= 'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
 $message =  '<html>';
@@ -44,11 +44,11 @@ $message .= '<p class="attention"> Please remember to check the Resident Triage 
 $message .= '</body></html>'; 
 //Send Email
 
-   if (mail('flonberg@mgh.harvard.edu',$subject, $message, $headers)) 
+   if (mail($recipients[0],$subject, $message, $headers)) 
         $log->logMessage("Email successfully sent to ".$recipients[0]);
      else 
-        $log->logMessage("Email sending failed to flonberg@mgh.harvard.edu");
-   
+        $log->logMessage("Email sending failed to ".$recipients[0]);
+
     exit();
 function nextWeekday(){
     $currentDate = new DateTime(); // Get the current date
