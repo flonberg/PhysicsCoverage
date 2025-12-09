@@ -190,9 +190,9 @@ isUserApprover(): boolean {
  return false
 } 
 showTa(tA:any){                                             // called when user clicks on a TA to show details
-    let covererLastName = this.myservice.getLastNameFromUserKey(tA.coverageA).subscribe({next: data => {
+    let covererFullName = this.myservice.getFullNameFromUserKey(tA.coverageA).subscribe({next: data => {
       const resp: any = data;
-      tA.covererLastName = resp.lastName ?? ''; 
+      tA.covererFullName = resp.fullName ?? ''; 
       this.shownTa = new shownTA(tA)
    console.log("190190 Show vac for idx %o", tA)
   }})
@@ -209,6 +209,7 @@ selectDates(event: any) {
       ta.userid = this.TAs[i].userid
       ta.UserID = this.TAs[i].UserID
       ta.LastName = this.TAs[i].LastName
+      ta.FirstName = this.TAs[i].FirstName
       ta.reason = this.TAs[i].reason
       ta.note = this.TAs[i].note
       ta.startDateYMD = this.TAs[i].startDate.date.slice(0,10)
@@ -464,6 +465,7 @@ selectDates(event: any) {
     userid: number = 0
     UserID: string = ''
     LastName: string = ''
+    FirstName: string = ''
     startDate: Date = new Date()
     startDateYMD: string = ''
     endDate: Date = new Date()

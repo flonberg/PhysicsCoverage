@@ -7,18 +7,11 @@ require_once 'H:\inetpub\lib\LogFuncs.php';
    $log->logMessage("Received GET parameters: ". print_r($_GET, true));
 
    $selStr = "SELECT PhysicsMonthlyDuty.idx, PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, 
-   PhysicsMonthlyDuty.userkey, PhysicsMonthlyDuty.phys2, PhysicsMonthlyDuty.phys3,
-   physicists.LastName, physicists.UserKey, physicists.Email
-   FROM PhysicsMonthlyDuty 
-   INNER JOIN physicists ON physicists.UserKey = PhysicsMonthlyDuty.userkey
-   WHERE day LIKE '".$_GET['MonthNum']."%'
-    ORDER BY day, serviceid";
-   $selStr = "SELECT PhysicsMonthlyDuty.idx, PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, 
       PhysicsMonthlyDuty.userkey, PhysicsMonthlyDuty.phys2, PhysicsMonthlyDuty.phys3,
       physicists.LastName, physicists.UserKey, physicists.Email
       FROM PhysicsMonthlyDuty 
       INNER JOIN physicists ON physicists.UserKey = PhysicsMonthlyDuty.userkey
-   WHERE day >= '2025-12-01'
+   WHERE day >= '".getFirstDayOfThisMonth()."'
     ORDER BY day, serviceid";
    $log->logMessage("SQL Query: ". $selStr);
       $stmt = sqlsrv_query( $handle, $selStr);
@@ -40,4 +33,15 @@ require_once 'H:\inetpub\lib\LogFuncs.php';
    $log->logMessage("Fetched Duties: ". print_r($row[0], true));
    $ret = json_encode($row);
    echo $ret;
+   exit();
+   function getFirstDayOfThisMonth(){
+      $today = getdate();
+      $year = $today['year'];
+      $month = $today['mon'];
+      if ($month < 10){
+         $month = "0".$month;
+      }
+      $firstDay = $year."-".$month."-01";
+      return $firstDay;
+   }
 

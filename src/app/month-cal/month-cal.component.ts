@@ -126,9 +126,7 @@ export class MonthCalComponent {
          this.hasAssignmentsBool = false    
         for (let i = 0; i < Object.keys(this.takers).length; i++){
           let key = Object.keys(this.takers)[i]
-          console.log("key %o", key)
           if (Number(key) == test && test > 0){
-            console.log("found taker %o", key)
             this.hasAssignmentsBool = true
             break
           } 
