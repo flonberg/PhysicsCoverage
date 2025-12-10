@@ -189,13 +189,19 @@ isUserApprover(): boolean {
  // return this.config.Approvers.some(approver => approver.userid === userKey);
  return false
 } 
-showTa(tA:any){                                             // called when user clicks on a TA to show details
+showTa(tA:any){   
+  if (tA.CoverageA) {                                           // called when user clicks on a TA to show details
     let covererFullName = this.myservice.getFullNameFromUserKey(tA.CoverageA).subscribe({next: data => {
       const resp: any = data;
       tA.covererFullName = resp.fullName ?? ''; 
       this.shownTa = new shownTA(tA)
-   console.log("190190 Show vac for idx %o", tA)
+
   }})
+} else {
+  tA.covererFullName = ''
+  this.shownTa = new shownTA(tA)
+}
+
 }
 selectDates(event: any) {
     console.log("Selected date: ", event);
