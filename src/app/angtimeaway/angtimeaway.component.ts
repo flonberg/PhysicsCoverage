@@ -59,6 +59,7 @@ export class AngtimeawayComponent implements OnInit {
   reasonValue: string = ''
   covererValue: string = '0'
   Dosims:Dosims[] = []
+  DosismByUserKey:Dosims[] = []
   shownTa: shownTA | null = null  
     reasons: string[] = ['Vacation', 'Meeting', 'Other']
     test:boolean = true
@@ -154,6 +155,7 @@ export class AngtimeawayComponent implements OnInit {
       const dosimData: any = data;  // Assuming 'data' is an array of objects
       for (let i=0; i < dosimData.length; i++){
         this.Dosims[i]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
+        this.DosismByUserKey[dosimData[i].UserKey]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
       }
     },
     error: error => {
@@ -190,6 +192,7 @@ isUserApprover(): boolean {
  return false
 } 
 showTa(tA:any){   
+  /*
   if (tA.CoverageA) {                                           // called when user clicks on a TA to show details
     let covererFullName = this.myservice.getFullNameFromUserKey(tA.CoverageA).subscribe({next: data => {
       const resp: any = data;
@@ -201,6 +204,9 @@ showTa(tA:any){
   tA.covererFullName = ''
   this.shownTa = new shownTA(tA)
 }
+  */
+  this.shownTa = new shownTA(tA)
+  console.log("3434 shownTa %o", this.shownTa)
 
 }
 selectDates(event: any) {
@@ -540,7 +546,7 @@ class shownTA{
   note: string = ''
   CoverageA: number = 0
   covererFullName: string = ''
-  lengthOfTA: number = 0
+  lengthOfTA: number = 0  
   daysTillTAstart: number = 0
   numberOfDaysInTA: number = 0
   daysTillEndOfCalendar: number = 0
@@ -557,6 +563,7 @@ class shownTA{
     this.endDate = ta.endDate
     this.reason = ta.reason
     this.note = ta.note
+    this.CoverageA = ta.CoverageA
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
   } 

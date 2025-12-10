@@ -161,9 +161,9 @@
       <input matInput  value ="{{reasons[shownTa.reason]}}" readonly >
     </mat-form-field>
     <!--  Coverer-->
-    <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" >
+    <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0" >
       <mat-label>Coverer:</mat-label>
-      <input matInput  value ="{{Dosims[shownTa.CoverageA].FirstName + ' ' + Dosims[shownTa.CoverageA].LastName}}" readonly >
+      <input matInput  value ="{{DosismByUserKey[shownTa.CoverageA].FirstName + ' ' + DosismByUserKey[shownTa.CoverageA].LastName}}" readonly >
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Note</mat-label>
