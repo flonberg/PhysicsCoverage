@@ -39,7 +39,7 @@ export class AngtimeawayComponent implements OnInit {
   });
   
     // To get the value:
-  onSubmit() {}
+  // onSubmit() {}
   advance: number = 0;                                                    // number of days in advance to get TAs;
   firstDayOnCalendar: Date = new Date();
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
@@ -66,7 +66,7 @@ export class AngtimeawayComponent implements OnInit {
       isDosimetrist:boolean = false
       isApprover:boolean = false
   showPhrase: string = 'Show Physicists';
-  selectedCoverer:string = 'Clancy'
+
  
 
 
@@ -151,6 +151,7 @@ export class AngtimeawayComponent implements OnInit {
     date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
     return date;
   }
+  selectedDosim:Dosims | null = null
   getDosims(){
     this.myservice.getDosims().subscribe({next: data => {
       const dosimData: any = data;  // Assuming 'data' is an array of objects
@@ -158,11 +159,13 @@ export class AngtimeawayComponent implements OnInit {
         this.Dosims[i]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
         this.DosismByUserKey[dosimData[i].UserKey]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
       }
+       this.selectedDosim = this.Dosims[3]
     },
     error: error => {
       console.error('There was an error!', error);
     }
     });
+   
   }
   submit(){
     const startDate = this.range.value.start.toISOString().slice(0, 10);
