@@ -381,10 +381,12 @@ selectDates(event: any) {
       this.ngOnInit();
     }
     /** Return the proper class for a goAwayer depending on approval status */
-    goAwayerClassFunc(approved:number): string {
+    goAwayerClassFunc(tA:TAclass): string {
       var ret = 'goAwayer'
-      if (this.isDosimetrist && (approved == 0 || approved === null))
+      if (this.isDosimetrist && (tA.approved == 0 || tA.approved === null))
         ret = 'notApproved';
+      else if (this.isDosimetrist && tA.CoverageA > 0)
+        ret = 'hasCoverage';
       else if (!this.isDosimetrist )
         ret =  'goAwayer';
       return ret;

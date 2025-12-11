@@ -9,7 +9,9 @@ $handle = connectDB_FL();
    $dstr = print_r($_GET, true); fwrite($fp, $dstr);
     /** get Coverers  */
   $selStr = "SELECT FirstName, LastName, UserKey,Email from physicians
-    WHERE Rank = 3 Order by LastName";
+    WHERE Rank = 3 
+    OR UserKey IN (314,157)
+    Order by LastName";
    $stmt = sqlsrv_query( $handle, $selStr);
    if( $stmt === false ) 
        { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); } 
@@ -39,6 +41,7 @@ $handle = connectDB_FL();
         $row[$i++]  = $temp;
     }
    $ret['Duties'] = $row;  
+   //$log->logMessage("Returning data: ". print_r($ret, true));
    $ret = json_encode($ret);
    echo $ret;
 
