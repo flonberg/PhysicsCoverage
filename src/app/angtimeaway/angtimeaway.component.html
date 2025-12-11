@@ -33,7 +33,7 @@
     <ng-container *ngIf = "item.myTAs[1]">
       <!-- days between 1st TA and 2nd tA -->
         <td *ngFor="let item2 of [].constructor(item.myTAs[1].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" [class]="goAwayerClassFunc(item.myTAs[1].approved)"
+        <td [attr.colspan]="item.myTAs[1].lengthOfTA"  *ngIf = "item.myTAs[1]" [class]="goAwayerClassFunc(item.myTAs[1])"
         (click)="showTa(item.myTAs[1])"> {{ item.myTAs[1].LastName }} </td>
     </ng-container>
     <!--  If there is NOT second TA put boxes in till end of Calendar-->
@@ -43,7 +43,7 @@
   <!--  If there IS second TA-->
     <ng-container *ngIf = "item.myTAs[2]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[2].daysTillTAstart); let k = index">  </td>
-        <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" [class]="goAwayerClassFunc(item.myTAs[2].approved)"
+        <td [attr.colspan]="item.myTAs[2].lengthOfTA"  *ngIf = "item.myTAs[2]" [class]="goAwayerClassFunc(item.myTAs[2])"
         (click)="showTa(item.myTAs[2])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
     <!--  If there is NOT third TA-->
@@ -53,7 +53,7 @@
     <!--  If there IS third TA-->
    <ng-container *ngIf = "item.myTAs[3]">
         <td *ngFor="let item2 of [].constructor(item.myTAs[3].daysTillTAstart); let k = index"> </td>
-        <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  [class]="goAwayerClassFunc(item.myTAs[3].approved)"
+        <td [attr.colspan]="item.myTAs[3].lengthOfTA"  *ngIf = "item.myTAs[3]"  [class]="goAwayerClassFunc(item.myTAs[3])"
          (click)="showTa(item.myTAs[3])"> {{ item.myTAs[1].LastName }}</td>
     </ng-container>
     <!--  If there is NOT forth TA-->

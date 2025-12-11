@@ -382,6 +382,7 @@ selectDates(event: any) {
     }
     /** Return the proper class for a goAwayer depending on approval status */
     goAwayerClassFunc(tA:TAclass): string {
+  //    console.log("3434 isDosimetrist %o tA.approved %o tA.CoverageA %o", this.isDosimetrist, tA.approved, tA.CoverageA)
       var ret = 'goAwayer'
       if (this.isDosimetrist && (tA.approved == 0 || tA.approved === null))
         ret = 'notApproved';
