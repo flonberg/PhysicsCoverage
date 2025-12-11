@@ -126,7 +126,7 @@
       <mat-form-field>
         <mat-label>Coverer</mat-label>
         <mat-select [(ngModel)]="covererValue" name="coverer">
-          <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.FirstName }} {{ dosim.FirstName }}</mat-option>
+          <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.LastName }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="example-full-width">
@@ -167,17 +167,17 @@
     </mat-form-field>
     <!--  Coverer for user IS GoAwayer-->
      <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
-        <mat-label>Coverer</mat-label>
-        <mat-select [(ngModel)]="covererValue" name="coverer">
+        <mat-label>Coverer - </mat-label>
+        <mat-select [(ngModel)]="selectedCoverer" name="coverer">
           <mat-option  *ngFor = "let dosim of Dosims"
-           value ="{{DosismByUserKey[shownTa.CoverageA].FirstName + ' ' + DosismByUserKey[shownTa.CoverageA].LastName}}"
-           >{{ dosim.FirstName }} {{ dosim.LastName }}</mat-option>
+           [value] ="DosismByUserKey[shownTa.CoverageA].LastName "
+           >{{ dosim.LastName }} </mat-option>
         </mat-select>
       </mat-form-field>
 
     <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
       <mat-label>Coverer:</mat-label>
-      <input matInput  value ="{{DosismByUserKey[shownTa.CoverageA].FirstName + ' ' + DosismByUserKey[shownTa.CoverageA].LastName}}">
+      <input matInput  value ="{{DosismByUserKey[shownTa.CoverageA].LastName}}">
     </mat-form-field>
     
     <mat-form-field class="example-full-width">

@@ -66,6 +66,7 @@ export class AngtimeawayComponent implements OnInit {
       isDosimetrist:boolean = false
       isApprover:boolean = false
   showPhrase: string = 'Show Physicists';
+  selectedCoverer:string = 'Clancy'
  
 
 
@@ -528,11 +529,13 @@ class Dosims{
     LastName: string = ''
     FirstName: string = ''
     UserID: string = ''
+    NameWithInitial: string = ''
     constructor(UserKey: number, LastName: string, FirstName: string, UserID: string){
       this.UserKey = UserKey
       this.LastName = LastName
       this.FirstName = FirstName
       this.UserID = UserID
+      this.NameWithInitial = this.LastName + ',' + this.FirstName.charAt(0)
     }  
   }
 class shownTA{
