@@ -187,6 +187,7 @@
       <mat-label>Note</mat-label>
         <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" readonly (change)="editTa($event, 'note', shownTa)" >
     </mat-form-field>
+    <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('0', 'reasonIdx', shownTa)">Update</button>
     <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
     <button class="raised-button" *ngIf="isApprover"  (click)="editTa('1', 'approved', shownTa)">Approve</button>
  
@@ -194,4 +195,5 @@
     <div >
       <button class="raised-button" style="width:200px;">{{showPhrase}}</button>
     </div>
+ 
     

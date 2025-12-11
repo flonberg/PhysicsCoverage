@@ -113,7 +113,7 @@ export class AngtimeawayComponent implements OnInit {
     this.myservice.getTAs(endDateString, startDateString).subscribe({next: data => {
       const resp: any = data;
       this.TAs = resp.tAs ?? [];
-      if (resp.isDosimetrist == 1){
+      if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
         this.showPhrase = 'Show Physicists ';
       }
@@ -196,19 +196,10 @@ isUserApprover(): boolean {
  return false
 } 
 showTa(tA:any){   
-  /*
+  
   if (tA.CoverageA) {                                           // called when user clicks on a TA to show details
-    let covererFullName = this.myservice.getFullNameFromUserKey(tA.CoverageA).subscribe({next: data => {
-      const resp: any = data;
-      tA.covererFullName = resp.fullName ?? ''; 
-      this.shownTa = new shownTA(tA)
-
-  }})
-} else {
-  tA.covererFullName = ''
-  this.shownTa = new shownTA(tA)
-}
-  */
+    this.selectedDosim = this.DosismByUserKey[tA.CoverageA]
+  }
   this.shownTa = new shownTA(tA)
   console.log("3434 shownTa %o", this.shownTa)
 
