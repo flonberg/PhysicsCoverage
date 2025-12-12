@@ -126,7 +126,7 @@
       <mat-form-field>
         <mat-label>Coverer</mat-label>
         <mat-select [(ngModel)]="selectedDosim" name="coverer">
-          <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.LastName }}</mat-option>
+          <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.WholeName }}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field class="example-full-width">
