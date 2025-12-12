@@ -37,8 +37,12 @@ export class AngtimeawayComponent implements OnInit {
   reason = new FormGroup({
       choice: new FormControl(),
   });
-  
-    // To get the value:
+  coverer = new FormGroup({
+    UserKey: new FormControl(),
+    WholeName: new FormControl()
+  });
+
+  // To get the value:
   // onSubmit() {}
   advance: number = 0;                                                    // number of days in advance to get TAs;
   firstDayOnCalendar: Date = new Date();
@@ -172,16 +176,18 @@ export class AngtimeawayComponent implements OnInit {
     const startDate = this.range.value.start.toISOString().slice(0, 10);
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
-    const coverer = this.covererValue
+    const coverer = this.selectedDosim ;
     var canEnterTA = false
     var loggedInUserKey: number = this.myservice.getLoggedInUserKey();
     var test = !this.isDosimetrist
     if (!this.isDosimetrist && (loggedInUserKey == 0 || loggedInUserKey === null))
       alert("UserKey not set - cannot enter TA")  
-    else if (this.isDosimetrist && this.covererValue == '0' && loggedInUserKey > 0)
+    else if (this.isDosimetrist && this.selectedDosim == null && loggedInUserKey > 0)
       alert("Please select a coverer - cannot enter TA")
     else if (this.myservice.getLoggedInUserKey() > 0){
-      this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
+      // pass numeric coverer UserKey (or 0 if none) to match enterTA signature
+      const covererKey: number = this.selectedDosim && this.selectedDosim.UserKey ? this.selectedDosim.UserKey : 0;
+      this.myservice.enterTA(startDate, endDate, reason, covererKey, this.myservice.loggedInUserKey, this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
       this.range.reset();  
       this.ngOnInit();
