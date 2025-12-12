@@ -45,7 +45,7 @@ export class MyserviceService {
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getFullName.php?userkey="+userkey+"&debug=1";			//  debug 
       return this .HttpClient.get<duty>(url)
     }
-    enterTA(startDateString: string, endDateString: string, reason: string, coverer: string, userkey: number, userLastName: string, isDosimetrist: boolean){
+    enterTA(startDateString: string, endDateString: string, reason: string, coverer: any, userkey: number, userLastName: string, isDosimetrist: boolean){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
       "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&isDosimetrist="+isDosimetrist;      // 
 

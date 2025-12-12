@@ -178,10 +178,10 @@ export class AngtimeawayComponent implements OnInit {
     var test = !this.isDosimetrist
     if (!this.isDosimetrist && (loggedInUserKey == 0 || loggedInUserKey === null))
       alert("UserKey not set - cannot enter TA")  
-    else if (this.isDosimetrist && this.covererValue == '0' && loggedInUserKey > 0)
+    else if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
       alert("Please select a coverer - cannot enter TA")
     else if (this.myservice.getLoggedInUserKey() > 0){
-      this.myservice.enterTA(startDate, endDate, reason, coverer, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
+      this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
       this.range.reset();  
       this.ngOnInit();
