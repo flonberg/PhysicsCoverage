@@ -169,28 +169,22 @@
     <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
       <mat-label>Coverer - </mat-label>
       <mat-select
-        [ngModel]="selectedDosim?.LastName"
-        (ngModelChange)="selectedDosim && (selectedDosim.LastName = $event)"
+        [ngModel]="selectedDosim?.WholeName"
+        (selectionChange)="editTa($event, 'coverer', shownTa)"
         name="coverer">
         <mat-option  *ngFor = "let dosim of Dosims"
-         [value] ="dosim.LastName"
-         >{{ dosim.LastName }} </mat-option>
+         [value] ="dosim.WholeName"
+         >{{ dosim.WholeName }} </mat-option>
       </mat-select>
-    </mat-form-field>
-
-    <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
-      <mat-label>Coverer:</mat-label>
-      <input matInput  value ="{{DosismByUserKey[shownTa.CoverageA].LastName}}">
     </mat-form-field>
     
     <mat-form-field class="example-full-width">
       <mat-label>Note</mat-label>
         <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" readonly (change)="editTa($event, 'note', shownTa)" >
     </mat-form-field>
-    <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('0', 'reasonIdx', shownTa)">Update</button>
     <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
     <button class="raised-button" *ngIf="isApprover"  (click)="editTa('1', 'approved', shownTa)">Approve</button>
- 
+
     </div>
     <div >
       <button class="raised-button" style="width:200px;">{{showPhrase}}</button>

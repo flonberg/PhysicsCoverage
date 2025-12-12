@@ -78,3 +78,7 @@ table {
 .wide {
     width: 250px;
 }
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}

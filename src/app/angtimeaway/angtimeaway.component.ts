@@ -51,6 +51,7 @@ export class AngtimeawayComponent implements OnInit {
   dateShownOnCalendar: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
+  selectedDosim: Dosims | null = null;
   TAs:any = []
   TAclasses: TAclass[] = []
   goAwayersWithTAs: goAwayerWithTAs[] = []
@@ -151,7 +152,7 @@ export class AngtimeawayComponent implements OnInit {
     date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
     return date;
   }
-  selectedDosim:Dosims | null = null
+
   getDosims(){
     this.myservice.getDosims().subscribe({next: data => {
       const dosimData: any = data;  // Assuming 'data' is an array of objects
@@ -185,10 +186,7 @@ export class AngtimeawayComponent implements OnInit {
       this.range.reset();  
       this.ngOnInit();
       }})
-}
-      
-  
-
+  }
 }
 isUserApprover(): boolean {
   const userKey = this.myservice.getLoggedInUserKey();
@@ -524,12 +522,14 @@ class Dosims{
     FirstName: string = ''
     UserID: string = ''
     NameWithInitial: string = ''
+    WholeName: string = ''
     constructor(UserKey: number, LastName: string, FirstName: string, UserID: string){
       this.UserKey = UserKey
       this.LastName = LastName
       this.FirstName = FirstName
       this.UserID = UserID
       this.NameWithInitial = this.LastName + ',' + this.FirstName.charAt(0)
+      this.WholeName = this.FirstName + ' ' + this.LastName
     }  
   }
 class shownTA{
