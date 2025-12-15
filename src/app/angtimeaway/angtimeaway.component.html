@@ -105,7 +105,7 @@
    <!-- Box for Entering New Time Away-->
   <div>
     <caption style="width:300px;">Enter a new Time Away</caption>
-    <form action="" #enterForm="ngForm" (ngSubmit)="submit()">
+    <form action="" #enterForm="ngForm" (ngSubmit)="submit(enterForm)">
       <mat-form-field>
         <mat-label>Date range for Time Away</mat-label>
         <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
@@ -133,7 +133,7 @@
         <mat-label>Note</mat-label>
         <input matInput [(ngModel)]="noteValue" name="note">
       </mat-form-field>
-      <button class="raised-button" (click) = 'submit()'>Submit</button>
+      <button class="raised-button" (click) = 'submit(enterForm)'>Submit</button>
     </form>
     </div>
     <!-- Box for Showing/Editing Selected Time Away-->

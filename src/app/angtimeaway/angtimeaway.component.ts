@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { MyserviceService } from '../myservice.service';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import { NgForm } from '@angular/forms';
 import { start } from 'repl';
 
 @Component({
@@ -170,7 +171,7 @@ export class AngtimeawayComponent implements OnInit {
     });
    
   }
-  submit(){
+  submit(form: NgForm){
     const startDate = this.range.value.start.toISOString().slice(0, 10);
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
@@ -186,6 +187,7 @@ export class AngtimeawayComponent implements OnInit {
       this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
       this.range.reset(); 
+      form.resetForm(); 
       this.ngOnInit();
       }})
   }
