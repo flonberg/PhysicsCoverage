@@ -92,6 +92,7 @@ if( $next_result ) {
       $log->logMessage("6565 Preparing to send email notification for go awayer: ". print_r($goAwayerData, true));
 //Send Email
       $wholeMessage = $message . $message1;
+      /*
       if (mail($approverEmail,$subject, $wholeMessage, $headers)) 
         $log->logMessage("Email successfully sent to ".$goAwayerData['Email']);
      else 
@@ -101,5 +102,5 @@ if( $next_result ) {
         $log->logMessage("Email successfully sent to ".$goAwayerData['Email']);
       else 
         $log->logMessage("Email sending failed to ".$goAwayerData['Email']);
-
+*/
    }

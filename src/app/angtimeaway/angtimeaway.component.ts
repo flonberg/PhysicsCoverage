@@ -57,6 +57,7 @@ export class AngtimeawayComponent implements OnInit {
   goAwayersWithTAs: goAwayerWithTAs[] = []
   selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
+  noteValue: string = ''
   reasonValue: string = ''
   covererValue: string = '0'
   Dosims:Dosims[] = []
@@ -67,6 +68,7 @@ export class AngtimeawayComponent implements OnInit {
       isDosimetrist:boolean = false
       isApprover:boolean = false
   showPhrase: string = 'Show Physicists';
+
 
  
 
@@ -176,14 +178,14 @@ export class AngtimeawayComponent implements OnInit {
     var canEnterTA = false
     var loggedInUserKey: number = this.myservice.getLoggedInUserKey();
     var test = !this.isDosimetrist
-    if (!this.isDosimetrist && (loggedInUserKey == 0 || loggedInUserKey === null))
+    if ((loggedInUserKey == 0 || loggedInUserKey === null))
       alert("UserKey not set - cannot enter TA")  
     else if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
       alert("Please select a coverer - cannot enter TA")
     else if (this.myservice.getLoggedInUserKey() > 0){
       this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
-      this.range.reset();  
+      this.range.reset(); 
       this.ngOnInit();
       }})
   }
