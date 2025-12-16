@@ -45,9 +45,9 @@ export class MyserviceService {
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getFullName.php?userkey="+userkey+"&debug=1";			//  debug 
       return this .HttpClient.get<duty>(url)
     }
-    enterTA(startDateString: string, endDateString: string, reason: string, coverer: any, userkey: number, userLastName: string, isDosimetrist: boolean){
+    enterTA(startDateString: string, endDateString: string, reason: string, coverer: any, userkey: number, userLastName: string,note:string, isDosimetrist: boolean){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
-      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&isDosimetrist="+isDosimetrist;      // 
+      "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey +"&note="+this.sanitizeHtmlDisplay(note)+"&isDosimetrist="+isDosimetrist;      // 
 
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
@@ -71,6 +71,18 @@ export class MyserviceService {
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
+  sanitizeHtmlDisplay(str: string): string {
+  const map: Record<string, string> = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#x27;',
+        '/': '&#x2F;',
+      };
+      const reg = /[&<>"'/]/ig;
+      return str.replace(reg, (match) => map[match]);
+  }
     getForMonth(monthString: string){
       const randomNumber: number = Math.random()
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsMonthlyDuties.php?MonthNum="+monthString+"&random="+randomNumber;			// 

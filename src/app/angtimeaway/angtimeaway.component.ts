@@ -163,7 +163,7 @@ export class AngtimeawayComponent implements OnInit {
         this.Dosims[i]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
         this.DosismByUserKey[dosimData[i].UserKey]= new Dosims(dosimData[i].UserKey, dosimData[i].LastName, dosimData[i].FirstName, dosimData[i].UserID)
       }
-       this.selectedDosim = this.Dosims[3]
+     //  this.selectedDosim = this.Dosims[3]
     },
     error: error => {
       console.error('There was an error!', error);
@@ -176,6 +176,7 @@ export class AngtimeawayComponent implements OnInit {
     const endDate = this.range.value.end.toISOString().slice(0, 10);
     const reason = this.reasonValue;
     const coverer = this.covererValue
+    const note = this.noteValue
     var canEnterTA = false
     var loggedInUserKey: number = this.myservice.getLoggedInUserKey();
     var test = !this.isDosimetrist
@@ -184,7 +185,8 @@ export class AngtimeawayComponent implements OnInit {
     else if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
       alert("Please select a coverer - cannot enter TA")
     else if (this.myservice.getLoggedInUserKey() > 0){
-      this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
+      this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,note,
+        this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
       this.range.reset(); 
       form.resetForm(); 
@@ -364,6 +366,9 @@ selectDates(event: any) {
       else
         return ' '
       }
+     hideForm(){
+      this.shownTa = null
+     } 
     editTa(event:any, whatIs:string, ta:shownTA){
       let changeValue:string | number = ''
       if (event.target)
@@ -375,7 +380,9 @@ selectDates(event: any) {
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
         console.log("3434 editTA url %o", data)
       }})
+ 
       this.ngOnInit();
+      this.shownTa = null
     }
     /** Return the proper class for a goAwayer depending on approval status */
     goAwayerClassFunc(tA:TAclass): string {
