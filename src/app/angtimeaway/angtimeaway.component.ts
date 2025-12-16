@@ -77,6 +77,7 @@ export class AngtimeawayComponent implements OnInit {
   constructor(private myservice: MyserviceService) {
   }
   ngOnInit(): void {
+    this.shownTa = null
     let today = new Date();
     today.setHours(0, 0, 0, 0);
     this.lastDateOnCalendar = new Date(today.setDate(today.getDate() + this.numberOfDaysToShow ));
@@ -185,8 +186,8 @@ export class AngtimeawayComponent implements OnInit {
     else if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
       alert("Please select a coverer - cannot enter TA")
     else if (this.myservice.getLoggedInUserKey() > 0){
-      this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,note,
-        this.myservice.getUserLastName(), this.isDosimetrist).subscribe({next: data => {
+      this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,
+        this.myservice.getUserLastName(),note, this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
       this.range.reset(); 
       form.resetForm(); 
@@ -380,9 +381,8 @@ selectDates(event: any) {
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
         console.log("3434 editTA url %o", data)
       }})
- 
       this.ngOnInit();
-      this.shownTa = null
+   //   this.shownTa = null
     }
     /** Return the proper class for a goAwayer depending on approval status */
     goAwayerClassFunc(tA:TAclass): string {

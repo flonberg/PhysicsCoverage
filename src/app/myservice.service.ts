@@ -48,10 +48,9 @@ export class MyserviceService {
     enterTA(startDateString: string, endDateString: string, reason: string, coverer: any, userkey: number, userLastName: string,note:string, isDosimetrist: boolean){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
       "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey +"&note="+this.sanitizeHtmlDisplay(note)+"&isDosimetrist="+isDosimetrist;      // 
-
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
-            "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&isDosimetrist="+isDosimetrist;  
+            "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&note="+this.sanitizeHtmlDisplay(note)+ "&isDosimetrist="+isDosimetrist;  
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
