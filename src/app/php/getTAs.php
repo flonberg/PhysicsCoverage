@@ -26,9 +26,10 @@ $handle = connectDB_FL();
     $i = 0;  
     $isDosimetrist = in_array($_GET['loggedInUserKey'], $dosimetrist);
     while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
-      if ($isDosimetrist && in_array($temp['userid'], $dosimetrist)) 
+      if ($isDosimetrist && in_array($temp['userid'], $dosimetrist)) {   // if user is dosimetrist, show only dosimetrists
           $row[$i++]  = $temp;     
-      else  if (!$isDosimetrist && !in_array($temp['userid'], $dosimetrist)) 
+      }
+      else  if (!$isDosimetrist && !in_array($temp['userid'], $dosimetrist)) // !mm
          $row[$i++]  = $temp;
    }
    $ret['tAs'] = $row;
