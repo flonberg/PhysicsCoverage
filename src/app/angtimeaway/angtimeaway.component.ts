@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, DateAdapter, MatOption } from '@angular/material/core';
@@ -8,7 +8,16 @@ import { MyserviceService } from '../myservice.service';
 import { MatSelectModule, MatSelect } from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { NgForm } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 import { start } from 'repl';
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-angtimeaway',
@@ -29,7 +38,7 @@ import { start } from 'repl';
   providers: [MatDatepickerModule, MatNativeDateModule]
 })
 export class AngtimeawayComponent implements OnInit {
-
+  readonly dialog = inject(MatDialog);
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
@@ -86,6 +95,15 @@ export class AngtimeawayComponent implements OnInit {
     this.getTAs();
     this.getFromAssets();
   }
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DialogAnimationsExampleDialog, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
+
+
   getFromAssets(){
     this.myservice.getFromAssets().subscribe((data: any) => {
       const Approvers: any = data.Approvers.Approver
@@ -578,4 +596,15 @@ class shownTA{
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
   } 
+}
+
+@Component({
+  selector: 'dialog-animations-example-dialog',
+  standalone: true,
+  templateUrl: 'dialog-animations-example-dialog.html',
+  imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogAnimationsExampleDialog {
+  readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
 }
