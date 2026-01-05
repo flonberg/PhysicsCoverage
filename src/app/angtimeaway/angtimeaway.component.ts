@@ -138,7 +138,7 @@ export class AngtimeawayComponent implements OnInit {
       this.TAs = resp.tAs ?? [];
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
-        this.showPhrase = 'Show Physicists ';
+        this.showPhrase = 'Show Physicists '; 
       }
       else {
         this.isDosimetrist = false;
@@ -201,8 +201,10 @@ export class AngtimeawayComponent implements OnInit {
     var test = !this.isDosimetrist
     if ((loggedInUserKey == 0 || loggedInUserKey === null))
       alert("UserKey not set - cannot enter TA")  
-    else if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
-      alert("Please select a coverer - cannot enter TA")
+    else if (this.isDosimetrist){
+      if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
+        alert("Please select a coverer - cannot enter TA")
+    }
     else if (this.myservice.getLoggedInUserKey() > 0){
       this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,
         this.myservice.getUserLastName(),note, this.isDosimetrist).subscribe({next: data => {
