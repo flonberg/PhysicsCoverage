@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
             else {
               this.id = this.myservice.getUserId() 
             }
-          if (this.id == 'napolitano'){
+          if (this.myservice.isDosimetrist){
             console.log("In ngOnInit navigating to Angtimeaway with id %o", this.id)                                                                
              this.router.navigate(['/Angtimeaway', this.id]);  
             }

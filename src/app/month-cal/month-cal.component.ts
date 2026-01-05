@@ -33,6 +33,8 @@ export class MonthCalComponent {
   dayBucket:any[] = []
   numAssignments:number = 0
   gotData: boolean = false
+  dosimGotData: boolean = false
+  serviceGotData: boolean = false
   takers:number[] = []                              // physicists who have duties and can therefore swap
   isCheckedBool: boolean = false
   legendColors: Record<number, string> = {
@@ -59,6 +61,7 @@ export class MonthCalComponent {
    ngOnInit() {
     this.getDuties()
     this.getDutyNames()
+    this.dosimGotData = this.myservice.getGotData()
    // this.isUserTaker()
     }
     /*

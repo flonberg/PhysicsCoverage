@@ -13,6 +13,8 @@ export class MyserviceService {
   userkey: any = 0
   userLastName:string=''
   loggedInUserKey: number = 0
+  isDosimetrist: boolean = false
+  gotData: boolean = false
   constructor(private HttpClient:HttpClient) { }
     setUserId(id: string) {
       this.userid = id;
@@ -120,8 +122,13 @@ export class MyserviceService {
             const test = res
             this.loggedInUserKey = res['userkey']
             this.userLastName = res['lastName']
-          console.log("595959  userkey %o  --- %o", this.loggedInUserKey, this.userLastName)  
+            this.isDosimetrist = res['isDosimetrist']
+            this.gotData = true
+          console.log("595959  userkey %o  --- %o --- %o", this.loggedInUserKey, this.userLastName, this.isDosimetrist)  
         })
+    }
+    getGotData(): boolean {
+      return this.gotData;
     }
 
     get2loggedInUserKey(){
