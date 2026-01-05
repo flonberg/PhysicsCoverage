@@ -66,10 +66,10 @@ if( $next_result ) {
    function sendEmailtoBrianAndCoverer($goAwayerData, $covererData, $lastInsertedIdx){
       global $log;
       $approverEmail = 'bnapolitano@partners.org';
-      $approverEmail = "flonberg@mgh.harvard.edu";
-      $goAwayer['Email'] = "flonberg@mgh.harvard.edu";
+      $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
+      $goAwayer['Email'] = "flonberg@mgh.harvard.edu";                     // change to go awayer email when ready
       $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=approved&newValue=1&debug=1";
-      $link2 = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=coverageA&newValue=".$covererData['UserKey']."&debug=1";
+      $link2 = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=allAccepted&newValue=1&debug=1";
          $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ." needs approval";			
          $headers = 'From: whiteboard@partners.org'. "\r\n";
          $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
@@ -92,15 +92,14 @@ if( $next_result ) {
       $log->logMessage("6565 Preparing to send email notification for go awayer: ". print_r($goAwayerData, true));
 //Send Email
       $wholeMessage = $message . $message1;
-      /*
-      if (mail($approverEmail,$subject, $wholeMessage, $headers)) 
-        $log->logMessage("Email successfully sent to ".$goAwayerData['Email']);
+   
+   if (mail($approverEmail,$subject, $wholeMessage, $headers)) 
+        $log->logMessage("Email successfully sent to ".$approverEmail);
      else 
-        $log->logMessage("Email sending failed to ".$goAwayerData['Email']);
+        $log->logMessage("Email sending failed to ".$approverEmail);
       $wholeMessage = $message . $message2;
-      if (mail($goAwayerData['Email'],$subject, $wholeMessage, $headers)) 
-        $log->logMessage("Email successfully sent to ".$goAwayerData['Email']);
+   if (mail($covererData['Email'],$subject, $wholeMessage, $headers)) 
+        $log->logMessage("Email successfully sent to ".$covererData['Email']);
       else 
-        $log->logMessage("Email sending failed to ".$goAwayerData['Email']);
-*/
+        $log->logMessage("Email sending failed to ".$covererData['Email']);
    }

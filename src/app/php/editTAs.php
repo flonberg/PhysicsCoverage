@@ -12,3 +12,9 @@ $handle = connectDB_FL();
     }
    $updateSts = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];   
    $log->logSql($updateSts);
+   if (strpos($_GET['newValueName'],'approved') !== false){
+      echo "<br> Time Away Approved: <br>";
+   }
+   if (strpos($_GET['newValueName'],'allAccepted') !== false){
+      echo "<br> Coverage Accepted <br>";
+   }

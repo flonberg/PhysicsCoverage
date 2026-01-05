@@ -540,7 +540,7 @@ class Dosims{
       this.FirstName = FirstName
       this.UserID = UserID
       this.NameWithInitial = this.LastName + ',' + this.FirstName.charAt(0)
-      this.WholeName = this.FirstName + ' ' + this.LastName
+      this.WholeName = this.LastName + ', ' + this.FirstName
     }  
   }
 class shownTA{
