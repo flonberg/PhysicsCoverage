@@ -239,6 +239,7 @@ selectDates(event: any) {
       ta.endDate = this.createDateFromString(this.TAs[i].endDate.date.slice(0,10))
       ta.lengthOfTA = this.getNumberOfDaysInTA(new Date(this.TAs[i].startDate.date), new Date(this.TAs[i].endDate.date))
       ta.approved = this.TAs[i].approved
+      ta.allAccepted = this.TAs[i].allAccepted
       this.TAclasses.push(ta)
     }
     console.log("3434 TAclasses %o", this.TAclasses)
@@ -398,7 +399,9 @@ selectDates(event: any) {
       var ret = 'goAwayer'
       if (this.isDosimetrist && (tA.approved == 0 || tA.approved === null))
         ret = 'notApproved';
-      else if (this.isDosimetrist && tA.CoverageA > 0)
+      else if (this.isDosimetrist && tA.CoverageA ===null)
+        ret = 'noCoverage';
+      else if (this.isDosimetrist && tA.CoverageA > 0 && tA.allAccepted == 1)
         ret = 'hasCoverage';
       else if (!this.isDosimetrist )
         ret =  'goAwayer';
@@ -509,6 +512,7 @@ selectDates(event: any) {
     daysTillEndOfCalendar: number = 0
     lastDateOnCalendar: Date = new Date()
     approved: number = 0
+    allAccepted: number = 0
   
     constructor(lastDateOnCalendar: Date) {
 

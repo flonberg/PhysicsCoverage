@@ -19,6 +19,9 @@ td.goAwayer {
 td.notApproved {
     background-color: white ;
 }
+td.noCoverage {
+    background-color: rgb(238, 156, 156) ;
+}
 td.weekend {
     background-color: yellow ;
 }
