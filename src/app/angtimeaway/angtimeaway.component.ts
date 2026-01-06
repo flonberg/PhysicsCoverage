@@ -10,13 +10,7 @@ import {MatInputModule} from '@angular/material/input';
 import { NgForm } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { start } from 'repl';
-import {
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
+import {MatDialog,MatDialogActions,MatDialogClose,MatDialogContent,MatDialogRef, MatDialogTitle,
 } from '@angular/material/dialog';
 
 @Component({
@@ -24,48 +18,36 @@ import {
   templateUrl: './angtimeaway.component.html',
   styleUrls: ['./angtimeaway.component.css'],
   standalone: true,
-  imports: [
-    CommonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatOption,
-    MatSelectModule,
-    MatInputModule
+  imports: [CommonModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule,
+    ReactiveFormsModule, FormsModule, MatOption, MatSelectModule, MatInputModule
 ],
   providers: [MatDatepickerModule, MatNativeDateModule]
 })
 export class AngtimeawayComponent implements OnInit {
-  readonly dialog = inject(MatDialog);
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-     mySelectControl: new FormControl('option2')
-  });
-  reason = new FormGroup({
+    readonly dialog = inject(MatDialog);
+    range = new FormGroup({
+      start: new FormControl(),
+      end: new FormControl(),
+    });
+    reason = new FormGroup({
       choice: new FormControl(),
-  });
-  
-    // To get the value:
-  // onSubmit() {}
-  advance: number = 0;                                                    // number of days in advance to get TAs;
+    });
+
+  advance: number = 0;                                                      // number of months advanced from current month;
   firstDayOnCalendar: Date = new Date();
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
   remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
   today: Date = new Date();
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
-
   daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
   dateShownOnCalendar: dateClass[] = [];
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
-  selectedDosim: Dosims | null = null;
-  TAs:any = []
-  TAclasses: TAclass[] = []
-  goAwayersWithTAs: goAwayerWithTAs[] = []
-  selectedDate: Date | null = null;
+  selectedDosim: Dosims | null = null;                                      // Dosim selected as coverer
+  TAs:any = []                                                              // raw TA data from service
+  TAclasses: TAclass[] = []                                                 // TAs as TAclass
+  goAwayersWithTAs: goAwayerWithTAs[] = []                                  // list of goAwayers with their TAs  
+  //selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
   noteValue: string = ''
   reasonValue: string = ''
@@ -125,7 +107,7 @@ export class AngtimeawayComponent implements OnInit {
     let startDateString = today.toISOString().slice(0,10);
     if (this.advance > 0){
       this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
-            if (this.advance == 0)
+      if (this.advance == 0)
         this.firstDayOnCalendar = new Date();
       startDateString = this.firstDayOnCalendar.toISOString().slice(0,10);
       let endDateDate = this.firstDateOfMonthAdvancedByN(this.advance)
@@ -198,14 +180,20 @@ export class AngtimeawayComponent implements OnInit {
     const note = this.noteValue
     var canEnterTA = false
     var loggedInUserKey: number = this.myservice.getLoggedInUserKey();
-    var test = !this.isDosimetrist
-    if ((loggedInUserKey == 0 || loggedInUserKey === null))
+    var test = this.isDosimetrist
+    var test2 = (loggedInUserKey == 0 || loggedInUserKey === null)
+    var test3 = (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
+    if ((test2)){
       alert("UserKey not set - cannot enter TA")  
-    else if (this.isDosimetrist){
-      if (this.selectedDosim == null || this.selectedDosim.UserKey == 0)
-        alert("Please select a coverer - cannot enter TA")
+      return
     }
-    else if (this.myservice.getLoggedInUserKey() > 0){
+    if (this.isDosimetrist){
+      if (this.selectedDosim == null || this.selectedDosim.UserKey == 0){
+        alert("Please select a coverer - cannot enter TA")
+        return
+      }
+    }
+    if (this.myservice.getLoggedInUserKey() > 0){
       this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,
         this.myservice.getUserLastName(),note, this.isDosimetrist).subscribe({next: data => {
         console.log("3434 enterTA data %o", data)
