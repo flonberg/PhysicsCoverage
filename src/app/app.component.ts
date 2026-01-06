@@ -31,10 +31,11 @@ export class AppComponent implements OnInit {
             else {
               this.id = this.myservice.getUserId() 
             }
-          if (this.myservice.isDosimetrist){
+       /*   if (this.myservice.isDosimetrist){
             console.log("In ngOnInit navigating to Angtimeaway with id %o", this.id)                                                                
              this.router.navigate(['/Angtimeaway', this.id]);  
             }
+            */
           this.myservice.getFromAssets().subscribe(data => {
             this.test = data;
             console.log("4040 test from assets %o", this.test);     
