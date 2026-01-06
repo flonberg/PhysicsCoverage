@@ -49,6 +49,7 @@ export class AngtimeawayComponent implements OnInit {
   goAwayersWithTAs: goAwayerWithTAs[] = []                                  // list of goAwayers with their TAs  
   //selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
+      heading: string = 'Dosimetrist Time Away'
   noteValue: string = ''
   reasonValue: string = ''
   covererValue: string = '0'
@@ -60,10 +61,7 @@ export class AngtimeawayComponent implements OnInit {
       isDosimetrist:boolean = false
       isApprover:boolean = false
   showPhrase: string = 'Show Physicists';
-
-
- 
-
+  showWhich:number = 0;
 
   constructor(private myservice: MyserviceService) {
   }
@@ -77,15 +75,13 @@ export class AngtimeawayComponent implements OnInit {
     this.getTAs();
     this.getFromAssets();
   }
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(DialogAnimationsExampleDialog, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
+    showOther(){  
+      if (this.myservice.isDosimetrist)       // if logged in user is dosimetrist
+        this.showWhich = 1;                     // show physicists
+    this.showWhich = 1 - this.showWhich;
+    console.log("9090 showWhich %o", this.showWhich);
+    this.ngOnInit();
   }
-
-
   getFromAssets(){
     this.myservice.getFromAssets().subscribe((data: any) => {
       const Approvers: any = data.Approvers.Approver
@@ -121,9 +117,11 @@ export class AngtimeawayComponent implements OnInit {
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
         this.showPhrase = 'Show Physicists '; 
+        this.heading = 'Dosimetrist Time Away'
       }
       else {
         this.isDosimetrist = false;
+        this.heading = 'Physicist Time Away'
         this.showPhrase = 'Show Dosimetrists ';
       }
       console.log("7575 TAs %o", this.TAs)
@@ -407,6 +405,13 @@ selectDates(event: any) {
         ret =  'goAwayer';
       return ret;
     }
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(DialogAnimationsExampleDialog, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+  }
   }
   class dateClass {
     justdateL:string=''
@@ -502,6 +507,7 @@ selectDates(event: any) {
     CovererFirstName: string = ''
     startDate: Date = new Date()
     startDateYMD: string = ''
+
     endDate: Date = new Date()
     endDateYMD: string = ''
     reason: number = 0
