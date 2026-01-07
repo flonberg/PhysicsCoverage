@@ -77,8 +77,9 @@ export class AngtimeawayComponent implements OnInit {
   }
     showOther(){  
       if (this.myservice.isDosimetrist)       // if logged in user is dosimetrist
-        this.showWhich = 1;                     // show physicists
-    this.showWhich = 1 - this.showWhich;
+        this.showWhich = 2;                     // show physicists
+      else
+        this.showWhich = 1;                     // show dosimetrists
     console.log("9090 showWhich %o", this.showWhich);
     this.ngOnInit();
   }
@@ -111,19 +112,15 @@ export class AngtimeawayComponent implements OnInit {
       endDateString = endDateDate.toISOString().slice(0,10);
     } 
 
-    this.myservice.getTAs(endDateString, startDateString).subscribe({next: data => {
+    this.myservice.getTAs(endDateString, startDateString, this.showWhich).subscribe({next: data => {
       const resp: any = data;
       this.TAs = resp.tAs ?? [];
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
-        this.showPhrase = 'Show Physicists '; 
-        this.showWhich = 1;                     // '1' means show Dosimetrists
         this.heading = 'Dosimetrist Time Away'
       }
       else {
         this.isDosimetrist = false;
-        this.heading = 'Physicist Time Away'
-        this.showWhich = 2;                     // '2' means show Physicists
         this.showPhrase = 'Show Dosimetrists ';
       }
       console.log("7575 TAs %o", this.TAs)
