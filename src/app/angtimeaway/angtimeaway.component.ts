@@ -76,12 +76,17 @@ export class AngtimeawayComponent implements OnInit {
     this.getFromAssets();
   }
     showOther(){  
-      if (this.myservice.isDosimetrist)       // if logged in user is dosimetrist
+      if (this.showWhich === 1 || this.showWhich === 0) {      // if logged in user is dosimetrist
         this.showWhich = 2;                     // show physicists
-      else
+        this.ngOnInit();
+             console.log("9090 showWhich %o", this.showWhich);
+        return
+      }
+      if (this.showWhich === 2){
         this.showWhich = 1;                     // show dosimetrists
-    console.log("9090 showWhich %o", this.showWhich);
-    this.ngOnInit();
+        console.log("9090 showWhich %o", this.showWhich);
+        this.ngOnInit();
+      }
   }
   getFromAssets(){
     this.myservice.getFromAssets().subscribe((data: any) => {
