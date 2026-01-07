@@ -117,11 +117,13 @@ export class AngtimeawayComponent implements OnInit {
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
         this.showPhrase = 'Show Physicists '; 
+        this.showWhich = 1;                     // '1' means show Dosimetrists
         this.heading = 'Dosimetrist Time Away'
       }
       else {
         this.isDosimetrist = false;
         this.heading = 'Physicist Time Away'
+        this.showWhich = 2;                     // '2' means show Physicists
         this.showPhrase = 'Show Dosimetrists ';
       }
       console.log("7575 TAs %o", this.TAs)
