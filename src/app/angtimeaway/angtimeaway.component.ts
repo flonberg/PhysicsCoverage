@@ -76,15 +76,15 @@ export class AngtimeawayComponent implements OnInit {
     this.getFromAssets();
   }
     showOther(){  
-      if (this.showWhich === 1 || this.showWhich === 0) {      // if logged in user is dosimetrist
+      if (this.showWhich == 1 || this.showWhich == 0) {      // if logged in user is dosimetrist
         this.showWhich = 2;                     // show physicists
         this.ngOnInit();
-             console.log("9090 showWhich %o", this.showWhich);
+             console.log("8282 showWhich %o", this.showWhich);
         return
       }
-      if (this.showWhich === 2){
+      if (this.showWhich == 2){
         this.showWhich = 1;                     // show dosimetrists
-        console.log("9090 showWhich %o", this.showWhich);
+        console.log("8787 showWhich %o", this.showWhich);
         this.ngOnInit();
       }
   }
@@ -122,11 +122,17 @@ export class AngtimeawayComponent implements OnInit {
       this.TAs = resp.tAs ?? [];
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
+        if (this.showWhich == 0)                            // first time loading page 
+          this.showWhich = 1;                                 // show dosimetrists
         this.heading = 'Dosimetrist Time Away'
       }
       else {
         this.isDosimetrist = false;
+        if (this.showWhich == 0)                            // first time loading page 
+          this.showWhich = 2;                                 // show dosimetrists
         this.showPhrase = 'Show Dosimetrists ';
+            //    this.showWhich = 2;                                 // show physicists
+        this.heading = 'Physicist Time Away'
       }
       console.log("7575 TAs %o", this.TAs)
       this.makeTAsIntoTAclasses()
