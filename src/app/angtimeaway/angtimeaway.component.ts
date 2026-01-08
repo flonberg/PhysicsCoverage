@@ -119,6 +119,7 @@ export class AngtimeawayComponent implements OnInit {
 
     this.myservice.getTAs(endDateString, startDateString, this.showWhich).subscribe({next: data => {
       const resp: any = data;
+      console.log("1212 getTAs resp %o", resp)
       this.TAs = resp.tAs ?? [];
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
         this.isDosimetrist = true;
@@ -134,6 +135,7 @@ export class AngtimeawayComponent implements OnInit {
             //    this.showWhich = 2;                                 // show physicists
         this.heading = 'Physicist Time Away'
       }
+      console.log("137137 showWhich %o isDosimetrist %o", this.showWhich, this.isDosimetrist)
       console.log("7575 TAs %o", this.TAs)
       this.makeTAsIntoTAclasses()
       this.makeGoAwayersList()
@@ -336,7 +338,6 @@ selectDates(event: any) {
       let dc = new dateClass(jsk);
       this.dateShownOnCalendar.push(dc);
     }
-    console.log("173173 %o", this.dateShownOnCalendar);
   }
   numberOfRemainingDaysInMonth(): number {
     if (this.advance > 0){                          // lines 264-267 written by CoPilot
@@ -405,12 +406,14 @@ selectDates(event: any) {
     goAwayerClassFunc(tA:TAclass): string {
   //    console.log("3434 isDosimetrist %o tA.approved %o tA.CoverageA %o", this.isDosimetrist, tA.approved, tA.CoverageA)
       var ret = 'goAwayer'
-      if (this.isDosimetrist && (tA.approved == 0 || tA.approved === null))
-        ret = 'notApproved';
-      else if (this.isDosimetrist && tA.CoverageA ===null)
-        ret = 'noCoverage';
-      else if (this.isDosimetrist && tA.CoverageA > 0 && tA.allAccepted == 1)
-        ret = 'hasCoverage';
+      if (this.showWhich == 1 ){
+          if ((tA.approved == 0 || tA.approved === null))
+            ret = 'notApproved';
+          else if ( tA.CoverageA ===null)
+            ret = 'noCoverage';
+          else if (tA.CoverageA > 0 && tA.allAccepted == 1)
+            ret = 'hasCoverage';
+        }
       else if (!this.isDosimetrist )
         ret =  'goAwayer';
       return ret;

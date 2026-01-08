@@ -117,14 +117,13 @@ export class MyserviceService {
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//   
-      console.log("585858  getLoggedInUserKey url %o", url)  
         this.HttpClient.get<any>(url).subscribe(res=>{
             const test = res
             this.loggedInUserKey = res['userkey']
             this.userLastName = res['lastName']
             this.isDosimetrist = res['isDosimetrist']
             this.gotData = true
-          console.log("595959  userkey %o  --- %o --- %o", this.loggedInUserKey, this.userLastName, this.isDosimetrist)  
+          console.log("595959  userkey %o  ---LastName %o ---isDosimetrist %o", this.loggedInUserKey, this.userLastName, this.isDosimetrist)  
         })
     }
     getGotData(): boolean {
@@ -135,7 +134,6 @@ export class MyserviceService {
          let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
       if (isDevMode())
         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getLoggedInUserKey.php?userid="+this.userid+"&debug=1";			//   
-      console.log("585858  getLoggedInUserKey url %o", url)  
       return this .HttpClient.get<duty>(url)
     } 
     getMyduties(userkey:number){
@@ -157,14 +155,12 @@ export class MyserviceService {
                 
       if (isDevMode())
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString + "&loggedInUserKey=" + this.loggedInUserKey + "&which=" + which;
-       console.log("110110 getTAs url %o", url)
         return this .HttpClient.get<duty>(url)
     }
     getDosims(){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getDosim.php"
       if (isDevMode())
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getDosim.php?debug=1";
-       console.log("222 getDosims url %o", url)
         return this .HttpClient.get<duty>(url)
     }
     getTriageCoverers(startDate: string, endDate: string, loggedInUserId: string){
