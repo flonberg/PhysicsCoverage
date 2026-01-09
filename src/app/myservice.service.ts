@@ -152,10 +152,12 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }  
     getTAs(endDateString: string, startDateString: string, which: number, loggedInUserid:string){
-      if (loggedInUserid !== undefined && loggedInUserid !="0" )
-          this.loggedInUserid = loggedInUserid
-      console.log("157157 this.loggedInUserid %o", this.loggedInUserid)
-      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString + "&loggedInUserId=" + loggedInUserid + "&which=" + which;  //       
+      if (loggedInUserid !== undefined && loggedInUserid !="0" ) {                 // if there is valid loggedInUserid
+          this.loggedInUserid = loggedInUserid                                    // store it for use when user tabs between pages
+          console.log("157157 set loggedInUserid %o", this.loggedInUserid)
+      }
+   
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString + "&loggedInUserId=" + this.loggedInUserid + "&which=" + which;  //       
       if (isDevMode())
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString + "&loggedInUserId=" + this.loggedInUserid + "&which=" + which;
         console.log("333 getTAs url %o", url)
