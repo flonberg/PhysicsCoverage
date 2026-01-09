@@ -21,5 +21,6 @@ $handle = connectDB_FL();
    $ret['userkey'] = $userkey;
    $ret['lastName'] = $lastName;
    $ret['isDosimetrist'] = $isDosimetrist;
+   $log->logMessage("Returning parameters: ". print_r($ret, true));
    echo json_encode($ret);
  

@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
   title = 'PhysicsCoverage';
   id: string = ''
   test = ''
+  gotData: boolean = false
   loggedInUserKey: number = 0
     ngOnInit() {
       this.route.queryParams.subscribe(params => {
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
             this.test = data;
             console.log("4040 test from assets %o", this.test);     
           });
+          this.gotData = true
       });
     }
 

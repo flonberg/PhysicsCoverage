@@ -25,7 +25,10 @@ $handle = connectDB_FL();
        { $dstr = ( print_r( sqlsrv_errors(), true)); fwrite($fp, "\r\n errors: \r\n ".$dstr); } 
     $row = Array();
     $i = 0;  
-    $isDosimetrist = in_array($_GET['loggedInUserKey'], $dosimetrist);
+    $loggedInUserKey = getSingle("SELECT UserKey from users where UserID = '".$_GET['loggedInUserId']."'", "UserKey", $handle);
+    $log->logMessage("loggedInUserKey: ". print_r($loggedInUserKey, true)); 
+    $isDosimetrist = in_array( $loggedInUserKey, $dosimetrist);
+    ob_start(); var_dump($isDosimetrist);$data = ob_get_clean();fwrite($fp, "\r\n ". $data); $log->logMessage("isDosimetrist: ". print_r($data, true));   
     while( $temp = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC) ) {
         if (strpos($temp['LastName'], 'Liu') !== false)                             // Add OR for other common last names
             $temp['LastName'] = $temp['LastName'].", ".$temp['FirstName'];
@@ -49,7 +52,9 @@ $handle = connectDB_FL();
        $ret['isDosimetrist'] = 1;
    else
        $ret['isDosimetrist'] = 0;
+     $log->logMessage("Returning parameters: ". print_r($ret['isDosimetrist'], true));
    $ret = json_encode($ret);
+  
    echo $ret;
    exit();
    

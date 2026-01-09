@@ -9,9 +9,11 @@ import { MatSelectModule, MatSelect } from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { NgForm } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import { RouterOutlet, RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { start } from 'repl';
 import {MatDialog,MatDialogActions,MatDialogClose,MatDialogContent,MatDialogRef, MatDialogTitle,
 } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-angtimeaway',
@@ -52,6 +54,7 @@ export class AngtimeawayComponent implements OnInit {
       heading: string = 'Dosimetrist Time Away'
   noteValue: string = ''
   reasonValue: string = ''
+  loggedInUserId: string = ''
   covererValue: string = '0'
   Dosims:Dosims[] = []
   DosismByUserKey:Dosims[] = []
@@ -63,7 +66,7 @@ export class AngtimeawayComponent implements OnInit {
   showPhrase: string = 'Show Physicists';
   showWhich:number = 0;
 
-  constructor(private myservice: MyserviceService) {
+  constructor(private myservice: MyserviceService,private route: ActivatedRoute,private router: Router,) {
   }
   ngOnInit(): void {
     this.shownTa = null
@@ -72,8 +75,14 @@ export class AngtimeawayComponent implements OnInit {
     this.lastDateOnCalendar = new Date(today.setDate(today.getDate() + this.numberOfDaysToShow ));
     this.makeAllDatesInNext28Days();
     this.getDosims();
-    this.getTAs();
-    this.getFromAssets();
+      this.route.queryParams.subscribe(params => {
+            this.loggedInUserId = params['userid']; // Access a specific query parameter
+            console.log("2525 userid %o", this.loggedInUserId)
+             this.getTAs();
+               this.getFromAssets();
+      }
+      );
+  
   }
     showOther(){  
       if (this.showWhich == 1 || this.showWhich == 0) {      // if logged in user is dosimetrist
@@ -117,7 +126,7 @@ export class AngtimeawayComponent implements OnInit {
       endDateString = endDateDate.toISOString().slice(0,10);
     } 
 
-    this.myservice.getTAs(endDateString, startDateString, this.showWhich).subscribe({next: data => {
+    this.myservice.getTAs(endDateString, startDateString, this.showWhich, this.loggedInUserId).subscribe({next: data => {
       const resp: any = data;
       console.log("1212 getTAs resp %o", resp)
       this.TAs = resp.tAs ?? [];

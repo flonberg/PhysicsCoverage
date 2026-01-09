@@ -9,7 +9,7 @@ import { ResTriageComponent } from './res-triage/res-triage.component';
 
 
 export const routes: Routes = [
-    {path: '', component: AngtimeawayComponent},
+    {path: '', component:  AngtimeawayComponent},
     {path: 'Week/:id', component: WeekCalComponent},
     {path: 'Month/:id', component: MonthCalComponent},
     {path: 'Timeaway/:id', component: TimeawayComponent},
