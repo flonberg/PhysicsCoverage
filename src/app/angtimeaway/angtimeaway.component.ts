@@ -76,26 +76,25 @@ export class AngtimeawayComponent implements OnInit {
     this.makeAllDatesInNext28Days();
     this.getDosims();
       this.route.queryParams.subscribe(params => {
-            this.loggedInUserId = params['userid']; // Access a specific query parameter
-            console.log("2525 userid %o", this.loggedInUserId)
-             this.getTAs();
-               this.getFromAssets();
-      }
+          this.loggedInUserId = params['userid']; // Access a specific query parameter
+          console.log("2525 userid %o", this.loggedInUserId)
+          this.getTAs();
+          this.getFromAssets();
+        }
       );
-  
   }
-    showOther(){  
-      if (this.showWhich == 1 || this.showWhich == 0) {      // if logged in user is dosimetrist
-        this.showWhich = 2;                     // show physicists
-        this.ngOnInit();
-             console.log("8282 showWhich %o", this.showWhich);
-        return
-      }
-      if (this.showWhich == 2){
-        this.showWhich = 1;                     // show dosimetrists
-        console.log("8787 showWhich %o", this.showWhich);
-        this.ngOnInit();
-      }
+  showOther(){  
+    if (this.showWhich == 1 || this.showWhich == 0) {      // if logged in user is dosimetrist
+      this.showWhich = 2;                     // show physicists
+      this.ngOnInit();
+            console.log("8282 showWhich %o", this.showWhich);
+      return
+    }
+    if (this.showWhich == 2){
+      this.showWhich = 1;                     // show dosimetrists
+      console.log("8787 showWhich %o", this.showWhich);
+      this.ngOnInit();
+    }
   }
   getFromAssets(){
     this.myservice.getFromAssets().subscribe((data: any) => {
@@ -128,6 +127,7 @@ export class AngtimeawayComponent implements OnInit {
 
     this.myservice.getTAs(endDateString, startDateString, this.showWhich, this.loggedInUserId).subscribe({next: data => {
       const resp: any = data;
+      console.log("130130 loggedInUserId %o", this.loggedInUserId )
       console.log("1212 getTAs resp %o", resp)
       this.TAs = resp.tAs ?? [];
       if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist

@@ -13,6 +13,7 @@ export class MyserviceService {
   userkey: any = 0
   userLastName:string=''
   loggedInUserKey: number = 0
+  loggedInUserid: string = '0'
   isDosimetrist: boolean = false
   gotData: boolean = false
   constructor(private HttpClient:HttpClient) { }
@@ -151,9 +152,12 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }  
     getTAs(endDateString: string, startDateString: string, which: number, loggedInUserid:string){
+      if (loggedInUserid !== undefined && loggedInUserid !="0" )
+          this.loggedInUserid = loggedInUserid
+      console.log("157157 this.loggedInUserid %o", this.loggedInUserid)
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString + "&loggedInUserId=" + loggedInUserid + "&which=" + which;  //       
       if (isDevMode())
-        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString + "&loggedInUserId=" + loggedInUserid + "&which=" + which;
+        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString + "&loggedInUserId=" + this.loggedInUserid + "&which=" + which;
         console.log("333 getTAs url %o", url)
         return this .HttpClient.get<duty>(url)
     }
