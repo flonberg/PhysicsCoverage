@@ -130,19 +130,22 @@ export class AngtimeawayComponent implements OnInit {
       console.log("130130 loggedInUserId %o", this.loggedInUserId )
       console.log("1212 getTAs resp %o", resp)
       this.TAs = resp.tAs ?? [];
-      if (resp.isDosimetrist == 1){                         // if logged in user is dosimetrist
+      if (resp.isDosimetrist == 1){                           // if logged in user is dosimetrist
         this.isDosimetrist = true;
-        if (this.showWhich == 0)                            // first time loading page 
+        if (this.showWhich == 0)                              // first time loading page 
           this.showWhich = 1;                                 // show dosimetrists
-        this.heading = 'Dosimetrist Time Away'
+          this.heading = 'Dosimetrist Time Away'
       }
       else {
         this.isDosimetrist = false;
-        if (this.showWhich == 0)                            // first time loading page 
+        if (this.showWhich == 0)                              // first time loading page 
           this.showWhich = 2;                                 // show dosimetrists
         this.showPhrase = 'Show Dosimetrists ';
-            //    this.showWhich = 2;                                 // show physicists
+            //    this.showWhich = 2;                         // show physicists
         this.heading = 'Physicist Time Away'
+      }
+      if (resp.isApprover == 1){                              // if logged in user is approver
+        this.isApprover = true;
       }
       console.log("137137 showWhich %o isDosimetrist %o", this.showWhich, this.isDosimetrist)
       console.log("7575 TAs %o", this.TAs)
@@ -222,7 +225,7 @@ export class AngtimeawayComponent implements OnInit {
       }})
   }
 }
-isUserApprover(): boolean {
+isUserApproverFunc(): boolean {
   const userKey = this.myservice.getLoggedInUserKey();
  // return this.config.Approvers.some(approver => approver.userid === userKey);
  return true
@@ -233,12 +236,11 @@ showTa(tA:any){
     this.selectedDosim = this.DosismByUserKey[tA.CoverageA]
   }
   this.shownTa = new shownTA(tA)
-  if (!this.isUserApprover())
+  if (this.shownTa.approved == 1)                             // if TA already approved don't show approve button
     this.showApproveButton = false
-  if (this.shownTa.approved == 1)
+  if (!this.isApprover)                                       // is loggedInUser is not approver don't show approve button
     this.showApproveButton = false
-  
-  let test = this.isUserApprover()
+
   let test2 = this.shownTa.approved
 //  this.showApproveButton = this.isUserApprover() && !this.shownTa.approved 
     console.log("3434 shownTa %o", this.shownTa)
@@ -322,6 +324,9 @@ selectDates(event: any) {
     else
       return false
   }
+ isApproverFunc(): boolean {
+   return this.myservice.getIsApprover();
+ }
  lastDateInMonthAdvancedByN(n:number): Date {
     const date = new Date();
     date.setMonth(date.getMonth() + n + 1);

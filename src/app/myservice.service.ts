@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 
 export class MyserviceService {
+  isApprover: boolean = false
   userid: string  = ''
   userkey: any = 0
   userLastName:string=''
@@ -123,9 +124,13 @@ export class MyserviceService {
             this.loggedInUserKey = res['userkey']
             this.userLastName = res['lastName']
             this.isDosimetrist = res['isDosimetrist']
+            this.isApprover = res['isApprover'] 
             this.gotData = true
           console.log("595959  userkey %o  ---LastName %o ---isDosimetrist %o", this.loggedInUserKey, this.userLastName, this.isDosimetrist)  
         })
+    }
+    getIsApprover(){
+      return this.isApprover
     }
     getGotData(): boolean {
       return this.gotData;
