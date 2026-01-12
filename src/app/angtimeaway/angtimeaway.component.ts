@@ -231,7 +231,8 @@ isUserApproverFunc(): boolean {
  return true
 } 
 showApproveButton: boolean = true
-showTa(tA:any){   
+showTa(tA:any){  
+  this.showApproveButton = true 
   if (tA.CoverageA) {                                           // called when user clicks on a TA to show details
     this.selectedDosim = this.DosismByUserKey[tA.CoverageA]
   }
