@@ -52,6 +52,8 @@ $handle = connectDB_FL();
        $ret['isDosimetrist'] = 1;
    else
        $ret['isDosimetrist'] = 0;
+    if (strpos($_GET['loggedInUserId'],'napolitano') !== false)                                 // put in the UserId of person in charge of approvals
+        $ret['isApprover'] = true;  
      $log->logMessage("Returning parameters: ". print_r($ret['isDosimetrist'], true));
    $ret = json_encode($ret);
   

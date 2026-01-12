@@ -21,6 +21,8 @@ $handle = connectDB_FL();
    $ret['userkey'] = $userkey;
    $ret['lastName'] = $lastName;
    $ret['isDosimetrist'] = $isDosimetrist;
+   if (strpos($_GET['userid'],'Napolitano') !== false)                                 // put in the UserId of person in charge of approvals
+       $ret['isApprover'] = true;    
    $log->logMessage("Returning parameters: ". print_r($ret, true));
    echo json_encode($ret);
  

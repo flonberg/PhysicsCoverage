@@ -396,7 +396,7 @@ selectDates(event: any) {
       }
      hideForm(){
       this.shownTa = null
-          this.ngOnInit();
+      this.ngOnInit();
      } 
     editTa(event:any, whatIs:string, ta:shownTA){
       let changeValue:string | number = ''
@@ -607,6 +607,7 @@ class shownTA{
     this.vidx = ta.vidx
     this.userid = ta.userid
     this.UserID = ta.UserID
+    this.approved = ta.approved
     this.FirstName = ta.FirstName
     this.LastName = ta.LastName
     this.startDate = ta.startDate
