@@ -74,6 +74,14 @@ export class MyserviceService {
           console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
+  sendChangeAndNeedApprovalEmail(toUserKey: number, fromUserKey: number, dutyDate: string, dutyType: string, reason: string, coverer: string, note: string){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/sendChangeAndNeedApprovalEmail.php?toUserKey="+toUserKey+"&fromUserKey="+fromUserKey+
+      "&dutyDate="+dutyDate+"&dutyType="+dutyType+"&reason="+reason+"&coverer="+coverer+"&note="+this.sanitizeHtmlDisplay(note);      // 
+      if (isDevMode())    
+         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendChangeAndNeedApprovalEmail.php?toUserKey="+toUserKey+"&fromUserKey="+fromUserKey+
+            "&dutyDate="+dutyDate+"&dutyType="+dutyType+"&reason="+reason+"&coverer="+coverer+"&note="+this.sanitizeHtmlDisplay(note);  
+          console.log("30303 url %o", url)    
+}  
   sanitizeHtmlDisplay(str: string): string {
   const map: Record<string, string> = {
         '&': '&amp;',

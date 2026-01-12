@@ -232,19 +232,14 @@ isUserApproverFunc(): boolean {
 } 
 showApproveButton: boolean = true
 showTa(tA:any){  
-  this.showApproveButton = true 
-  if (tA.CoverageA) {                                           // called when user clicks on a TA to show details
-    this.selectedDosim = this.DosismByUserKey[tA.CoverageA]
-  }
-  this.shownTa = new shownTA(tA)
-  if (this.shownTa.approved == 1)                             // if TA already approved don't show approve button
-    this.showApproveButton = false
-  if (!this.isApprover)                                       // is loggedInUser is not approver don't show approve button
-    this.showApproveButton = false
-
-  let test2 = this.shownTa.approved
-//  this.showApproveButton = this.isUserApprover() && !this.shownTa.approved 
-    console.log("3434 shownTa %o", this.shownTa)
+  this.showApproveButton = true                                 // show Approve button unless conditions met below
+  if (tA.CoverageA)                                             // called when user clicks on a TA to show details
+    this.selectedDosim = this.DosismByUserKey[tA.CoverageA]     // set the coverer in the form
+  this.shownTa = new shownTA(tA)                                // make shownTA class from tA data
+  if (this.shownTa.approved == 1)                               // if TA already approved
+    this.showApproveButton = false                              // don't show approve button
+  if (!this.isApprover)                                         // is loggedInUser is not approver
+    this.showApproveButton = false                              // don't show approve button
 }
 
 selectDates(event: any) {
@@ -409,6 +404,7 @@ selectDates(event: any) {
         return ' '
       }
      hideForm(){
+      console.log("3434 hideForm called %o", this.shownTa)
       this.shownTa = null
       this.ngOnInit();
      } 
