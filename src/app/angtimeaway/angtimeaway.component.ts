@@ -225,17 +225,25 @@ export class AngtimeawayComponent implements OnInit {
 isUserApprover(): boolean {
   const userKey = this.myservice.getLoggedInUserKey();
  // return this.config.Approvers.some(approver => approver.userid === userKey);
- return false
+ return true
 } 
+showApproveButton: boolean = true
 showTa(tA:any){   
-  
   if (tA.CoverageA) {                                           // called when user clicks on a TA to show details
     this.selectedDosim = this.DosismByUserKey[tA.CoverageA]
   }
   this.shownTa = new shownTA(tA)
-  console.log("3434 shownTa %o", this.shownTa)
-
+  if (!this.isUserApprover())
+    this.showApproveButton = false
+  if (this.shownTa.approved == 1)
+    this.showApproveButton = false
+  
+  let test = this.isUserApprover()
+  let test2 = this.shownTa.approved
+//  this.showApproveButton = this.isUserApprover() && !this.shownTa.approved 
+    console.log("3434 shownTa %o", this.shownTa)
 }
+
 selectDates(event: any) {
     console.log("Selected date: ", event);
   }
