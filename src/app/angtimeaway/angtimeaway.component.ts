@@ -396,6 +396,7 @@ selectDates(event: any) {
       }
      hideForm(){
       this.shownTa = null
+          this.ngOnInit();
      } 
     editTa(event:any, whatIs:string, ta:shownTA){
       let changeValue:string | number = ''
