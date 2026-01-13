@@ -417,9 +417,9 @@ selectDates(event: any) {
       else
         changeValue = event
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
-        console.log("3434 editTA url %o", data)
       }})
-      this.ngOnInit();
+      if (whatIs == 'reasonIdx' && changeValue == '99')            // user DELETED tA
+        this.ngOnInit();
    //   this.shownTa = null
     }
     /** Return the proper class for a goAwayer depending on approval status */
