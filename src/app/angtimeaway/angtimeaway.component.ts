@@ -43,6 +43,7 @@ export class AngtimeawayComponent implements OnInit {
   lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
   daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
   dateShownOnCalendar: dateClass[] = [];
+  isDateChanged: boolean = false;                                           // used to det if Update mail needs to be sent
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   selectedDosim: Dosims | null = null;                                      // Dosim selected as coverer
@@ -51,7 +52,7 @@ export class AngtimeawayComponent implements OnInit {
   goAwayersWithTAs: goAwayerWithTAs[] = []                                  // list of goAwayers with their TAs  
   //selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
-      heading: string = 'Dosimetrist Time Away'
+  heading: string = 'Dosimetrist Time Away'
   noteValue: string = ''
   reasonValue: string = ''
   loggedInUserId: string = ''
@@ -404,12 +405,19 @@ selectDates(event: any) {
         return ' '
       }
      hideForm(){
-      console.log("3434 hideForm called %o", this.shownTa)
+      if (this.isDateChanged){                             // if a date was changed, send update email to approver  
+        if (this.shownTa && typeof this.shownTa.vidx === 'number') {
+          this.myservice.sendUpdateEmailtoApprover(this.shownTa.vidx).subscribe({next: data => {
+          }});
+        }
+      }
       this.shownTa = null
       this.ngOnInit();
-     } 
+     }
     editTa(event:any, whatIs:string, ta:shownTA){
       let changeValue:string | number = ''
+      if (whatIs.includes('Date'))                     // if editing a date field  
+        this.isDateChanged = true;                       // set flag to send update email later
       if (event.target)
         changeValue = event.target.value
       else if (event.value)

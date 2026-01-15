@@ -81,17 +81,24 @@ export class MyserviceService {
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendChangeAndNeedApprovalEmail.php?toUserKey="+toUserKey+"&fromUserKey="+fromUserKey+
             "&dutyDate="+dutyDate+"&dutyType="+dutyType+"&reason="+reason+"&coverer="+coverer+"&note="+this.sanitizeHtmlDisplay(note);  
           console.log("30303 url %o", url)    
-}  
+    }  
+  sendUpdateEmailtoApprover(vidx: number){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/sendUpdateMail.php?taidx="+vidx;      // 
+      if (isDevMode())    
+         url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendUpdateMail.php?taidx="+vidx+"&debug=1";  
+          console.log("30303 url %o", url)    
+      return this .HttpClient.get<duty>(url)
+    }  
   sanitizeHtmlDisplay(str: string): string {
-  const map: Record<string, string> = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#x27;',
-        '/': '&#x2F;',
-      };
-      const reg = /[&<>"'/]/ig;
+          const map: Record<string, string> = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#x27;',
+                '/': '&#x2F;',
+              };
+              const reg = /[&<>"'/]/ig;
       return str.replace(reg, (match) => map[match]);
   }
     getForMonth(monthString: string){
