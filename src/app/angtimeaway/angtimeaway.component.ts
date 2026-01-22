@@ -414,6 +414,14 @@ selectDates(event: any) {
       this.shownTa = null
       this.ngOnInit();
      }
+    approveTA(){
+      if (this.shownTa && typeof this.shownTa.vidx === 'number') {
+        this.myservice.editTA(1,'approved',this.shownTa.vidx).subscribe({next: data => {
+          this.ngOnInit();
+          this.shownTa = null;
+        }});
+      }
+    } 
     editTa(event:any, whatIs:string, ta:shownTA){
       let changeValue:string | number = ''
       if (whatIs.includes('Date'))                     // if editing a date field  
