@@ -11,11 +11,6 @@ $handle = connectDB_FL();
       $log->logMessage("No taidx passed");
       exit;
    }
-   $updateStr = "UPDATE top(1) vacation3 SET approved = 0 WHERE vidx = ".$_GET['taidx'];
-   $log->logMessage("Executing update: ".$updateStr);
-   $stmt = sqlsrv_query( $handle, $updateStr);
-      if( $stmt === false )
-         $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
    $selStr = "SELECT v.startDate, v.endDate, v.vidx, p.LastName, p.FirstName, p.Email
               FROM vacation3 v
               JOIN physicists p ON v.userid = p.UserKey
@@ -56,9 +51,10 @@ $handle = connectDB_FL();
       $log->logMessage("Sending email to: ".$to);
       $res = mail($to, $subject, $message, $headers);
       ob_start(); var_dump($res);$data = ob_get_clean();$log->logMessage("Email sending result: ".$data);
-      if ($res) 
+      if (mail($to,$subject, $message, $headers)) 
         $log->logMessage("Email successfully sent to ".$to);
      else 
         $log->logMessage("Email sending failed to ".$to);
+      
       
    }  
