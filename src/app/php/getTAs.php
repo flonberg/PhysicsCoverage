@@ -6,7 +6,7 @@ require_once '.\dosimetristList.php';
 $handle = connectDB_FL();
    $log = new LogFuncs();
    $log->logMessage("Received GET parameters: ". print_r($_GET, true));
-   // $isDosimetrist = in_array($_GET['loggedInUserKey'], $dosimetrist);
+    $isDosimetrist = in_array($_GET['loggedInUserKey'], $dosimetrist);
    $today = new DateTime();
    $Start = $today->format("Y-m-d");
     

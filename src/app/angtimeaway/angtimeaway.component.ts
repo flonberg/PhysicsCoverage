@@ -78,6 +78,8 @@ export class AngtimeawayComponent implements OnInit {
     this.getDosims();
       this.route.queryParams.subscribe(params => {
           this.loggedInUserId = params['userid']; // Access a specific query parameter
+          console.log("81818  params from queryParams %o", params)
+          this.myservice.setLoggedInUserid(this.loggedInUserId)
           console.log("8080 form queryParams  %o", params)
           this.getTAs();
           this.getFromAssets();
