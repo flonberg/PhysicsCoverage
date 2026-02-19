@@ -131,8 +131,8 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }
     setLoggedInUserid(loggedInUserid: string){
-      this.loggedInUserid = loggedInUserid
-      console.log("135135 set loggedInUserid %o", this.loggedInUserid)
+      if (loggedInUserid !== undefined)
+          this.loggedInUserid = loggedInUserid
     }
     setLoggedInUserKey(){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getLoggedInUserKey.php?userid="+this.userid;			// 
