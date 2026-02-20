@@ -19,7 +19,9 @@ export class MyserviceService {
   gotData: boolean = false
   constructor(private HttpClient:HttpClient) { }
     setUserId(id: string) {
-      this.userid = id;
+      if (id != null && id != undefined && id != '0')
+        this.userid = id;
+      console.log("242424 setUserId %o", this.userid)
     }
     getLoggedInUserKey(){
      //  console.log("212121 getting loggedInUserKey %o", this.loggedInUserKey)
@@ -90,6 +92,7 @@ export class MyserviceService {
       return this .HttpClient.get<duty>(url)
     }  
   sanitizeHtmlDisplay(str: string): string {
+      let retVal = ''
           const map: Record<string, string> = {
                 '&': '&amp;',
                 '<': '&lt;',
@@ -98,8 +101,10 @@ export class MyserviceService {
                 "'": '&#x27;',
                 '/': '&#x2F;',
               };
-              const reg = /[&<>"'/]/ig;
-      return str.replace(reg, (match) => map[match]);
+              const reg = /[&<>"'/]/ig;``
+      if (str !== null)
+        retVal =  str.replace(reg, (match) => map[match]);
+    return retVal
   }
     getForMonth(monthString: string){
       const randomNumber: number = Math.random()

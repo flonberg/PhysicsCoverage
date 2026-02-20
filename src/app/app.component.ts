@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
       this.route.queryParams.subscribe(params => {
             this.id = params['userid']; // Access a specific query parameter
             console.log("2525 userid %o", this.id)
-            if (this.id){
+            if (this.id && this.id != '0') {
               this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
               this.myservice.setLoggedInUserKey()
           }

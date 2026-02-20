@@ -76,26 +76,31 @@ export class AngtimeawayComponent implements OnInit {
     this.lastDateOnCalendar = new Date(today.setDate(today.getDate() + this.numberOfDaysToShow ));
     this.makeAllDatesInNext28Days();
     this.getDosims();
-      this.route.queryParams.subscribe(params => {
-          this.loggedInUserId = params['userid']; // Access a specific query parameter
-          console.log("81818  params from queryParams %o", params)
-          this.myservice.setLoggedInUserid(this.loggedInUserId)
-          console.log("8080 form queryParams  %o", params)
-          this.getTAs();
-          this.getFromAssets();
-        }
-      );
+    this.route.queryParams.subscribe(params => {
+        this.loggedInUserId = params['userid']; // Access a specific query parameter
+        console.log("81818  params from queryParams %o", params)
+        this.myservice.setLoggedInUserid(this.loggedInUserId)
+        console.log("8080 form queryParams  %o", params)
+        this.getTAs();
+        this.getFromAssets();
+      }
+    );
   }
   showOther(){  
+    if (this.showPhrase == 'Show Physicists ')
+      this.showPhrase = 'Show Dosimetrists ';
+    else this.showPhrase = 'Show Physicists ';
     if (this.showWhich == 1 || this.showWhich == 0) {      // if logged in user is dosimetrist
-      this.showWhich = 2;                     // show physicists
+      this.showWhich = 2;                                   // show physicists
+    //  this.showPhrase = 'Show Dosimetrists ';
       this.ngOnInit();
-            console.log("8282 showWhich %o", this.showWhich);
+            console.log("8282 showWhich %o", this.showPhrase);
       return
     }
     if (this.showWhich == 2){
       this.showWhich = 1;                     // show dosimetrists
-      console.log("8787 showWhich %o", this.showWhich);
+    //  this.showPhrase = 'Show Physicists ';
+      console.log("100100 showWhich %o", this.showPhrase);
       this.ngOnInit();
     }
   }
@@ -137,13 +142,14 @@ export class AngtimeawayComponent implements OnInit {
         this.isDosimetrist = true;
         if (this.showWhich == 0)                              // first time loading page 
           this.showWhich = 1;                                 // show dosimetrists
-          this.heading = 'Dosimetrist Time Away'
+          this.heading = 'Dosimetrist Time Away';
       }
       else {
         this.isDosimetrist = false;
-        if (this.showWhich == 0)                              // first time loading page 
-          this.showWhich = 2;                                 // show dosimetrists
-        this.showPhrase = 'Show Dosimetrists ';
+        if (this.showWhich == 0) {                             // first time loading page 
+          this.showWhich = 2;                                 // show Physicists
+          this.showPhrase = 'Show Dosimetrists ';
+        }
             //    this.showWhich = 2;                         // show physicists
         this.heading = 'Physicist Time Away'
       }
@@ -194,8 +200,7 @@ export class AngtimeawayComponent implements OnInit {
     error: error => {
       console.error('There was an error!', error);
     }
-    });
-   
+    }); 
   }
   submit(form: NgForm){
     const startDate = this.range.value.start.toISOString().slice(0, 10);
@@ -214,7 +219,7 @@ export class AngtimeawayComponent implements OnInit {
     }
     if (this.isDosimetrist){
       if (this.selectedDosim == null || this.selectedDosim.UserKey == 0){
-        alert("Please select a coverer - cannot enter TA")
+        alert("Please select a coverer before submitting  ")
         return
       }
     }
@@ -436,7 +441,7 @@ selectDates(event: any) {
         changeValue = event
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
       }})
-      if (whatIs == 'reasonIdx' && changeValue == '99')            // user DELETED tA
+    //  if (whatIs == 'reasonIdx' && changeValue == '99')            // user DELETED tA
         this.ngOnInit();
    //   this.shownTa = null
     }
