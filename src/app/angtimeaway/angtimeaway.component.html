@@ -16,6 +16,7 @@
 <tr>
   <th [attr.colspan]="remainingDaysInMonth" style="border:solid">{{nameOfCurrentMonth}}</th>
   <th [attr.colspan]="daysInNext28Days" style="border:solid">{{nameOfNextMonth}}</th>
+  <th *ngIf = "needThirdMonthOnCalendar" [attr.colspan]="numberDaysInThirdMonthOnCalendar" style="border:solid">{{thirdMonthName}}</th>
 </tr> 
 <!-- Top Line with Dates e.g .12 -->
   <tr>

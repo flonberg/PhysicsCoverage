@@ -56,14 +56,16 @@ export class AngtimeawayComponent implements OnInit {
   noteValue: string = ''
   reasonValue: string = ''
   loggedInUserId: string = ''
+  needThirdMonthOnCalendar: boolean = false;
+  numberDaysInThirdMonthOnCalendar: number = 0;
   covererValue: string = '0'
   Dosims:Dosims[] = []
   DosismByUserKey:Dosims[] = []
   shownTa: shownTA | null = null  
-    reasons: string[] = ['Vacation', 'Meeting', 'Other']
-    test:boolean = true
-      isDosimetrist:boolean = false
-      isApprover:boolean = false
+  thirdMonthName: string = ''
+  reasons: string[] = ['Vacation', 'Meeting', 'Other']
+  isDosimetrist:boolean = false
+  isApprover:boolean = false
   showPhrase: string = 'Show Physicists';
   showWhich:number = 0;
 
@@ -381,10 +383,12 @@ makeAllDatesInNext28Days(){
     }
   }
   makeMonthsOnCalendar(){ 
+    this.needThirdMonthOnCalendar = false;
     let today = new Date();
     let firstMonthOnCalendar = today.getMonth() + this.advance;
     let secondMonthOnCalendar = today.getMonth() + this.advance + 1;  
     let thirdMonthOnCalendar = today.getMonth() + this.advance + 2;  
+
     // A dictionary where keys are monthNumber and values are numbers of days in that month. This is used to calculate the number of days in the first month on calendar, which is needed to calculate how many days to show in the second month on calendar
     const numDaysInMonth: Record<number, number> = {
       0: 31,
@@ -400,11 +404,26 @@ makeAllDatesInNext28Days(){
       10: 30,
       11: 31
     };
-  
     this.daysInNext28Days = numDaysInMonth[secondMonthOnCalendar];
     console.log("413413 firstMonthOnCalendar %o secondMonthOnCalendar %o daysInNext28Days %o", firstMonthOnCalendar, secondMonthOnCalendar, this.daysInNext28Days)
+    console.log("405405 remainingDaysInMonth %o", this.remainingDaysInMonth)
+    if (this.remainingDaysInMonth + this.daysInNext28Days < this.numberOfDaysToShow){   // if there are not enough days in the first and second months on calendar to show the number of days we want to show, then we need to show some days in the third month on calendar  
+      console.log("407407 need to show days in third month on calendar")
+      this.needThirdMonthOnCalendar = true;
+      this.numberDaysInThirdMonthOnCalendar = this.numberOfDaysToShow - this.remainingDaysInMonth - this.daysInNext28Days + 1;
+      this.thirdMonthName = this.getMonthName(thirdMonthOnCalendar + 1);
+      console.log("407407 thirdMonthOnCalendar %o thirdMonthName %o numberDaysInThirdMonthOnCalendar %o", thirdMonthOnCalendar, this.thirdMonthName, this.numberDaysInThirdMonthOnCalendar)
+    }
   }
+getMonthName(monthNumber: number, locale: string = 'en-US'): string {
+  // JavaScript months are 0-indexed (January is 0),
+  // so we subtract 1 from the input number if it's 1-indexed.
+  // We use a fixed day (1) to create a valid date object.
+  const date = new Date(2000, monthNumber - 1, 1);
 
+  // Use toLocaleString to get the full month name
+  return date.toLocaleString(locale, { month: 'short' });
+}
   getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.dateShownOnCalendar[0].wholeDate)                // if TA starts before calendar start date, set to calendar start date
         startDate = this.dateShownOnCalendar[0].wholeDate
