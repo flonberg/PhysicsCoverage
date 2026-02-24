@@ -36,37 +36,37 @@ export class AngtimeawayComponent implements OnInit {
     });
 
   advance: number = 0;                                                      // number of months advanced from current month;
-  firstDayOnCalendar: Date = new Date();
-  numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
-  remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
-  today: Date = new Date();
-  lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
-  daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
+    covererValue: string = '0'
+  Dosims:Dosims[] = []
+  DosismByUserKey:Dosims[] = []
   dateShownOnCalendar: dateClass[] = [];
-  isDateChanged: boolean = false;                                           // used to det if Update mail needs to be sent
-  nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
-  nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
-  selectedDosim: Dosims | null = null;                                      // Dosim selected as coverer
-  TAs:any = []                                                              // raw TA data from service
-  TAclasses: TAclass[] = []                                                 // TAs as TAclass
   goAwayersWithTAs: goAwayerWithTAs[] = []                                  // list of goAwayers with their TAs  
-  //selectedDate: Date | null = null;
   goAwayerClass:string = 'goAwayer'
   heading: string = 'Dosimetrist Time Away'
   noteValue: string = ''
-  reasonValue: string = ''
+  firstDayOnCalendar: Date = new Date();
+  isDateChanged: boolean = false;                                           // used to det if Update mail needs to be sent
   loggedInUserId: string = ''
-  needThirdMonthOnCalendar: boolean = false;
-  numberDaysInThirdMonthOnCalendar: number = 0;
-  covererValue: string = '0'
-  Dosims:Dosims[] = []
-  DosismByUserKey:Dosims[] = []
-  shownTa: shownTA | null = null  
-  thirdMonthName: string = ''
-  reasons: string[] = ['Vacation', 'Meeting', 'Other']
   isDosimetrist:boolean = false
   isApprover:boolean = false
-  showPhrase: string = 'Show Physicists';
+  needThirdMonthOnCalendar: boolean = false;
+  numberDaysInThirdMonthOnCalendar: number = 0;
+  nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
+  nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
+  numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
+    lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
+    remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
+    daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
+  today: Date = new Date();
+  selectedDosim: Dosims | null = null;                                      // Dosim selected as coverer
+  TAs:any = []                                                              // raw TA data from service
+  TAclasses: TAclass[] = []                                                 // TAs as TAclass
+  reasonValue: string = ''
+  shownTa: shownTA | null = null  
+  thirdMonthName: string = ''
+  monthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'
+  reasons: string[] = ['Vacation', 'Meeting', 'Other']
+  showPhrase: string = 'Show Physicists'; 
   showWhich:number = 0;
 
   constructor(private myservice: MyserviceService,private route: ActivatedRoute,private router: Router,) {
@@ -405,14 +405,12 @@ makeAllDatesInNext28Days(){
       11: 31
     };
     this.daysInNext28Days = numDaysInMonth[secondMonthOnCalendar];
-    console.log("413413 firstMonthOnCalendar %o secondMonthOnCalendar %o daysInNext28Days %o", firstMonthOnCalendar, secondMonthOnCalendar, this.daysInNext28Days)
-    console.log("405405 remainingDaysInMonth %o", this.remainingDaysInMonth)
     if (this.remainingDaysInMonth + this.daysInNext28Days < this.numberOfDaysToShow){   // if there are not enough days in the first and second months on calendar to show the number of days we want to show, then we need to show some days in the third month on calendar  
-      console.log("407407 need to show days in third month on calendar")
       this.needThirdMonthOnCalendar = true;
       this.numberDaysInThirdMonthOnCalendar = this.numberOfDaysToShow - this.remainingDaysInMonth - this.daysInNext28Days + 1;
+      if (this.numberDaysInThirdMonthOnCalendar > 2)
+        this.monthNameStyle = 'long'
       this.thirdMonthName = this.getMonthName(thirdMonthOnCalendar + 1);
-      console.log("407407 thirdMonthOnCalendar %o thirdMonthName %o numberDaysInThirdMonthOnCalendar %o", thirdMonthOnCalendar, this.thirdMonthName, this.numberDaysInThirdMonthOnCalendar)
     }
   }
 getMonthName(monthNumber: number, locale: string = 'en-US'): string {
@@ -422,7 +420,7 @@ getMonthName(monthNumber: number, locale: string = 'en-US'): string {
   const date = new Date(2000, monthNumber - 1, 1);
 
   // Use toLocaleString to get the full month name
-  return date.toLocaleString(locale, { month: 'short' });
+  return date.toLocaleString(locale, { month: this.monthNameStyle });
 }
   getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.dateShownOnCalendar[0].wholeDate)                // if TA starts before calendar start date, set to calendar start date
