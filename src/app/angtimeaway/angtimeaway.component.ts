@@ -50,8 +50,7 @@ export class AngtimeawayComponent implements OnInit {
   isDosimetrist:boolean = false
   isApprover:boolean = false
   needThirdMonthOnCalendar: boolean = false;
-  numberDaysInThirdMonthOnCalendar: number = 0;
-  nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: 'long' });
+
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
     lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
@@ -64,7 +63,10 @@ export class AngtimeawayComponent implements OnInit {
   reasonValue: string = ''
   shownTa: shownTA | null = null  
   thirdMonthName: string = ''
-  monthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'
+  thirdMonthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'
+  firstMonthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'
+  numberDaysInThirdMonthOnCalendar: number = 0;
+  nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: this.firstMonthNameStyle });
   reasons: string[] = ['Vacation', 'Meeting', 'Other']
   showPhrase: string = 'Show Physicists'; 
   showWhich:number = 0;
@@ -73,6 +75,7 @@ export class AngtimeawayComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("737373 daysInNext28Days %o", this.daysInNext28Days)
+    this.numberOfRemainingDaysInMonth();
   //  this.daysInNext28Days = 31;
     this.shownTa = null
     let today = new Date();
@@ -333,13 +336,18 @@ numberOfRemainingDaysInMonth(): number {
       const lastDayOfMonth = this.lastDateInMonthAdvancedByN(this.advance);
       const firstDayOfMonth = this.firstDateInMonthAdvancedByN(this.advance);
       const remainingDays = lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1;
+
       return remainingDays;
     }
     const today = new Date();
     const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-   // const remainingDays = lastDayOfMonth.getDate() - today.getDate();
     const remainingDays = lastDayOfMonth.getDate() - today.getDate();
     console.log("3434 remainingDays %o", remainingDays)
+    if (remainingDays < 2)
+        this.firstMonthNameStyle = 'short'
+      else
+        this.firstMonthNameStyle = 'long'
+    this.nameOfCurrentMonth = new Date().toLocaleString('default', { month: this.firstMonthNameStyle });
     return remainingDays+1;
   }
 lastDateInMonthAdvancedByN(n:number): Date {
@@ -409,7 +417,7 @@ makeAllDatesInNext28Days(){
       this.needThirdMonthOnCalendar = true;
       this.numberDaysInThirdMonthOnCalendar = this.numberOfDaysToShow - this.remainingDaysInMonth - this.daysInNext28Days + 1;
       if (this.numberDaysInThirdMonthOnCalendar > 2)
-        this.monthNameStyle = 'long'
+        this.thirdMonthNameStyle = 'long'
       this.thirdMonthName = this.getMonthName(thirdMonthOnCalendar + 1);
     }
   }
@@ -420,7 +428,7 @@ getMonthName(monthNumber: number, locale: string = 'en-US'): string {
   const date = new Date(2000, monthNumber - 1, 1);
 
   // Use toLocaleString to get the full month name
-  return date.toLocaleString(locale, { month: this.monthNameStyle });
+  return date.toLocaleString(locale, { month: this.thirdMonthNameStyle });
 }
   getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.dateShownOnCalendar[0].wholeDate)                // if TA starts before calendar start date, set to calendar start date
