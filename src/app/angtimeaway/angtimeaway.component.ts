@@ -96,13 +96,10 @@ export class AngtimeawayComponent implements OnInit {
       this.showWhich = 2;                                   // show physicists
     //  this.showPhrase = 'Show Dosimetrists ';
       this.ngOnInit();
-            console.log("8282 showWhich %o", this.showPhrase);
       return
     }
     if (this.showWhich == 2){
       this.showWhich = 1;                     // show dosimetrists
-    //  this.showPhrase = 'Show Physicists ';
-      console.log("100100 showWhich %o", this.showPhrase);
       this.ngOnInit();
     }
   }
@@ -137,8 +134,6 @@ export class AngtimeawayComponent implements OnInit {
 
     this.myservice.getTAs(endDateString, startDateString, this.showWhich, this.loggedInUserId).subscribe({next: data => {
       const resp: any = data;
-      console.log("130130 loggedInUserId %o", this.loggedInUserId )
-      console.log("1212 getTAs resp %o", resp)
       this.TAs = resp.tAs ?? [];
       if (resp.isDosimetrist == 1){                           // if logged in user is dosimetrist
         this.isDosimetrist = true;
@@ -158,8 +153,7 @@ export class AngtimeawayComponent implements OnInit {
       if (resp.isApprover == 1){                              // if logged in user is approver
         this.isApprover = true;
       }
-      console.log("137137 showWhich %o isDosimetrist %o", this.showWhich, this.isDosimetrist)
-      console.log("7575 TAs %o", this.TAs)
+
       this.makeTAsIntoTAclasses()
       this.makeGoAwayersList()
       },
@@ -361,6 +355,7 @@ firstDateInMonthAdvancedByN(n:number): Date {
     return date;
   }
 makeAllDatesInNext28Days(){
+    this.makeMonthsOnCalendar()
     this.dateShownOnCalendar.length = 0
     let firstDateOnCalendar = new Date();
     var lastDateOnCalendar = new Date();

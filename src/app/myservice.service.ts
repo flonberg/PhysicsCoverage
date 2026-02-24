@@ -21,7 +21,6 @@ export class MyserviceService {
     setUserId(id: string) {
       if (id != null && id != undefined && id != '0')
         this.userid = id;
-
     }
     getLoggedInUserKey(){
      //  console.log("212121 getting loggedInUserKey %o", this.loggedInUserKey)
@@ -57,14 +56,12 @@ export class MyserviceService {
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
             "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&note="+this.sanitizeHtmlDisplay(note)+ "&isDosimetrist="+isDosimetrist;  
-          console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
     enterTriageCov(userkey:number,serviceid:number, date: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&serviceid="+serviceid;      // 
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&serviceid="+serviceid+"&debug=1"; 
-          console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
 
@@ -73,7 +70,6 @@ export class MyserviceService {
                  //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?newValue="+newValue+"&newValueName="+newValueName+"&vidx="+vidx+"&debug=1";
-          console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
   sendChangeAndNeedApprovalEmail(toUserKey: number, fromUserKey: number, dutyDate: string, dutyType: string, reason: string, coverer: string, note: string){
@@ -82,13 +78,12 @@ export class MyserviceService {
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendChangeAndNeedApprovalEmail.php?toUserKey="+toUserKey+"&fromUserKey="+fromUserKey+
             "&dutyDate="+dutyDate+"&dutyType="+dutyType+"&reason="+reason+"&coverer="+coverer+"&note="+this.sanitizeHtmlDisplay(note);  
-          console.log("30303 url %o", url)    
     }  
   sendUpdateEmailtoApprover(vidx: number){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/sendUpdateMail.php?taidx="+vidx;      // 
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendUpdateMail.php?taidx="+vidx+"&debug=1";  
-          console.log("30303 url %o", url)    
+ 
       return this .HttpClient.get<duty>(url)
     }  
   sanitizeHtmlDisplay(str: string): string {
@@ -112,7 +107,6 @@ export class MyserviceService {
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getPhysicsMonthlyDuties.php?debug=1&MonthNum="+monthString+"&debug=1";       
-      console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
     getFromPhysicsDuty(monthAdvance: number){
@@ -132,7 +126,6 @@ export class MyserviceService {
                  https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())
        url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/takeDuty.php?idx="+idx+"&userkey="+this.loggedInUserKey+"+&debug=1";       
-      console.log("464646  url %o", url)
       return this .HttpClient.get<duty>(url)
     }
     setLoggedInUserid(loggedInUserid: string){
@@ -150,7 +143,6 @@ export class MyserviceService {
             this.isDosimetrist = res['isDosimetrist']
             this.isApprover = res['isApprover'] 
             this.gotData = true
-          console.log("595959  userkey %o  ---LastName %o ---isDosimetrist %o", this.loggedInUserKey, this.userLastName, this.isDosimetrist)  
         })
     }
     getIsApprover(){
@@ -177,19 +169,16 @@ export class MyserviceService {
        // StartDateString = '2025-06-30'
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getMyDuties.php?debug=1&Start="+StartDateString+"&userkey="+UserKey;	;	       
         }
-       console.log("100100 getMyDuties url %o", url)
       return this .HttpClient.get<duty>(url)
     }  
     getTAs(endDateString: string, startDateString: string, which: number, loggedInUserid:string){
       if (loggedInUserid !== undefined && loggedInUserid !="0" ) {                 // if there is valid loggedInUserid
           this.loggedInUserid = loggedInUserid                                    // store it for use when user tabs between pages
-          console.log("157157 set loggedInUserid %o", this.loggedInUserid)
       }
    
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTAs.php?endDate="+endDateString + "&startDate=" + startDateString + "&loggedInUserId=" + this.loggedInUserid + "&which=" + which;  //       
       if (isDevMode())
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTAs.php?debug=1&endDate="+endDateString+ "&startDate=" + startDateString + "&loggedInUserId=" + this.loggedInUserid + "&which=" + which;
-        console.log("333 getTAs url %o", url)
         return this .HttpClient.get<duty>(url)
     }
     getDosims(){
@@ -202,7 +191,6 @@ export class MyserviceService {
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getTriageCoverers.php?startDate="+startDate+"&endDate="+endDate + "&loggedInUserId="+loggedInUserId;  //
       if (isDevMode())
         url =    "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/getTriageCoverers.php?debug=1&startDate="+startDate+"&endDate="+endDate + "&loggedInUserId="+loggedInUserId;
-       console.log("333 getTriageCoverers url %o", url)
         return this .HttpClient.get<duty>(url)
     }
     getFirstDayOfNextMonth(currentDate: Date): Date {
