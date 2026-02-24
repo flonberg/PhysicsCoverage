@@ -70,26 +70,28 @@ export class AngtimeawayComponent implements OnInit {
   constructor(private myservice: MyserviceService,private route: ActivatedRoute,private router: Router,) {
   }
   ngOnInit(): void {
+    console.log("737373 daysInNext28Days %o", this.daysInNext28Days)
+  //  this.daysInNext28Days = 31;
     this.shownTa = null
     let today = new Date();
     today.setHours(0, 0, 0, 0);
     this.lastDateOnCalendar = new Date(today.setDate(today.getDate() + this.numberOfDaysToShow ));
     this.makeAllDatesInNext28Days();
+    this.makeMonthsOnCalendar();
     this.getDosims();
     this.route.queryParams.subscribe(params => {
         this.loggedInUserId = params['userid']; // Access a specific query parameter
-        console.log("81818  params from queryParams %o", params)
         this.myservice.setLoggedInUserid(this.loggedInUserId)
-        console.log("8080 form queryParams  %o", params)
         this.getTAs();
         this.getFromAssets();
       }
     );
   }
   showOther(){  
-    if (this.showPhrase == 'Show Physicists ')
+    if (this.showPhrase.includes('Physicists'))
       this.showPhrase = 'Show Dosimetrists ';
-    else this.showPhrase = 'Show Physicists ';
+   else if (this.showPhrase.includes('Dosimetrists'))
+      this.showPhrase = 'Show Physicists ';
     if (this.showWhich == 1 || this.showWhich == 0) {      // if logged in user is dosimetrist
       this.showWhich = 2;                                   // show physicists
     //  this.showPhrase = 'Show Dosimetrists ';
@@ -226,7 +228,7 @@ export class AngtimeawayComponent implements OnInit {
     if (this.myservice.getLoggedInUserKey() > 0){
       this.myservice.enterTA(startDate, endDate, reason, this.selectedDosim, this.myservice.loggedInUserKey,
         this.myservice.getUserLastName(),note, this.isDosimetrist).subscribe({next: data => {
-        console.log("3434 enterTA data %o", data)
+
       this.range.reset(); 
       form.resetForm(); 
       this.ngOnInit();
@@ -275,7 +277,6 @@ selectDates(event: any) {
       ta.allAccepted = this.TAs[i].allAccepted
       this.TAclasses.push(ta)
     }
-    console.log("3434 TAclasses %o", this.TAclasses)
   }
   /**Assuming the input format is 'YYYY-MM-DD' avoid time zone issues*/
   createDateFromString(dateString: string): Date {
@@ -331,21 +332,35 @@ selectDates(event: any) {
  isApproverFunc(): boolean {
    return this.myservice.getIsApprover();
  }
- lastDateInMonthAdvancedByN(n:number): Date {
+numberOfRemainingDaysInMonth(): number {
+    if (this.advance > 0){                          // lines 264-267 written by CoPilot
+      const lastDayOfMonth = this.lastDateInMonthAdvancedByN(this.advance);
+      const firstDayOfMonth = this.firstDateInMonthAdvancedByN(this.advance);
+      const remainingDays = lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1;
+      return remainingDays;
+    }
+    const today = new Date();
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+   // const remainingDays = lastDayOfMonth.getDate() - today.getDate();
+    const remainingDays = lastDayOfMonth.getDate() - today.getDate();
+    console.log("3434 remainingDays %o", remainingDays)
+    return remainingDays+1;
+  }
+lastDateInMonthAdvancedByN(n:number): Date {
     const date = new Date();
     date.setMonth(date.getMonth() + n + 1);
     date.setDate(0); // Setting date to 0 gives the last day of the previous month
     date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
     return date;
   }
-  firstDateInMonthAdvancedByN(n:number): Date {
+firstDateInMonthAdvancedByN(n:number): Date {
     const date = new Date();
     date.setMonth(date.getMonth() + n);
     date.setDate(1); // Setting date to 1 gives the first day of the month
     date.setHours(0, 0, 0, 0); // Set to midnight to avoid time zone issues
     return date;
   }
-  makeAllDatesInNext28Days(){
+makeAllDatesInNext28Days(){
     this.dateShownOnCalendar.length = 0
     let firstDateOnCalendar = new Date();
     var lastDateOnCalendar = new Date();
@@ -358,26 +373,42 @@ selectDates(event: any) {
       lastDateOnCalendar.setDate(lastDateOnCalendar.getDate() + this.numberOfDaysToShow -1)
       this.lastDateOnCalendar = lastDateOnCalendar
     }
+    else if (this.advance == 0){
+      firstDateOnCalendar = new Date(); 
+      lastDateOnCalendar = new Date();
+      lastDateOnCalendar.setDate(firstDateOnCalendar.getDate() + this.numberOfDaysToShow);
+    }
 
-    for (let d = firstDateOnCalendar; d <=lastDateOnCalendar; d.setDate(d.getDate() + 1)) {
+    for (let d = firstDateOnCalendar; d <= lastDateOnCalendar; d.setDate(d.getDate() + 1)) {
       let jsk = new Date(d);
       let dc = new dateClass(jsk);
       this.dateShownOnCalendar.push(dc);
     }
   }
-  numberOfRemainingDaysInMonth(): number {
-    if (this.advance > 0){                          // lines 264-267 written by CoPilot
-      const lastDayOfMonth = this.lastDateInMonthAdvancedByN(this.advance);
-      const firstDayOfMonth = this.firstDateInMonthAdvancedByN(this.advance);
-      const remainingDays = lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1;
-      return remainingDays;
-    }
-    const today = new Date();
-    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    const remainingDays = lastDayOfMonth.getDate() - today.getDate();
-    return remainingDays+1;
+  makeMonthsOnCalendar(){ 
+    let today = new Date();
+    let firstMonthOnCalendar = today.getMonth() + this.advance;
+    let secondMonthOnCalendar = today.getMonth() + this.advance + 1;  
+    let thirdMonthOnCalendar = today.getMonth() + this.advance + 2;  
+    // A dictionary where keys are monthNumber and values are numbers of days in that month. This is used to calculate the number of days in the first month on calendar, which is needed to calculate how many days to show in the second month on calendar
+    const numDaysInMonth: Record<number, number> = {
+      0: 31,
+      1: 28,
+      2: 31,
+      3: 30,
+      4: 31,
+      5: 30,
+      6: 31,
+      7: 31,
+      8: 30,
+      9: 31,
+      10: 30,
+      11: 31
+    };
+  
+    this.daysInNext28Days = numDaysInMonth[secondMonthOnCalendar];
+    console.log("413413 firstMonthOnCalendar %o secondMonthOnCalendar %o daysInNext28Days %o", firstMonthOnCalendar, secondMonthOnCalendar, this.daysInNext28Days)
   }
-
 
   getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.dateShownOnCalendar[0].wholeDate)                // if TA starts before calendar start date, set to calendar start date
@@ -406,7 +437,7 @@ selectDates(event: any) {
       );
     }
     isToday(num:number): string {
-      if (num == 0 ) 
+      if (num == 0 && this.advance == 0) 
         return 'today'
       else
         return ' '
@@ -447,7 +478,6 @@ selectDates(event: any) {
     }
     /** Return the proper class for a goAwayer depending on approval status */
     goAwayerClassFunc(tA:TAclass): string {
-  //    console.log("3434 isDosimetrist %o tA.approved %o tA.CoverageA %o", this.isDosimetrist, tA.approved, tA.CoverageA)
       var ret = 'goAwayer'
       if (this.showWhich == 1 ){
           if ((tA.approved == 0 || tA.approved === null))
@@ -528,7 +558,6 @@ selectDates(event: any) {
             this.myTAs[i].daysTillTAstart = Math.ceil(timeDiff / (1000 * 3600 * 24))-1; // +1 to include both start and end dates 
         }
         if (this.myTAs[i].daysTillTAstart < 0){
-        console.log("3434 goAwayer %o TA %o daysTillTAstart %o", this.UserKey, this.myTAs[i], this.myTAs[i].daysTillTAstart)
         this.myTAs[i].daysTillTAstart = 0
       }
       }

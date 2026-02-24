@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
     ngOnInit() {
       this.route.queryParams.subscribe(params => {
             this.id = params['userid']; // Access a specific query parameter
-            console.log("2525 userid %o", this.id)
             if (this.id && this.id != '0') {
               this.myservice.setUserId(this.id); // Store the ID in the service for use by other components.
               this.myservice.setLoggedInUserKey()
@@ -38,8 +37,7 @@ export class AppComponent implements OnInit {
             }
             */
           this.myservice.getFromAssets().subscribe(data => {
-            this.test = data;
-            console.log("4040 test from assets %o", this.test);     
+            this.test = data;  
           });
           this.gotData = true
       });
