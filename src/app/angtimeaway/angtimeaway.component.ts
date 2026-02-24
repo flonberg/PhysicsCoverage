@@ -36,47 +36,44 @@ export class AngtimeawayComponent implements OnInit {
     });
 
   advance: number = 0;                                                      // number of months advanced from current month;
-    covererValue: string = '0'
-  Dosims:Dosims[] = []
-  DosismByUserKey:Dosims[] = []
-  dateShownOnCalendar: dateClass[] = [];
+  covererValue: string = '0'                                                // UserKey of coverer selected in form. Default is 0, which means no coverer selected
+  Dosims:Dosims[] = []                                                      // list of dosimetrists for the coverer dropdown in the form
+  DosismByUserKey:Dosims[] = []                                             // list of dosimetrists indexed by UserKey for easy access to dosim details when loading TAs  
+  dateShownOnCalendar: dateClass[] = [];                                    // list of dates to show on calendar, loaded by makeAllDatesInNext28Days
   goAwayersWithTAs: goAwayerWithTAs[] = []                                  // list of goAwayers with their TAs  
-  goAwayerClass:string = 'goAwayer'
+  goAwayerClass:string = 'goAwayer'                                         // class to use for goAwayers when displaying on calendar. Changes to 'notApproved' or 'hasCoverage' depending on TA status
   heading: string = 'Dosimetrist Time Away'
-  noteValue: string = ''
-  firstDayOnCalendar: Date = new Date();
+  noteValue: string = ''                                                    // note entered in form   
+  firstDayOnCalendar: Date = new Date();                                    // first date shown on calendar. When first loading page, this is the current date, but it changes when user advances month on calendar
   isDateChanged: boolean = false;                                           // used to det if Update mail needs to be sent
-  loggedInUserId: string = ''
-  isDosimetrist:boolean = false
+  loggedInUserId: string = ''                                               // UserID of logged in user used to determine Dosimetrist or Physicists TAs to show and if user is approver
+  isDosimetrist:boolean = false 
   isApprover:boolean = false
-  needThirdMonthOnCalendar: boolean = false;
-
+  needThirdMonthOnCalendar: boolean = false;                                // This is true if there are not enough days in the first and second months on calendar to show the number of days we want to show 
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
     lastDateOnCalendar: Date = new Date(new Date().setDate(new Date().getDate() + this.numberOfDaysToShow - 1));
     remainingDaysInMonth: number = this.numberOfRemainingDaysInMonth();
-    daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
+    daysInNext28Days: number = this.numberOfDaysToShow - this.remainingDaysInMonth + 2; // number of days AFTER the end of the first month on calendar to show. This is needed to determine if we need to show a third month on calendar
   today: Date = new Date();
   selectedDosim: Dosims | null = null;                                      // Dosim selected as coverer
   TAs:any = []                                                              // raw TA data from service
   TAclasses: TAclass[] = []                                                 // TAs as TAclass
-  reasonValue: string = ''
+  reasonValue: string = ''                                                  // reason selected in form  
   shownTa: shownTA | null = null  
-  thirdMonthName: string = ''
-  thirdMonthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'
-  firstMonthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'
-  numberDaysInThirdMonthOnCalendar: number = 0;
+  thirdMonthName: string = ''                                               // name of third month on calendar if needed
+  thirdMonthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'  // style of month name to show on calendar for third month if needed. Changes to long if there are more than 2 days in the third month on calendar
+  firstMonthNameStyle: 'long' | 'short' | 'numeric' | '2-digit' | 'narrow' = 'short'  // style of month name to show on calendar for first month. Changes to short if there are less than 2 days in the first month on calendar
+  numberDaysInThirdMonthOnCalendar: number = 0;                             // number of days in the third month on calendar if needed  
   nameOfCurrentMonth: string = new Date().toLocaleString('default', { month: this.firstMonthNameStyle });
   reasons: string[] = ['Vacation', 'Meeting', 'Other']
-  showPhrase: string = 'Show Physicists'; 
+  showPhrase: string = 'Show Physicists';                                   // When clicked this changes to 'Show Dosimetrists' and the page reloads showing physicist TAs instead of dosimetrist TAs. If clicked again, it changes back to 'Show Physicists' and the page reloads showing dosimetrist TAs. This only shows if the logged in user is an approver, so they can see both dosimetrist and physicist TAs
   showWhich:number = 0;
 
   constructor(private myservice: MyserviceService,private route: ActivatedRoute,private router: Router,) {
   }
   ngOnInit(): void {
-    console.log("737373 daysInNext28Days %o", this.daysInNext28Days)
     this.numberOfRemainingDaysInMonth();
-  //  this.daysInNext28Days = 31;
     this.shownTa = null
     let today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -322,6 +319,7 @@ selectDates(event: any) {
         this.goAwayersWithTAs[i].makeDaysTillEndOfCalendar(this.lastDateOnCalendar)
       }
   }
+  /** Used to determine if displayed TA should be read-only */
  isUserGoAwayerForThisTA(goAwayerUserkey:number): boolean {
     if (goAwayerUserkey == this.myservice.getLoggedInUserKey())
       return true
@@ -331,18 +329,17 @@ selectDates(event: any) {
  isApproverFunc(): boolean {
    return this.myservice.getIsApprover();
  }
+ /** calc colspan of the first block in the top line of the calendar. If the number is less than 2 switch to short month name */
 numberOfRemainingDaysInMonth(): number {
-    if (this.advance > 0){                          // lines 264-267 written by CoPilot
+    if (this.advance > 0){                          
       const lastDayOfMonth = this.lastDateInMonthAdvancedByN(this.advance);
       const firstDayOfMonth = this.firstDateInMonthAdvancedByN(this.advance);
       const remainingDays = lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1;
-
       return remainingDays;
     }
     const today = new Date();
     const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
     const remainingDays = lastDayOfMonth.getDate() - today.getDate();
-    console.log("3434 remainingDays %o", remainingDays)
     if (remainingDays < 2)
         this.firstMonthNameStyle = 'short'
       else
@@ -519,6 +516,7 @@ getMonthName(monthNumber: number, locale: string = 'en-US'): string {
     });
   }
   }
+  /** Class of Dates shown on the calendar */
   class dateClass {
     justdateL:string=''
     wholeDate:Date = new Date()
@@ -541,6 +539,7 @@ getMonthName(monthNumber: number, locale: string = 'en-US'): string {
     }
   
   }
+  /** Holds goAwayers with a list of her TAs. Loaded by makeGoAwayerList and putTAsWithGoAwayers */
  class goAwayerWithTAs {
     LastName: string = ''
     UserKey: number = 0
@@ -650,6 +649,7 @@ getMonthName(monthNumber: number, locale: string = 'en-US'): string {
         }
     }
   }
+  /** Class representing a dosimetrist holding UserKey, LastName, FirstName, and UserID */
 class Dosims{
     UserKey: number = 0
     LastName: string = ''
