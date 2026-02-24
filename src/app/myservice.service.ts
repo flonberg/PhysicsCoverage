@@ -21,6 +21,7 @@ export class MyserviceService {
     setUserId(id: string) {
       if (id != null && id != undefined && id != '0')
         this.userid = id;
+
     }
     getLoggedInUserKey(){
      //  console.log("212121 getting loggedInUserKey %o", this.loggedInUserKey)
@@ -56,12 +57,14 @@ export class MyserviceService {
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTA.php?startDate="+startDateString+"&endDate="+endDateString+
             "&reason="+reason+"&coverer="+coverer+"&userkey="+this.loggedInUserKey + "&note="+this.sanitizeHtmlDisplay(note)+ "&isDosimetrist="+isDosimetrist;  
+          console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
     enterTriageCov(userkey:number,serviceid:number, date: string){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&serviceid="+serviceid;      // 
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/enterTriageCov.php?date="+date+"&userkey="+userkey+"&serviceid="+serviceid+"&debug=1"; 
+          console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
 
@@ -70,6 +73,7 @@ export class MyserviceService {
                  //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())   
           url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?newValue="+newValue+"&newValueName="+newValueName+"&vidx="+vidx+"&debug=1";
+          console.log("30303 url %o", url)
       return this .HttpClient.get<duty>(url)
     }
   sendChangeAndNeedApprovalEmail(toUserKey: number, fromUserKey: number, dutyDate: string, dutyType: string, reason: string, coverer: string, note: string){
@@ -78,11 +82,13 @@ export class MyserviceService {
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendChangeAndNeedApprovalEmail.php?toUserKey="+toUserKey+"&fromUserKey="+fromUserKey+
             "&dutyDate="+dutyDate+"&dutyType="+dutyType+"&reason="+reason+"&coverer="+coverer+"&note="+this.sanitizeHtmlDisplay(note);  
+          console.log("30303 url %o", url)    
     }  
   sendUpdateEmailtoApprover(vidx: number){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/sendUpdateMail.php?taidx="+vidx;      // 
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendUpdateMail.php?taidx="+vidx+"&debug=1";  
+          console.log("30303 url %o", url)    
       return this .HttpClient.get<duty>(url)
     }  
   sanitizeHtmlDisplay(str: string): string {
@@ -144,6 +150,7 @@ export class MyserviceService {
             this.isDosimetrist = res['isDosimetrist']
             this.isApprover = res['isApprover'] 
             this.gotData = true
+          console.log("595959  userkey %o  ---LastName %o ---isDosimetrist %o", this.loggedInUserKey, this.userLastName, this.isDosimetrist)  
         })
     }
     getIsApprover(){
