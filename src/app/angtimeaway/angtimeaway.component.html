@@ -176,10 +176,9 @@
          >{{ dosim.WholeName }} </mat-option>
       </mat-select>
     </mat-form-field>
-    
     <mat-form-field class="example-full-width">
       <mat-label>Note</mat-label>
-        <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" readonly (change)="editTa($event, 'note', shownTa)" >
+        <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'note', shownTa)" >
     </mat-form-field>
      <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="hideForm()">Update</button>
      <button class="raised-button" *ngIf="showApproveButton"  (click)="approveTA()">Approve</button>

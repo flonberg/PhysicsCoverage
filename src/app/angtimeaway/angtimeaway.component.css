@@ -85,3 +85,11 @@ table {
   display: table-cell;
   width: 490px;
 }
+.noteField {
+  width: 100%;
+  border:solid;
+}
+.example-full-width {
+  width: 350px;
+  font-size:smaller;
+}
