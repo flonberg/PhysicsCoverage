@@ -427,7 +427,10 @@ getMonthName(monthNumber: number, locale: string = 'en-US'): string {
   // Use toLocaleString to get the full month name
   return date.toLocaleString(locale, { month: this.thirdMonthNameStyle });
 }
-  getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
+/** Number of days in a TA SHOWN ON CALENDAR will be be the number of days between startDate and endDate, inclusive, unless the TA begins before the start of the calendar or ends after the end of the calendar 
+ * In latter the number will be the number of days between the first date shown on calendar and the TA end date or between the TA start date and the last date shown on calendar, respectively.
+*/
+getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (startDate < this.dateShownOnCalendar[0].wholeDate)                // if TA starts before calendar start date, set to calendar start date
         startDate = this.dateShownOnCalendar[0].wholeDate
       if (this.areDatesOnSameDay(endDate,startDate))                    
