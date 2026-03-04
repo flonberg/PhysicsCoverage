@@ -166,11 +166,13 @@ export class AngtimeawayComponent implements OnInit {
   }
   advanceMonth(n:number){
     this.advance = this.advance + n
-      this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
-      if (this.advance == 0)
+    this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
+    console.log("170170firstDayOnCalendar %o", this.firstDayOnCalendar)
+    if (this.advance == 0)
         this.firstDayOnCalendar = new Date();
     this.lastDateOnCalendar = new Date(this.firstDayOnCalendar);  
     this.lastDateOnCalendar = new Date(this.lastDateOnCalendar .setDate(this.lastDateOnCalendar .getDate() + this.numberOfDaysToShow ));
+    console.log("175175. lastDateOnCalendar %o", this.lastDateOnCalendar)
     this.remainingDaysInMonth = this.numberOfRemainingDaysInMonth();
     this.daysInNext28Days = this.numberOfDaysToShow - this.remainingDaysInMonth + 2;
     this.nameOfCurrentMonth = this.firstDateOfMonthAdvancedByN(this.advance).toLocaleString('default', { month: 'long' });
@@ -367,7 +369,7 @@ makeAllDatesInNext28Days(){
     let firstDateOnCalendar = new Date();
     var lastDateOnCalendar = new Date();
     lastDateOnCalendar.setDate(firstDateOnCalendar .getDate() +  this.numberOfDaysToShow);
-    if (this.advance > 0){
+    if (Math.abs(this.advance) > 0){
       firstDateOnCalendar = this.firstDateInMonthAdvancedByN(this.advance)
       lastDateOnCalendar = this.firstDateInMonthAdvancedByN(this.advance)
       lastDateOnCalendar.setMonth(lastDateOnCalendar.getMonth())
