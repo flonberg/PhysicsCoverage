@@ -124,7 +124,7 @@ export class AngtimeawayComponent implements OnInit {
     daysFromNow28.setDate(daysFromNow28.getDate() + this.numberOfDaysToShow);
     let endDateString = daysFromNow28.toISOString().slice(0,10);
     let startDateString = today.toISOString().slice(0,10);
-    if (this.advance > 0){
+    if (Math.abs(this.advance) > 0){
       this.firstDayOnCalendar = this.firstDateOfMonthAdvancedByN(this.advance)
       if (this.advance == 0)
         this.firstDayOnCalendar = new Date();
