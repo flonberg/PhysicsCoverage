@@ -66,7 +66,7 @@ if( $next_result ) {
    function sendEmailtoBrianAndCoverer($goAwayerData, $covererData, $lastInsertedIdx){
       global $log;
       $approverEmail = 'bnapolitano@partners.org';
-      $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
+    //  $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
       $goAwayer['Email'] = "flonberg@mgh.harvard.edu";                     // change to go awayer email when ready
       $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=approved&newValue=1&debug=1";
       $link2 = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=allAccepted&newValue=1&debug=1";
