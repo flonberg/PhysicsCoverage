@@ -22,6 +22,14 @@ td.notApproved {
 td.noCoverage {
     background-color: rgb(238, 156, 156) ;
 }
+td.hasCoverage {
+    background-color: rgb(115, 147, 115) ;
+
+}
+td.CovNotApproved {
+    background-color: rgb(205, 228, 194) ;
+
+}
 td.weekend {
     background-color: yellow ;
 }
@@ -73,11 +81,7 @@ table {
     border:solid;
     cursor: pointer;
 }
-.hasCoverage {
-    background-color: rgb(115, 147, 115) ;
-    border:solid;
-    cursor: pointer;
-}
+
 .wide {
     width: 250px;
 }

@@ -248,6 +248,7 @@ showTa(tA:any){
     this.showApproveButton = false                              // don't show approve button
   if (!this.isApprover)                                         // is loggedInUser is not approver
     this.showApproveButton = false                              // don't show approve button
+console.log("251251  shownTa %o", this.shownTa)    
 }
 
 selectDates(event: any) {
@@ -301,7 +302,7 @@ selectDates(event: any) {
       }
     }
       this.putTAsWithGoAwayers()
-    console.log("3434 goAwayersWithTAs %o", this.goAwayersWithTAs)
+  //    console.log("3434 goAwayersWithTAs %o", this.goAwayersWithTAs)
   }
   /** Go thru the TAs and put each on in the proper goAwayerWithTAs class */
   putTAsWithGoAwayers(){
@@ -502,8 +503,14 @@ getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
     goAwayerClassFunc(tA:TAclass): string {
       var ret = 'goAwayer'
       if (this.showWhich == 1 ){
-          if ((tA.approved == 0 || tA.approved === null))
-            ret = 'notApproved';
+          if ((tA.approved == 0 || tA.approved === null)){
+            if (tA.CoverageA > 0){
+              console.log("goAwayerClassFunc tA %o", tA)
+              ret = 'CovNotApproved'
+            }
+            else
+              ret = 'notApproved';
+          }
           else if ( tA.CoverageA ===null)
             ret = 'noCoverage';
           else if (tA.CoverageA > 0 && tA.allAccepted == 1)

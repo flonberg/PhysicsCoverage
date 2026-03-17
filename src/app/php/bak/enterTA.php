@@ -32,10 +32,8 @@ $handle = connectDB_FL();
      VALUES ('".$_GET['startDate']."', '".$_GET['endDate']."', ".$_GET['reason'].", '".$UserKey."', ".$_GET['coverer'].",  '".$_GET['note']."', '".$now."'); SELECT SCOPE_IDENTITY() AS idx, 'Inserted TA for ".$goAwayerData['FirstName']." ".$goAwayerData['LastName']."' AS data;";
    $log->logMessage("Executing insert: ".$insStr);
    $stmt = sqlsrv_query( $handle, $insStr);
-   if( $stmt === false ){
+   if( $stmt === false )
       $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true)); 
-      exit();                                                                             // add this to prevent further execution if the insert fails, which would cause issues with the email sending and result fetching below
-   }
    // Move to the next result and display results.
 $next_result = sqlsrv_next_result($stmt);
 if( $next_result ) {
@@ -68,11 +66,11 @@ if( $next_result ) {
    function sendEmailtoBrianAndCoverer($goAwayerData, $covererData, $lastInsertedIdx){
       global $log;
       $approverEmail = 'bnapolitano@partners.org';
-      $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
+    //  $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
       $goAwayer['Email'] = "flonberg@mgh.harvard.edu";                     // change to go awayer email when ready
       $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=approved&newValue=1&debug=1";
       $link2 = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=allAccepted&newValue=1&debug=1";
-         $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'];			// edited to remove 'needs approval'
+         $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ." needs approval";			
          $headers = 'From: whiteboard@partners.org'. "\r\n";
          $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
          $headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";

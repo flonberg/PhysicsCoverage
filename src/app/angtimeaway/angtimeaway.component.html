@@ -157,7 +157,13 @@
     <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid)" >
       <mat-label>Reason:</mat-label>
       <input matInput  value ="{{reasons[shownTa.reason]}}" readonly >
-    </mat-form-field>
+    </mat-form-field  >
+     <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" >
+        <mat-label>Coverer</mat-label>
+        <mat-select [(ngModel)]="selectedDosim" name="coverer">
+          <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.WholeName }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     <!--  Coverer for user is NOT GoAwayer-->
     <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
       <mat-label>Coverer:</mat-label>
