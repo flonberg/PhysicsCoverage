@@ -66,6 +66,7 @@ export class MyserviceService {
     }
 
     editTA(newValue: string | number, newValueName: string, vidx:number){
+      console.log("696969 editTA newValue %o, newValueName %o, vidx %o", newValue, newValueName, vidx)
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/editTAs.php?newValue="+newValue+"&newValueName="+newValueName+"&vidx="+vidx;      // 
                  //https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getPhysicsDuties.php
       if (isDevMode())   

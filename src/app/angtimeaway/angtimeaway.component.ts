@@ -465,7 +465,7 @@ getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       else
         return ' '
       }
-     hideForm(){
+     updateForm(){
       if (this.isDateChanged){                             // if a date was changed, send update email to approver  
         if (this.shownTa && typeof this.shownTa.vidx === 'number') {
           this.myservice.sendUpdateEmailtoApprover(this.shownTa.vidx).subscribe({next: data => {
@@ -493,10 +493,11 @@ getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
         changeValue = event.value
       else
         changeValue = event
+      console.log("496496 changeValue %o", event)
       this.myservice.editTA(changeValue, whatIs, ta.vidx).subscribe({next: data => {
       }})
     //  if (whatIs == 'reasonIdx' && changeValue == '99')            // user DELETED tA
-        this.ngOnInit();
+    //    this.ngOnInit();
    //   this.shownTa = null
     }
     /** Return the proper class for a goAwayer depending on approval status */
@@ -505,7 +506,6 @@ getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       if (this.showWhich == 1 ){
           if ((tA.approved == 0 || tA.approved === null)){
             if (tA.CoverageA > 0){
-              console.log("goAwayerClassFunc tA %o", tA)
               ret = 'CovNotApproved'
             }
             else

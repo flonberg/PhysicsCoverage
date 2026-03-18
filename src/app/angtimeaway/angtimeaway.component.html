@@ -158,12 +158,14 @@
       <mat-label>Reason:</mat-label>
       <input matInput  value ="{{reasons[shownTa.reason]}}" readonly >
     </mat-form-field  >
+<!--
      <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid)" >
-        <mat-label>Coverer</mat-label>
+        <mat-label>CovererB</mat-label>
         <mat-select [(ngModel)]="selectedDosim" name="coverer">
           <mat-option  *ngFor = "let dosim of Dosims" [value]="dosim.UserKey">{{ dosim.WholeName }}</mat-option>
         </mat-select>
       </mat-form-field>
+    -->
     <!--  Coverer for user is NOT GoAwayer-->
     <mat-form-field  *ngIf = "!isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
       <mat-label>Coverer:</mat-label>
@@ -174,7 +176,7 @@
       <mat-label>Coverer - </mat-label>
       <mat-select
         [ngModel]="selectedDosim?.WholeName"
-        (selectionChange)="editTa($event, 'coverer', shownTa)"
+        (selectionChange)="editTa($event, 'coverageA', shownTa)"
         name="coverer">
         <mat-option  *ngFor = "let dosim of Dosims"
          [value] ="dosim.WholeName"
@@ -185,7 +187,7 @@
       <mat-label>Note</mat-label>
         <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'note', shownTa)" >
     </mat-form-field>
-     <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="hideForm()">Update</button>
+     <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="updateForm()">Update</button>
      <button class="raised-button" *ngIf="showApproveButton"  (click)="approveTA()">Approve</button>
     <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="editTa('99', 'reasonIdx', shownTa)">Delete</button>
     </div>

@@ -13,12 +13,16 @@ $handle = connectDB_FL();
     }
    $oldValue = getSingle("SELECT ".$_GET['newValueName']." from vacation3 WHERE vidx = ".$_GET['vidx'], $_GET['newValueName'], $handle);
    $log->logMessage("Old value: ". print_r($oldValue, true));
-   $updateSts = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];   
-   $log->logSql($updateSts);
-   if (strpos($_GET['newValueName'],'CoverageA') !== false && $_GET['newValue'] > 0){  // change in coverer, send email to new coverer
-      $covererData = getCovererData($_GET['newValue']);
-      $log->logMessage("Change Coverer for : ".$_GET['vidx']);
+   if (strpos($_GET['newValueName'],'coverageA') !== false ){  // change in coverer, send email to new coverer
+      $_GET['newValue'] = getUserKeyFromName($_GET['newValue']);
    }
+   $updateStr = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];   
+   //$log->logSql($updateSts);
+   $log->logMessage("Executing query: ".$updateStr);
+   $stmt = sqlsrv_query( $handle, $updateStr);
+   if( $stmt === false )
+      $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
+  
    if ($_GET['fromLink'] == '1'){                                                      // go here from link in email
       if (strpos($_GET['newValueName'],'approved') !== false ){                        // echo appropriate message
          echo "<br> Time Away Approved: <br>";
@@ -35,6 +39,26 @@ $handle = connectDB_FL();
    */
 
    exit(0);
+   /** need to get UserKey from LastName, FirstName */
+   function getUserKeyFromName($name){
+      global $log;
+      $handle = connectDB_FL();
+      $lastName = strstr($name, ',', true);                       // get string before comma for last name
+      $firstName = trim(strstr($name, ','), ', ');                // get string after comma for first name
+       $log->logMessage("Extracted lastName: ". $lastName . " and firstName: " . $firstName);
+      
+      $selStr = "SELECT UserKey FROM physicists WHERE LastName = '".$lastName."' AND FirstName = '".$firstName."'";
+      $log->logMessage("Executing query: ".$selStr);
+      $stmt = sqlsrv_query( $handle, $selStr);
+      if( $stmt === false )
+         $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
+      $data = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
+      $log->logMessage("Data: ". print_r($data, true));
+      return $data['UserKey'];
+   } 
+   function getStringAfterComma($name){
+      return trim(strstr($name, ','), ', ');
+   }   
    function getCovererData($covererUserKey){
       global $log;
       $handle = connectDB_FL();
@@ -47,7 +71,7 @@ $handle = connectDB_FL();
       $log->logMessage("Coverer data: ". print_r($covererData, true));
       return $covererData;
    }
-      function sendEmailCoverer($goAwayerData, $covererData, $lastInsertedIdx){
+   function sendEmailCoverer($goAwayerData, $covererData, $lastInsertedIdx){
       global $log;
       $approverEmail = 'bnapolitano@partners.org';
     //  $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
