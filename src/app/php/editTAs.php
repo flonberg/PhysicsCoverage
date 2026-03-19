@@ -32,11 +32,6 @@ $handle = connectDB_FL();
       }
       exit();
    }
-   /*
-   $GoAwayerUserKey = getSingle("SELECT userid from vacation3 WHERE vidx = ".$_GET['vidx'], "userid", $handle);
-   $isDosimetrist = in_array($GoAwayerUserKey, $dosimetrist);
-   $log->logMessage("isDosimetrist: ". ($isDosimetrist ? 'true' : 'false'));
-   */
 
    exit(0);
    /** need to get UserKey from LastName, FirstName */
@@ -78,7 +73,7 @@ $handle = connectDB_FL();
       $goAwayer['Email'] = "flonberg@mgh.harvard.edu";                     // change to go awayer email when ready
       $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=approved&newValue=1&debug=1";
       $link2 = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=allAccepted&newValue=1&debug=1";
-         $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ." needs approval";			
+         $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ;			
          $headers = 'From: whiteboard@partners.org'. "\r\n";
          $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
          $headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";

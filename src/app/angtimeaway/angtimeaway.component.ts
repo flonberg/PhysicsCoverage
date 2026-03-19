@@ -484,6 +484,7 @@ getNumberOfDaysInTA(startDate: Date, endDate: Date): number {
       }
     } 
     editTa(event:any, whatIs:string, ta:shownTA){
+      this.isDateChanged = false;                       // reset flag to send update email to approver when editing a date field. It will be set to true if a date field is edited and then when user clicks Update, if this flag is true, an update email will be sent to the approver
       let changeValue:string | number = ''
       if (whatIs.includes('Date'))                     // if editing a date field  
         this.isDateChanged = true;                       // set flag to send update email later
