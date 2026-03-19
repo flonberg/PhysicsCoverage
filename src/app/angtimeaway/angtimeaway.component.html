@@ -172,7 +172,7 @@
       <input matInput  value ="{{DosismByUserKey[shownTa.CoverageA].FirstName + ' ' + DosismByUserKey[shownTa.CoverageA].LastName}}" readonly >
     </mat-form-field>
     <!--  Coverer for user IS GoAwayer--> 
-    <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid) && shownTa.CoverageA > 0 && DosismByUserKey[shownTa.CoverageA]" >
+    <mat-form-field  *ngIf = "isUserGoAwayerForThisTA(shownTa.userid) " >
       <mat-label>Coverer - </mat-label>
       <mat-select
         [ngModel]="selectedDosim?.WholeName"
