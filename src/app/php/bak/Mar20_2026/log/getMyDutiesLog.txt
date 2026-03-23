@@ -1,0 +1,14 @@
+2026-03-20 08:24:34
+Array
+(
+    [Start] => 2026-03-20
+    [userkey] => 883
+)
+
+ SELECT  PhysicsMonthlyDuty.idx,  PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, PhysicsMonthlyDuty.userkey,
+  PhysicsMonthlyDuty.phys2, PhysicsDuty.Idx, PhysicsDuty.timeSpan, PhysicsDuty.name
+  FROM PhysicsMonthlyDuty
+  JOIN PhysicsDuty ON PhysicsDuty.Idx=PhysicsMonthlyDuty.serviceid
+   WHERE day > '2026-03-20'
+  AND (userkey = 883 OR phys2 = 883 OR phys3 = 883) 
+  ORDER BY day

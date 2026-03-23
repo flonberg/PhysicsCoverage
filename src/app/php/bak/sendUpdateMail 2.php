@@ -16,8 +16,7 @@ $handle = connectDB_FL();
    $stmt = sqlsrv_query( $handle, $updateStr);
       if( $stmt === false )
          $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
-      /** get data on TA including userid (UserKey) to see if users if a Dosimetrist */
-   $selStr = "SELECT v.startDate, v.endDate, v.vidx,v.userid, v.coverageA, p.LastName, p.FirstName, p.Email        
+   $selStr = "SELECT v.startDate, v.endDate, v.vidx,v.userid, p.LastName, p.FirstName, p.Email
               FROM vacation3 v
               JOIN physicists p ON v.userid = p.UserKey
               WHERE v.vidx = ".$_GET['taidx'];
@@ -29,14 +28,13 @@ $handle = connectDB_FL();
    $log->logMessage("TA data: ". print_r($taData, true));
    if (in_array($taData['userid'], $dosimetrist)){
       $log->logMessage("User is a dosimetrist, preparing to send email notification to Brian and coverer");
-      sendUpdateEmailtoBrian($taData, $_GET['taidx']);
-      sendUpdateEmailtoCoverer($taData, $_GET['taidx']);
+      sendUpdateEmailtoBrianAndGoAwayer($taData, $_GET['taidx']);
    }
    else {
       $log->logMessage("User is not a dosimetrist, no email notification will be sent for TA idx: ".$_GET['taidx']);
    }
    exit();
-   function sendUpdateEmailtoBrian($taData, $taidx){
+   function sendUpdateEmailtoBrianAndGoAwayer($taData, $taidx){
       global $log;
       $log->logMessage("Preparing to send update email for TA idx: ".$taidx);
       $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$taData['vidx']."&newValueName=approved&newValue=1&debug=1";
@@ -55,48 +53,10 @@ $handle = connectDB_FL();
          $message .= '</head>';
          $message .= '<body>';
       $message .= "The Time Away for ".$taData['FirstName']." ".$taData['LastName']." has been updated:\n\n";
+      $sdStr = $taData['startDate']->format('Y-m-d');
       $message .= "Start Date is now: ".$taData['startDate']->format('Y-m-d')."\n";
       $message .= "End Date is now: ".$taData['endDate']->format('Y-m-d')."\n";
       $message .= "<p>To approve this Time Away, click here <a href='".$link."'>Approve Time Away </a> or go to the Time Away page on the Physics Coverage Whiteboard. </p>";
-      $message .= '</body></html>';
-      $log->logMessage("Sending email to: ".$to);
-      $res = mail($to, $subject, $message, $headers);
-      ob_start(); var_dump($res);$data = ob_get_clean();$log->logMessage("Email sending result: ".$data);
-      if ($res) 
-        $log->logMessage("Email successfully sent to ".$to);
-     else 
-        $log->logMessage("Email sending failed to ".$to);
-      
-   }  
-   function sendUpdateEmailtoCoverer($taData, $taidx){
-      global $log, $handle;
-      $log->logMessage("Preparing to send update email for TA idx: ".$taidx);
-      $getCovererDataStr = "SELECT FirstName, LastName, Email FROM physicists WHERE UserKey = ".$taData['coverageA'];
-      $log->logMessage("Executing query: ".$getCovererDataStr);
-         $stmt = sqlsrv_query( $handle, $getCovererDataStr);
-      if( $stmt === false )
-         $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
-      $covererData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
-      $log->logMessage("Coverer data: ". print_r($covererData, true));
-      $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$taData['vidx']."&newValueName=approved&newValue=1&debug=1";
-      $to = $covererData['Email'];
-      $to = "flonberg@mgh.harvard.edu";     
-      $subject = "Time Away Update";
-         $headers = 'From: whiteboard@partners.org'. "\r\n";
-         $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
-         $headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";
-         $headers .= 'MIME-Version: 1.0'. "\r\n";
-         $headers .= 'Content-Type: text/html; charset=ISO-8859-1'. "\r\n";
-
-          $message =  '<html>';
-         $message .= '<head>';
-         $message .= '<style>.attention{font-size: large; padding:10;} .bigAttention{font-size: x-large;}</style>';
-         $message .= '</head>';
-         $message .= '<body>';
-         $message .= $covererData['FirstName']."  ".$covererData['LastName']."</p>";   
-      $message .= "The Time Away for ".$taData['FirstName']." ".$taData['LastName']." has been updated:\n\n";
-      $message .= "Start Date is now: ".$taData['startDate']->format('Y-m-d')."\n";
-      $message .= "End Date is now: ".$taData['endDate']->format('Y-m-d')."\n";
       $message .= '</body></html>';
       $log->logMessage("Sending email to: ".$to);
       $res = mail($to, $subject, $message, $headers);

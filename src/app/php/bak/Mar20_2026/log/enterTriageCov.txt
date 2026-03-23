@@ -1,0 +1,9 @@
+2025-11-11 17:42:31
+Array
+(
+    [date] => 2025-11-05
+    [userkey] => 1034
+)
+
+ INSERT INTO ResidentTriageDuty (userkey, day, modWhen) VALUES (1034, '2025-11-05', '2025-11-11 05:42:31')
+ Inserted successfully 

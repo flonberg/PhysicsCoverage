@@ -1,0 +1,18 @@
+2025-12-05 16:14:36
+Array
+(
+    [MonthNum] => 2025-12
+    [debug] => `
+)
+
+ SELECT PhysicsMonthlyDuty.idx, PhysicsMonthlyDuty.serviceid, PhysicsMonthlyDuty.day, 
+      PhysicsMonthlyDuty.userkey, PhysicsMonthlyDuty.phys2, PhysicsMonthlyDuty.phys3,
+      physicists.LastName, physicists.UserKey, physicists.Email
+      FROM PhysicsMonthlyDuty 
+      INNER JOIN physicists ON physicists.UserKey = PhysicsMonthlyDuty.userkey
+     
+    ORDER BY day, serviceidArray
+(
+    [MonthNum] => 2025-12
+    [debug] => `
+)

@@ -1,0 +1,853 @@
+
+ 
+2025-06-20 11:22:09
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2  WHERE idx = 39634
+ 
+2025-06-24 10:38:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1  WHERE idx = 39860
+ 
+2025-07-03 17:10:30
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2  WHERE idx = 40102
+ 
+2025-07-03 17:10:43
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2  WHERE idx = 40117
+ 
+2025-07-03 17:43:09
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1  WHERE idx = 40062
+ 
+2025-07-03 17:43:18
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1  WHERE idx = 40069
+ 
+2025-07-03 17:43:22
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1  WHERE idx = 40075
+ 
+2025-07-06 19:20:41
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722  WHERE idx = 40107
+ 
+2025-07-07 09:04:45
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432  WHERE idx = 40120
+ 
+2025-07-07 09:07:43
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8  WHERE idx = 40078
+ 
+2025-07-07 09:09:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477  WHERE idx = 40113
+ 
+2025-07-07 09:52:16
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477  WHERE idx = 40110
+ 
+2025-07-07 09:52:24
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841  WHERE idx = 40139
+ 
+2025-07-07 10:59:32
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8  WHERE idx = 40057
+ 
+2025-07-07 11:04:49
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734  WHERE idx = 40059
+ 
+2025-07-07 11:12:46
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8  WHERE idx = 40043
+ 
+2025-07-07 11:15:41
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1  WHERE idx = 40114
+ 
+2025-07-07 11:16:07
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841  WHERE idx = 40043
+ 
+2025-07-07 11:22:28
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477  WHERE idx = 40085
+ 
+2025-07-07 11:23:14
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841  WHERE idx = 40057
+ 
+2025-07-07 11:23:49
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8  WHERE idx = 40043
+ 
+2025-07-07 11:59:25
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722  WHERE idx = 40131
+ 
+2025-07-07 11:59:41
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215  WHERE idx = 40077
+ 
+2025-07-07 12:22:57
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3  WHERE idx = 40087
+ 
+2025-07-07 12:24:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3  WHERE idx = 40072
+ 
+2025-07-07 12:25:29
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841  WHERE idx = 40065
+ 
+2025-07-07 12:26:12
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477  WHERE idx = 40101
+ 
+2025-07-07 12:53:56
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841  WHERE idx = 40041
+ 
+2025-07-07 12:54:08
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215  WHERE idx = 40082
+ 
+2025-07-07 13:58:57
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8  WHERE idx = 40011
+ 
+2025-07-07 13:59:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215  WHERE idx = 40097
+ 
+2025-07-08 07:54:21
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722  WHERE idx = 40026
+ 
+2025-07-08 08:00:44
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8  WHERE idx = 40042
+ 
+2025-07-16 13:38:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3  WHERE idx = 39798
+ 
+2025-07-17 15:32:20
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2  WHERE idx = 39739
+ 
+2025-07-22 11:35:57
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40141
+ 
+2025-07-22 11:42:20
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40029
+ 
+2025-07-24 11:33:31
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40100
+ 
+2025-07-24 11:33:42
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40065
+ 
+2025-07-25 12:00:34
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40100
+ 
+2025-07-25 12:07:10
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40072
+ 
+2025-07-26 11:38:13
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1 , modWhen = GETDATE() WHERE idx = 39780
+ 
+2025-08-01 08:47:00
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40013
+ 
+2025-08-01 08:57:56
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40111
+ 
+2025-08-04 10:53:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 40023
+ 
+2025-08-04 10:56:17
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40016
+ 
+2025-08-04 11:20:37
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40101
+ 
+2025-08-04 16:30:24
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40094
+ 
+2025-08-04 16:40:17
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40135
+ 
+2025-08-05 09:23:22
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40219
+ 
+2025-08-05 09:25:04
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40233
+ 
+2025-08-05 13:45:42
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40031
+ 
+2025-08-05 13:49:12
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40052
+ 
+2025-08-05 13:52:13
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40024
+ 
+2025-08-05 15:38:40
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40228
+ 
+2025-08-05 15:38:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40208
+ 
+2025-08-05 15:41:13
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40193
+ 
+2025-08-05 15:42:38
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40321
+ 
+2025-08-05 16:26:38
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40235
+ 
+2025-08-05 16:27:11
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40304
+ 
+2025-08-06 10:57:04
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 40097
+ 
+2025-08-06 11:12:00
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40033
+ 
+2025-08-06 12:02:43
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 4 , modWhen = GETDATE() WHERE idx = 40178
+ 
+2025-08-06 12:03:02
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40269
+ 
+2025-08-06 12:23:33
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 4 , modWhen = GETDATE() WHERE idx = 40255
+ 
+2025-08-06 12:24:21
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 4 , modWhen = GETDATE() WHERE idx = 40214
+ 
+2025-08-06 12:25:25
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40192
+ 
+2025-08-06 12:25:31
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40263
+ 
+2025-08-06 12:31:08
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40313
+ 
+2025-08-06 12:32:14
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40279
+ 
+2025-08-06 12:35:40
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40179
+ 
+2025-08-06 12:41:16
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40180
+ 
+2025-08-06 12:43:48
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40079
+ 
+2025-08-06 12:44:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40095
+ 
+2025-08-06 12:50:30
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40208
+ 
+2025-08-06 12:57:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40283
+ 
+2025-08-06 12:57:47
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40305
+ 
+2025-08-06 13:24:02
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40269
+ 
+2025-08-06 13:24:11
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40283
+ 
+2025-08-06 14:27:37
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40179
+ 
+2025-08-07 16:08:21
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40271
+ 
+2025-08-07 16:24:51
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40303
+ 
+2025-08-10 12:39:20
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40100
+ 
+2025-08-11 07:59:20
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40057
+ 
+2025-08-11 08:30:54
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40057
+ 
+2025-08-11 08:31:07
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40057
+ 
+2025-08-11 10:35:52
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40072
+ 
+2025-08-11 10:35:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40073
+ 
+2025-08-11 11:04:13
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40219
+ 
+2025-08-14 09:43:12
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40310
+ 
+2025-08-18 10:04:10
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40311
+ 
+2025-08-18 10:20:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40290
+ 
+2025-08-18 10:34:49
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40313
+ 
+2025-08-18 10:34:54
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40292
+ 
+2025-08-18 17:57:41
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1 , modWhen = GETDATE() WHERE idx = 40311
+ 
+2025-08-18 18:29:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1 , modWhen = GETDATE() WHERE idx = 40262
+ 
+2025-08-18 18:42:10
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40248
+ 
+2025-08-20 11:05:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40241
+ 
+2025-08-20 12:54:44
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40198
+ 
+2025-08-20 12:57:02
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40184
+ 
+2025-08-22 13:26:28
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40179
+ 
+2025-08-22 13:26:40
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40298
+ 
+2025-08-26 15:11:23
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2 , modWhen = GETDATE() WHERE idx = 40129
+ 
+2025-08-27 12:40:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40200
+ 
+2025-09-02 08:22:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40942
+ 
+2025-09-02 08:22:58
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40949
+ 
+2025-09-02 08:23:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40954
+ 
+2025-09-02 08:32:17
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40877
+ 
+2025-09-02 08:33:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40228
+ 
+2025-09-02 08:34:48
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40809
+ 
+2025-09-02 09:01:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40809
+ 
+2025-09-02 09:03:41
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40242
+ 
+2025-09-02 10:23:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40877
+ 
+2025-09-02 10:27:57
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40289
+ 
+2025-09-02 10:31:00
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40199
+ 
+2025-09-02 10:51:37
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40240
+ 
+2025-09-02 10:53:32
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 49 , modWhen = GETDATE() WHERE idx = 40254
+ 
+2025-09-02 11:03:07
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40870
+ 
+2025-09-02 11:03:15
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40821
+ 
+2025-09-02 11:11:03
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40870
+ 
+2025-09-02 11:11:19
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40928
+ 
+2025-09-02 11:11:30
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40934
+ 
+2025-09-02 11:16:04
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40941
+ 
+2025-09-02 11:16:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40942
+ 
+2025-09-02 11:16:10
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40954
+ 
+2025-09-02 11:22:02
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40954
+ 
+2025-09-02 11:22:12
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40942
+ 
+2025-09-02 11:22:44
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40837
+ 
+2025-09-02 11:22:50
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40912
+ 
+2025-09-02 11:36:20
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40884
+ 
+2025-09-02 11:36:32
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-09-02 11:41:35
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40870
+ 
+2025-09-02 11:43:35
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40835
+ 
+2025-09-02 11:44:25
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40814
+ 
+2025-09-02 11:57:32
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40835
+ 
+2025-09-02 11:59:28
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40884
+ 
+2025-09-02 12:28:34
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40921
+ 
+2025-09-02 13:32:39
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40920
+ 
+2025-09-02 13:34:17
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 4 , modWhen = GETDATE() WHERE idx = 40878
+ 
+2025-09-02 14:18:35
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 40935
+ 
+2025-09-02 14:18:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 40847
+ 
+2025-09-02 14:25:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40851
+ 
+2025-09-02 14:26:07
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40889
+ 
+2025-09-02 19:41:42
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40900
+ 
+2025-09-03 09:23:49
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40827
+ 
+2025-09-03 09:23:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40967
+ 
+2025-09-03 10:00:15
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40199
+ 
+2025-09-03 10:01:44
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40276
+ 
+2025-09-03 10:03:47
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40861
+ 
+2025-09-03 10:33:31
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40309
+ 
+2025-09-03 14:31:36
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 4 , modWhen = GETDATE() WHERE idx = 40942
+ 
+2025-09-03 14:32:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40886
+ 
+2025-09-03 16:15:21
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40856
+ 
+2025-09-03 16:30:31
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2 , modWhen = GETDATE() WHERE idx = 40821
+ 
+2025-09-05 15:56:35
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40948
+ 
+2025-09-08 13:57:36
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40228
+ 
+2025-09-08 13:59:45
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40844
+ 
+2025-09-10 16:10:05
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-09-10 16:10:58
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 40844
+ 
+2025-09-10 16:12:10
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40843
+ 
+2025-09-10 16:12:29
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-09-22 09:51:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 40937
+ 
+2025-09-22 10:21:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40831
+ 
+2025-09-22 12:54:00
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40899
+ 
+2025-09-22 13:22:34
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40913
+ 
+2025-09-26 10:54:17
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40318
+ 
+2025-09-26 10:57:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40934
+ 
+2025-10-02 09:24:53
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 41152
+ 
+2025-10-02 11:40:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 41110
+ 
+2025-10-02 16:28:44
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 40857
+ 
+2025-10-02 16:34:21
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40836
+ 
+2025-10-03 10:49:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 41144
+ 
+2025-10-03 11:01:45
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 41186
+ 
+2025-10-03 11:10:21
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 41166
+ 
+2025-10-03 11:10:33
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 734 , modWhen = GETDATE() WHERE idx = 41152
+ 
+2025-10-06 10:55:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 41186
+ 
+2025-10-06 10:56:27
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 41130
+ 
+2025-10-06 10:58:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 41217
+ 
+2025-10-06 10:59:02
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 41175
+ 
+2025-10-06 11:33:31
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1 , modWhen = GETDATE() WHERE idx = 41217
+ 
+2025-10-06 11:34:50
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 41183
+ 
+2025-10-07 15:09:23
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 215 , modWhen = GETDATE() WHERE idx = 40846
+ 
+2025-10-07 20:56:01
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 40874
+ 
+2025-10-09 09:58:46
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40909
+ 
+2025-10-09 09:59:17
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 40901
+ 
+2025-10-09 11:15:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40916
+ 
+2025-10-09 11:16:48
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40936
+ 
+2025-10-10 10:51:27
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-10-10 10:52:56
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2 , modWhen = GETDATE() WHERE idx = 40913
+ 
+2025-10-14 13:51:25
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-10-14 13:53:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-10-14 16:09:39
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 40936
+ 
+2025-10-14 17:28:58
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 2 , modWhen = GETDATE() WHERE idx = 40913
+ 
+2025-10-14 17:34:02
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-10-14 17:43:30
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1 , modWhen = GETDATE() WHERE idx = 40824
+ 
+2025-10-14 17:46:13
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-10-14 17:47:18
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 40885
+ 
+2025-10-17 13:05:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 41211
+ 
+2025-10-17 13:29:42
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 1 , modWhen = GETDATE() WHERE idx = 40927
+ 
+2025-10-17 13:35:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 71 , modWhen = GETDATE() WHERE idx = 41109
+ 
+2025-10-17 13:44:35
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 41189
+ 
+2025-10-20 11:50:06
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 722 , modWhen = GETDATE() WHERE idx = 41143
+ 
+2025-10-20 11:51:55
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 8 , modWhen = GETDATE() WHERE idx = 41108
+ 
+2025-10-20 11:53:57
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 477 , modWhen = GETDATE() WHERE idx = 40944
+ 
+2025-10-30 13:43:10
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 41148
+ 
+2025-10-30 13:44:24
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 841 , modWhen = GETDATE() WHERE idx = 41196
+ 
+2025-11-10 10:09:56
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 3 , modWhen = GETDATE() WHERE idx = 41438
+ 
+2025-11-10 10:14:30
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 432 , modWhen = GETDATE() WHERE idx = 41501
+ 
+2025-11-11 15:39:59
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 0 , modWhen = GETDATE() WHERE idx = 41552
+ 
+2025-11-11 15:57:12
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 0 , modWhen = GETDATE() WHERE idx = 41412
+ 
+2025-11-11 15:57:22
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 0 , modWhen = GETDATE() WHERE idx = 41412
+ 
+2025-11-11 15:57:43
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 0 , modWhen = GETDATE() WHERE idx = 41412
+ 
+2025-11-12 09:53:50
+
+ UPDATE TOP(1) PhysicsMonthlyDuty SET phys2 = 0 , modWhen = GETDATE() WHERE idx = 41108

@@ -44,6 +44,13 @@ export class MyserviceService {
     getFromAssets(): Observable<any> {
       return this.HttpClient.get<any>('assets/config.json');
     }
+    getIsGoAwayerDosimetrist($goAwayerUserKey: number){
+      let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/isDosim.php?userkey="+$goAwayerUserKey;      // 
+      if (isDevMode())
+        url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/isDosim.php?userkey="+$goAwayerUserKey+"&debug=1";			//  debug 
+      return this .HttpClient.get<duty>(url)
+    }
+ 
     getFullNameFromUserKey(userkey: number){
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/getFullName.php?userkey="+userkey;      // 
       if (isDevMode())
@@ -84,7 +91,7 @@ export class MyserviceService {
       let url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_prod_/sendUpdateMail.php?taidx="+vidx;      // 
       if (isDevMode())    
          url = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/sendUpdateMail.php?taidx="+vidx+"&debug=1";  
- 
+      console.log("Sending update email to approver for TA idx: %o", url)
       return this .HttpClient.get<duty>(url)
     }  
   sanitizeHtmlDisplay(str: string): string {

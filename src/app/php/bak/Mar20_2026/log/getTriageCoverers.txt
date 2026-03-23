@@ -1,0 +1,1651 @@
+2025-12-01 09:02:18
+Array
+(
+    [startDate] => 2025-12-01
+    [endDate] => 2026-01-31
+    [loggedInUserId] => fjl3
+)
+
+ SELECT FirstName, LastName, UserKey,Email from physicians
+    WHERE Rank = 3 Order by LastNameArray
+(
+    [FirstName] => Elio
+    [LastName] => Adib
+    [UserKey] => 980
+    [Email] => EADIB@BWH.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Mina
+    [LastName] => Bakhtiar
+    [UserKey] => 899
+    [Email] => MBAKHTIAR@PARTNERS.ORG
+)
+Array
+(
+    [FirstName] => Eric
+    [LastName] => Bent
+    [UserKey] => 735
+    [Email] => ehbent@partners.org
+)
+Array
+(
+    [FirstName] => Eric
+    [LastName] => Bent
+    [UserKey] => 1019
+    [Email] => ehbent@mgb.org
+)
+Array
+(
+    [FirstName] => Abrar
+    [LastName] => Choudhury
+    [UserKey] => 1038
+    [Email] => ARCHOUDHURY@MGB.ORG
+)
+Array
+(
+    [FirstName] => Zoe
+    [LastName] => Cosner
+    [UserKey] => 982
+    [Email] => ZCOSNER@MGB.ORG
+)
+Array
+(
+    [FirstName] => Sayeh
+    [LastName] => Fattahi
+    [UserKey] => 981
+    [Email] => SFATTAHI1@MGB.ORG
+)
+Array
+(
+    [FirstName] => Carla
+    [LastName] => Fitch
+    [UserKey] => 1037
+    [Email] => CMFITCH@MGB.ORG
+)
+Array
+(
+    [FirstName] => Gabriela
+    [LastName] => Gomez
+    [UserKey] => 1101
+    [Email] => gtgomez@bwh.harvard.edu
+)
+Array
+(
+    [FirstName] => Jacob
+    [LastName] => Hogan
+    [UserKey] => 1107
+    [Email] => JHOGAN8@MGH.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Thomas
+    [LastName] => Howard
+    [UserKey] => 900
+    [Email] => Thomas_Howard@DFCI.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Emerson
+    [LastName] => Lee
+    [UserKey] => 1036
+    [Email] => ELEE44@MGH.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Kingson
+    [LastName] => Lin
+    [UserKey] => 1102
+    [Email] => KLIN18@MGB.ORG
+)
+Array
+(
+    [FirstName] => Paras
+    [LastName] => Minhas
+    [UserKey] => 1103
+    [Email] => PSMINHAS@MGB.ORG
+)
+Array
+(
+    [FirstName] => Javier
+    [LastName] => Mora
+    [UserKey] => 901
+    [Email] => Javier_Mora@dfci.harvard.edu
+)
+Array
+(
+    [FirstName] => Acacia
+    [LastName] => Mouzakitis
+    [UserKey] => 1035
+    [Email] => amouzakitis@mgb.org
+)
+Array
+(
+    [FirstName] => Shane
+    [LastName] => Neibart
+    [UserKey] => 983
+    [Email] => SNEIBART@PARTNERS.ORG
+)
+Array
+(
+    [FirstName] => Palak
+    [LastName] => Patel
+    [UserKey] => 1033
+    [Email] => PPATEL100@MGB.ORG
+)
+Array
+(
+    [FirstName] => Akshat
+    [LastName] => Patel
+    [UserKey] => 1034
+    [Email] => APATEL122@MGB.ORG
+)
+Array
+(
+    [FirstName] => Nadia
+    [LastName] => Saeed
+    [UserKey] => 984
+    [Email] => NSAEED@MGB.ORG
+)
+Array
+(
+    [FirstName] => Alice
+    [LastName] => Silberstein
+    [UserKey] => 1104
+    [Email] => ASILBERSTEIN@MGB.ORG
+)
+Array
+(
+    [FirstName] => Leah
+    [LastName] => Thompson
+    [UserKey] => 902
+    [Email] => LLTHOMPSON@MGH.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Tanooha
+    [LastName] => Veeramachaneni
+    [UserKey] => 1105
+    [Email] => TANOOHA_VEERAMACHANENI@DFCI.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Tyler
+    [LastName] => Walburn
+    [UserKey] => 904
+    [Email] => TWALBURN@PARTNERS.ORG
+)
+Array
+(
+    [FirstName] => Amy
+    [LastName] => Wisdom
+    [UserKey] => 903
+    [Email] => AWISDOM1@PARTNERS.ORG
+)
+Array
+(
+    [FirstName] => Jennifer
+    [LastName] => Zagelbaum
+    [UserKey] => 1032
+    [Email] => JZAGELBAUM@MGB.ORG
+)
+Array
+(
+    [FirstName] => Johnathan
+    [LastName] => Zeng
+    [UserKey] => 985
+    [Email] => JZENG6@BWH.HARVARD.EDU
+)
+Array
+(
+    [FirstName] => Iowis
+    [LastName] => Zhu
+    [UserKey] => 1106
+    [Email] => IOWIS_ZHU@DFCI.HARVARD.EDU
+)
+
+ SELECT ResidentTriageDuty.day, ResidentTriageDuty.userkey, ResidentTriageDuty.phys2, physicians.LastName, physicians.FirstName 
+from ResidentTriageDuty
+JOIN physicians ON ResidentTriageDuty.userkey = physicians.UserKey
+ where del = 0 ORDER BY ResidentTriageDuty.idx descArray
+(
+    [day] => DateTime Object
+        (
+            [date] => 1970-01-01 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 980
+    [phys2] => 
+    [LastName] => Adib
+    [FirstName] => Elio
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 1970-01-01 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 980
+    [phys2] => 
+    [LastName] => Adib
+    [FirstName] => Elio
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-24 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 982
+    [phys2] => 
+    [LastName] => Cosner
+    [FirstName] => Zoe
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-23 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1032
+    [phys2] => 
+    [LastName] => Zagelbaum
+    [FirstName] => Jennifer
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-23 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-23 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1107
+    [phys2] => 
+    [LastName] => Hogan
+    [FirstName] => Jacob
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-22 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-18 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 982
+    [phys2] => 
+    [LastName] => Cosner
+    [FirstName] => Zoe
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-18 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-17 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-17 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1038
+    [phys2] => 
+    [LastName] => Choudhury
+    [FirstName] => Abrar
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-16 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 899
+    [phys2] => 
+    [LastName] => Bakhtiar
+    [FirstName] => Mina
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-15 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-15 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1107
+    [phys2] => 
+    [LastName] => Hogan
+    [FirstName] => Jacob
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-10 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-10 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-10 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1038
+    [phys2] => 
+    [LastName] => Choudhury
+    [FirstName] => Abrar
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-09 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 899
+    [phys2] => 
+    [LastName] => Bakhtiar
+    [FirstName] => Mina
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-08 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1036
+    [phys2] => 
+    [LastName] => Lee
+    [FirstName] => Emerson
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1019
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 980
+    [phys2] => 
+    [LastName] => Adib
+    [FirstName] => Elio
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1036
+    [phys2] => 
+    [LastName] => Lee
+    [FirstName] => Emerson
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1019
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 980
+    [phys2] => 
+    [LastName] => Adib
+    [FirstName] => Elio
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1038
+    [phys2] => 
+    [LastName] => Choudhury
+    [FirstName] => Abrar
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-02 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 899
+    [phys2] => 
+    [LastName] => Bakhtiar
+    [FirstName] => Mina
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-02 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1106
+    [phys2] => 
+    [LastName] => Zhu
+    [FirstName] => Iowis
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-02 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 899
+    [phys2] => 
+    [LastName] => Bakhtiar
+    [FirstName] => Mina
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-02 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1106
+    [phys2] => 
+    [LastName] => Zhu
+    [FirstName] => Iowis
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-02 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 899
+    [phys2] => 
+    [LastName] => Bakhtiar
+    [FirstName] => Mina
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-12-01 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-26 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 899
+    [phys2] => 
+    [LastName] => Bakhtiar
+    [FirstName] => Mina
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-24 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 982
+    [phys2] => 
+    [LastName] => Cosner
+    [FirstName] => Zoe
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1037
+    [phys2] => 
+    [LastName] => Fitch
+    [FirstName] => Carla
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1103
+    [phys2] => 
+    [LastName] => Minhas
+    [FirstName] => Paras
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-12 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-12 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1033
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Palak
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 984
+    [phys2] => 
+    [LastName] => Saeed
+    [FirstName] => Nadia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 984
+    [phys2] => 
+    [LastName] => Saeed
+    [FirstName] => Nadia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1037
+    [phys2] => 
+    [LastName] => Fitch
+    [FirstName] => Carla
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-21 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-14 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-20 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 902
+    [phys2] => 
+    [LastName] => Thompson
+    [FirstName] => Leah
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-13 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 902
+    [phys2] => 
+    [LastName] => Thompson
+    [FirstName] => Leah
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-19 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-12 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1034
+    [phys2] => 
+    [LastName] => Patel
+    [FirstName] => Akshat
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-19 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-12 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-18 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-11 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-17 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1037
+    [phys2] => 
+    [LastName] => Fitch
+    [FirstName] => Carla
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-10 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1037
+    [phys2] => 
+    [LastName] => Fitch
+    [FirstName] => Carla
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-07 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 901
+    [phys2] => 
+    [LastName] => Mora
+    [FirstName] => Javier
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-06 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 902
+    [phys2] => 
+    [LastName] => Thompson
+    [FirstName] => Leah
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1035
+    [phys2] => 
+    [LastName] => Mouzakitis
+    [FirstName] => Acacia
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-04 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 904
+    [phys2] => 
+    [LastName] => Walburn
+    [FirstName] => Tyler
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-03 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1037
+    [phys2] => 
+    [LastName] => Fitch
+    [FirstName] => Carla
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-05 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 980
+    [phys2] => 
+    [LastName] => Adib
+    [FirstName] => Elio
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-20 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 735
+    [phys2] => 
+    [LastName] => Bent
+    [FirstName] => Eric
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-06 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 980
+    [phys2] => 
+    [LastName] => Adib
+    [FirstName] => Elio
+)
+Array
+(
+    [day] => DateTime Object
+        (
+            [date] => 2025-11-12 00:00:00
+            [timezone_type] => 3
+            [timezone] => America/New_York
+        )
+
+    [userkey] => 1038
+    [phys2] => 
+    [LastName] => Choudhury
+    [FirstName] => Abrar
+)

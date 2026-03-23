@@ -7,34 +7,22 @@ require_once '.\dosimetristList.php';
 $handle = connectDB_FL();
     $log = new LogFuncs();
     $log->logMessage("Received GET parameters: ". print_r($_GET, true));
-    if (isset($_GET['vidx']) == false || isset($_GET['newValueName']) == false || isset($_GET['newValue']) == false){                        // if any needed parameters are missing, log and exit
+    if (isset($_GET['vidx']) == false || isset($_GET['newValueName']) == false || isset($_GET['newValue']) == false){
        $log->logMessage("Missing parameters in editTAs.php");
        exit();
     }
-   $oldValue = getSingle("SELECT ".$_GET['newValueName']." from vacation3 WHERE vidx = ".$_GET['vidx'], $_GET['newValueName'], $handle);     // store the old value for logging purposes
+   $oldValue = getSingle("SELECT ".$_GET['newValueName']." from vacation3 WHERE vidx = ".$_GET['vidx'], $_GET['newValueName'], $handle);
    $log->logMessage("Old value: ". print_r($oldValue, true));
-   /** code for change of coverer */
-   if (strpos($_GET['newValueName'],'coverageA') !== false ){                         // change in coverer, send email to new coverer
-      $_GET['newValue'] = getUserKeyFromName($_GET['newValue']);                      // convert new value from name to user key for storage in database                 
-      $covererData = getCovererData($_GET['newValue']);                               // get coverer data for email notification
-      $goAwayerData = getGoAwayerData($_GET['loggedInUserId']);                       // get goAwayer data for email notification   
-      sendEmailCoverer($goAwayerData, $covererData, $_GET['vidx']);                    // send email notification to new coverer
-      $log->logMessage("Updated coverer for vidx: ".$_GET['vidx']." to user key: ".$_GET['newValue']);  
-      $unSetAllAcceptedStr = "UPDATE top(1) vacation3 SET allAccepted = 0 WHERE vidx = ".$_GET['vidx'];    // if coverer is changed, also need to reset allAccepted to 0 since new coverer has not accepted yet
-      $log->logMessage("Executing query: ".$unSetAllAcceptedStr);
-      $stmt = sqlsrv_query( $handle, $unSetAllAcceptedStr);
-      if( $stmt === false )
-         $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));                                              
+   if (strpos($_GET['newValueName'],'coverageA') !== false ){  // change in coverer, send email to new coverer
+      $_GET['newValue'] = getUserKeyFromName($_GET['newValue']);
    }
-
-   /** do the update */
-   $updateStr = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];               // construct update string to update the changed value in the database
-   $log->logMessage("Executing query: ".$updateStr);                                                                                         // log the update query for debugging purposes
+   $updateStr = "UPDATE top(1) vacation3 SET ".$_GET['newValueName']." = '".$_GET['newValue']."' WHERE vidx = ".$_GET['vidx'];   
+   //$log->logSql($updateSts);
+   $log->logMessage("Executing query: ".$updateStr);
    $stmt = sqlsrv_query( $handle, $updateStr);
    if( $stmt === false )
       $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
-
-  //** If the edit if from a 'link' in the email, print message confirming the change */
+  
    if ($_GET['fromLink'] == '1'){                                                      // go here from link in email
       if (strpos($_GET['newValueName'],'approved') !== false ){                        // echo appropriate message
          echo "<br> Time Away Approved: <br>";
@@ -44,6 +32,11 @@ $handle = connectDB_FL();
       }
       exit();
    }
+   /*
+   $GoAwayerUserKey = getSingle("SELECT userid from vacation3 WHERE vidx = ".$_GET['vidx'], "userid", $handle);
+   $isDosimetrist = in_array($GoAwayerUserKey, $dosimetrist);
+   $log->logMessage("isDosimetrist: ". ($isDosimetrist ? 'true' : 'false'));
+   */
 
    exit(0);
    /** need to get UserKey from LastName, FirstName */
@@ -53,6 +46,7 @@ $handle = connectDB_FL();
       $lastName = strstr($name, ',', true);                       // get string before comma for last name
       $firstName = trim(strstr($name, ','), ', ');                // get string after comma for first name
        $log->logMessage("Extracted lastName: ". $lastName . " and firstName: " . $firstName);
+      
       $selStr = "SELECT UserKey FROM physicists WHERE LastName = '".$lastName."' AND FirstName = '".$firstName."'";
       $log->logMessage("Executing query: ".$selStr);
       $stmt = sqlsrv_query( $handle, $selStr);
@@ -65,18 +59,6 @@ $handle = connectDB_FL();
    function getStringAfterComma($name){
       return trim(strstr($name, ','), ', ');
    }   
-   function getGoAwayerData($goAwayerUserId){
-      global $log;
-      $handle = connectDB_FL();
-      $selStr = "SELECT LastName, FirstName, Email FROM physicists WHERE UserKey = ".$goAwayerUserId;
-      $log->logMessage("Executing query: ".$selStr);
-      $stmt = sqlsrv_query( $handle, $selStr);
-      if( $stmt === false )
-         $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
-      $goAwayerData = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
-      $log->logMessage("Go awayer data: ". print_r($goAwayerData, true));
-      return $goAwayerData;
-   }
    function getCovererData($covererUserKey){
       global $log;
       $handle = connectDB_FL();
@@ -91,13 +73,12 @@ $handle = connectDB_FL();
    }
    function sendEmailCoverer($goAwayerData, $covererData, $lastInsertedIdx){
       global $log;
-      if (strpos(getcwd(), 'dev') !== false)                                                                                      // if in dev environment, send email to franklin instead of actual coverer for testing purposes
-         $covererEmail = 'flonberg@mgh.harvard.edu';
-      else 
-         $covererEmail = $covererData['Email'];
+      $approverEmail = 'bnapolitano@partners.org';
+    //  $approverEmail = "flonberg@mgh.harvard.edu";                      // change to Brian's email when ready
+      $goAwayer['Email'] = "flonberg@mgh.harvard.edu";                     // change to go awayer email when ready
       $link = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=approved&newValue=1&debug=1";
       $link2 = "https://whiteboard.partners.org/esb/FLwbe/APhysicsCov2025/_dev_/editTAs.php?vidx=".$lastInsertedIdx."&newValueName=allAccepted&newValue=1&debug=1";
-         $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ;			
+         $subject = 'Time Away Entered for '.$goAwayerData['FirstName'].' '.$goAwayerData['LastName'] ." needs approval";			
          $headers = 'From: whiteboard@partners.org'. "\r\n";
          $headers .= 'Reply-To: whiteboard@partners.org'. "\r\n";
          $headers .= 'Bcc: flonberg@mgh.harvard.edu'. "\r\n";
@@ -112,28 +93,14 @@ $handle = connectDB_FL();
          $message2 .= '<p> ' . $goAwayerData['FirstName'].' '.$goAwayerData['LastName']." has nominated you to cover a Time Away from ".$_GET['startDate'] ." to ". $_GET['endDate']." .</p>";
          $message2 .= "<p> To accept coverage for this Time Away, click here <a href='".$link2."'>Accept Coverage </a> . </p>";
          $message2 .= '</body></html>'; 
-      $log->logMessage("6565 Preparing to send email notification for go awayer: ". $covererEmail);
+      $log->logMessage("6565 Preparing to send email notification for go awayer: ". print_r($goAwayerData, true));
 //Send Email
       $wholeMessage = $message . $message2;
    
-   if (mail($covererEmail,$subject, $wholeMessage, $headers)) 
+   if (mail($covererData['Email'],$subject, $wholeMessage, $headers)) 
         $log->logMessage("Email successfully sent to ".$covererData['Email']);
       else 
         $log->logMessage("Email sending failed to ".$covererData['Email']);
-      
    }
-   function sendApproverNotificationOfDateChange($vidx, $log){
-      global $log;
-      $handle = connectDB_FL();
-      $selStr = "SELECT physicists.FirstName, physicists.LastName, physicists.Email, vacation3.StartDate, vacation3.EndDate 
-         FROM vacation3 
-         JOIN physicists ON vacation3.UserId = physicists.UserKey WHERE vacation3.vidx = ".$vidx;
-      $log->logMessage("Executing query: ".$selStr);
-      $stmt = sqlsrv_query( $handle, $selStr);
-      if( $stmt === false )
-         $log->logMessage("SQL errors: ". print_r( sqlsrv_errors(), true));
-      $data = sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC);
-      $log->logMessage("Data: ". print_r($data, true));
-     }
  
 

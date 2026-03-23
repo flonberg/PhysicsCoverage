@@ -248,6 +248,7 @@ showTa(tA:any){
     this.showApproveButton = false                              // don't show approve button
   if (!this.isApprover)                                         // is loggedInUser is not approver
     this.showApproveButton = false                              // don't show approve button
+    
 console.log("251251  shownTa %o", this.shownTa)    
 }
 
