@@ -49,6 +49,7 @@ export class AngtimeawayComponent implements OnInit {
   loggedInUserId: string = ''                                               // UserID of logged in user used to determine Dosimetrist or Physicists TAs to show and if user is approver
   isDosimetrist:boolean = false 
   isApprover:boolean = false
+  isGoAwayerDosimetrist:boolean = false;                                      // true if the logged in user is a dosimetrist and the goAwayer for the currently shown TA, which means they shouldn't be able to approve the TA
   needThirdMonthOnCalendar: boolean = false;                                // This is true if there are not enough days in the first and second months on calendar to show the number of days we want to show 
   nameOfNextMonth: string = new Date(new Date().setMonth(new Date().getMonth() + 1)).toLocaleString('default', { month: 'long' });
   numberOfDaysToShow: number = 40;                                          // number of days to show on Calendar
@@ -248,9 +249,17 @@ showTa(tA:any){
     this.showApproveButton = false                              // don't show approve button
   if (!this.isApprover)                                         // is loggedInUser is not approver
     this.showApproveButton = false                              // don't show approve button
-    
-console.log("251251  shownTa %o", this.shownTa)    
-}
+  this.myservice.getIsGoAwayerDosimetrist(this.shownTa.userid).subscribe({next: data => {   // check if logged in user is the goAwayer for this TA and if they are a dosimetrist. If both are true, don't show approve button because dosimetrists can't approve their own TAs  
+    let ret = data;
+    console.log("251251  shownTa %o", ret)   
+    const valuesArray: string[] | boolean[] = Object.values(ret); 
+    console.log("258258  valuesArray %o", valuesArray[0])
+    if (valuesArray[0] === true){
+      this.isGoAwayerDosimetrist = true
+    }
+
+  }});  
+}  
 
 selectDates(event: any) {
     console.log("Selected date: ", event);
@@ -699,6 +708,7 @@ class shownTA{
   numberOfDaysInTA: number = 0
   daysTillEndOfCalendar: number = 0
   approved: number = 0
+  isGoAwayerDosimetrist: boolean = false
   constructor(ta: TAclass) {
     this.vidx = ta.vidx
     this.userid = ta.userid
