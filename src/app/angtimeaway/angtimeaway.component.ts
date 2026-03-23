@@ -251,7 +251,7 @@ showTa(tA:any){
     this.showApproveButton = false                              // don't show approve button
   this.myservice.getIsGoAwayerDosimetrist(this.shownTa.userid).subscribe({next: data => {   // check if logged in user is the goAwayer for this TA and if they are a dosimetrist. If both are true, don't show approve button because dosimetrists can't approve their own TAs  
     let ret = data;
-    console.log("251251  shownTa %o", ret)   
+    console.log("251251  shownTa %o", this.shownTa)   
     const valuesArray: string[] | boolean[] = Object.values(ret); 
     console.log("258258  valuesArray %o", valuesArray[0])
     if (valuesArray[0] === true){
