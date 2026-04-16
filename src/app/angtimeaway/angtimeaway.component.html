@@ -189,9 +189,13 @@
       <mat-label>Note</mat-label>
         <input matInput  value ="{{shownTa.note}}" [readonly] = "!isUserGoAwayerForThisTA(shownTa.userid)" (change)="editTa($event, 'note', shownTa)" >
     </mat-form-field>
-   <mat-form-field class="example-full-width" *ngIf = "isGoAwayerDosimetrist && shownTa.approved == null" >
+    <mat-form-field class="example-full-width" *ngIf = "isGoAwayerDosimetrist && shownTa.approved == null" >
       <mat-label>Approval Status</mat-label>
         <input matInput  value ="Not Approved" [readonly] = true  >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" *ngIf = "isGoAwayerDosimetrist && shownTa.allAccepted !== 1" >
+      <mat-label>Coverage Status</mat-label>
+        <input matInput  value ="Not Accepted" [readonly] = true  >
     </mat-form-field>
      <button class="raised-button" *ngIf="isUserGoAwayerForThisTA(shownTa.userid)"  (click)="updateForm()">Update</button>
      <button class="raised-button" *ngIf="showApproveButton"  (click)="approveTA()">Approve</button>
@@ -201,6 +205,6 @@
       <button class="raised-button" style="width:200px;" (click)='showOther()'>{{showPhrase}}</button>
     </div>
     <div>
-    <p> This is an updated page, intended to improve appearance and function, as well as bring code into compliance with current department standards.</p>
+
 </div>
     

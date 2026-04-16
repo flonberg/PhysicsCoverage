@@ -707,6 +707,7 @@ class shownTA{
   numberOfDaysInTA: number = 0
   daysTillEndOfCalendar: number = 0
   approved: number = 0
+  allAccepted: number = 0
   isGoAwayerDosimetrist: boolean = false
   constructor(ta: TAclass) {
     this.vidx = ta.vidx
@@ -724,6 +725,7 @@ class shownTA{
     this.CoverageA = ta.CoverageA
     this.lengthOfTA = ta.lengthOfTA
     this.daysTillTAstart = ta.daysTillTAstart
+    this.allAccepted = ta.allAccepted
   } 
 }
 
