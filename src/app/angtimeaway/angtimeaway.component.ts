@@ -253,11 +253,10 @@ showTa(tA:any){
     let ret = data;
     console.log("251251  shownTa %o", this.shownTa)   
     const valuesArray: string[] | boolean[] = Object.values(ret); 
-    console.log("258258  valuesArray %o", valuesArray[0])
+    console.log("258258  isGoAwayerDosimetrist %o", valuesArray[0])
     if (valuesArray[0] === true){
       this.isGoAwayerDosimetrist = true
     }
-
   }});  
 }  
 

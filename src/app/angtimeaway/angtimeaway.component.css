@@ -28,7 +28,9 @@ td.hasCoverage {
 }
 td.CovNotApproved {
     background-color: rgb(205, 228, 194) ;
-
+}
+td.allGood {
+    background-color: dark green;
 }
 td.weekend {
     background-color: yellow ;
@@ -38,7 +40,6 @@ td.weekday {
 }
 td.today {
     background-color: rgb(213, 184, 165) ;
-
 }
 table {
   font-family: "Arial", sans-serif;
